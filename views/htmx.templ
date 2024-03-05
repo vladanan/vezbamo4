@@ -1,0 +1,91 @@
+package views
+
+import (
+	"github.com/BurntSushi/toml"
+	"github.com/nicksnyder/go-i18n/v2/i18n"
+	"golang.org/x/text/language"
+	"fmt"
+)
+
+
+func nesto (global string) string {
+
+	fmt.Printf("htmx global\n")
+	fmt.Printf(global)
+	fmt.Printf("\n")
+
+	bundle := i18n.NewBundle(language.English)
+	bundle.RegisterUnmarshalFunc("toml", toml.Unmarshal)
+	bundle.MustLoadMessageFile("src/active.en.toml")
+	bundle.MustLoadMessageFile("src/active.es.toml")
+
+	lang := global
+	accept := global
+	localizer := i18n.NewLocalizer(bundle, lang, accept)
+
+	helloPerson := localizer.MustLocalize(&i18n.LocalizeConfig{
+			DefaultMessage: &i18n.Message{
+				ID:    "HelloPerson",
+			},
+		})
+
+		// myUnreadEmails := localizer.MustLocalize(&i18n.LocalizeConfig{
+		// 	DefaultMessage: &i18n.Message{
+		// 		ID:          "MyUnreadEmails",
+		// 		Description: "The number of unread emails I have",
+		// 		One:         "I have {{.PluralCount}} unread email.",
+		// 		Other:       "I have {{.PluralCount}} unread emails.",
+		// 	},
+			
+		// })
+
+		return helloPerson
+}
+
+templ head() {
+
+<head>
+	<meta charset="UTF-8"></meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+  <link href="../src/output.css" rel="stylesheet"></link>
+
+	<script src="../assets/htmx.min.js"></script>
+	<script src="../assets/proba.js"></script>
+	
+</head>
+}
+
+templ body(global string){
+
+<body>
+	
+	<div id="hatemeliks">Hatemeliks 7777777</div>
+	<div id="i18n-en">{nesto("en")}</div>
+	<div id="i18n-es" hidden>{nesto("es")}</div>
+	<div id="test">test</div>
+	
+	<button class="m-5 border-4 text-red-800 "
+		hx-post="/clicked"
+    hx-trigger="click"
+    hx-target="#hatemeliks"
+    hx-swap="innerHTML"
+	>
+    Click Me!
+	</button>
+	
+<br></br>
+	<button onclick="funkcija()" class="m-5 border-8 w-44 bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-2xl shadow-lg shadow-slate-600 border-slate-400">udri</button>
+
+	<button onclick="setEn()" class="m-5 border-8 w-44 bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-2xl shadow-lg shadow-slate-600 border-slate-400">eng</button>
+	
+	<button onclick="setEs()" class="m-5 border-8 w-44 bg-gradient-to-r from-green-300 via-white to-sky-300 rounded-2xl shadow-lg shadow-slate-800 border-slate-700">spain</button>
+			
+	</body>
+}
+
+templ Htmx(global string) {
+
+	@head()
+	@body(global)
+
+}
