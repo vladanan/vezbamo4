@@ -236,7 +236,7 @@ func main() {
 	http.HandleFunc("/en", setEn)
 	http.HandleFunc("/es", setEs)
 
-	err := http.ListenAndServe(":3333", nil)
+	err := http.ListenAndServe("0.0.0.0:10000", nil)
 	if errors.Is(err, http.ErrServerClosed) {
 		fmt.Printf("server closed\n")
 	} else if err != nil {
