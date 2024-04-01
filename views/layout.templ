@@ -1,0 +1,158 @@
+package views
+
+import (
+	"github.com/BurntSushi/toml"
+	"github.com/nicksnyder/go-i18n/v2/i18n"
+	"golang.org/x/text/language"
+	
+	"net/http"
+	"strings"
+)
+
+func Translate (globalLanguage string, r *http.Request, item string) string {
+
+	bundle := i18n.NewBundle(language.English)
+	bundle.RegisterUnmarshalFunc("toml", toml.Unmarshal)
+	bundle.MustLoadMessageFile("assets/i18n/active.en.toml")
+	bundle.MustLoadMessageFile("assets/i18n/active.es.toml")
+	bundle.MustLoadMessageFile("assets/i18n/active.sr.toml")
+
+	lang := r.FormValue("lang")
+  accept := r.Header.Get("Accept-Language")
+
+	if globalLanguage != "" {
+		accept = globalLanguage
+	}
+
+	//fmt.Println("jezik: ", lang, "heder: ", accept)
+
+	localizer := i18n.NewLocalizer(bundle, lang, accept)
+
+	helloPerson := localizer.MustLocalize(&i18n.LocalizeConfig{
+			DefaultMessage: &i18n.Message{
+				ID:    item,
+			},
+		})
+
+		// myUnreadEmails := localizer.MustLocalize(&i18n.LocalizeConfig{
+		// 	DefaultMessage: &i18n.Message{
+		// 		ID:          "MyUnreadEmails",
+		// 		Description: "The number of unread emails I have",
+		// 		One:         "I have {{.PluralCount}} unread email.",
+		// 		Other:       "I have {{.PluralCount}} unread emails.",
+		// 	},
+			
+		// })
+
+		return helloPerson
+}
+
+func getShadow (globalLanguage string, r *http.Request, item string) bool {
+
+	accept := r.Header.Get("Accept-Language")
+
+	// fmt.Println("\nshadow:", globalLanguage, item, strings.Split(accept, ",")[0])
+	//asfaasfsdgsasfdasg
+
+	if globalLanguage == "" && item == "browser" {
+		return true
+	} else
+	if (
+		(globalLanguage == "en-US" || globalLanguage == "") &&
+		(globalLanguage == "en-US" || (strings.Split(accept, ",")[0] == "en-US" || strings.Split(accept, ",")[0] == "en")) &&
+		item == "en") {
+		return true
+	} else
+	if (
+		(globalLanguage == "es" || globalLanguage == "") &&
+		(globalLanguage == "es" || strings.Split(accept, ",")[0] == "es") &&
+		item == "es") {
+		return true
+	} else
+	if (
+		(globalLanguage == "sr" || globalLanguage == "") &&
+		(globalLanguage == "sr" || strings.Split(accept, ",")[0] == "sr") &&
+		item == "sr") {
+		return true
+	} else {
+		return false
+	}
+
+}
+
+templ heading(globalLanguage string, r *http.Request) {
+    <button class="m-5 border-2 w-44 bg-gradient-to-r from-blue-400 via-white to-sky-100 rounded-md shadow-lg shadow-slate-600 border-slate-500" type="button">
+      <a href="/">{Translate(globalLanguage, r, "Home")}</a>
+    </button>
+
+    <button
+			hx-post="/en"
+			hx-on:click="delayReload()"
+			class={"m-5 border-2 w-24  bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "en"))}
+		>
+			eng
+		</button>
+		
+		<button
+			hx-post="/es"
+			hx-on:click="delayReload()"
+			class={"m-5 border-2 w-24  bg-gradient-to-r from-red-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "es"))}
+			
+		>
+			es
+		</button>
+
+    <button
+			hx-post="/sr"
+			hx-on:click="delayReload()"
+			class={"m-5 border-2 w-24  bg-gradient-to-r from-blue-400 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "sr"))}
+		>
+			srh
+		</button>
+
+		<button
+			hx-post="/browser"
+			hx-on:click="delayReload()"
+			class={"m-5 border-2 w-24  bg-gradient-to-r from-violet-400 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "browser"))}
+		>
+			browser lng
+		</button>
+}
+
+templ Layout(globalLanguage string, r *http.Request) {
+
+  <html>
+
+    <head>
+      <meta charset="UTF-8"></meta>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+
+      <link href="static/output.css" rel="stylesheet"></link>
+      <script src="static/htmx.min.js"></script>
+			<script src="static/reload.js"></script>
+			
+    </head>
+
+    <body style="background-color: gray">
+
+      <div id="heading">
+        @heading(globalLanguage, r)
+      </div>
+
+      <div id="wrapper">
+        { children... }
+      </div>
+
+      <div id="footer">
+        @footer()
+      </div>
+
+    </body>
+		
+  </html>
+
+}
+
+templ footer() {
+  <p class="m-5 text-xs text-left">Copyright &copy; Vladan Anđelković 2022-2024.</p>
+}

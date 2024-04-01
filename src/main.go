@@ -2,33 +2,30 @@ package main
 
 import (
 	"context"
-
-	// "crypto/rsa"
-	// "crypto/sha512"
-	// "crypto/md5"
 	"errors"
+	"time"
+
 	"fmt"
 	"io"
 
 	"golang.org/x/crypto/bcrypt"
 
-	// "math/big"
 	"net/http"
 	"os"
 
+	"github.com/rs/cors"
+
 	"github.com/vladanan/vezbamo4/db"
-	"github.com/vladanan/vezbamo4/views"
+	views "github.com/vladanan/vezbamo4/views"
+	pitanja "github.com/vladanan/vezbamo4/views/pitanja"
 
 	"github.com/a-h/templ"
-	// "github.com/BurntSushi/toml"
-	// "github.com/nicksnyder/go-i18n/v2/i18n"
-	// "golang.org/x/text/language"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/joho/godotenv"
 )
 
-var global string = "en"
+var globalLanguage string = ""
 
 //const keyServerAddr = "serverAddr"
 //curl -X POST -d 'This is the body' 'http://localhost:3333?first=1&second='
@@ -37,96 +34,47 @@ func check(e error) {
 	if e != nil {
 		panic(e)
 	}
-
 }
 
 // templ: https://templ.guide/
 
 //https://tailwindcss.com/docs/installation/play-cdn
 
-func getRoot(res http.ResponseWriter, req *http.Request) {
-	//ctx := req.Context()
+// func get404(res http.ResponseWriter, req *http.Request) {
+// 	dat, err := os.ReadFile("views/404.html")
+// 	check(err)
+// 	fmt.Println(req.URL.Path)
+// 	io.WriteString(res, string(dat))
+// }
 
-	dat, err := os.ReadFile("views/index.html")
-	check(err)
-
-	hasFirst := req.URL.Query().Has("first")
-	first := req.URL.Query().Get("first")
-	hasSecond := req.URL.Query().Has("second")
-	second := req.URL.Query().Get("second")
-
-	body, err := io.ReadAll(req.Body)
-
-	if err != nil {
-		fmt.Printf("could not read body: %s\n", err)
-	}
-
-	fmt.Println(req.URL.Path)
-
-	fmt.Printf("got / request. first(%t)=%s, second(%t)=%s, body:\n%s\n",
-		//ctx.Value(keyServerAddr),
-		hasFirst, first,
-		hasSecond, second,
-		body)
-
-	io.WriteString(res, string(dat))
-}
-
-// curl -X POST -F 'myName=Sammy' 'http://localhost:3333/hello'
-func getHello(res http.ResponseWriter, req *http.Request) {
-	myName := req.PostFormValue("myName")
-
-	if myName == "" {
-		res.Header().Set("x-missing-field", "myName")
-		res.WriteHeader(http.StatusBadRequest)
-		return
-		//myName = "HTTP"
-	}
-
-	io.WriteString(res, fmt.Sprintf("Hello, %s!\n", myName))
-}
-
-func getClicked(res http.ResponseWriter, req *http.Request) {
+func httpPOSTfromHTMX(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("db.Db()")
 	fmt.Println(db.Db())
-
-	io.WriteString(res, db.Db())
+	io.WriteString(w, db.Db())
 }
 
-func proba(res http.ResponseWriter, req *http.Request) {
-	fmt.Println("get proba")
-	dat, err := os.ReadFile("assets/proba.js")
-	check(err)
+// func getProbaJS(res http.ResponseWriter, req *http.Request) {
+// 	fmt.Println("get js proba")
+// 	dat, err := os.ReadFile("views/proba.js")
+// 	check(err)
+// 	io.WriteString(res, string(dat))
+// }
 
-	io.WriteString(res, string(dat))
-}
+// func getHTMXlibrary(res http.ResponseWriter, req *http.Request) {
+// 	fmt.Println("get htmx library")
+// 	dat, err := os.ReadFile("assets/htmx.min.js")
+// 	check(err)
+// 	io.WriteString(res, string(dat))
+// }
 
-func getHTMX(res http.ResponseWriter, req *http.Request) {
-	fmt.Println("get htmx")
-	dat, err := os.ReadFile("assets/htmx.min.js")
-	check(err)
+// func getTailwindCSS(res http.ResponseWriter, req *http.Request) {
+// 	fmt.Println("get css")
+// 	dat, err := os.ReadFile("views/output.css")
+// 	check(err)
+// 	io.WriteString(res, string(dat))
+// }
 
-	io.WriteString(res, string(dat))
-}
-
-func getCSS(res http.ResponseWriter, req *http.Request) {
-	fmt.Println("get css")
-	dat, err := os.ReadFile("src/output.css")
-	check(err)
-
-	io.WriteString(res, string(dat))
-}
-
-func setEn(res http.ResponseWriter, req *http.Request) {
-	fmt.Println("set en")
-	global = "en"
-}
-func setEs(res http.ResponseWriter, req *http.Request) {
-	fmt.Println("set es")
-	global = "es"
-}
-
-func kripto() {
+func api() {
 
 	//https://pkg.go.dev/golang.org/x/crypto/bcrypt#pkg-index
 	//https://gowebexamples.com/password-hashing/
@@ -172,9 +120,10 @@ func kripto() {
 		//return
 	}
 
-	for _, b := range blogs {
-		fmt.Printf("%v, %s: $%s\n", b.B_id, b.Poruka, b.Tema)
-	}
+	fmt.Print(blogs[0])
+	// for _, b := range blogs {
+	// 	fmt.Printf("%v, %s: $%s\n", b.B_id, b.Poruka, b.Tema)
+	// }
 
 	// commandTag, err := conn.Exec(context.Background(), "INSERT INTO mi_users (email, basic, js, c, hash_lozinka) VALUES ($1, $2, $3, $4, $5);", email, true, true, true, ciphertext)
 	// if err != nil {
@@ -204,39 +153,92 @@ func kripto() {
 		fmt.Fprintf(os.Stderr, "Error from bcrypt Dencryption: %s\n", err)
 		return
 	} else {
-		fmt.Printf("\nProšlo je!")
+		fmt.Printf("\nProšlo je!\n")
 	}
 
 }
 
+func getLocationsForAngularFE(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("\nget locations", r.URL)
+	dat, err := os.ReadFile("api/locations.json")
+	check(err)
+
+	w.Header().Set("Content-Type", "application/json")
+
+	io.WriteString(w, string(dat))
+	//fmt.Println("\ndat: ", string(dat))
+	//w.Write(string(dat)) dfaljfa
+}
+
+func setEn(w http.ResponseWriter, r *http.Request) {
+	globalLanguage = "en-US"
+}
+func setEs(w http.ResponseWriter, r *http.Request) {
+	globalLanguage = "es"
+}
+func setSr(w http.ResponseWriter, r *http.Request) {
+	globalLanguage = "sr"
+}
+func setBrowserLang(w http.ResponseWriter, r *http.Request) {
+	globalLanguage = ""
+}
+
+func goToPitanja(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(pitanja.Pitanja(globalLanguage, r)).Component.Render(context.Background(), w)
+}
+
+func goToIndex(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path == "/" {
+		templ.Handler(views.Index(globalLanguage, r)).Component.Render(context.Background(), w)
+	} else {
+		templ.Handler(views.Page404()).Component.Render(context.Background(), w)
+	}
+}
+
+func getPitanja(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("main get pitanja")
+	spisak := db.GetPitanja()
+	templ.Handler(pitanja.Spisak([]byte(spisak))).Component.Render(context.Background(), w)
+}
+
 func main() {
 
-	kripto()
+	// api()
 
-	component := views.Hello("John")
-	// component2 = views.Htmx("en")
+	fs := http.FileServer(http.Dir("assets/"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	//component.Render(context.Background(), os.Stdout)
+	http.HandleFunc("/", goToIndex)
 
-	// fmt.Println("main db: ")
-	// fmt.Println(db.Db())
+	//http.Handle("/pitanja", templ.Handler(pitanja.Pitanja()))
+	http.HandleFunc("/pitanja", goToPitanja)
 
-	http.Handle("/cao", templ.Handler(component))
-	// http.Handle("/htmx", templ.Handler(component2))
-	http.Handle("/htmx", templ.Handler(views.Htmx(global)))
+	// http.Handle("/404", http.NotFoundHandler())
+	http.HandleFunc("/404", func(w http.ResponseWriter, r *http.Request) {
+		templ.Handler(views.Page404()).Component.Render(context.Background(), w)
+	})
 
-	http.HandleFunc("/", getRoot)
-	http.HandleFunc("/hello", getHello)
-	http.HandleFunc("/clicked", getClicked)
-
-	http.HandleFunc("/assets/proba.js", proba)
-	http.HandleFunc("/assets/htmx.min.js", getHTMX)
-	http.HandleFunc("/src/output.css", getCSS)
+	http.HandleFunc("/zgrabi-iz-db", httpPOSTfromHTMX)
+	http.HandleFunc("/get_pitanja", getPitanja)
+	// http.HandleFunc("/proba.js", getProbaJS)
+	// http.HandleFunc("/assets/htmx.min.js", getHTMXlibrary)
+	// http.HandleFunc("/output.css", getTailwindCSS)
 
 	http.HandleFunc("/en", setEn)
 	http.HandleFunc("/es", setEs)
+	http.HandleFunc("/sr", setSr)
+	http.HandleFunc("/browser", setBrowserLang)
 
-	err := http.ListenAndServe("0.0.0.0:10000", nil)
+	c := cors.New(cors.Options{
+		AllowedOrigins: []string{"http://localhost:4200"},
+	})
+
+	http.Handle("/locations", c.Handler(http.HandlerFunc(getLocationsForAngularFE)))
+	http.Handle("/locations/", c.Handler(http.HandlerFunc(getLocationsForAngularFE)))
+
+	fmt.Println("Done", time.Now().Second())
+
+	var err = http.ListenAndServe("0.0.0.0:10000", nil)
 	if errors.Is(err, http.ErrServerClosed) {
 		fmt.Printf("server closed\n")
 	} else if err != nil {

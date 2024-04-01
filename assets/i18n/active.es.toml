@@ -1,0 +1,15 @@
+Home = "Inicio"
+ClickForQuestions = "Haga clic para preguntas"
+GetFromDb = "Recibe preguntas de db"
+
+[MyUnreadEmails]
+description = "The number of unread emails I have"
+hash = "sha1-6a65d17f53981a3657db1897630e9cb069053ea8"
+one = "Tengo {{.PluralCount}} correo electrónico sin leer"
+other = "Tengo {{.PluralCount}} correos electrónicos no leídos"
+
+[PersonUnreadEmails]
+description = "The number of unread emails a person has"
+hash = "sha1-3a672fa89c5c8564bb233c907638004983792464"
+one = "{{.Name}} tiene {{.UnreadEmailCount}} correo electrónico no leído"
+other = "{{.Name}} tiene {{.UnreadEmailCount}} correos electrónicos no leídos"
