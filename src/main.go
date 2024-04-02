@@ -196,14 +196,22 @@ func goToIndex(w http.ResponseWriter, r *http.Request) {
 }
 
 func getPitanja(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("main get pitanja")
 	spisak := db.GetPitanja()
-	templ.Handler(pitanja.Spisak([]byte(spisak))).Component.Render(context.Background(), w)
+	//fmt.Println("main get pitanja:", spisak)
+	templ.Handler(pitanja.Spisak(spisak)).Component.Render(context.Background(), w)
+}
+
+func APIgetPitanja(w http.ResponseWriter, r *http.Request) {
+	// rade isto oba (šalju json string)
+	// samo što sa w.Write nema konverzije u string nego koristi sirovi []byte iz db
+	// curl http://127.0.0.1:7331/api_pitanja
+	// io.WriteString(w, string(db.GetPitanja()))
+	w.Write(db.GetPitanja())
 }
 
 func main() {
 
-	// api()
+	// api() lkjl
 
 	fs := http.FileServer(http.Dir("assets/"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
@@ -212,6 +220,7 @@ func main() {
 
 	//http.Handle("/pitanja", templ.Handler(pitanja.Pitanja()))
 	http.HandleFunc("/pitanja", goToPitanja)
+	http.HandleFunc("/api_pitanja", APIgetPitanja)
 
 	// http.Handle("/404", http.NotFoundHandler())
 	http.HandleFunc("/404", func(w http.ResponseWriter, r *http.Request) {
@@ -236,7 +245,7 @@ func main() {
 	http.Handle("/locations", c.Handler(http.HandlerFunc(getLocationsForAngularFE)))
 	http.Handle("/locations/", c.Handler(http.HandlerFunc(getLocationsForAngularFE)))
 
-	fmt.Println("Done", time.Now().Second())
+	fmt.Println("Main done", time.Now().Second())
 
 	var err = http.ListenAndServe("0.0.0.0:10000", nil)
 	if errors.Is(err, http.ErrServerClosed) {

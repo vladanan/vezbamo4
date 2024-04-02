@@ -81,14 +81,16 @@ func getShadow (globalLanguage string, r *http.Request, item string) bool {
 }
 
 templ heading(globalLanguage string, r *http.Request) {
-    <button class="m-5 border-2 w-44 bg-gradient-to-r from-blue-400 via-white to-sky-100 rounded-md shadow-lg shadow-slate-600 border-slate-500" type="button">
-      <a href="/">{Translate(globalLanguage, r, "Home")}</a>
-    </button>
 
+  <button class="mx-2 mt-2 mb-5 px-2 border-2 bg-gradient-to-r from-blue-400 via-white to-sky-100 rounded-md shadow-lg shadow-slate-600 border-slate-500" type="button">
+  	<a href="/">{Translate(globalLanguage, r, "Home")}</a>
+  </button>
+
+	<div class="absolute mx-2 mt-2 mb-5 right-0 top-0">
     <button
 			hx-post="/en"
 			hx-on:click="delayReload()"
-			class={"m-5 border-2 w-24  bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "en"))}
+			class={"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "en"))}
 		>
 			eng
 		</button>
@@ -96,16 +98,16 @@ templ heading(globalLanguage string, r *http.Request) {
 		<button
 			hx-post="/es"
 			hx-on:click="delayReload()"
-			class={"m-5 border-2 w-24  bg-gradient-to-r from-red-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "es"))}
+			class={"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "es"))}
 			
 		>
-			es
+			esp
 		</button>
 
     <button
 			hx-post="/sr"
 			hx-on:click="delayReload()"
-			class={"m-5 border-2 w-24  bg-gradient-to-r from-blue-400 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "sr"))}
+			class={"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "sr"))}
 		>
 			srh
 		</button>
@@ -113,10 +115,11 @@ templ heading(globalLanguage string, r *http.Request) {
 		<button
 			hx-post="/browser"
 			hx-on:click="delayReload()"
-			class={"m-5 border-2 w-24  bg-gradient-to-r from-violet-400 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "browser"))}
+			class={"border-2 px-2 bg-gradient-to-r from-yellow-200 via-white to-green-200 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "browser"))}
 		>
-			browser lng
+			auto
 		</button>
+	</div>
 }
 
 templ Layout(globalLanguage string, r *http.Request) {
@@ -133,7 +136,7 @@ templ Layout(globalLanguage string, r *http.Request) {
 			
     </head>
 
-    <body style="background-color: gray">
+    <body style="background-color: rgb(70,110,110)" class="relative m-auto sm:w-auto max-w-md h-max">
 
       <div id="heading">
         @heading(globalLanguage, r)
@@ -154,5 +157,5 @@ templ Layout(globalLanguage string, r *http.Request) {
 }
 
 templ footer() {
-  <p class="m-5 text-xs text-left">Copyright &copy; Vladan Anđelković 2022-2024.</p>
+  <p class=" mt-36 m-2 text-xs text-left">Copyright &copy; Vladan Anđelković 2022-2024.</p>
 }

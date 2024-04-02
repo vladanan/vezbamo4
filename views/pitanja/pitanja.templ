@@ -5,30 +5,16 @@ import (
 	"net/http"
 )
 
-// type Pitanje struct {
-// 	G_id   int8   `db:"g_id"`
-// 	Tip    string `db:"tip"`
-// 	Oblast string `db:"oblast"`
-// }
-
-// templ nameList(items []Pitanje) {
-//   <ul>
-//   for _, item := range items {
-//     <li>{ item.Oblast }</li>
-//   }
-//   </ul>
-// }
-
 templ Pitanja(globalLanguage string, r *http.Request) {
 	@views.Layout(globalLanguage, r) {
 
     <!-- <p class="m-5">Globalni jezik je: {globalLanguage}</p> -->
 
 		<ul class="m-5" id="pitanja">
-			<li>Za spisak pitanja iz db</li>
+			<li></li>
 		</ul>
 
-		<button class="m-5 px-2 border-2 text-xl rounded-md text-green-300"
+		<button class="mx-2 text-xl text-green-500"
 			hx-get="/get_pitanja"
 			hx-trigger="click"
 			hx-target="#pitanja"

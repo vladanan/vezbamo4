@@ -15,19 +15,6 @@ import (
 	"net/http"
 )
 
-// type Pitanje struct {
-// 	G_id   int8   `db:"g_id"`
-// 	Tip    string `db:"tip"`
-// 	Oblast string `db:"oblast"`
-// }
-
-//	templ nameList(items []Pitanje) {
-//	  <ul>
-//	  for _, item := range items {
-//	    <li>{ item.Oblast }</li>
-//	  }
-//	  </ul>
-//	}
 func Pitanja(globalLanguage string, r *http.Request) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
@@ -47,14 +34,14 @@ func Pitanja(globalLanguage string, r *http.Request) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- <p class=\"m-5\">Globalni jezik je: {globalLanguage}</p> --> <ul class=\"m-5\" id=\"pitanja\"><li>Za spisak pitanja iz db</li></ul><button class=\"m-5 px-2 border-2 text-xl rounded-md text-green-300\" hx-get=\"/get_pitanja\" hx-trigger=\"click\" hx-target=\"#pitanja\" hx-swap=\"outerHTML\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- <p class=\"m-5\">Globalni jezik je: {globalLanguage}</p> --> <ul class=\"m-5\" id=\"pitanja\"><li></li></ul><button class=\"mx-2 text-xl text-green-500\" hx-get=\"/get_pitanja\" hx-trigger=\"click\" hx-target=\"#pitanja\" hx-swap=\"outerHTML\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(globalLanguage, r, "GetFromDb"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pitanja/pitanja.templ`, Line: 36, Col: 51}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pitanja/pitanja.templ`, Line: 22, Col: 51}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {

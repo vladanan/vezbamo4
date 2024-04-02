@@ -1,22 +1,22 @@
 package views
 
 import "net/http"
-
+//h 44, w 350
 templ Index(globalLanguage string, r *http.Request) {
 	@Layout(globalLanguage, r) {
 
-    	<div class="m-5 mx-5 p-6 max-w-md lg:mx-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-2xl shadow-lg shadow-slate-600 border-2 border-slate-400">
-			<div class="text-xl text-center font-bold text-sky-900">
-				<img
+    <div class="mx-10 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-2xl shadow-lg shadow-slate-600 border-2 border-slate-400">
+			<div>
+				<img class="p-3 m-auto"
 					src="static/vezbamo2.svg"
 					height="44"
 					width="350"
 					alt="Vezbamo" />
 			</div>
-			<p class='text-right text-xs'>4.0.0</p>
+			<p class="mr-2 mb-1 text-right text-xs">4.0.0</p>
 		</div>
 
-		<button class="m-5 text-xl px-2 border-2 rounded-xl text-green-300" type="button">
+		<button class="mx-2 mt-10 text-xl text-green-500" type="button">
 			<a href="/pitanja">{Translate(globalLanguage, r, "ClickForQuestions")}</a>
 		</button>
 		
