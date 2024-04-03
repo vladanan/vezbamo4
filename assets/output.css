@@ -560,16 +560,16 @@ video {
   top: 0px;
 }
 
+.m-2 {
+  margin: 0.5rem;
+}
+
 .m-5 {
   margin: 1.25rem;
 }
 
 .m-auto {
   margin: auto;
-}
-
-.m-2 {
-  margin: 0.5rem;
 }
 
 .mx-10 {
@@ -739,16 +739,6 @@ video {
 .text-green-500 {
   --tw-text-opacity: 1;
   color: rgb(34 197 94 / var(--tw-text-opacity));
-}
-
-.text-teal-500 {
-  --tw-text-opacity: 1;
-  color: rgb(20 184 166 / var(--tw-text-opacity));
-}
-
-.text-teal-400 {
-  --tw-text-opacity: 1;
-  color: rgb(45 212 191 / var(--tw-text-opacity));
 }
 
 .shadow-lg {

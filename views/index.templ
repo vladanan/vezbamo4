@@ -1,7 +1,7 @@
 package views
 
 import "net/http"
-//h 44, w 350
+
 templ Index(globalLanguage string, r *http.Request) {
 	@Layout(globalLanguage, r) {
 
@@ -17,7 +17,19 @@ templ Index(globalLanguage string, r *http.Request) {
 		</div>
 
 		<button class="mx-2 mt-10 text-xl text-green-500" type="button">
-			<a href="/pitanja">{Translate(globalLanguage, r, "ClickForQuestions")}</a>
+			<a href="/questions">{Translate(globalLanguage, r, "ClickForQuestions")}</a>
+		</button>
+		<br></br>
+		<button class="mx-2 mt-10 text-xl text-green-500" type="button">
+			<a href="/notes">{Translate(globalLanguage, r, "ClickForUserNotes")}</a>
+		</button>
+		<br></br>
+		<button class="mx-2 mt-10 text-xl text-green-500" type="button">
+			<a href="/login">{Translate(globalLanguage, r, "Login")}</a>
+		</button>
+		<br></br>
+		<button class="mx-2 mt-10 text-xl text-green-500" type="button">
+			<a href="/user">temporary user page</a>
 		</button>
 		
   }

@@ -1,0 +1,16 @@
+package site
+
+import (
+  "net/http"
+  "github.com/vladanan/vezbamo4/views"
+)
+
+templ UserPage(globalLanguage string, r *http.Request) {
+  @views.Layout(globalLanguage, r) {
+    <h1>{views.Translate(globalLanguage, r, "Welcome")}</h1>
+    <br></br>
+    <button class="mx-2 mt-10 text-xl text-green-500" type="button">
+      <a href="/logout">{views.Translate(globalLanguage, r, "Logout")}</a>
+    </button>
+  }
+}

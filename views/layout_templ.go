@@ -34,7 +34,7 @@ func Translate(globalLanguage string, r *http.Request, item string) string {
 		accept = globalLanguage
 	}
 
-	//fmt.Println("jezik: ", lang, "heder: ", accept)
+	//fmt.Println("language: ", lang, "header: ", accept)
 
 	localizer := i18n.NewLocalizer(bundle, lang, accept)
 
@@ -62,7 +62,6 @@ func getShadow(globalLanguage string, r *http.Request, item string) bool {
 	accept := r.Header.Get("Accept-Language")
 
 	// fmt.Println("\nshadow:", globalLanguage, item, strings.Split(accept, ",")[0])
-	//asfaasfsdgsasfdasg
 
 	if globalLanguage == "" && item == "browser" {
 		return true
@@ -104,7 +103,7 @@ func heading(globalLanguage string, r *http.Request) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(globalLanguage, r, "Home"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layout.templ`, Line: 85, Col: 52}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layout.templ`, Line: 84, Col: 52}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {

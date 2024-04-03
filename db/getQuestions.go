@@ -2,23 +2,21 @@ package db
 
 import (
 	"context"
-
+	"encoding/json"
 	"fmt"
 	"os"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/joho/godotenv"
-
-	"encoding/json"
 )
 
-type Pitanje struct {
+type Question struct {
 	G_id   int8   `db:"g_id"`
 	Tip    string `db:"tip"`
 	Oblast string `db:"oblast"`
 }
 
-func GetPitanja() []byte {
+func GetQuestions() []byte {
 
 	err := godotenv.Load(".env")
 	if err != nil {
@@ -39,13 +37,13 @@ func GetPitanja() []byte {
 		fmt.Printf("Unable to make query: %v\n", err)
 	}
 
-	pgx_pitanja, err := pgx.CollectRows(rows, pgx.RowToStructByName[Pitanje])
+	pgx_questions, err := pgx.CollectRows(rows, pgx.RowToStructByName[Question])
 	if err != nil {
 		fmt.Printf("CollectRows error: %v", err)
 		//return
 	}
 
-	bytearray_pitanja, err2 := json.Marshal(pgx_pitanja)
+	bytearray_questions, err2 := json.Marshal(pgx_questions)
 	if err2 != nil {
 		fmt.Printf("Json error: %v", err2)
 	}
@@ -53,6 +51,6 @@ func GetPitanja() []byte {
 	// jsonstring_pitanja := string(bytearray_pitanja)
 	// fmt.Println("json string pitanja:", jsonstring_pitanja)
 
-	return bytearray_pitanja
+	return bytearray_questions
 
 }

@@ -12,7 +12,6 @@ import "bytes"
 
 import "net/http"
 
-// h 44, w 350
 func Index(globalLanguage string, r *http.Request) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
@@ -32,20 +31,46 @@ func Index(globalLanguage string, r *http.Request) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"mx-10 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-2xl shadow-lg shadow-slate-600 border-2 border-slate-400\"><div><img class=\"p-3 m-auto\" src=\"static/vezbamo2.svg\" height=\"44\" width=\"350\" alt=\"Vezbamo\"></div><p class=\"mr-2 mb-1 text-right text-xs\">4.0.0</p></div><button class=\"mx-2 mt-10 text-xl text-green-500\" type=\"button\"><a href=\"/pitanja\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"mx-10 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-2xl shadow-lg shadow-slate-600 border-2 border-slate-400\"><div><img class=\"p-3 m-auto\" src=\"static/vezbamo2.svg\" height=\"44\" width=\"350\" alt=\"Vezbamo\"></div><p class=\"mr-2 mb-1 text-right text-xs\">4.0.0</p></div><button class=\"mx-2 mt-10 text-xl text-green-500\" type=\"button\"><a href=\"/questions\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(globalLanguage, r, "ClickForQuestions"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/index.templ`, Line: 19, Col: 72}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/index.templ`, Line: 19, Col: 74}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></button>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></button><br><button class=\"mx-2 mt-10 text-xl text-green-500\" type=\"button\"><a href=\"/notes\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var4 string
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(globalLanguage, r, "ClickForUserNotes"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/index.templ`, Line: 23, Col: 70}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></button><br><button class=\"mx-2 mt-10 text-xl text-green-500\" type=\"button\"><a href=\"/login\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var5 string
+			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(globalLanguage, r, "Login"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/index.templ`, Line: 27, Col: 58}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></button><br><button class=\"mx-2 mt-10 text-xl text-green-500\" type=\"button\"><a href=\"/user\">temporary user page</a></button>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

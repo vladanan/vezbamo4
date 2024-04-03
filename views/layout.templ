@@ -24,7 +24,7 @@ func Translate (globalLanguage string, r *http.Request, item string) string {
 		accept = globalLanguage
 	}
 
-	//fmt.Println("jezik: ", lang, "heder: ", accept)
+	//fmt.Println("language: ", lang, "header: ", accept)
 
 	localizer := i18n.NewLocalizer(bundle, lang, accept)
 
@@ -52,8 +52,7 @@ func getShadow (globalLanguage string, r *http.Request, item string) bool {
 	accept := r.Header.Get("Accept-Language")
 
 	// fmt.Println("\nshadow:", globalLanguage, item, strings.Split(accept, ",")[0])
-	//asfaasfsdgsasfdasg
-
+	
 	if globalLanguage == "" && item == "browser" {
 		return true
 	} else

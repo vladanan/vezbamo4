@@ -1,0 +1,50 @@
+package site
+
+import (
+  "net/http"
+  "github.com/vladanan/vezbamo4/views"
+  "encoding/json"
+  "fmt"
+)
+
+type Note struct {
+	B_id        int    `db:"b_id"`
+	Ime_tag     string `db:"ime_tag"`
+	Mejl        string `db:"mejl"`
+	Tema        string `db:"tema"`
+	Poruka      string `db:"poruka"`
+	User_id     string `db:"user_id"`
+	User_mail   string `db:"user_mail"`
+	From_url    string `db:"from_url"`
+	Datum_upisa any    `db:"datum_upisa"`
+}
+
+func to_struct (notes []byte) []Note {
+  var p []Note
+	err := json.Unmarshal(notes, &p)
+  if err != nil {
+    fmt.Printf("Json error: %v", err)
+  }
+  return p
+}
+
+func reverser (notes []Note) []Note {
+	var structLength int
+  var newNotes []Note
+  for i := range notes { structLength = i}
+  for j := structLength; j > -1; j-- {
+    newNotes = append(newNotes, notes[j])
+  }
+	return newNotes
+}
+
+templ Notes(globalLanguage string, r *http.Request, notes []byte) {
+  @views.Layout(globalLanguage, r) {
+    <h1>Notes</h1>
+    <ul>
+      for _, item := range reverser(to_struct(notes)) {
+        <li class="m-5 px-2 border-2 text-xl rounded-m text-blue-950  ">{ fmt.Sprint(item.B_id) }: { item.Ime_tag }, { item.Tema }, { item.Poruka }</li>
+      }
+    </ul>
+  }
+}

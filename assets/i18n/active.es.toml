@@ -1,6 +1,11 @@
 Home = "Inicio"
 ClickForQuestions = "Haga clic para preguntas"
+ClickForUserNotes = "Haga clic para ver notas de usuario"
 GetFromDb = "Recibe preguntas de db"
+Login = "Acceso"
+Welcome = "¡Bienvenido! ¡Has iniciado sesión!"
+UnWelcome = "¡No has iniciado sesión!"
+Logout = "Cerrar sesión"
 
 [MyUnreadEmails]
 description = "The number of unread emails I have"

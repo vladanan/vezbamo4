@@ -1,31 +1,31 @@
-package pitanja
+package questions
 
 import (
   "encoding/json"
   "fmt"
 )
 
-type Pitanje struct {
+type Question struct {
   G_id   int8   `db:"g_id"`
   Tip    string `db:"tip"`
   Oblast string `db:"oblast"`
 }
 
-func to_struct (pitanja []byte) []Pitanje {
-  var p []Pitanje
-	err := json.Unmarshal(pitanja, &p)
+func to_struct (questions []byte) []Question {
+  var p []Question
+	err := json.Unmarshal(questions, &p)
   if err != nil {
     fmt.Printf("Json error: %v", err)
   }
   return p
 }
 
-templ Spisak(pitanja []byte) {
+templ List(questions []byte) {
   <h1 class="m-5">Spisak</h1>
   <ul class="m-5">
-  for _, item := range to_struct(pitanja) {
+  for _, item := range to_struct(questions) {
     <li class="m-5 px-2 border-2 text-xl rounded-m text-blue-950  ">{ fmt.Sprint(item.G_id) }: { item.Tip }, { item.Oblast }</li>
   }
   </ul>
-  <h1 class="m-5">Pitanje 5 je: {to_struct(pitanja)[4].Oblast}</h1>
+  <h1 class="m-5">Pitanje 5 je: {to_struct(questions)[4].Oblast}</h1>
 }

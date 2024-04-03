@@ -1,23 +1,23 @@
-package pitanja
+package questions
 
 import (
 	"github.com/vladanan/vezbamo4/views"
 	"net/http"
 )
 
-templ Pitanja(globalLanguage string, r *http.Request) {
+templ Questions(globalLanguage string, r *http.Request) {
 	@views.Layout(globalLanguage, r) {
 
     <!-- <p class="m-5">Globalni jezik je: {globalLanguage}</p> -->
 
-		<ul class="m-5" id="pitanja">
+		<ul class="m-5" id="questions">
 			<li></li>
 		</ul>
 
 		<button class="mx-2 text-xl text-green-500"
-			hx-get="/get_pitanja"
+			hx-get="/htmx_get_questions"
 			hx-trigger="click"
-			hx-target="#pitanja"
+			hx-target="#questions"
 			hx-swap="outerHTML"
 		>
 			{views.Translate(globalLanguage, r, "GetFromDb")}

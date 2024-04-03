@@ -1,6 +1,11 @@
 Home = "Home"
 ClickForQuestions = "Click for questions"
+ClickForUserNotes = "Click for user notes"
 GetFromDb = "Get questions from db"
+Login = "Log in"
+Welcome = "Wellcome! You are logged in!"
+UnWelcome = "You are not logged in!"
+Logout = "Log out"
 
 [MyUnreadEmails]
 description = "The number of unread emails I have"

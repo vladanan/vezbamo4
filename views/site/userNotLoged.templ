@@ -1,0 +1,12 @@
+package site
+
+import (
+  "net/http"
+  "github.com/vladanan/vezbamo4/views"
+)
+
+templ UserNotLogedPage(globalLanguage string, r *http.Request) {
+  @views.Layout(globalLanguage, r) {
+    <h1>{views.Translate(globalLanguage, r, "UnWelcome")}</h1>
+  }
+}

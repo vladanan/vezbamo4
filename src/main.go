@@ -8,21 +8,20 @@ import (
 	"fmt"
 	"io"
 
-	"golang.org/x/crypto/bcrypt"
-
 	"net/http"
 	"os"
 
 	"github.com/rs/cors"
 
 	"github.com/vladanan/vezbamo4/db"
+
 	views "github.com/vladanan/vezbamo4/views"
-	pitanja "github.com/vladanan/vezbamo4/views/pitanja"
+	questions "github.com/vladanan/vezbamo4/views/questions"
+	site "github.com/vladanan/vezbamo4/views/site"
 
 	"github.com/a-h/templ"
 
-	"github.com/jackc/pgx/v5"
-	"github.com/joho/godotenv"
+	"github.com/gorilla/sessions"
 )
 
 var globalLanguage string = ""
@@ -36,7 +35,7 @@ func check(e error) {
 	}
 }
 
-// templ: https://templ.guide/
+// templ: https://templ.guide/ fsfas
 
 //https://tailwindcss.com/docs/installation/play-cdn
 
@@ -46,12 +45,6 @@ func check(e error) {
 // 	fmt.Println(req.URL.Path)
 // 	io.WriteString(res, string(dat))
 // }
-
-func httpPOSTfromHTMX(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("db.Db()")
-	fmt.Println(db.Db())
-	io.WriteString(w, db.Db())
-}
 
 // func getProbaJS(res http.ResponseWriter, req *http.Request) {
 // 	fmt.Println("get js proba")
@@ -73,90 +66,6 @@ func httpPOSTfromHTMX(w http.ResponseWriter, r *http.Request) {
 // 	check(err)
 // 	io.WriteString(res, string(dat))
 // }
-
-func api() {
-
-	//https://pkg.go.dev/golang.org/x/crypto/bcrypt#pkg-index
-	//https://gowebexamples.com/password-hashing/
-
-	var email = "vladan.andjelkovic@gmail.com"
-	password := []byte("vezbamo.2015")
-
-	ciphertext, err := bcrypt.GenerateFromPassword(password, 5) //df
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error from bcrypt encryption: %s\n", err)
-		return
-	}
-
-	fmt.Println("Ciphertext: ", string(ciphertext))
-
-	err = godotenv.Load(".env")
-	if err != nil {
-		fmt.Printf("Error loading .env file")
-	}
-
-	//https://stackoverflow.com/questions/61704842/how-to-scan-a-queryrow-into-a-struct-with-pgx
-
-	type Blog struct {
-		B_id   int8   `db:"b_id"`
-		Tema   string `db:"tema"`
-		Poruka string `db:"poruka"`
-	}
-
-	conn, err := pgx.Connect(context.Background(), os.Getenv("SUPABASE_CONNECTION_STRING"))
-	if err != nil {
-		fmt.Printf("Unable to connect to database: %v\n", err)
-		os.Exit(1)
-	}
-
-	rows, _ := conn.Query(context.Background(), "SELECT b_id, tema, poruka FROM g_user_blog;")
-	if err != nil {
-		fmt.Printf("Unable to make query: %v\n", err)
-	}
-
-	blogs, err := pgx.CollectRows(rows, pgx.RowToStructByName[Blog])
-	if err != nil {
-		fmt.Printf("CollectRows error: %v", err)
-		//return
-	}
-
-	fmt.Print(blogs[0])
-	// for _, b := range blogs {
-	// 	fmt.Printf("%v, %s: $%s\n", b.B_id, b.Poruka, b.Tema)
-	// }
-
-	// commandTag, err := conn.Exec(context.Background(), "INSERT INTO mi_users (email, basic, js, c, hash_lozinka) VALUES ($1, $2, $3, $4, $5);", email, true, true, true, ciphertext)
-	// if err != nil {
-	// 	fmt.Printf("Unable to connect to database: %v\n", err)
-	// }
-	// fmt.Printf("insert result: %v\n", commandTag)
-
-	// err = bcrypt.CompareHashAndPassword([]byte("$2a$05$HYej4fyvWYnC5LvrSGEOD.bztJzcYn45t62etOTrN8d59BkoD7fhy"), password)
-	// if err != nil {
-	// 	fmt.Fprintf(os.Stderr, "Error from bcrypt Dencryption: %s\n", err)
-	// 	return
-	// } else {
-	// 	fmt.Printf("\nProšlo je!")
-	// }
-
-	var hloz string
-	err = conn.QueryRow(context.Background(), "select hash_lozinka from mi_users where email=$1", email).Scan(&hloz)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "QueryRow failed: %v\n", err)
-		os.Exit(1)
-	}
-
-	defer conn.Close(context.Background())
-
-	err = bcrypt.CompareHashAndPassword([]byte(hloz), password)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error from bcrypt Dencryption: %s\n", err)
-		return
-	} else {
-		fmt.Printf("\nProšlo je!\n")
-	}
-
-}
 
 func getLocationsForAngularFE(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("\nget locations", r.URL)
@@ -183,10 +92,6 @@ func setBrowserLang(w http.ResponseWriter, r *http.Request) {
 	globalLanguage = ""
 }
 
-func goToPitanja(w http.ResponseWriter, r *http.Request) {
-	templ.Handler(pitanja.Pitanja(globalLanguage, r)).Component.Render(context.Background(), w)
-}
-
 func goToIndex(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/" {
 		templ.Handler(views.Index(globalLanguage, r)).Component.Render(context.Background(), w)
@@ -195,40 +100,95 @@ func goToIndex(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func getPitanja(w http.ResponseWriter, r *http.Request) {
-	spisak := db.GetPitanja()
-	//fmt.Println("main get pitanja:", spisak)
-	templ.Handler(pitanja.Spisak(spisak)).Component.Render(context.Background(), w)
+func goToQuestions(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(questions.Questions(globalLanguage, r)).Component.Render(context.Background(), w)
 }
 
-func APIgetPitanja(w http.ResponseWriter, r *http.Request) {
-	// rade isto oba (šalju json string)
-	// samo što sa w.Write nema konverzije u string nego koristi sirovi []byte iz db
-	// curl http://127.0.0.1:7331/api_pitanja
-	// io.WriteString(w, string(db.GetPitanja()))
-	w.Write(db.GetPitanja())
+func htmxGetQuestions(w http.ResponseWriter, r *http.Request) {
+	list := db.GetQuestions()
+	templ.Handler(questions.List(list)).Component.Render(context.Background(), w)
+}
+
+func APIgetQuestions(w http.ResponseWriter, r *http.Request) {
+	// both work the same (sending json string)
+	// but with w.Write there is no extra conversion to string but uses []byte from db
+	// curl http://127.0.0.1:7331/api_questions
+	// io.WriteString(w, string(db.GetQuestions()))
+	w.Write(db.GetQuestions())
+}
+
+func goToNotes(w http.ResponseWriter, r *http.Request) {
+	// fmt.Println(db.GetNotes())
+	templ.Handler(site.Notes(globalLanguage, r, db.GetNotes())).Component.Render(context.Background(), w)
+}
+
+var (
+	// key must be 16, 24 or 32 bytes long (AES-128, AES-192 or AES-256)
+	key   = []byte("super-secret-key")
+	store = sessions.NewCookieStore(key)
+)
+
+func user(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "cookie-name")
+
+	// Check if user is authenticated
+	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
+		// http.Error(w, "Forbidden", http.StatusForbidden)
+		templ.Handler(site.UserNotLogedPage(globalLanguage, r)).Component.Render(context.Background(), w)
+		return
+	}
+
+	// Print secret message
+	// fmt.Println("You are logged in!")
+	templ.Handler(site.UserPage(globalLanguage, r)).Component.Render(context.Background(), w)
+}
+
+func login(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "cookie-name")
+	// Authentication goes here
+	// ...
+	email := "vladan.andjelkovic@gmail.com"
+	password := "vezbamo.2015"
+	authenticated := db.AuthenticateUser(email, password)
+	// Set user as authenticated
+	if authenticated {
+		session.Values["authenticated"] = true
+		session.Save(r, w)
+		user(w, r)
+	} else {
+		session.Values["authenticated"] = false
+		session.Save(r, w)
+		templ.Handler(views.Index(globalLanguage, r)).Component.Render(context.Background(), w)
+	}
+}
+
+func logout(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "cookie-name")
+	// Revoke users authentication
+	session.Values["authenticated"] = false
+	session.Save(r, w)
+	templ.Handler(views.Index(globalLanguage, r)).Component.Render(context.Background(), w)
 }
 
 func main() {
-
-	// api() lkjl
 
 	fs := http.FileServer(http.Dir("assets/"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	http.HandleFunc("/", goToIndex)
 
-	//http.Handle("/pitanja", templ.Handler(pitanja.Pitanja()))
-	http.HandleFunc("/pitanja", goToPitanja)
-	http.HandleFunc("/api_pitanja", APIgetPitanja)
+	//http.Handle("/questions", templ.Handler(questions.Questions()))
+	http.HandleFunc("/questions", goToQuestions)
+	http.HandleFunc("/htmx_get_questions", htmxGetQuestions)
+	http.HandleFunc("/api_questions", APIgetQuestions)
+
+	http.HandleFunc("/notes", goToNotes)
 
 	// http.Handle("/404", http.NotFoundHandler())
 	http.HandleFunc("/404", func(w http.ResponseWriter, r *http.Request) {
 		templ.Handler(views.Page404()).Component.Render(context.Background(), w)
 	})
 
-	http.HandleFunc("/zgrabi-iz-db", httpPOSTfromHTMX)
-	http.HandleFunc("/get_pitanja", getPitanja)
 	// http.HandleFunc("/proba.js", getProbaJS)
 	// http.HandleFunc("/assets/htmx.min.js", getHTMXlibrary)
 	// http.HandleFunc("/output.css", getTailwindCSS)
@@ -244,6 +204,17 @@ func main() {
 
 	http.Handle("/locations", c.Handler(http.HandlerFunc(getLocationsForAngularFE)))
 	http.Handle("/locations/", c.Handler(http.HandlerFunc(getLocationsForAngularFE)))
+
+	http.HandleFunc("/user", user)
+	http.HandleFunc("/login", login)
+	http.HandleFunc("/logout", logout)
+
+	//http://127.0.0.1:7331
+	//curl -s http://127.0.0.1:7331/secret
+	//curl -s -I http://127.0.0.1:7331/login
+	// cookie-name=MTcxMjE2ODg3MnxEdi1CQkFFQ180SUFBUkFCRUFBQUpmLUNBQUVHYzNSeWFXNW5EQThBRFdGMWRHaGxiblJwWTJGMFpXUUVZbTl2YkFJQ0FBRT18PIMIqmKy6k41-1TZIkA9j7QXEQ79mZmcVIJPsKONzQQ=; Path=/; Expires=Fri, 03 May 2024 18:27:52 GMT; Max-Age=2592000
+
+	// curl -s --cookie "cookie-name=MTcxMjE2ODg3MnxEdi1CQkFFQ180SUFBUkFCRUFBQUpmLUNBQUVHYzNSeWFXNW5EQThBRFdGMWRHaGxiblJwWTJGMFpXUUVZbTl2YkFJQ0FBRT18PIMIqmKy6k41-1TZIkA9j7QXEQ79mZmcVIJPsKONzQQ=; Path=/; Expires=Fri, 03 May 2024 18:27:52 GMT; Max-Age=2592000" http://127.0.0.1:7331/secret
 
 	fmt.Println("Main done", time.Now().Second())
 
