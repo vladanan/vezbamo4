@@ -44,7 +44,7 @@ func Translate (globalLanguage string, r *http.Request, item string) string {
 			
 		// })
 
-		return helloPerson
+		return helloPerson //fdkajskjl
 }
 
 func getShadow (globalLanguage string, r *http.Request, item string) bool {

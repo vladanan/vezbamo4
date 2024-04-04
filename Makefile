@@ -18,8 +18,8 @@ devtg:
 
 # 3) tailwind to watch changes in views folder for html, templ, js
 devtw:
-	@tailwindcss -i views/input.css -o assets/output.css --watch
+	@tailwindcss -i input.css -o assets/output.css --watch
 
 # 2+3) combined templ and tailwind but tailwind is not working well with some classes
 devtt:
-	@templ generate --watch --proxy="http://0.0.0.0:10000" --cmd="go run ./src/main.go & tailwindcss -i views/input.css -o assets/output.css"
+	@templ generate --watch --proxy="http://0.0.0.0:10000" --cmd="go run ./src/main.go & tailwindcss -i input.css -o assets/output.css"

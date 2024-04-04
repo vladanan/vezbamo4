@@ -1,0 +1,88 @@
+package views
+
+import (
+	"github.com/BurntSushi/toml"
+	"github.com/nicksnyder/go-i18n/v2/i18n"
+	"golang.org/x/text/language"
+	
+	"net/http"
+
+)
+
+func Translate (globalLanguage string, r *http.Request, item string) string {
+
+	bundle := i18n.NewBundle(language.English)
+	bundle.RegisterUnmarshalFunc("toml", toml.Unmarshal)
+	bundle.MustLoadMessageFile("assets/i18n/active.en.toml")
+	bundle.MustLoadMessageFile("assets/i18n/active.es.toml")
+	bundle.MustLoadMessageFile("assets/i18n/active.sr.toml")
+
+	lang := r.FormValue("lang")
+  accept := r.Header.Get("Accept-Language")
+
+	if globalLanguage != "" {
+		accept = globalLanguage
+	}
+
+	//fmt.Println("language: ", lang, "header: ", accept)
+
+	localizer := i18n.NewLocalizer(bundle, lang, accept)
+
+	helloPerson := localizer.MustLocalize(&i18n.LocalizeConfig{
+			DefaultMessage: &i18n.Message{
+				ID:    item,
+			},
+		})
+
+		// myUnreadEmails := localizer.MustLocalize(&i18n.LocalizeConfig{
+		// 	DefaultMessage: &i18n.Message{
+		// 		ID:          "MyUnreadEmails",
+		// 		Description: "The number of unread emails I have",
+		// 		One:         "I have {{.PluralCount}} unread email.",
+		// 		Other:       "I have {{.PluralCount}} unread emails.",
+		// 	},
+			
+		// })
+
+		return helloPerson
+}
+
+
+templ Layout(globalLanguage string, r *http.Request) {
+	//style="background-color: rgb(70,110,110)"
+	//bg-gradient-to-br from-sky-100 via-emerald-100 to-amber-50
+	// bg-gradient-to-br from-sky-400 via-emerald-200 to-amber-200
+	// sdffsdfas
+
+  <!DOCTYPE html>
+	<html lang="en-US">
+
+    <head>
+      <meta charset="UTF-8"></meta>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+      <link href="static/output.css" rel="stylesheet"></link>
+      <script src="static/htmx.min.js"></script>
+			<script src="static/reload.js"></script>
+			<link rel="icon" href="static/vezbamo_ico4.svg" />
+			<title>Vezbamo</title>
+    </head>
+
+    <body class="relative m-auto sm:w-auto max-w-md h-max bg-gradient-to-br from-sky-400 via-emerald-200 to-amber-200">
+
+      <div id="heading">
+        @Header(globalLanguage, r)
+      </div>
+
+      <div id="wrapper">
+        { children... }
+      </div>
+
+      <div id="footer">
+        @Footer()
+      </div>
+
+    </body>
+		
+  </html>
+
+}

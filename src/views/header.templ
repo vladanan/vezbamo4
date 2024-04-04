@@ -1,0 +1,102 @@
+package views
+
+import (
+  "net/http"
+  "strings"
+)
+
+func getShadow (globalLanguage string, r *http.Request, item string) bool {
+
+	accept := r.Header.Get("Accept-Language")
+
+	// fmt.Println("\nshadow:", globalLanguage, item, strings.Split(accept, ",")[0])
+	
+	if globalLanguage == "" && item == "browser" {
+		return true
+	} else
+	if (
+		(globalLanguage == "en-US" || globalLanguage == "") &&
+		(globalLanguage == "en-US" || (strings.Split(accept, ",")[0] == "en-US" || strings.Split(accept, ",")[0] == "en")) &&
+		item == "en") {
+		return true
+	} else
+	if (
+		(globalLanguage == "es" || globalLanguage == "") &&
+		(globalLanguage == "es" || strings.Split(accept, ",")[0] == "es") &&
+		item == "es") {
+		return true
+	} else
+	if (
+		(globalLanguage == "sr" || globalLanguage == "") &&
+		(globalLanguage == "sr" || strings.Split(accept, ",")[0] == "sr") &&
+		item == "sr") {
+		return true
+	} else {
+		return false
+	}
+
+}
+
+templ Header(globalLanguage string, r *http.Request) {
+	
+	<a href="/" class="absolute mt-2 mb-5">
+		<img
+			
+			src="static/vezbamo_logo6.svg"
+			height="30"
+			width="30"
+			alt="Vezbamo"
+		/>
+	</a>
+
+
+	<a href="/" class="absolute mt-3 mb-5 ml-10">
+		
+			{Translate(globalLanguage, r, "Home")}
+		
+	</a>
+
+	<!--
+	<a href="/">
+		<button class="mt-2 mb-5 ml-10 px-2 border-2 bg-gradient-to-r from-blue-400 via-white to-sky-100 rounded-md shadow-lg shadow-slate-600 border-slate-500" type="button">
+			{Translate(globalLanguage, r, "Home")}
+		</button>
+	</a>
+
+	-->
+
+	<div class="absolute mx-2 mb-5 mt-2 right-0 top-0">
+    <button
+			hx-post="/en"
+			hx-on:click="delayReload()"
+			class={"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "en"))}
+		>
+			eng
+		</button>
+		
+		<button
+			hx-post="/es"
+			hx-on:click="delayReload()"
+			class={"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "es"))}
+			
+		>
+			esp
+		</button>
+
+    <button
+			hx-post="/sr"
+			hx-on:click="delayReload()"
+			class={"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "sr"))}
+		>
+			srh
+		</button>
+
+		<button
+			hx-post="/browser"
+			hx-on:click="delayReload()"
+			class={"border-2 px-2 bg-gradient-to-r from-yellow-200 via-white to-green-200 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "browser"))}
+		>
+			auto
+		</button>
+	</div>
+}

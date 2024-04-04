@@ -11,7 +11,7 @@ import "io"
 import "bytes"
 
 import (
-	"github.com/vladanan/vezbamo4/views"
+	"github.com/vladanan/vezbamo4/src/views"
 	"net/http"
 )
 
@@ -34,14 +34,14 @@ func Questions(globalLanguage string, r *http.Request) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- <p class=\"m-5\">Globalni jezik je: {globalLanguage}</p> --> <ul class=\"m-5\" id=\"questions\"><li></li></ul><button class=\"mx-2 text-xl text-green-500\" hx-get=\"/htmx_get_questions\" hx-trigger=\"click\" hx-target=\"#questions\" hx-swap=\"outerHTML\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!--\n\t\t<p class=\"absolute mt-20 m-5\">Globalni jezik je: {globalLanguage}</p>\n\n\t\t--> <ul class=\"mt-20 mr-5\" id=\"questions\"><li>.</li></ul><button class=\"mt-20 mx-2 text-xl text-green-800\" hx-get=\"/htmx_get_questions\" hx-trigger=\"click\" hx-target=\"#questions\" hx-swap=\"outerHTML\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(globalLanguage, r, "GetFromDb"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/questions/questions.templ`, Line: 22, Col: 51}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 25, Col: 51}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {

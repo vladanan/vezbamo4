@@ -13,7 +13,7 @@ import "bytes"
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/vladanan/vezbamo4/views"
+	"github.com/vladanan/vezbamo4/src/views"
 	"net/http"
 )
 
@@ -69,7 +69,7 @@ func Notes(globalLanguage string, r *http.Request, notes []byte) templ.Component
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1>Notes</h1><ul>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1>.</h1><ul class=\"mt-20\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -81,7 +81,7 @@ func Notes(globalLanguage string, r *http.Request, notes []byte) templ.Component
 				var templ_7745c5c3_Var3 string
 				templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(item.B_id))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/site/notes.templ`, Line: 45, Col: 95}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/notes.templ`, Line: 45, Col: 95}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 				if templ_7745c5c3_Err != nil {
@@ -94,7 +94,7 @@ func Notes(globalLanguage string, r *http.Request, notes []byte) templ.Component
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(item.Ime_tag)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/site/notes.templ`, Line: 45, Col: 113}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/notes.templ`, Line: 45, Col: 113}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
@@ -107,7 +107,7 @@ func Notes(globalLanguage string, r *http.Request, notes []byte) templ.Component
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(item.Tema)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/site/notes.templ`, Line: 45, Col: 128}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/notes.templ`, Line: 45, Col: 128}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -120,7 +120,7 @@ func Notes(globalLanguage string, r *http.Request, notes []byte) templ.Component
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(item.Poruka)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/site/notes.templ`, Line: 45, Col: 145}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/notes.templ`, Line: 45, Col: 145}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {

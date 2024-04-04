@@ -2,7 +2,7 @@ package site
 
 import (
   "net/http"
-  "github.com/vladanan/vezbamo4/views"
+  "github.com/vladanan/vezbamo4/src/views"
   "encoding/json"
   "fmt"
 )
@@ -40,8 +40,8 @@ func reverser (notes []Note) []Note {
 
 templ Notes(globalLanguage string, r *http.Request, notes []byte) {
   @views.Layout(globalLanguage, r) {
-    <h1>Notes</h1>
-    <ul>
+    <h1>.</h1>
+    <ul class="mt-20">
       for _, item := range reverser(to_struct(notes)) {
         <li class="m-5 px-2 border-2 text-xl rounded-m text-blue-950  ">{ fmt.Sprint(item.B_id) }: { item.Ime_tag }, { item.Tema }, { item.Poruka }</li>
       }

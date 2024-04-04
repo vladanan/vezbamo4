@@ -1,20 +1,23 @@
 package questions
 
 import (
-	"github.com/vladanan/vezbamo4/views"
+	"github.com/vladanan/vezbamo4/src/views"
 	"net/http"
 )
 
 templ Questions(globalLanguage string, r *http.Request) {
 	@views.Layout(globalLanguage, r) {
 
-    <!-- <p class="m-5">Globalni jezik je: {globalLanguage}</p> -->
+    <!--
+		<p class="absolute mt-20 m-5">Globalni jezik je: {globalLanguage}</p>
 
-		<ul class="m-5" id="questions">
-			<li></li>
+		-->
+
+		<ul class="mt-20 mr-5" id="questions">
+			<li>.</li>
 		</ul>
 
-		<button class="mx-2 text-xl text-green-500"
+		<button class="mt-20 mx-2 text-xl text-green-800"
 			hx-get="/htmx_get_questions"
 			hx-trigger="click"
 			hx-target="#questions"

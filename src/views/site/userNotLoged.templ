@@ -2,11 +2,12 @@ package site
 
 import (
   "net/http"
-  "github.com/vladanan/vezbamo4/views"
+  "github.com/vladanan/vezbamo4/src/views"
 )
 
 templ UserNotLogedPage(globalLanguage string, r *http.Request) {
   @views.Layout(globalLanguage, r) {
-    <h1>{views.Translate(globalLanguage, r, "UnWelcome")}</h1>
+    <h1>.</h1>
+    <h1 class="mt-20">{views.Translate(globalLanguage, r, "UnWelcome")}</h1>
   }
 }

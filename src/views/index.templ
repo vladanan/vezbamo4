@@ -5,7 +5,7 @@ import "net/http"
 templ Index(globalLanguage string, r *http.Request) {
 	@Layout(globalLanguage, r) {
 
-    <div class="mx-10 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-2xl shadow-lg shadow-slate-600 border-2 border-slate-400">
+    <div class="absolute mt-14 mx-10 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-2xl shadow-lg shadow-slate-600 border-2 border-slate-400">
 			<div>
 				<img class="p-3 m-auto"
 					src="static/vezbamo2.svg"
@@ -16,21 +16,21 @@ templ Index(globalLanguage string, r *http.Request) {
 			<p class="mr-2 mb-1 text-right text-xs">4.0.0</p>
 		</div>
 
-		<button class="mx-2 mt-10 text-xl text-green-500" type="button">
+		<button class="absolute mx-2 mt-44 text-xl text-green-800" type="button">
 			<a href="/questions">{Translate(globalLanguage, r, "ClickForQuestions")}</a>
 		</button>
 		<br></br>
-		<button class="mx-2 mt-10 text-xl text-green-500" type="button">
+		<button class="absolute mx-2 mt-48 text-xl text-green-800" type="button">
 			<a href="/notes">{Translate(globalLanguage, r, "ClickForUserNotes")}</a>
 		</button>
 		<br></br>
-		<button class="mx-2 mt-10 text-xl text-green-500" type="button">
+		<button class="absolute mt-52 mx-2 text-xl text-green-800" type="button">
 			<a href="/login">{Translate(globalLanguage, r, "Login")}</a>
 		</button>
 		<br></br>
-		<button class="mx-2 mt-10 text-xl text-green-500" type="button">
+		<button class="absolute mt-56 mx-2 text-xl text-green-800" type="button">
 			<a href="/user">temporary user page</a>
 		</button>
-		
+		<br></br>
   }
 }

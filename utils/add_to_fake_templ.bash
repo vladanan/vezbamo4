@@ -1,3 +1,3 @@
 #ls
-echo "/*" >> views/fake.templ
-date +%F" "%T%n"*/" >> views/fake.templ
+echo "/*" >> src/views/fake.templ
+date +%F" "%T%n"*/" >> src/views/fake.templ
