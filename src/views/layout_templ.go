@@ -16,6 +16,7 @@ import (
 	"golang.org/x/text/language"
 
 	"net/http"
+	// "github.com/gorilla/sessions"
 )
 
 func Translate(globalLanguage string, r *http.Request, item string) string {

@@ -3,7 +3,7 @@ ClickForQuestions = "Klikni za pitanja"
 ClickForUserNotes = "Klikni za korisničke beleške"
 GetFromDb = "Učitaj pitanja iz db"
 Login = "Prijava"
-Welcome = "Dobrodošli! Prijavljeni ste na sistem!"
+Welcome = "Prijavljeni ste na sistem!"
 UnWelcome = "Niste prijavljeni na sistem!"
 Logout = "Odjava"
 

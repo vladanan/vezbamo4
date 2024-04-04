@@ -13,6 +13,7 @@ import "bytes"
 import (
 	"net/http"
 	"strings"
+	// "github.com/gorilla/sessions"
 )
 
 func getShadow(globalLanguage string, r *http.Request, item string) bool {
@@ -61,7 +62,7 @@ func Header(globalLanguage string, r *http.Request) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(globalLanguage, r, "Home"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 54, Col: 40}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 55, Col: 40}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {

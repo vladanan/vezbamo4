@@ -5,7 +5,7 @@ import (
   "github.com/vladanan/vezbamo4/src/views"
 )
 
-templ UserPage(globalLanguage string, r *http.Request) {
+templ Admin(globalLanguage string, r *http.Request) {
   @views.Layout(globalLanguage, r) {
     <h1>.</h1>
     <h1 class="mt-20">{views.Translate(globalLanguage, r, "Welcome")}</h1>

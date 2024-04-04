@@ -1,8 +1,12 @@
 package views
 
-import "net/http"
+import (
+	"net/http"
+	// "github.com/gorilla/sessions"
+)
 
 templ Index(globalLanguage string, r *http.Request) {
+	<h1>jezik sesije:</h1>
 	@Layout(globalLanguage, r) {
 
     <div class="absolute mt-14 mx-10 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-2xl shadow-lg shadow-slate-600 border-2 border-slate-400">
@@ -29,7 +33,7 @@ templ Index(globalLanguage string, r *http.Request) {
 		</button>
 		<br></br>
 		<button class="absolute mt-56 mx-2 text-xl text-green-800" type="button">
-			<a href="/user">temporary user page</a>
+			<a href="/admin">temporary admin page</a>
 		</button>
 		<br></br>
   }

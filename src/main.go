@@ -18,7 +18,8 @@ func main() {
 
 	//***  P A G E S
 
-	//http://127.0.0.1:7331
+	// http://localhost:10000
+	// http://127.0.0.1:7331
 	http.HandleFunc("/", routes.GoToIndex)
 
 	//http.Handle("/questions", templ.Handler(questions.Questions()))
@@ -31,8 +32,8 @@ func main() {
 		templ.Handler(site.Page404()).Component.Render(context.Background(), w)
 	})
 
-	http.HandleFunc("/user", routes.User)
 	http.HandleFunc("/login", routes.Login)
+	http.HandleFunc("/admin", routes.Admin)
 	http.HandleFunc("/logout", routes.Logout)
 
 	//***  I N T E R N A L S

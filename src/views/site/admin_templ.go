@@ -15,7 +15,7 @@ import (
 	"net/http"
 )
 
-func UserPage(globalLanguage string, r *http.Request) templ.Component {
+func Admin(globalLanguage string, r *http.Request) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -41,7 +41,7 @@ func UserPage(globalLanguage string, r *http.Request) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(globalLanguage, r, "Welcome"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/user.templ`, Line: 10, Col: 68}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/admin.templ`, Line: 10, Col: 68}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -54,7 +54,7 @@ func UserPage(globalLanguage string, r *http.Request) templ.Component {
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(globalLanguage, r, "Logout"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/user.templ`, Line: 13, Col: 69}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/admin.templ`, Line: 13, Col: 69}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
