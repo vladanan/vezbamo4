@@ -123,7 +123,8 @@ templ heading(globalLanguage string, r *http.Request) {
 
 templ Layout(globalLanguage string, r *http.Request) {
 
-  <html>
+  <!DOCTYPE html>
+	<html lang="en-US">
 
     <head>
       <meta charset="UTF-8"></meta>
@@ -132,6 +133,8 @@ templ Layout(globalLanguage string, r *http.Request) {
       <link href="static/output.css" rel="stylesheet"></link>
       <script src="static/htmx.min.js"></script>
 			<script src="static/reload.js"></script>
+			<link rel="icon" href="static/vezbamo_ico4.svg" />
+			<title>Vezbamo</title>
 			
     </head>
 

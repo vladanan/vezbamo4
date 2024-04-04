@@ -201,7 +201,7 @@ func Layout(globalLanguage string, r *http.Request) templ.Component {
 			templ_7745c5c3_Var7 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link href=\"static/output.css\" rel=\"stylesheet\"><script src=\"static/htmx.min.js\"></script><script src=\"static/reload.js\"></script></head><body style=\"background-color: rgb(70,110,110)\" class=\"relative m-auto sm:w-auto max-w-md h-max\"><div id=\"heading\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en-US\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link href=\"static/output.css\" rel=\"stylesheet\"><script src=\"static/htmx.min.js\"></script><script src=\"static/reload.js\"></script><link rel=\"icon\" href=\"static/vezbamo_ico4.svg\"><title>Vezbamo</title></head><body style=\"background-color: rgb(70,110,110)\" class=\"relative m-auto sm:w-auto max-w-md h-max\"><div id=\"heading\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

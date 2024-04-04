@@ -193,7 +193,7 @@ func main() {
 	// http.HandleFunc("/assets/htmx.min.js", getHTMXlibrary)
 	// http.HandleFunc("/output.css", getTailwindCSS)
 
-	http.HandleFunc("/en", setEn)
+	http.HandleFunc("/en", setEn) //dasfa
 	http.HandleFunc("/es", setEs)
 	http.HandleFunc("/sr", setSr)
 	http.HandleFunc("/browser", setBrowserLang)
