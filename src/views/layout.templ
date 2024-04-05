@@ -21,6 +21,8 @@ func Translate (store sessions.Store, r *http.Request, item string) string {
 	// https://pkg.go.dev/github.com/gorilla/sessions@v1.2.2#section-documentation
 	// https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cookie-same-site-00
 	// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
+	// https://stackoverflow.com/questions/67821709/this-set-cookie-didnt-specify-a-samesite-attribute-and-was-default-to-samesi
+	
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
 	if err != nil {
 		// http.Error(w, err.Error(), http.StatusInternalServerError)
