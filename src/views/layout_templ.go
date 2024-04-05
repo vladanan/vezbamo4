@@ -30,6 +30,7 @@ func Translate(store sessions.Store, r *http.Request, item string) string {
 
 	// https://pkg.go.dev/github.com/gorilla/sessions@v1.2.2#section-documentation
 	// https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cookie-same-site-00
+	// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
 	if err != nil {
 		// http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -37,16 +38,16 @@ func Translate(store sessions.Store, r *http.Request, item string) string {
 		fmt.Println("Error on get store:", err)
 	}
 
-	// session.Options = &sessions.Options{
-	// 	Path:     "/",
-	// 	MaxAge:   86400 * 7,
-	// 	HttpOnly: true,
-	// 	// SameSite: http.SameSiteNoneMode,
-	// 	// SameSite: http.SameSiteDefaultMode,
-	// 	// SameSite: http.SameSiteLaxMode,
-	// 	// SameSite: http.SameSiteStrictMode,
-	// 	// SameSite: http.SameSite(0),
-	// }
+	session.Options = &sessions.Options{
+		Path:     "/",
+		MaxAge:   86400 * 7,
+		HttpOnly: true,
+		// SameSite: http.SameSiteNoneMode,
+		// SameSite: http.SameSiteDefaultMode,
+		// SameSite: http.SameSiteLaxMode,
+		SameSite: http.SameSiteStrictMode,
+		// SameSite: http.SameSite(0),
+	}
 
 	auth_map := session.Values["authenticated"]
 
