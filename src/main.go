@@ -36,6 +36,8 @@ func main() {
 	http.HandleFunc("/admin", routes.Admin)
 	http.HandleFunc("/logout", routes.Logout)
 
+	http.HandleFunc("/twprobe", routes.GoToTwprobe)
+
 	//***  I N T E R N A L S
 
 	fs := http.FileServer(http.Dir("assets/"))

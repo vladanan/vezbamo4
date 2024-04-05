@@ -90,7 +90,7 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 					}
 				}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <br><button class=\"absolute mt-56 mx-2 text-xl text-green-800\" type=\"button\"><a href=\"/admin\">temporary admin page</a></button><br>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <br><button class=\"absolute mt-56 mx-2 text-xl text-green-800\" type=\"button\"><a href=\"/admin\">temporary admin page</a></button><br><br><button class=\"absolute mt-60 mx-2 text-xl text-green-800\" type=\"button\"><a href=\"/twprobe\">tailwind probe</a></button><br>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

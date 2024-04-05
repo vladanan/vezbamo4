@@ -113,6 +113,11 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(views.Index(store, r)).Component.Render(context.Background(), w)
 }
 
+func GoToTwprobe(w http.ResponseWriter, r *http.Request) {
+	// fmt.Println(db.GetNotes())
+	templ.Handler(views.Twprobe()).Component.Render(context.Background(), w)
+}
+
 //*** I N T E R N A L
 
 func HtmxGetQuestions(w http.ResponseWriter, r *http.Request) {
