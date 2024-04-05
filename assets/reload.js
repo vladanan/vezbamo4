@@ -1,5 +1,5 @@
 function pageReload() {location.reload()}
 
 function delayReload() {
-  setTimeout(pageReload, 100);
+  setTimeout(pageReload, 200);
 }
