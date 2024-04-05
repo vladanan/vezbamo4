@@ -41,7 +41,7 @@ func Translate(store sessions.Store, r *http.Request, item string) string {
 		Path:     "/",
 		MaxAge:   86400 * 7,
 		HttpOnly: true,
-		SameSite: http.SameSiteNoneMode,
+		// SameSite: http.SameSiteNoneMode,
 		// SameSite: http.SameSiteDefaultMode,
 		// SameSite: http.SameSiteLaxMode,
 		// SameSite: http.SameSiteStrictMode,
