@@ -3,27 +3,28 @@ package questions
 import (
 	"github.com/vladanan/vezbamo4/src/views"
 	"net/http"
+	"github.com/gorilla/sessions"
 )
 
-templ Questions(globalLanguage string, r *http.Request) {
-	@views.Layout(globalLanguage, r) {
+templ Questions(store sessions.Store, r *http.Request) {
+	@views.Layout(store, r) {
 
     <!--
-		<p class="absolute mt-20 m-5">Globalni jezik je: {globalLanguage}</p>
-
+		<p class="mt-20 m-5">Globalni jezik je: {globalLanguage}</p>
+		<p class="mt-20 m-20">Session jezik je: {lang(store, r)}</p>
 		-->
 
-		<ul class="mt-20 mr-5" id="questions">
+		<ul class=" mt-24 mr-5" id="questions">
 			<li>.</li>
 		</ul>
 
-		<button class="mt-20 mx-2 text-xl text-green-800"
+		<button class=" mt-28 mx-2 text-xl text-green-800"
 			hx-get="/htmx_get_questions"
 			hx-trigger="click"
 			hx-target="#questions"
 			hx-swap="outerHTML"
 		>
-			{views.Translate(globalLanguage, r, "GetFromDb")}
+			{views.Translate(store, r, "GetFromDb")}
 		</button>
 
   }

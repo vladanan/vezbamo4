@@ -11,29 +11,44 @@ import "io"
 import "bytes"
 
 import (
+	"fmt"
+	"github.com/gorilla/sessions"
 	"net/http"
 	"strings"
-	// "github.com/gorilla/sessions"
 )
 
-func getShadow(globalLanguage string, r *http.Request, item string) bool {
+func getShadow(store sessions.Store, r *http.Request, item string) bool {
+
+	session, err := store.Get(r, "vezbamo.onrender.com-users")
+	if err != nil {
+		// http.Error(w, err.Error(), http.StatusInternalServerError)
+		// return
+		fmt.Println("Error on get store:", err)
+	}
+
+	lang_map := session.Values["language"]
+	sessionLanguage := ""
+
+	if lang_map != nil {
+		sessionLanguage = lang_map.(string)
+	}
 
 	accept := r.Header.Get("Accept-Language")
 
-	// fmt.Println("\nshadow:", globalLanguage, item, strings.Split(accept, ",")[0])
+	// fmt.Println("\nshadow:", sessionLanguage, item, strings.Split(accept, ",")[0])
 
-	if globalLanguage == "" && item == "browser" {
+	if sessionLanguage == "" && item == "browser" {
 		return true
-	} else if (globalLanguage == "en-US" || globalLanguage == "") &&
-		(globalLanguage == "en-US" || (strings.Split(accept, ",")[0] == "en-US" || strings.Split(accept, ",")[0] == "en")) &&
+	} else if (sessionLanguage == "en-US" || sessionLanguage == "") &&
+		(sessionLanguage == "en-US" || (strings.Split(accept, ",")[0] == "en-US" || strings.Split(accept, ",")[0] == "en")) &&
 		item == "en" {
 		return true
-	} else if (globalLanguage == "es" || globalLanguage == "") &&
-		(globalLanguage == "es" || strings.Split(accept, ",")[0] == "es") &&
+	} else if (sessionLanguage == "es" || sessionLanguage == "") &&
+		(sessionLanguage == "es" || strings.Split(accept, ",")[0] == "es") &&
 		item == "es" {
 		return true
-	} else if (globalLanguage == "sr" || globalLanguage == "") &&
-		(globalLanguage == "sr" || strings.Split(accept, ",")[0] == "sr") &&
+	} else if (sessionLanguage == "sr" || sessionLanguage == "") &&
+		(sessionLanguage == "sr" || strings.Split(accept, ",")[0] == "sr") &&
 		item == "sr" {
 		return true
 	} else {
@@ -42,7 +57,7 @@ func getShadow(globalLanguage string, r *http.Request, item string) bool {
 
 }
 
-func Header(globalLanguage string, r *http.Request) templ.Component {
+func Header(store sessions.Store, r *http.Request) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -60,19 +75,19 @@ func Header(globalLanguage string, r *http.Request) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
-		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(globalLanguage, r, "Home"))
+		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Home"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 55, Col: 40}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 69, Col: 31}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><!--\n\t<a href=\"/\">\n\t\t<button class=\"mt-2 mb-5 ml-10 px-2 border-2 bg-gradient-to-r from-blue-400 via-white to-sky-100 rounded-md shadow-lg shadow-slate-600 border-slate-500\" type=\"button\">\n\t\t\t{Translate(globalLanguage, r, \"Home\")}\n\t\t</button>\n\t</a>\n\n\t--><div class=\"absolute mx-2 mb-5 mt-2 right-0 top-0\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><!--\n\n\t<a href=\"/\">\n\t\t<button class=\"mt-2 mb-5 ml-10 px-2 border-2 bg-gradient-to-r from-blue-400 via-white to-sky-100 rounded-md shadow-lg shadow-slate-600 border-slate-500\" type=\"button\">\n\t\t\t{Translate(store, r, \"Home\")}\n\t\t</button>\n\t</a>\n\n\t--><div class=\"absolute mx-2 mb-5 mt-2 right-0 top-0\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var3 = []any{"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "en"))}
+		var templ_7745c5c3_Var3 = []any{"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(store, r, "en"))}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var3...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -89,7 +104,7 @@ func Header(globalLanguage string, r *http.Request) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var4 = []any{"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "es"))}
+		var templ_7745c5c3_Var4 = []any{"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(store, r, "es"))}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var4...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -106,7 +121,7 @@ func Header(globalLanguage string, r *http.Request) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var5 = []any{"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "sr"))}
+		var templ_7745c5c3_Var5 = []any{"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(store, r, "sr"))}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var5...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -123,7 +138,7 @@ func Header(globalLanguage string, r *http.Request) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var6 = []any{"border-2 px-2 bg-gradient-to-r from-yellow-200 via-white to-green-200 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "browser"))}
+		var templ_7745c5c3_Var6 = []any{"border-2 px-2 bg-gradient-to-r from-yellow-200 via-white to-green-200 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(store, r, "browser"))}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var6...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

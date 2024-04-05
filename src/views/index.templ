@@ -2,12 +2,11 @@ package views
 
 import (
 	"net/http"
-	// "github.com/gorilla/sessions"
+	"github.com/gorilla/sessions"
 )
 
-templ Index(globalLanguage string, r *http.Request) {
-	<h1>jezik sesije:</h1>
-	@Layout(globalLanguage, r) {
+templ Index(store sessions.Store, r *http.Request) {
+	@Layout(store, r) {
 
     <div class="absolute mt-14 mx-10 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-2xl shadow-lg shadow-slate-600 border-2 border-slate-400">
 			<div>
@@ -21,16 +20,24 @@ templ Index(globalLanguage string, r *http.Request) {
 		</div>
 
 		<button class="absolute mx-2 mt-44 text-xl text-green-800" type="button">
-			<a href="/questions">{Translate(globalLanguage, r, "ClickForQuestions")}</a>
+			<a href="/questions">{Translate(store, r, "ClickForQuestions")}</a>
 		</button>
 		<br></br>
 		<button class="absolute mx-2 mt-48 text-xl text-green-800" type="button">
-			<a href="/notes">{Translate(globalLanguage, r, "ClickForUserNotes")}</a>
+			<a href="/notes">{Translate(store, r, "ClickForUserNotes")}</a>
 		</button>
-		<br></br>
-		<button class="absolute mt-52 mx-2 text-xl text-green-800" type="button">
-			<a href="/login">{Translate(globalLanguage, r, "Login")}</a>
-		</button>
+		
+		if session, err := store.Get(r, "vezbamo.onrender.com-users"); err == nil {
+			if auth, _ := session.Values["authenticated"].(bool); !auth {
+				<br></br>
+				<button class="absolute mt-52 mx-2 text-xl text-green-800" type="button">
+					<a href="/login">{Translate(store, r, "Login")}</a>
+				</button>
+			} else {
+				<p></p>
+			}
+		}
+
 		<br></br>
 		<button class="absolute mt-56 mx-2 text-xl text-green-800" type="button">
 			<a href="/admin">temporary admin page</a>

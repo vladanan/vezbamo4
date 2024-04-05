@@ -11,11 +11,12 @@ import "io"
 import "bytes"
 
 import (
+	"github.com/gorilla/sessions"
 	"github.com/vladanan/vezbamo4/src/views"
 	"net/http"
 )
 
-func Questions(globalLanguage string, r *http.Request) templ.Component {
+func Questions(store sessions.Store, r *http.Request) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -34,14 +35,14 @@ func Questions(globalLanguage string, r *http.Request) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!--\n\t\t<p class=\"absolute mt-20 m-5\">Globalni jezik je: {globalLanguage}</p>\n\n\t\t--> <ul class=\"mt-20 mr-5\" id=\"questions\"><li>.</li></ul><button class=\"mt-20 mx-2 text-xl text-green-800\" hx-get=\"/htmx_get_questions\" hx-trigger=\"click\" hx-target=\"#questions\" hx-swap=\"outerHTML\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!--\n\t\t<p class=\"mt-20 m-5\">Globalni jezik je: {globalLanguage}</p>\n\t\t<p class=\"mt-20 m-20\">Session jezik je: {lang(store, r)}</p>\n\t\t--> <ul class=\" mt-24 mr-5\" id=\"questions\"><li>.</li></ul><button class=\" mt-28 mx-2 text-xl text-green-800\" hx-get=\"/htmx_get_questions\" hx-trigger=\"click\" hx-target=\"#questions\" hx-swap=\"outerHTML\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var3 string
-			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(globalLanguage, r, "GetFromDb"))
+			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "GetFromDb"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 25, Col: 51}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 26, Col: 42}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -56,7 +57,7 @@ func Questions(globalLanguage string, r *http.Request) templ.Component {
 			}
 			return templ_7745c5c3_Err
 		})
-		templ_7745c5c3_Err = views.Layout(globalLanguage, r).Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = views.Layout(store, r).Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

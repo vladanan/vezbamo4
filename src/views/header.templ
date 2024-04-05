@@ -3,33 +3,48 @@ package views
 import (
   "net/http"
   "strings"
-	// "github.com/gorilla/sessions"
+	"github.com/gorilla/sessions"
+	"fmt"
 )
 
-func getShadow (globalLanguage string, r *http.Request, item string) bool {
+func getShadow (store sessions.Store, r *http.Request, item string) bool {
+
+	session, err := store.Get(r, "vezbamo.onrender.com-users")
+	if err != nil {
+		// http.Error(w, err.Error(), http.StatusInternalServerError)
+		// return
+		fmt.Println("Error on get store:", err)
+	}
+
+	lang_map := session.Values["language"]
+	sessionLanguage := ""
+	
+	if lang_map != nil {
+		sessionLanguage = lang_map.(string)
+	}	
 
 	accept := r.Header.Get("Accept-Language")
 
-	// fmt.Println("\nshadow:", globalLanguage, item, strings.Split(accept, ",")[0])
+	// fmt.Println("\nshadow:", sessionLanguage, item, strings.Split(accept, ",")[0])
 	
-	if globalLanguage == "" && item == "browser" {
+	if sessionLanguage == "" && item == "browser" {
 		return true
 	} else
 	if (
-		(globalLanguage == "en-US" || globalLanguage == "") &&
-		(globalLanguage == "en-US" || (strings.Split(accept, ",")[0] == "en-US" || strings.Split(accept, ",")[0] == "en")) &&
+		(sessionLanguage == "en-US" || sessionLanguage == "") &&
+		(sessionLanguage == "en-US" || (strings.Split(accept, ",")[0] == "en-US" || strings.Split(accept, ",")[0] == "en")) &&
 		item == "en") {
 		return true
 	} else
 	if (
-		(globalLanguage == "es" || globalLanguage == "") &&
-		(globalLanguage == "es" || strings.Split(accept, ",")[0] == "es") &&
+		(sessionLanguage == "es" || sessionLanguage == "") &&
+		(sessionLanguage == "es" || strings.Split(accept, ",")[0] == "es") &&
 		item == "es") {
 		return true
 	} else
 	if (
-		(globalLanguage == "sr" || globalLanguage == "") &&
-		(globalLanguage == "sr" || strings.Split(accept, ",")[0] == "sr") &&
+		(sessionLanguage == "sr" || sessionLanguage == "") &&
+		(sessionLanguage == "sr" || strings.Split(accept, ",")[0] == "sr") &&
 		item == "sr") {
 		return true
 	} else {
@@ -38,7 +53,7 @@ func getShadow (globalLanguage string, r *http.Request, item string) bool {
 
 }
 
-templ Header(globalLanguage string, r *http.Request) {
+templ Header(store sessions.Store, r *http.Request) {
 	
 	<a href="/" class="absolute mt-2 mb-5">
 		<img
@@ -52,15 +67,14 @@ templ Header(globalLanguage string, r *http.Request) {
 
 
 	<a href="/" class="absolute mt-3 mb-5 ml-10">
-		
-			{Translate(globalLanguage, r, "Home")}
-		
+			{Translate(store, r, "Home")}
 	</a>
 
 	<!--
+
 	<a href="/">
 		<button class="mt-2 mb-5 ml-10 px-2 border-2 bg-gradient-to-r from-blue-400 via-white to-sky-100 rounded-md shadow-lg shadow-slate-600 border-slate-500" type="button">
-			{Translate(globalLanguage, r, "Home")}
+			{Translate(store, r, "Home")}
 		</button>
 	</a>
 
@@ -70,7 +84,7 @@ templ Header(globalLanguage string, r *http.Request) {
     <button
 			hx-post="/en"
 			hx-on:click="delayReload()"
-			class={"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "en"))}
+			class={"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(store, r, "en"))}
 		>
 			eng
 		</button>
@@ -78,7 +92,7 @@ templ Header(globalLanguage string, r *http.Request) {
 		<button
 			hx-post="/es"
 			hx-on:click="delayReload()"
-			class={"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "es"))}
+			class={"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(store, r, "es"))}
 			
 		>
 			esp
@@ -87,7 +101,7 @@ templ Header(globalLanguage string, r *http.Request) {
     <button
 			hx-post="/sr"
 			hx-on:click="delayReload()"
-			class={"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "sr"))}
+			class={"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(store, r, "sr"))}
 		>
 			srh
 		</button>
@@ -95,7 +109,7 @@ templ Header(globalLanguage string, r *http.Request) {
 		<button
 			hx-post="/browser"
 			hx-on:click="delayReload()"
-			class={"border-2 px-2 bg-gradient-to-r from-yellow-200 via-white to-green-200 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(globalLanguage, r, "browser"))}
+			class={"border-2 px-2 bg-gradient-to-r from-yellow-200 via-white to-green-200 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(store, r, "browser"))}
 		>
 			auto
 		</button>

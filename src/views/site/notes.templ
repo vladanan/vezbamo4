@@ -5,6 +5,7 @@ import (
   "github.com/vladanan/vezbamo4/src/views"
   "encoding/json"
   "fmt"
+ 	"github.com/gorilla/sessions"
 )
 
 type Note struct {
@@ -38,8 +39,8 @@ func reverser (notes []Note) []Note {
 	return newNotes
 }
 
-templ Notes(globalLanguage string, r *http.Request, notes []byte) {
-  @views.Layout(globalLanguage, r) {
+templ Notes(store sessions.Store, r *http.Request, notes []byte) {
+  @views.Layout(store, r) {
     <h1>.</h1>
     <ul class="mt-20">
       for _, item := range reverser(to_struct(notes)) {

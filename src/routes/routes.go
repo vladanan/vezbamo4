@@ -7,17 +7,16 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/joho/godotenv"
-
 	"github.com/a-h/templ"
 	"github.com/gorilla/sessions"
+	"github.com/joho/godotenv"
 	"github.com/vladanan/vezbamo4/src/db"
 	views "github.com/vladanan/vezbamo4/src/views"
 	questions "github.com/vladanan/vezbamo4/src/views/questions"
 	site "github.com/vladanan/vezbamo4/src/views/site"
 )
 
-var globalLanguage string = ""
+// var store string = ""
 
 func check(e error) {
 	if e != nil {
@@ -39,80 +38,36 @@ var (
 // http://127.0.0.1:7331
 
 func GoToIndex(w http.ResponseWriter, r *http.Request) {
-
-	// if godotevn_err != nil {
-	// 	fmt.Printf("Error loading .env file")
-	// }
-
-	// session, err1 := store.Get(r, "vezbamo.onrender.com-lang")
-	// if err1 != nil {
-	// 	fmt.Println("index greška get sessio")
-	// 	// http.Error(w, err1.Error(), http.StatusInternalServerError)
-	// 	// return
-	// }
-
-	// // Set some session values. ghghsdhg
-	// // session.Values["language"] = "srpski"
-
-	// session.Options = &sessions.Options{
-	// 	Path:     "/",
-	// 	MaxAge:   86400 * 7,
-	// 	HttpOnly: true,
-	// 	SameSite: http.SameSiteStrictMode,
-	// 	// SameSite: http.SameSite(0),
-	// }
-
-	// err2 := session.Save(r, w)
-	// if err2 != nil {
-	// 	fmt.Println("index greška save sessio")
-	// 	// http.Error(w, err2.Error(), http.StatusInternalServerError)
-	// 	// return
-	// }
+	if godotevn_err != nil {
+		fmt.Printf("Error loading .env file")
+	}
 
 	if r.URL.Path == "/" {
-		templ.Handler(views.Index(globalLanguage, r)).Component.Render(context.Background(), w)
+		templ.Handler(views.Index(store, r)).Component.Render(context.Background(), w)
 	} else {
 		templ.Handler(site.Page404()).Component.Render(context.Background(), w)
 	}
 }
 
 func GoToQuestions(w http.ResponseWriter, r *http.Request) {
-	templ.Handler(questions.Questions(globalLanguage, r)).Component.Render(context.Background(), w)
+	templ.Handler(questions.Questions(store, r)).Component.Render(context.Background(), w)
 }
 
 func GoToNotes(w http.ResponseWriter, r *http.Request) {
 	// fmt.Println(db.GetNotes())
-	templ.Handler(site.Notes(globalLanguage, r, db.GetNotes())).Component.Render(context.Background(), w)
+	templ.Handler(site.Notes(store, r, db.GetNotes())).Component.Render(context.Background(), w)
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
-
-	// https://pkg.go.dev/github.com/gorilla/sessions@v1.2.2#section-documentation
-	// https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cookie-same-site-00
-
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-
-	// Set some session values.
-	// session.Values["language"] = "sr"
-
 	// Authentication goes here
-	// ...
 	email := "vladan.andjelkovic@gmail.com"
 	password := "vezbamo.2015"
 	authenticated := db.AuthenticateUser(email, password)
-
-	session.Options = &sessions.Options{
-		Path:     "/",
-		MaxAge:   86400 * 7,
-		HttpOnly: true,
-		SameSite: http.SameSiteStrictMode,
-		// SameSite: http.SameSite(0),
-	}
-
 	// Set user as authenticated
 	if authenticated {
 		session.Values["authenticated"] = true
@@ -131,15 +86,12 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		templ.Handler(views.Index(globalLanguage, r)).Component.Render(context.Background(), w)
+		templ.Handler(views.Index(store, r)).Component.Render(context.Background(), w)
 	}
 }
 
 func Admin(w http.ResponseWriter, r *http.Request) {
 	session, _ := store.Get(r, "vezbamo.onrender.com-users")
-
-	// fmt.Println("jezik:", session.Values["language"])
-
 	// Check if user is authenticated
 	// auth2, ok2 := session.Values["authenticated"].(bool)
 	// fmt.Println("pristup admin sajtu: auth:", auth2, "ok:", ok2)
@@ -147,13 +99,10 @@ func Admin(w http.ResponseWriter, r *http.Request) {
 	// neulogovan: pristup admin sajtu: auth: false ok: true
 	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
 		// http.Error(w, "Forbidden", http.StatusForbidden)
-		templ.Handler(site.UserNotLogedPage(globalLanguage, r)).Component.Render(context.Background(), w)
+		templ.Handler(site.UserNotLogedPage(store, r)).Component.Render(context.Background(), w)
 		return
 	}
-
-	// Print secret message
-	// fmt.Println("You are logged in!")
-	templ.Handler(site.Admin(globalLanguage, r)).Component.Render(context.Background(), w)
+	templ.Handler(site.Admin(store, r)).Component.Render(context.Background(), w)
 }
 
 func Logout(w http.ResponseWriter, r *http.Request) {
@@ -161,7 +110,7 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 	// Revoke users authentication
 	session.Values["authenticated"] = false
 	session.Save(r, w)
-	templ.Handler(views.Index(globalLanguage, r)).Component.Render(context.Background(), w)
+	templ.Handler(views.Index(store, r)).Component.Render(context.Background(), w)
 }
 
 //*** I N T E R N A L
@@ -172,32 +121,66 @@ func HtmxGetQuestions(w http.ResponseWriter, r *http.Request) {
 }
 
 func SetEn(w http.ResponseWriter, r *http.Request) {
-	globalLanguage = "en-US"
+	session, err := store.Get(r, "vezbamo.onrender.com-users")
+	if err != nil {
+		// fmt.Println("engleski greška get sessio")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	session.Values["language"] = "en-US"
+	err2 := session.Save(r, w)
+	if err2 != nil {
+		// fmt.Println("engleski greška save sessio")
+		http.Error(w, err2.Error(), http.StatusInternalServerError)
+		return
+	}
 }
+
 func SetEs(w http.ResponseWriter, r *http.Request) {
-	// session, err1 := store.Get(r, "vezbamo.onrender.com-lang")
-	// if err1 != nil {
-	// 	fmt.Println("špnski greška get sessio")
-	// 	// http.Error(w, err1.Error(), http.StatusInternalServerError)
-	// 	// return
-	// }
+	session, err := store.Get(r, "vezbamo.onrender.com-users")
+	if err != nil {
+		// fmt.Println("špnski greška get sessio")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	session.Values["language"] = "es"
+	err2 := session.Save(r, w)
+	if err2 != nil {
+		http.Error(w, err2.Error(), http.StatusInternalServerError)
+		return
+	}
 
-	// // Set some session values. sfdsalkčk
-	// // session.Values["language"] = "spanski sinjor"
-
-	// err2 := session.Save(r, w)
-	// if err2 != nil {
-	// 	fmt.Println("šplanski greška save sessio")
-	// 	// http.Error(w, err2.Error(), http.StatusInternalServerError)
-	// 	// return
-	// }
-	globalLanguage = "es"
 }
 func SetSr(w http.ResponseWriter, r *http.Request) {
-	globalLanguage = "sr"
+	session, err := store.Get(r, "vezbamo.onrender.com-users")
+	if err != nil {
+		// fmt.Println("srpski greška get sessio")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	session.Values["language"] = "sr"
+	err2 := session.Save(r, w)
+	if err2 != nil {
+		// fmt.Println("srpski greška save sessio")
+		http.Error(w, err2.Error(), http.StatusInternalServerError)
+		return
+	}
+
 }
 func SetBrowserLang(w http.ResponseWriter, r *http.Request) {
-	globalLanguage = ""
+	session, err := store.Get(r, "vezbamo.onrender.com-users")
+	if err != nil {
+		// fmt.Println("browser greška get sessio")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	session.Values["language"] = ""
+	err2 := session.Save(r, w)
+	if err2 != nil {
+		// fmt.Println("brower greška save sessio")
+		http.Error(w, err2.Error(), http.StatusInternalServerError)
+		return
+	}
 }
 
 //*** A P I

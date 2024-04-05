@@ -572,6 +572,10 @@ video {
   margin: auto;
 }
 
+.m-20 {
+  margin: 5rem;
+}
+
 .mx-10 {
   margin-left: 2.5rem;
   margin-right: 2.5rem;
@@ -645,6 +649,22 @@ video {
 
 .mt-80 {
   margin-top: 20rem;
+}
+
+.mt-16 {
+  margin-top: 4rem;
+}
+
+.mt-24 {
+  margin-top: 6rem;
+}
+
+.mt-28 {
+  margin-top: 7rem;
+}
+
+.mt-\[18\] {
+  margin-top: 18;
 }
 
 .table {

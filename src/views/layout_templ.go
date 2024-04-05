@@ -15,11 +15,12 @@ import (
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 	"golang.org/x/text/language"
 
+	"fmt"
+	"github.com/gorilla/sessions"
 	"net/http"
-	// "github.com/gorilla/sessions"
 )
 
-func Translate(globalLanguage string, r *http.Request, item string) string {
+func Translate(store sessions.Store, r *http.Request, item string) string {
 
 	bundle := i18n.NewBundle(language.English)
 	bundle.RegisterUnmarshalFunc("toml", toml.Unmarshal)
@@ -27,11 +28,41 @@ func Translate(globalLanguage string, r *http.Request, item string) string {
 	bundle.MustLoadMessageFile("assets/i18n/active.es.toml")
 	bundle.MustLoadMessageFile("assets/i18n/active.sr.toml")
 
+	// https://pkg.go.dev/github.com/gorilla/sessions@v1.2.2#section-documentation
+	// https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cookie-same-site-00
+	session, err := store.Get(r, "vezbamo.onrender.com-users")
+	if err != nil {
+		// http.Error(w, err.Error(), http.StatusInternalServerError)
+		// return
+		fmt.Println("Error on get store:", err)
+	}
+
+	session.Options = &sessions.Options{
+		Path:     "/",
+		MaxAge:   86400 * 7,
+		HttpOnly: true,
+		SameSite: http.SameSiteLaxMode,
+		// SameSite: http.SameSite(0),
+	}
+
+	auth_map := session.Values["authenticated"]
+
+	if auth_map == nil {
+		session.Values["authenticated"] = false
+	}
+
+	lang_map := session.Values["language"]
+	sessionLanguage := ""
+
+	if lang_map != nil {
+		sessionLanguage = lang_map.(string)
+	}
+
 	lang := r.FormValue("lang")
 	accept := r.Header.Get("Accept-Language")
 
-	if globalLanguage != "" {
-		accept = globalLanguage
+	if sessionLanguage != "" {
+		accept = sessionLanguage
 	}
 
 	//fmt.Println("language: ", lang, "header: ", accept)
@@ -57,7 +88,7 @@ func Translate(globalLanguage string, r *http.Request, item string) string {
 	return helloPerson
 }
 
-func Layout(globalLanguage string, r *http.Request) templ.Component {
+func Layout(store sessions.Store, r *http.Request) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -74,7 +105,7 @@ func Layout(globalLanguage string, r *http.Request) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = Header(globalLanguage, r).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = Header(store, r).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
