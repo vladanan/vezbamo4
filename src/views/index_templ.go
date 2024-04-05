@@ -34,7 +34,7 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"absolute mt-14 mx-10 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-2xl shadow-lg shadow-slate-600 border-2 border-slate-400\"><div><img class=\"p-3 m-auto\" src=\"static/vezbamo2.svg\" height=\"44\" width=\"350\" alt=\"Vezbamo\"></div><p class=\"mr-2 mb-1 text-right text-xs\">4.0.0</p></div><button class=\"absolute mx-2 mt-44 text-xl text-green-800\" type=\"button\"><a href=\"/questions\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"absolute mt-14 mx-10 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-2xl shadow-lg shadow-slate-600 border-2 border-slate-400\"><div><img class=\"p-3 m-auto\" src=\"static/vezbamo2.svg\" height=\"44\" width=\"350\" alt=\"Vezbamo\"></div><p class=\"mr-2 mb-1 text-right text-xs\">4.0.0-alpha.13.4</p></div><button class=\"absolute mx-2 mt-44 text-xl text-green-800\" type=\"button\"><a href=\"/questions\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
