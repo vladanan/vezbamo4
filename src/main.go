@@ -36,7 +36,7 @@ func main() {
 	http.HandleFunc("/admin", routes.Admin)
 	http.HandleFunc("/logout", routes.Logout)
 
-	http.HandleFunc("/twprobe", routes.GoToTwprobe)
+	http.HandleFunc("/komponents", routes.GoToKomponents)
 
 	//***  I N T E R N A L S
 
