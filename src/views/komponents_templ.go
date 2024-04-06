@@ -10,10 +10,7 @@ import "context"
 import "io"
 import "bytes"
 
-var cssheader_button string = "mr-2 px-2 bg-gradient-to-r from-green-300 via-red to-red-300 rounded-md shadow-lg"
-
-// "mr-2 px-2 bg-gradient-to-r from-green-300 to-red-500 rounded-md shadow-lg shadow-slate-900"
-func header_button(link string, text string) templ.Component {
+func Komponents() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -26,82 +23,7 @@ func header_button(link string, text string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var2 templ.SafeURL = templ.URL(link)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var2)))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var3 = []any{cssheader_button}
-		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var3...)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button class=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ.CSSClasses(templ_7745c5c3_Var3).String()))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var4 string
-		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(text)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/komponents.templ`, Line: 13, Col: 11}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button></a>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		if !templ_7745c5c3_IsBuffer {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteTo(templ_7745c5c3_W)
-		}
-		return templ_7745c5c3_Err
-	})
-}
-
-func Komponents() templ.Component {
-	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
-		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
-		if !templ_7745c5c3_IsBuffer {
-			templ_7745c5c3_Buffer = templ.GetBuffer()
-			defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
-		}
-		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var5 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var5 == nil {
-			templ_7745c5c3_Var5 = templ.NopComponent
-		}
-		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en-US\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link href=\"static/output.css\" rel=\"stylesheet\"><title>Komponente</title></head><body class=\"relative m-auto max-w-md h-max bg-gradient-to-br from-sky-200 via-emerald-200 to-amber-100\"><div class=\"relative top-2\"><div class=\"absolute left-2\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = header_button("/", "Home").Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = header_button("questions", "Q").Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"absolute right-2\"><button class=\"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600 shadow-red-800\">eng</button> <button class=\"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600\">eng</button> <button class=\"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600\">eng</button> <button class=\"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600\">eng</button></div></div><div class=\"relative top-16 w-80 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-2xl shadow-lg shadow-slate-600 border-2 border-slate-400\"><div><img class=\"p-3 m-auto\" src=\"static/vezbamo2.svg\" height=\"44\" width=\"350\" alt=\"Vezbamo\"></div><p class=\"mr-2 mb-1 text-right text-xs\">4.0.0-alpha.14.2</p></div><a href=\"/questions\" class=\"relative top-24 m-auto\"><div style=\"background-image: url(&#39;static/1.jpg&#39;)\" class=\"bg-cover m-5 mx-5 p-2 h-60 max-w-md border-2 border-sky-700 rounded-2xl shadow-lg shadow-sky-900 cursor-pointer\"><div class=\"p-2 rounded-xl text-white text-xl align-text-top bg-gradient-to-r from-sky-700 via-transparent to-transparent\"><b>Upiši pitanja i mozak je zapamtio već oko 30% od lekcije!</b></div></div></a><div class=\"relative top-28 w-12 m-auto\"><button class=\"border-2 mb-5 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600\">eng</button> <button class=\"border-2 mb-5 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600\">eng</button> <button class=\"border-2 mb-5 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600\">eng</button> <button class=\"border-2 mb-5 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600\">eng</button> <button class=\"border-2 mb-5 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600\">eng</button> <button class=\"border-2 mb-5 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600\">eng</button></div><p class=\"relative left-2 top-40 text-xs text-left\">Copyright &copy; Vladan Anđelković 2022-2024.</p></body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en-US\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link href=\"static/output.css\" rel=\"stylesheet\"><title>Komponente</title></head><body class=\"relative m-auto max-w-md top-2 h-screen bg-gradient-to-br from-sky-200 via-emerald-200 to-amber-100\"><div class=\"absolute w-96 h-60 bg-slate-500\"><a href=\"/\" class=\"absolute top-20 w-28 left-4 bg-red-500\"><img src=\"static/vezbamo_logo6.svg\" height=\"25\" width=\"25\">imageeeeeeeeeeeeeee</a><div class=\"relative w-40 h-20 bg-blue-500\">blue<div class=\"absolute w-30 h-10 bg-green-300\">green child</div></div><div class=\"relative top-40 w-20 h-10 bg-green-900\">green parent too long for boxxxxx</div></div><div class=\"relative top-72 w-96 h-60 bg-lime-300\"><a href=\"/\" class=\"absolute top-20 w-28 left-4 bg-red-500\"><img src=\"static/vezbamo_logo6.svg\" height=\"25\" width=\"25\">imaggggg</a><div class=\"absolute w-40 h-20 bg-blue-500\">rel blue<div class=\"absolute w-30 h-10 bg-green-300\">rel green child</div></div><div class=\"absolute top-40 w-20 h-10 bg-green-900\">green parent too long going out</div></div><!--\n\n    \n\n    --></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -91,6 +91,8 @@ templ Layout(store sessions.Store, r *http.Request) {
 	// bg-gradient-to-br from-sky-400 via-emerald-200 to-amber-200
 	// sdffsdfas
 
+	// bg-gradient-to-br from-sky-200 via-emerald-200 to-amber-100
+
   <!DOCTYPE html>
 	<html lang="en-US">
 
@@ -104,18 +106,34 @@ templ Layout(store sessions.Store, r *http.Request) {
 			<title>Vezbamo</title>
     </head>
 
-    <body class="relative m-auto sm:w-auto max-w-md h-max bg-gradient-to-br from-sky-400 via-emerald-200 to-amber-200">
+    <body class="relative m-auto max-w-md top-2 h-screen bg-gradient-to-br from-sky-200 via-emerald-200 to-amber-100">
 
-      <div id="heading">
-        @Header(store, r)</div>
+			<!--
+			
+			-->
+			<div id="heading" class="relative h-auto">
+        @Header(store, r)
+			</div>
 
-      <div id="wrapper">
+      <div id="wrapper" class="relative h-auto">
         { children... }
       </div>
 
-      <div id="footer">
+      <div id="footer" class="relative h-auto">
         @Footer()
       </div>
+
+			<!--
+      
+			heading
+      @Header(store, r)
+			wrapper
+			{ children... }
+			footer
+      @Footer()
+
+			-->
+
 
     </body>
 		

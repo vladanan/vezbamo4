@@ -22,14 +22,8 @@ func logedin(store sessions.Store, r *http.Request) string {
 
 templ Admin(store sessions.Store, r *http.Request) {
   @views.Layout(store, r) {
-    <h1>.</h1>
-    <h1 class="mt-20">{views.Translate(store, r, "Welcome")}</h1>
-    <br></br>
-    <button class="mx-2 mt-10 text-xl text-green-500" type="button">
-      <p>
-      Coockie logged in: {logedin(store, r)}
-      </p>
-      <a href="/logout">{views.Translate(store, r, "Logout")}</a>
-    </button>
+    <p class="m-5 text-xl">{views.Translate(store, r, "Welcome")}</p>
+
+    <br></br><br></br><br></br><br></br><br></br><br></br>
   }
 }

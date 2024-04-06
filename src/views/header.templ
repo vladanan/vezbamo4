@@ -53,65 +53,53 @@ func getShadow (store sessions.Store, r *http.Request, item string) bool {
 
 }
 
+var cssheader_lang_button string = `text-sm ml-1 px-1 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-md shadow-md `
+
+templ header_lang_button(link string, class string, text string, store sessions.Store, r *http.Request) {
+	<button
+		hx-post={"/"+link}
+		hx-on:click="delayReload()"
+		class={class, templ.KV("shadow-slate-500", !getShadow(store, r, link)), templ.KV("shadow-blue-900", getShadow(store, r, link))}
+	>
+		{text}
+	</button>
+}
+//<div class="relative top-2 bg-red-500"> 
 templ Header(store sessions.Store, r *http.Request) {
 	
-	<a href="/" class="absolute mt-2 mb-5">
-		<img
-			
-			src="static/vezbamo_logo6.svg"
-			height="30"
-			width="30"
-			alt="Vezbamo"
-		/>
-	</a>
-
-
-	<a href="/" class="absolute mt-3 mb-5 ml-10">
-			{Translate(store, r, "Home")}
-	</a>
-
-	<!--
-
-	<a href="/">
-		<button class="mt-2 mb-5 ml-10 px-2 border-2 bg-gradient-to-r from-blue-400 via-white to-sky-100 rounded-md shadow-lg shadow-slate-600 border-slate-500" type="button">
-			{Translate(store, r, "Home")}
-		</button>
-	</a>
-
-	-->
-
-	<div class="absolute mx-2 mb-5 mt-2 right-0 top-0">
-    <button
-			hx-post="/en"
-			hx-on:click="delayReload()"
-			class={"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(store, r, "en"))}
-		>
-			eng
-		</button>
+		<div class="relative top-0 left-2">
+			<a href="/" class="">
+				<img
+					src="static/vezbamo_logo6.svg"
+					height="25"
+					width="25"
+					alt="Vezbamo"
+				/>
+			</a>
+			<!-- <a href="/" class="absolute top-2 left-9 text-sm">Home</a> -->
+		</div>
 		
-		<button
-			hx-post="/es"
-			hx-on:click="delayReload()"
-			class={"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(store, r, "es"))}
-			
-		>
-			esp
-		</button>
+		<div class="absolute top-0 right-2">
 
-    <button
-			hx-post="/sr"
-			hx-on:click="delayReload()"
-			class={"border-2 px-2 bg-gradient-to-r from-green-300 via-white to-yellow-300 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(store, r, "sr"))}
-		>
-			srh
-		</button>
+			@header_lang_button("en", cssheader_lang_button, "eng", store, r)
+			@header_lang_button("sr", cssheader_lang_button, "srh", store, r)
+			@header_lang_button("es", cssheader_lang_button, "esp", store, r)
+			@header_lang_button("browser", cssheader_lang_button, "auto", store, r)
 
-		<button
-			hx-post="/browser"
-			hx-on:click="delayReload()"
-			class={"border-2 px-2 bg-gradient-to-r from-yellow-200 via-white to-green-200 rounded-md shadow-lg border-slate-600", templ.KV("shadow-slate-800", getShadow(store, r, "browser"))}
-		>
-			auto
-		</button>
-	</div>
+			if session, err := store.Get(r, "vezbamo.onrender.com-users"); err == nil {
+				if auth, _ := session.Values["authenticated"].(bool); !auth {
+					<button class="text-sm ml-1 px-1 bg-gradient-to-l from-sky-200 to-amber-100 rounded-md shadow-md shadow-slate-500" type="button">
+						<a href="/login">{Translate(store, r, "Login")}</a>
+					</button>
+				} else {
+					<button class="text-sm ml-1 px-1 bg-gradient-to-l from-sky-200 to-amber-100 rounded-md shadow-md shadow-slate-500" type="button">
+						<a href="/logout">{Translate(store, r, "Logout")}</a>
+					</button>
+				}
+			}
+
+		</div>
+
+	
+	
 }

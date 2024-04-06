@@ -9,23 +9,18 @@ import (
 templ Questions(store sessions.Store, r *http.Request) {
 	@views.Layout(store, r) {
 
-    <!--
-		<p class="mt-20 m-5">Globalni jezik je: {globalLanguage}</p>
-		<p class="mt-20 m-20">Session jezik je: {lang(store, r)}</p>
-		-->
+			<button id="questions" class="m-5 px-2 text-xl text-green-800"
+				hx-get="/htmx_get_questions"
+				hx-trigger="click"
+				hx-target="#questions"
+				hx-swap="outerHTML"
+			>
+				{views.Translate(store, r, "GetFromDb")}
+			</button>
 
-		<ul class=" mt-24 mr-5" id="questions">
-			<li>.</li>
-		</ul>
 
-		<button class=" mt-28 mx-2 text-xl text-green-800"
-			hx-get="/htmx_get_questions"
-			hx-trigger="click"
-			hx-target="#questions"
-			hx-swap="outerHTML"
-		>
-			{views.Translate(store, r, "GetFromDb")}
-		</button>
+		<br></br><br></br><br></br><br></br><br></br><br></br>
+
 
   }
 }

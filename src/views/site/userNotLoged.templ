@@ -8,7 +8,8 @@ import (
 
 templ UserNotLogedPage(store sessions.Store, r *http.Request) {
   @views.Layout(store, r) {
-    <h1>.</h1>
-    <h1 class="mt-20">{views.Translate(store, r, "UnWelcome")}</h1>
+    <p class="m-5 text-xl">{views.Translate(store, r, "UnWelcome")}</p>
+
+    <br></br><br></br><br></br><br></br><br></br><br></br>
   }
 }

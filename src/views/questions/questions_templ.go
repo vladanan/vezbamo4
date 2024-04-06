@@ -35,20 +35,20 @@ func Questions(store sessions.Store, r *http.Request) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!--\n\t\t<p class=\"mt-20 m-5\">Globalni jezik je: {globalLanguage}</p>\n\t\t<p class=\"mt-20 m-20\">Session jezik je: {lang(store, r)}</p>\n\t\t--> <ul class=\" mt-24 mr-5\" id=\"questions\"><li>.</li></ul><button class=\" mt-28 mx-2 text-xl text-green-800\" hx-get=\"/htmx_get_questions\" hx-trigger=\"click\" hx-target=\"#questions\" hx-swap=\"outerHTML\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button id=\"questions\" class=\"m-5 px-2 text-xl text-green-800\" hx-get=\"/htmx_get_questions\" hx-trigger=\"click\" hx-target=\"#questions\" hx-swap=\"outerHTML\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "GetFromDb"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 26, Col: 42}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 17, Col: 43}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button><br><br><br><br><br><br>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

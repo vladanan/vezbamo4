@@ -41,11 +41,12 @@ func reverser (notes []Note) []Note {
 
 templ Notes(store sessions.Store, r *http.Request, notes []byte) {
   @views.Layout(store, r) {
-    <h1>.</h1>
-    <ul class="mt-20">
+    <ul class="">
       for _, item := range reverser(to_struct(notes)) {
         <li class="m-5 px-2 border-2 text-xl rounded-m text-blue-950  ">{ fmt.Sprint(item.B_id) }: { item.Ime_tag }, { item.Tema }, { item.Poruka }</li>
       }
     </ul>
+
+    <br></br><br></br><br></br><br></br><br></br><br></br>
   }
 }

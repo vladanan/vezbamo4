@@ -1,6 +1,6 @@
 Home = "Inicio"
-ClickForQuestions = "Haga clic para preguntas"
-ClickForUserNotes = "Haga clic para ver notas de usuario"
+Questions = "Preguntas"
+UserNotes = "Ver notas de usuario"
 GetFromDb = "Recibe preguntas de db"
 Login = "Acceso"
 Welcome = "¡Has iniciado sesión!"

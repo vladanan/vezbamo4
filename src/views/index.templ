@@ -5,49 +5,52 @@ import (
 	"github.com/gorilla/sessions"
 )
 
+var cssindex_button string = `text-sm ml-1 px-1 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-md shadow-md shadow-slate-500`
+
+templ index_button(link string, class string, text string) {
+  <a href={templ.URL(link)}><button class={class}>{text}</button></a>
+}
+
 templ Index(store sessions.Store, r *http.Request) {
 	@Layout(store, r) {
 
-    <div class="absolute mt-14 mx-10 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-2xl shadow-lg shadow-slate-600 border-2 border-slate-400">
-			<div>
-				<img class="p-3 m-auto"
-					src="static/vezbamo2.svg"
-					height="44"
-					width="350"
-					alt="Vezbamo" />
+		<div class="relative top-4">
+			
+			<div class="w-80 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-2xl shadow-lg shadow-slate-600 border-2 border-slate-400">
+				<div>
+					<img class="p-3 m-auto"
+						src="static/vezbamo2.svg"
+						height="44"
+						width="350"
+						alt="Vezbamo" />
+				</div>
+				<p class="mr-2 mb-1 text-right text-xs">4.0.0-alpha.14.3</p>
 			</div>
-			<p class="mr-2 mb-1 text-right text-xs">4.0.0-alpha.13.9</p>
+
+			<a href="/questions" class="m-auto" >
+				<div style="background-image: url('static/1.jpg')"
+					class="bg-cover m-5 mx-5 p-2 h-60 max-w-md border-2 border-sky-700 rounded-2xl shadow-lg shadow-sky-900 cursor-pointer">
+					<div class="p-2 rounded-xl text-white text-xl align-text-top bg-gradient-to-r from-sky-700 via-transparent to-transparent">
+						<b>Upiši pitanja i mozak je zapamtio već oko 30% od lekcije!</b>
+					</div>
+				</div>
+			</a>
+
+			<div class="w-40 m-auto">
+					@index_button("questions", cssindex_button, Translate(store, r, "Questions"))
+					<br></br>
+					@index_button("notes", cssindex_button, Translate(store, r, "UserNotes"))
+					<br></br>
+					<br></br>
+					@index_button("admin", cssindex_button, "Admin page")
+					<br></br>
+					@index_button("komponents", cssindex_button, "Komponents")
+					<br></br><br></br>
+					<br></br><br></br>
+			</div>
+
 		</div>
 
-		<button class="absolute mx-2 mt-44 text-xl text-green-800" type="button">
-			<a href="/questions">{Translate(store, r, "ClickForQuestions")}</a>
-		</button>
-		<br></br>
-		<button class="absolute mx-2 mt-48 text-xl text-green-800" type="button">
-			<a href="/notes">{Translate(store, r, "ClickForUserNotes")}</a>
-		</button>
-		
-		if session, err := store.Get(r, "vezbamo.onrender.com-users"); err == nil {
-			if auth, _ := session.Values["authenticated"].(bool); !auth {
-				<br></br>
-				<button class="absolute mt-52 mx-2 text-xl text-green-800" type="button">
-					<a href="/login">{Translate(store, r, "Login")}</a>
-				</button>
-			} else {
-				<p></p>
-			}
-		}
 
-		<br></br>
-		<button class="absolute mt-56 mx-2 text-xl text-green-800" type="button">
-			<a href="/admin">admin</a>
-		</button>
-		<br></br>
-
-		<br></br>
-		<button class="absolute mt-60 mx-2 text-xl text-green-800" type="button">
-			<a href="/komponents">komponents</a>
-		</button>
-		<br></br>
   }
 }

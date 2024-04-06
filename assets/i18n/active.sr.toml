@@ -1,6 +1,6 @@
 Home = "Početna"
-ClickForQuestions = "Klikni za pitanja"
-ClickForUserNotes = "Klikni za korisničke beleške"
+Questions = "Pitanja"
+UserNotes = "Korisničke beleške"
 GetFromDb = "Učitaj pitanja iz db"
 Login = "Prijava"
 Welcome = "Prijavljeni ste na sistem!"

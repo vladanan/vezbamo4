@@ -1,6 +1,6 @@
 Home = "Home"
-ClickForQuestions = "Click for questions"
-ClickForUserNotes = "Click for user notes"
+Questions = "Questions"
+UserNotes = "User notes"
 GetFromDb = "Get questions from db"
 Login = "Log in"
 Welcome = "You are logged in!"
