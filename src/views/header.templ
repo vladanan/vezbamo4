@@ -53,7 +53,7 @@ func getShadow (store sessions.Store, r *http.Request, item string) bool {
 
 }
 
-var cssheader_lang_button string = `text-sm ml-1 px-1 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-md shadow-md `
+var cssheader_lang_button string = `text-sm ml-1 px-1 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-sm shadow-md `
 
 templ header_lang_button(link string, class string, text string, store sessions.Store, r *http.Request) {
 	<button
@@ -64,7 +64,7 @@ templ header_lang_button(link string, class string, text string, store sessions.
 		{text}
 	</button>
 }
-//<div class="relative top-2 bg-red-500"> 
+
 templ Header(store sessions.Store, r *http.Request) {
 	
 		<div class="relative top-0 left-2">
@@ -76,8 +76,8 @@ templ Header(store sessions.Store, r *http.Request) {
 					alt="Vezbamo"
 				/>
 			</a>
-			<!-- <a href="/" class="absolute top-2 left-9 text-sm">Home</a> -->
 		</div>
+		<a href="/" class="absolute top-1 left-10 text-sm">{Translate(store, r, "Home")}</a>
 		
 		<div class="absolute top-0 right-2">
 
@@ -88,11 +88,11 @@ templ Header(store sessions.Store, r *http.Request) {
 
 			if session, err := store.Get(r, "vezbamo.onrender.com-users"); err == nil {
 				if auth, _ := session.Values["authenticated"].(bool); !auth {
-					<button class="text-sm ml-1 px-1 bg-gradient-to-l from-sky-200 to-amber-100 rounded-md shadow-md shadow-slate-500" type="button">
+					<button class="text-sm ml-1 px-1 bg-gradient-to-l from-sky-200 to-blue-300 rounded-sm shadow-md shadow-slate-500" type="button">
 						<a href="/login">{Translate(store, r, "Login")}</a>
 					</button>
 				} else {
-					<button class="text-sm ml-1 px-1 bg-gradient-to-l from-sky-200 to-amber-100 rounded-md shadow-md shadow-slate-500" type="button">
+					<button class="text-sm ml-1 px-1 bg-gradient-to-l from-sky-300 to-blue-100 rounded-sm shadow-md shadow-slate-500" type="button">
 						<a href="/logout">{Translate(store, r, "Logout")}</a>
 					</button>
 				}

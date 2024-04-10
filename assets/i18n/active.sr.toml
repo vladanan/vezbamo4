@@ -1,11 +1,12 @@
 Home = "Početna"
-Questions = "Pitanja"
-UserNotes = "Korisničke beleške"
+UserNotes = "Ako želiš da pošalješ poruku uredniku sajta ili prezumeš šablone za pitanja i testove klikni ovde!"
 GetFromDb = "Učitaj pitanja iz db"
 Login = "Prijava"
 Welcome = "Prijavljeni ste na sistem!"
 UnWelcome = "Niste prijavljeni na sistem!"
 Logout = "Odjava"
+Questions1 = "Upiši pitanja i mozak je zapamtio već oko 30% od lekcije!"
+Questions2 = "Prođi kroz nasumično ispitivanje i gotovo je još 30%!"
 
 
 [MyUnreadEmails]

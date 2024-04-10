@@ -1,11 +1,12 @@
 Home = "Home"
-Questions = "Questions"
-UserNotes = "User notes"
+UserNotes = "If you want to send a message to the site editor or download templates for questions and tests, click here!"
 GetFromDb = "Get questions from db"
 Login = "Log in"
 Welcome = "You are logged in!"
 UnWelcome = "You are not logged in!"
 Logout = "Log out"
+Questions1 = "Write the questions and the brain has already memorized about 30% of the lesson!"
+Questions2 = "Pass the random test and it's almost 30% more!"
 
 [MyUnreadEmails]
 description = "The number of unread emails I have"

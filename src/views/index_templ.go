@@ -15,7 +15,7 @@ import (
 	"net/http"
 )
 
-var cssindex_button string = `text-sm ml-1 px-1 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-md shadow-md shadow-slate-500`
+var cssindex_button string = `text-sm ml-1 px-1 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-sm shadow-md shadow-slate-500`
 
 func index_button(link string, class string, text string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
@@ -99,23 +99,46 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-4\"><div class=\"w-80 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-2xl shadow-lg shadow-slate-600 border-2 border-slate-400\"><div><img class=\"p-3 m-auto\" src=\"static/vezbamo2.svg\" height=\"44\" width=\"350\" alt=\"Vezbamo\"></div><p class=\"mr-2 mb-1 text-right text-xs\">4.0.0-alpha.14.3</p></div><a href=\"/questions\" class=\"m-auto\"><div style=\"background-image: url(&#39;static/1.jpg&#39;)\" class=\"bg-cover m-5 mx-5 p-2 h-60 max-w-md border-2 border-sky-700 rounded-2xl shadow-lg shadow-sky-900 cursor-pointer\"><div class=\"p-2 rounded-xl text-white text-xl align-text-top bg-gradient-to-r from-sky-700 via-transparent to-transparent\"><b>Upiši pitanja i mozak je zapamtio već oko 30% od lekcije!</b></div></div></a><div class=\"w-40 m-auto\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-4\"><div class=\"w-80 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-md shadow-lg shadow-slate-600\"><div><img class=\"p-3 m-auto\" src=\"static/vezbamo2.svg\" height=\"44\" width=\"350\" alt=\"Vezbamo\"></div><p class=\"mr-2 mb-1 text-right text-xs\">4.0.0-alpha.14.3</p></div><a href=\"/questions\" class=\"m-auto\"><div style=\"background-image: url(&#39;static/1.jpg&#39;)\" class=\"bg-cover m-5 mx-5 p-2 h-60 max-w-md border-2 border-sky-700 rounded-md shadow-lg shadow-sky-900 cursor-pointer\"><div class=\"p-2 rounded-md text-white text-xl align-text-top bg-gradient-to-r from-sky-700 via-transparent to-transparent\"><b>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = index_button("questions", cssindex_button, Translate(store, r, "Questions")).Render(ctx, templ_7745c5c3_Buffer)
+			var templ_7745c5c3_Var7 string
+			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Questions1"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 33, Col: 43}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<br>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</b></div></div></a> <a href=\"/admin\" class=\"m-auto\"><div style=\"background-image: url(&#39;static/2.jpg&#39;)\" class=\"bg-cover m-5 mx-5 p-2 h-60 max-w-md lg:mx-auto border-2 border-red-700 rounded-md shadow-lg shadow-red-900 cursor-pointer\"><div class=\"p-2 rounded-md text-white text-xl align-text-top bg-gradient-to-t from-transparent via-red-900 to-transparent\"><b>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = index_button("notes", cssindex_button, Translate(store, r, "UserNotes")).Render(ctx, templ_7745c5c3_Buffer)
+			var templ_7745c5c3_Var8 string
+			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Questions2"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 42, Col: 43}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<br><br>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</b></div></div></a> <a href=\"/notes\" class=\"m-auto\"><div style=\"background-image: url(&#39;static/7.jpg&#39;)\" class=\"relative bg-cover m-5 mx-5 p-1 h-60 max-w-md lg:mx-auto border-2 border-amber-800 rounded-md shadow-lg shadow-gray-900\"><div class=\"p-1 absolute top-2 md:top-2 left-2 text-white text-sm md:text-xl text-left rounded-md bg-gradient-to-br from-amber-700 to-transparent cursor-pointer\"><b>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var9 string
+			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "UserNotes"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 51, Col: 42}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</b></div></div></a><div class=\"w-40 m-auto\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

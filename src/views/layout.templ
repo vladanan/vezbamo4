@@ -86,12 +86,6 @@ func Translate (store sessions.Store, r *http.Request, item string) string {
 
 
 templ Layout(store sessions.Store, r *http.Request) {
-	//style="background-color: rgb(70,110,110)"
-	//bg-gradient-to-br from-sky-100 via-emerald-100 to-amber-50
-	// bg-gradient-to-br from-sky-400 via-emerald-200 to-amber-200
-	// sdffsdfas
-
-	// bg-gradient-to-br from-sky-200 via-emerald-200 to-amber-100
 
   <!DOCTYPE html>
 	<html lang="en-US">
@@ -106,11 +100,8 @@ templ Layout(store sessions.Store, r *http.Request) {
 			<title>Vezbamo</title>
     </head>
 
-    <body class="relative m-auto max-w-md top-2 h-screen bg-gradient-to-br from-sky-200 via-emerald-200 to-amber-100">
+    <body class="relative m-auto max-w-md top-2 h-screen bg-gradient-to-br from-sky-100 via-emerald-100 to-blue-100">
 
-			<!--
-			
-			-->
 			<div id="heading" class="relative h-auto">
         @Header(store, r)
 			</div>
@@ -122,18 +113,6 @@ templ Layout(store sessions.Store, r *http.Request) {
       <div id="footer" class="relative h-auto">
         @Footer()
       </div>
-
-			<!--
-      
-			heading
-      @Header(store, r)
-			wrapper
-			{ children... }
-			footer
-      @Footer()
-
-			-->
-
 
     </body>
 		

@@ -4,43 +4,54 @@ package views
 templ Komponents() {
   <!DOCTYPE html>
 	<html lang="en-US">
-
     <head>
       <meta charset="UTF-8"></meta>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       <link href="static/output.css" rel="stylesheet"></link>
       <title>Komponente</title>
     </head>
+    <body class="relative max-w-md bg-gradient-to-br from-sky-300 to-gray-500">
 
-    <body class="relative m-auto max-w-md top-2 h-screen bg-gradient-to-br from-sky-200 via-emerald-200 to-amber-100">
 
+    <div class="relative left-10 w-96 h-60 bg-slate-500">
 
-    <div class="absolute w-96 h-60 bg-slate-500">
-            <a href="/" class="absolute top-20 w-28 left-4 bg-red-500">
-      <img src="static/vezbamo_logo6.svg" height="25" width="25" />imageeeeeeeeeeeeeee</a>
+      <a href="/" class="absolute bottom-7 right-7 w-28 bg-red-500">
+      <img class="static top-4 left-5" src="static/vezbamo_logo6.svg" height="25" width="25" />
+      imageeeeeee4
+      </a>
 
-      <div class="relative w-40 h-20 bg-blue-500">
-        blue
-        <div class="absolute w-30 h-10 bg-green-300">
+      <div class="static w-40 h-20 bg-blue-500">
+        blue parent
+        <div class="static w-30 h-10 bg-green-300">
         green child</div>
       </div>
 
-      <div class="relative top-40 w-20 h-10 bg-green-900">
-        green parent too long for boxxxxx</div>
+      <div class="absolute left-10 top-10 w-20 h-10 bg-green-900">
+        green parent too long for boxxxxx
+      </div>
+
+      <div class="fixed right-0 top-0 w-20 h-20 bg-green-500">
+        greeeeeen
+      </div>
+
     </div>
       
-    <div class="relative top-72 w-96 h-60 bg-lime-300">
-      <a href="/" class="absolute top-20 w-28 left-4 bg-red-500">
-      <img src="static/vezbamo_logo6.svg" height="25" width="25" />imaggggg</a>
 
-      <div class="absolute w-40 h-20 bg-blue-500">
-        rel blue
-        <div class="absolute w-30 h-10 bg-green-300">
+    <div class="static top-10 right-9 w-md h-60 bg-lime-300">
+
+      <a href="/" class="static top-32 w-28 left-4 bg-red-500">
+      <img class="static top-4" src="static/vezbamo_logo6.svg" height="25" width="25" />imaggggg</a>
+
+      <div class="static w-40 h-20 bg-blue-500">
+        rel blue parent
+        <div class="static w-30 h-10 bg-green-300">
         rel green child</div>
       </div>
 
-      <div class="absolute top-40 w-20 h-10 bg-green-900">
-        green parent too long going out</div>
+      <div class="static left-32 top-36 w-20 h-10 bg-green-900">
+        green parent too long going out
+      </div>
+
     </div>  
       
       

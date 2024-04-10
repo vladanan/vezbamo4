@@ -107,7 +107,7 @@ func Layout(store sessions.Store, r *http.Request) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en-US\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link href=\"static/output.css\" rel=\"stylesheet\"><script src=\"static/htmx.min.js\"></script><script src=\"static/reload.js\"></script><link rel=\"icon\" href=\"static/vezbamo_ico4.svg\"><title>Vezbamo</title></head><body class=\"relative m-auto max-w-md top-2 h-screen bg-gradient-to-br from-sky-200 via-emerald-200 to-amber-100\"><!--\n\t\t\t\n\t\t\t--><div id=\"heading\" class=\"relative h-auto\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en-US\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link href=\"static/output.css\" rel=\"stylesheet\"><script src=\"static/htmx.min.js\"></script><script src=\"static/reload.js\"></script><link rel=\"icon\" href=\"static/vezbamo_ico4.svg\"><title>Vezbamo</title></head><body class=\"relative m-auto max-w-md top-2 h-screen bg-gradient-to-br from-sky-100 via-emerald-100 to-blue-100\"><div id=\"heading\" class=\"relative h-auto\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -131,7 +131,7 @@ func Layout(store sessions.Store, r *http.Request) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><!--\n      \n\t\t\theading\n      @Header(store, r)\n\t\t\twrapper\n\t\t\t{ children... }\n\t\t\tfooter\n      @Footer()\n\n\t\t\t--></body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

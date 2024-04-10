@@ -57,7 +57,7 @@ func getShadow(store sessions.Store, r *http.Request, item string) bool {
 
 }
 
-var cssheader_lang_button string = `text-sm ml-1 px-1 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-md shadow-md `
+var cssheader_lang_button string = `text-sm ml-1 px-1 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-sm shadow-md `
 
 func header_lang_button(link string, class string, text string, store sessions.Store, r *http.Request) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
@@ -117,7 +117,6 @@ func header_lang_button(link string, class string, text string, store sessions.S
 	})
 }
 
-// <div class="relative top-2 bg-red-500">
 func Header(store sessions.Store, r *http.Request) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
@@ -131,7 +130,20 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 			templ_7745c5c3_Var4 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-0 left-2\"><a href=\"/\" class=\"\"><img src=\"static/vezbamo_logo6.svg\" height=\"25\" width=\"25\" alt=\"Vezbamo\"></a><!-- <a href=\"/\" class=\"absolute top-2 left-9 text-sm\">Home</a> --></div><div class=\"absolute top-0 right-2\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-0 left-2\"><a href=\"/\" class=\"\"><img src=\"static/vezbamo_logo6.svg\" height=\"25\" width=\"25\" alt=\"Vezbamo\"></a></div><a href=\"/\" class=\"absolute top-1 left-10 text-sm\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var5 string
+		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Home"))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 79, Col: 81}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><div class=\"absolute top-0 right-2\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -153,16 +165,16 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 		}
 		if session, err := store.Get(r, "vezbamo.onrender.com-users"); err == nil {
 			if auth, _ := session.Values["authenticated"].(bool); !auth {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button class=\"text-sm ml-1 px-1 bg-gradient-to-l from-sky-200 to-amber-100 rounded-md shadow-md shadow-slate-500\" type=\"button\"><a href=\"/login\">")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button class=\"text-sm ml-1 px-1 bg-gradient-to-l from-sky-200 to-blue-300 rounded-sm shadow-md shadow-slate-500\" type=\"button\"><a href=\"/login\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var5 string
-				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Login"))
+				var templ_7745c5c3_Var6 string
+				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Login"))
 				if templ_7745c5c3_Err != nil {
 					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 91, Col: 52}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -171,16 +183,16 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 					return templ_7745c5c3_Err
 				}
 			} else {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button class=\"text-sm ml-1 px-1 bg-gradient-to-l from-sky-200 to-amber-100 rounded-md shadow-md shadow-slate-500\" type=\"button\"><a href=\"/logout\">")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button class=\"text-sm ml-1 px-1 bg-gradient-to-l from-sky-300 to-blue-100 rounded-sm shadow-md shadow-slate-500\" type=\"button\"><a href=\"/logout\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var6 string
-				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Logout"))
+				var templ_7745c5c3_Var7 string
+				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Logout"))
 				if templ_7745c5c3_Err != nil {
 					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 95, Col: 54}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
