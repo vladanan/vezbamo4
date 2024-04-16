@@ -35,7 +35,7 @@ func Questions(store sessions.Store, r *http.Request) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button id=\"questions\" class=\"m-5 px-2 text-xl text-green-800\" hx-get=\"/htmx_get_questions\" hx-trigger=\"click\" hx-target=\"#questions\" hx-swap=\"outerHTML\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button id=\"questions\" class=\"m-5 px-2 text-xl text-green-300\" hx-get=\"/htmx_get_questions\" hx-trigger=\"click\" hx-target=\"#questions\" hx-swap=\"outerHTML\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

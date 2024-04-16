@@ -48,14 +48,14 @@ func List(questions []byte) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		for _, item := range to_struct(questions) {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"m-5 px-2 border-2 text-xl rounded-m text-blue-950\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"m-5 px-2 border text-xl rounded-m text-blue-300\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(item.G_id))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questionsList.templ`, Line: 25, Col: 89}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questionsList.templ`, Line: 25, Col: 87}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -68,7 +68,7 @@ func List(questions []byte) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(item.Tip)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questionsList.templ`, Line: 25, Col: 103}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questionsList.templ`, Line: 25, Col: 101}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -81,7 +81,7 @@ func List(questions []byte) templ.Component {
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(item.Oblast)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questionsList.templ`, Line: 25, Col: 120}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questionsList.templ`, Line: 25, Col: 118}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -92,14 +92,14 @@ func List(questions []byte) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul><h1 class=\"m-5 px-2 border-2 text-xl rounded-m text-blue-800\">Pitanje 5 je: ")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul><h1 class=\"m-5 px-2 border-1 text-xl rounded-m text-green-500\">Pitanje 5 je: ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(to_struct(questions)[4].Oblast)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questionsList.templ`, Line: 28, Col: 109}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questionsList.templ`, Line: 28, Col: 110}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {

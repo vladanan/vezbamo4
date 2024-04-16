@@ -9,7 +9,7 @@ import (
 templ Questions(store sessions.Store, r *http.Request) {
 	@views.Layout(store, r) {
 
-			<button id="questions" class="m-5 px-2 text-xl text-green-800"
+			<button id="questions" class="m-5 px-2 text-xl text-green-300"
 				hx-get="/htmx_get_questions"
 				hx-trigger="click"
 				hx-target="#questions"

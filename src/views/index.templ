@@ -15,6 +15,93 @@ templ Index(store sessions.Store, r *http.Request) {
 	@Layout(store, r) {
 
 		<div class="relative top-4">
+
+			<!-- Swiper -->
+			<div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper rounded-md lg:rounded-2xl max-w-sm lg:max-w-max">
+				<div class="parallax-bg" data-swiper-parallax="-23%"></div>
+				<div class="swiper-wrapper">
+
+
+					<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/office-620822_1280.jpg);">
+						<div class="title" data-swiper-parallax="-300">Step 1</div>
+						<div class="subtitle rounded-md bg-gradient-to-r from-sky-700 via-transparent to-transparent" data-swiper-parallax="-200">{Translate(store, r, "Questions1")}</div>
+						<div class="text" data-swiper-parallax="-100">
+							<p>
+								{Translate(store, r, "Questions1-text")}
+							</p>
+						</div>
+					</a>
+
+					<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/people-2569523_1280.jpg);">
+						<div class="title" data-swiper-parallax="-300">Step 2</div>
+						<div class="subtitle rounded-md bg-gradient-to-r from-red-900 via-red-800 to-transparent" data-swiper-parallax="-200">{Translate(store, r, "Questions2")}</div>
+						<div class="text" data-swiper-parallax="-100">
+							<p>
+								{Translate(store, r, "Questions1-text")}
+							</p>
+						</div>
+					</a>
+
+					<a href="/notes" class="swiper-slide cursor-alias" style="background-image: url(static/cat-5331883_1280.jpg);">
+						<div class="title" data-swiper-parallax="-300">Notes</div>
+						<div class="subtitle" data-swiper-parallax="-200">User area</div>
+						<div class="text rounded-md bg-gradient-to-br from-amber-900 via-transparent to-transparent " data-swiper-parallax="-100">
+							<p>
+								{Translate(store, r, "UserNotes")}
+							</p>
+						</div>
+					</a>
+
+					<div class="swiper-slide" style="background-image: url(https://swiperjs.com/demos/images/nature-1.jpg);">
+						<div class="title" data-swiper-parallax="-300">MI</div>
+						<div class="subtitle" data-swiper-parallax="-200">Mega Increment area...</div>
+						<div class="text text-xs lg:text-lg" style="max-width: 800px;" data-swiper-parallax="-100">
+							<p>
+								This site is hosting public API for Mega Increment Visual Studio Code extension core functions.
+								<br></br><br></br>
+								For details please check API Docs, Readme.md for extension and Change log for entire project:
+								MACf API Docs,
+								Readme/manual,
+								Change log,
+								Licence,
+								Extension page at Visual Studio Code marketplace.
+								<br></br><br></br>
+								Does this API cover all functionalities as GUI for Advanced options in VSCode extension?
+								<br></br><br></br>
+								Some of the functionalities are tied to specifics of working space at VSCode editor or GUI Advanced version but all text processing available at extension is also available from this MACf API.
+							</p>
+						</div>
+					</div>
+
+					<div class="swiper-slide border border-gray-800 rounded-2xl">
+						<div class="title" data-swiper-parallax="-300">About</div>
+						<div class="subtitle" data-swiper-parallax="-200">Few words about our projects</div>
+						<div class="text text-xs lg:text-lg " style="max-width: 800px;" data-swiper-parallax="-100">
+							<p>
+								The site is part of a project for learning client and server programming languages and related web technologies.
+								The site also hosts the Mega Increment Visual Studio Code extension's public API and its core functionality.
+								<br></br><br></br>
+								The main purpose of the site is for students to get a quality learning aid through practice in composing questions, answers and tests. In addition, it is intended to be useful for the wider community of students, parents and teachers.
+								<br></br><br></br>
+								Comments and suggestions can be sent through the user portal or to e-mail: y.emailbox-vezbamo@yahoo.com. You can find out more about this project on this link.
+							</p>
+						</div>
+					</div>
+				
+				</div>
+
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-pagination"></div>
+
+			</div>
+			
+		</div>
+
+		
+		<!-- 
+
+		<div class="relative top-4">
 			
 			<div class="w-80 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-md shadow-lg shadow-slate-600">
 				<div>
@@ -54,15 +141,10 @@ templ Index(store sessions.Store, r *http.Request) {
 				</div>
 			</a>
 
-			<div class="w-40 m-auto">
-					@index_button("admin", cssindex_button, "Admin page")
-					<br></br>
-					@index_button("komponents", cssindex_button, "Komponents")
-					<br></br><br></br>
-					<br></br><br></br>
-			</div>
 
 		</div>
+
+		-->
 
 
   }

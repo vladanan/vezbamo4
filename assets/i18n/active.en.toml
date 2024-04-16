@@ -1,12 +1,18 @@
 Home = "Home"
 UserNotes = "If you want to send a message to the site editor or download templates for questions and tests, click here!"
 GetFromDb = "Get questions from db"
-Login = "Log in"
+Login = "Login"
 Welcome = "You are logged in!"
 UnWelcome = "You are not logged in!"
-Logout = "Log out"
+Logout = "Logout"
+
 Questions1 = "Write the questions and the brain has already memorized about 30% of the lesson!"
+
+
+Questions1-text = "We all know that repetition is the mother of learning. This site utilises that very wisdom and is implemented in a way that guides your learning experience through few simple steps. Prepare your notes and keyboard and lets goooo...."
+
 Questions2 = "Pass the random test and it's almost 30% more!"
+
 
 [MyUnreadEmails]
 description = "The number of unread emails I have"

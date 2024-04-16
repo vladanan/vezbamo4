@@ -7,7 +7,7 @@ import (
 	"fmt"
 )
 
-func getShadow (store sessions.Store, r *http.Request, item string) bool {
+func showLanguage (store sessions.Store, r *http.Request, item string) bool {
 
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
 	if err != nil {
@@ -53,13 +53,14 @@ func getShadow (store sessions.Store, r *http.Request, item string) bool {
 
 }
 
-var cssheader_lang_button string = `text-sm ml-1 px-1 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-sm shadow-md `
+// var cssheader_lang_button string = `text-sm ml-1 px-1 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-sm shadow-md `
+var cssheader_lang_button string = `text-sm ml-1 px-1`
 
 templ header_lang_button(link string, class string, text string, store sessions.Store, r *http.Request) {
 	<button
 		hx-post={"/"+link}
 		hx-on:click="delayReload()"
-		class={class, templ.KV("shadow-slate-500", !getShadow(store, r, link)), templ.KV("shadow-blue-900", getShadow(store, r, link))}
+		class={class, templ.KV("text-blue-300", !showLanguage(store, r, link)), templ.KV("text-blue-100", showLanguage(store, r, link))}
 	>
 		{text}
 	</button>
@@ -77,7 +78,7 @@ templ Header(store sessions.Store, r *http.Request) {
 				/>
 			</a>
 		</div>
-		<a href="/" class="absolute top-1 left-10 text-sm">{Translate(store, r, "Home")}</a>
+		<a href="/" class="absolute text-blue-300 top-1 left-10 text-sm">{Translate(store, r, "Home")}</a>
 		
 		<div class="absolute top-0 right-2">
 
@@ -88,11 +89,12 @@ templ Header(store sessions.Store, r *http.Request) {
 
 			if session, err := store.Get(r, "vezbamo.onrender.com-users"); err == nil {
 				if auth, _ := session.Values["authenticated"].(bool); !auth {
-					<button class="text-sm ml-1 px-1 bg-gradient-to-l from-sky-200 to-blue-300 rounded-sm shadow-md shadow-slate-500" type="button">
+					// "text-sm ml-1 px-1 bg-gradient-to-l from-sky-200 to-blue-300 rounded-sm shadow-md shadow-slate-500"
+					<button class="text-sm ml-1 px-1 bg-gradient-to-r from-sky-700 to-blue-400 rounded-sm" type="button">
 						<a href="/login">{Translate(store, r, "Login")}</a>
 					</button>
 				} else {
-					<button class="text-sm ml-1 px-1 bg-gradient-to-l from-sky-300 to-blue-100 rounded-sm shadow-md shadow-slate-500" type="button">
+					<button class="text-sm ml-1 px-1 bg-gradient-to-r from-sky-700 to-blue-400 rounded-sm" type="button">
 						<a href="/logout">{Translate(store, r, "Logout")}</a>
 					</button>
 				}

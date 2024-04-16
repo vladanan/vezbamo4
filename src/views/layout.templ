@@ -91,16 +91,72 @@ templ Layout(store sessions.Store, r *http.Request) {
 	<html lang="en-US">
 
     <head>
+
       <meta charset="UTF-8"></meta>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-      <link href="static/output.css" rel="stylesheet"></link>
-      <script src="static/htmx.min.js"></script>
-			<script src="static/reload.js"></script>
+			<!-- <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" /> --> 
 			<link rel="icon" href="static/vezbamo_ico4.svg" />
 			<title>Vezbamo</title>
+
+			<script src="static/reload.js"></script>			
+			<script src="static/htmx.min.js"></script>			
+      
+			<link href="static/output.css" rel="stylesheet"></link>
+
+			<!-- Link Swiper's CSS -->
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+			<!-- Demo styles height: 100%; -->
+			<style>
+				.swiper {
+					width: 100%;
+					height: 600px;
+
+				}
+
+				.swiper-slide {
+					font-size: 18px;
+					color: #fff;
+					-webkit-box-sizing: border-box;
+					box-sizing: border-box;
+					padding: 40px 60px;
+				}
+
+				.parallax-bg {
+					position: absolute;
+					left: 0;
+					top: 0;
+					width: 130%;
+					height: 100%;
+					-webkit-background-size: cover;
+					background-size: cover;
+					background-position: center;
+				}
+
+				.swiper-slide .title {
+					font-size: 41px;
+					font-weight: 300;
+				}
+
+				.swiper-slide .subtitle {
+					padding: 0.5rem;
+					font-size: 21px;
+					max-width: 400px;
+					line-height: 1.1;
+				}
+
+				.swiper-slide .text {
+					padding: 0.5rem;
+					margin-top: 10px;
+					
+					max-width: 400px;
+					line-height: 1.5;
+				}
+			</style>
+
     </head>
 
-    <body class="relative m-auto max-w-md top-2 h-screen bg-gradient-to-br from-sky-100 via-emerald-100 to-blue-100">
+    <body class="relative m-auto max-w-7xl top-2 h-screen bg-gradient-to-br from-slate-900 via-sky-900 to-blue-900">
 
 			<div id="heading" class="relative h-auto">
         @Header(store, r)
@@ -113,6 +169,25 @@ templ Layout(store sessions.Store, r *http.Request) {
       <div id="footer" class="relative h-auto">
         @Footer()
       </div>
+
+			<!-- Swiper JS -->
+			<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+			<!-- Initialize Swiper -->
+			<script>
+				var swiper = new Swiper(".mySwiper", {
+					speed: 600,
+					parallax: true,
+					pagination: {
+						el: ".swiper-pagination",
+						clickable: true,
+					},
+					navigation: {
+						nextEl: ".swiper-button-next",
+						prevEl: ".swiper-button-prev",
+					},
+				});
+			</script>
 
     </body>
 		

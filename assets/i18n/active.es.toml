@@ -5,8 +5,15 @@ Login = "Acceso"
 Welcome = "¡Has iniciado sesión!"
 UnWelcome = "¡No has iniciado sesión!"
 Logout = "Cerrar sesión"
+
 Questions1 = "¡Escribe las preguntas y el cerebro ya habrá memorizado alrededor del 30% de la lección!"
+
+
+Questions1-text = "Todos sabemos que la repetición es la madre del aprendizaje. Este sitio utiliza esa misma sabiduría y está implementado de una manera que guía su experiencia de aprendizaje a través de unos sencillos pasos. Prepara tus notas y teclado y vámonos...."
+
 Questions2 = "¡Pasa la prueba aleatoria y ganarás casi un 30% más!"
+
+
 
 [MyUnreadEmails]
 description = "The number of unread emails I have"
