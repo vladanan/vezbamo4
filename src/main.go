@@ -45,9 +45,9 @@ func main() {
 
 	http.HandleFunc("/htmx_get_questions", routes.HtmxGetQuestions)
 
-	http.HandleFunc("/en", routes.SetEn)
-	http.HandleFunc("/es", routes.SetEs)
-	http.HandleFunc("/sr", routes.SetSr)
+	http.HandleFunc("/eng", routes.SetEn)
+	http.HandleFunc("/esp", routes.SetEs)
+	http.HandleFunc("/srh", routes.SetSr)
 	http.HandleFunc("/browser", routes.SetBrowserLang)
 
 	//***  A P I

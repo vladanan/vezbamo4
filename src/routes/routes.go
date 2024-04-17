@@ -127,6 +127,7 @@ func HtmxGetQuestions(w http.ResponseWriter, r *http.Request) {
 
 func SetEn(w http.ResponseWriter, r *http.Request) {
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
+	// fmt.Println("engleski podešavanje")
 	if err != nil {
 		// fmt.Println("engleski greška get sessio")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -142,6 +143,7 @@ func SetEn(w http.ResponseWriter, r *http.Request) {
 }
 
 func SetEs(w http.ResponseWriter, r *http.Request) {
+	// fmt.Println("španski podešavanje")
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
 	if err != nil {
 		// fmt.Println("špnski greška get sessio")
@@ -154,8 +156,8 @@ func SetEs(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err2.Error(), http.StatusInternalServerError)
 		return
 	}
-
 }
+
 func SetSr(w http.ResponseWriter, r *http.Request) {
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
 	if err != nil {
@@ -170,8 +172,8 @@ func SetSr(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err2.Error(), http.StatusInternalServerError)
 		return
 	}
-
 }
+
 func SetBrowserLang(w http.ResponseWriter, r *http.Request) {
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
 	if err != nil {

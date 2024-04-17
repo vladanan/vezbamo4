@@ -15,6 +15,8 @@ import (
 	"net/http"
 )
 
+// Resolution 	720 x 1650 pixels (~268 ppi density)
+
 var cssindex_button string = `text-sm ml-1 px-1 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-sm shadow-md shadow-slate-500`
 
 func index_button(link string, class string, text string) templ.Component {
@@ -63,7 +65,7 @@ func index_button(link string, class string, text string) templ.Component {
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(text)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 10, Col: 55}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 12, Col: 55}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
@@ -99,27 +101,27 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-4\"><!-- Swiper --><div style=\"--swiper-navigation-color: #fff; --swiper-pagination-color: #fff\" class=\"swiper mySwiper rounded-md lg:rounded-2xl max-w-sm lg:max-w-max\"><div class=\"parallax-bg\" data-swiper-parallax=\"-23%\"></div><div class=\"swiper-wrapper\"><a href=\"/questions\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/office-620822_1280.jpg);\"><div class=\"title\" data-swiper-parallax=\"-300\">Step 1</div><div class=\"subtitle rounded-md bg-gradient-to-r from-sky-700 via-transparent to-transparent\" data-swiper-parallax=\"-200\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-4\"><!-- Swiper --><div style=\"--swiper-navigation-color: #fff; --swiper-pagination-color: #fff\" class=\"swiper mySwiper lg:rounded-2xl lg:max-w-max\"><div class=\"parallax-bg\" data-swiper-parallax=\"-23%\"></div><div class=\"swiper-wrapper\"><a href=\"/questions\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/office-620822_1280.jpg);\"><div class=\"title\" data-swiper-parallax=\"-300\">Step 1</div><div class=\"subtitle rounded-md bg-gradient-to-r from-sky-700 via-transparent to-transparent\" data-swiper-parallax=\"-200\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var7 string
 			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Questions1"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 26, Col: 162}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 28, Col: 162}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text\" data-swiper-parallax=\"-100\"><p>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text text-sm lg:text-lg\" data-swiper-parallax=\"-100\"><p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var8 string
 			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Questions1-text"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 29, Col: 47}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 31, Col: 47}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {
@@ -132,39 +134,39 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 			var templ_7745c5c3_Var9 string
 			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Questions2"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 36, Col: 158}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 38, Col: 158}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text\" data-swiper-parallax=\"-100\"><p>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text text-sm lg:text-lg\" data-swiper-parallax=\"-100\"><p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var10 string
 			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Questions1-text"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 39, Col: 47}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 41, Col: 47}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a> <a href=\"/notes\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/cat-5331883_1280.jpg);\"><div class=\"title\" data-swiper-parallax=\"-300\">Notes</div><div class=\"subtitle\" data-swiper-parallax=\"-200\">User area</div><div class=\"text rounded-md bg-gradient-to-br from-amber-900 via-transparent to-transparent \" data-swiper-parallax=\"-100\"><p>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a> <a href=\"/notes\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/cat-5331883_1280.jpg);\"><div class=\"title\" data-swiper-parallax=\"-300\">Notes</div><div class=\"subtitle\" data-swiper-parallax=\"-200\">User area</div><div class=\"text text-sm lg:text-lg rounded-md bg-gradient-to-br from-amber-900 via-transparent to-transparent \" data-swiper-parallax=\"-100\"><p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var11 string
 			templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "UserNotes"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 49, Col: 41}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 51, Col: 41}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a><div class=\"swiper-slide\" style=\"background-image: url(https://swiperjs.com/demos/images/nature-1.jpg);\"><div class=\"title\" data-swiper-parallax=\"-300\">MI</div><div class=\"subtitle\" data-swiper-parallax=\"-200\">Mega Increment area...</div><div class=\"text text-xs lg:text-lg\" style=\"max-width: 800px;\" data-swiper-parallax=\"-100\"><p>This site is hosting public API for Mega Increment Visual Studio Code extension core functions.<br><br>For details please check API Docs, Readme.md for extension and Change log for entire project: MACf API Docs, Readme/manual, Change log, Licence, Extension page at Visual Studio Code marketplace.<br><br>Does this API cover all functionalities as GUI for Advanced options in VSCode extension?<br><br>Some of the functionalities are tied to specifics of working space at VSCode editor or GUI Advanced version but all text processing available at extension is also available from this MACf API.</p></div></div><div class=\"swiper-slide border border-gray-800 rounded-2xl\"><div class=\"title\" data-swiper-parallax=\"-300\">About</div><div class=\"subtitle\" data-swiper-parallax=\"-200\">Few words about our projects</div><div class=\"text text-xs lg:text-lg \" style=\"max-width: 800px;\" data-swiper-parallax=\"-100\"><p>The site is part of a project for learning client and server programming languages and related web technologies. The site also hosts the Mega Increment Visual Studio Code extension's public API and its core functionality.<br><br>The main purpose of the site is for students to get a quality learning aid through practice in composing questions, answers and tests. In addition, it is intended to be useful for the wider community of students, parents and teachers.<br><br>Comments and suggestions can be sent through the user portal or to e-mail: y.emailbox-vezbamo@yahoo.com. You can find out more about this project on this link.</p></div></div></div><div class=\"swiper-button-next\"></div><div class=\"swiper-button-prev\"></div><div class=\"swiper-pagination\"></div></div></div><!-- \n\n\t\t<div class=\"relative top-4\">\n\t\t\t\n\t\t\t<div class=\"w-80 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-md shadow-lg shadow-slate-600\">\n\t\t\t\t<div>\n\t\t\t\t\t<img class=\"p-3 m-auto\"\n\t\t\t\t\t\tsrc=\"static/vezbamo2.svg\"\n\t\t\t\t\t\theight=\"44\"\n\t\t\t\t\t\twidth=\"350\"\n\t\t\t\t\t\talt=\"Vezbamo\" />\n\t\t\t\t</div>\n\t\t\t\t<p class=\"mr-2 mb-1 text-right text-xs\">4.0.0-alpha.14.3</p>\n\t\t\t</div>\n\n\t\t\t<a href=\"/questions\" class=\"m-auto\" >\n\t\t\t\t<div style=\"background-image: url('static/1.jpg')\"\n\t\t\t\t\tclass=\"bg-cover m-5 mx-5 p-2 h-60 max-w-md border-2 border-sky-700 rounded-md shadow-lg shadow-sky-900 cursor-pointer\">\n\t\t\t\t\t<div class=\"p-2 rounded-md text-white text-xl align-text-top bg-gradient-to-r from-sky-700 via-transparent to-transparent\">\n\t\t\t\t\t\t<b>{Translate(store, r, \"Questions1\")}</b>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</a>\n\n\t\t\t<a href=\"/admin\" class=\"m-auto\" >\n\t\t\t\t<div style=\"background-image: url('static/2.jpg')\"\n\t\t\t\t\tclass=\"bg-cover m-5 mx-5 p-2 h-60 max-w-md lg:mx-auto border-2 border-red-700 rounded-md shadow-lg shadow-red-900 cursor-pointer\">\n\t\t\t\t\t<div class=\"p-2 rounded-md text-white text-xl align-text-top bg-gradient-to-t from-transparent via-red-900 to-transparent\">\n\t\t\t\t\t\t<b>{Translate(store, r, \"Questions2\")}</b>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</a>\n\t\t\t\n\t\t\t<a href=\"/notes\" class=\"m-auto\" >\n\t\t\t\t<div style=\"background-image: url('static/7.jpg')\"\n\t\t\t\t\tclass=\"relative bg-cover m-5 mx-5 p-1 h-60 max-w-md lg:mx-auto border-2 border-amber-800 rounded-md shadow-lg shadow-gray-900\">\n\t\t\t\t\t<div class=\"p-1 absolute top-2 md:top-2 left-2 text-white text-sm md:text-xl text-left rounded-md bg-gradient-to-br from-amber-700 to-transparent cursor-pointer\">\n\t\t\t\t\t\t<b>{Translate(store, r, \"UserNotes\")}</b>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</a>\n\n\n\t\t</div>\n\n\t\t-->")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a><div class=\"swiper-slide\" style=\"background-image: url(static/Screenshot_20240417_140002_R.png);\"><div class=\"title\" data-swiper-parallax=\"-300\">MI</div><div class=\"subtitle\" data-swiper-parallax=\"-200\">Mega Increment</div><div class=\"text text-xs lg:text-lg text-sky-100 rounded-md bg-gradient-to-br from-neutral-950 via-transparent to-stone-950 \" style=\"max-width: 800px;\" data-swiper-parallax=\"-100\"><p>This site is hosting public API for Mega Increment Visual Studio Code extension core functions.<br><br>For details please check Readme.md, API Docs and Changelog on this link.<br>Check extension page at Visual Studio Code marketplace.<br><br>Does this API cover all functionalities as GUI for Advanced options in VSCode extension?<br><br>Some of the functionalities are tied to specifics of working space at VSCode editor or GUI Advanced version but all text processing available at extension is also available from this MACf API.</p></div></div><div class=\"swiper-slide border border-gray-800 rounded-2xl\"><div class=\"title\" data-swiper-parallax=\"-300\">About</div><div class=\"subtitle\" data-swiper-parallax=\"-200\">Few words about our projects</div><div class=\"text text-xs lg:text-lg \" style=\"max-width: 800px;\" data-swiper-parallax=\"-100\"><p>The site is part of a project for learning client and server programming languages and related web technologies. The site also hosts the Mega Increment Visual Studio Code extension's public API and its core functionality.<br><br>The main purpose of the site is for students and others to get a quality learning aid through practice in composing questions, answers and tests.<br><br>Comments can be sent through the user portal or to e-mail: y.emailbox-vezbamo@yahoo.com. You can find out more about this project on this link.</p></div></div></div><div class=\"swiper-button-next\"></div><div class=\"swiper-button-prev\"></div><div class=\"swiper-pagination\"></div></div></div><!-- \n\n\t\t<div class=\"relative top-4\">\n\t\t\t\n\t\t\t<div class=\"w-80 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-md shadow-lg shadow-slate-600\">\n\t\t\t\t<div>\n\t\t\t\t\t<img class=\"p-3 m-auto\"\n\t\t\t\t\t\tsrc=\"static/vezbamo2.svg\"\n\t\t\t\t\t\theight=\"44\"\n\t\t\t\t\t\twidth=\"350\"\n\t\t\t\t\t\talt=\"Vezbamo\" />\n\t\t\t\t</div>\n\t\t\t\t<p class=\"mr-2 mb-1 text-right text-xs\">4.0.0-alpha.14.3</p>\n\t\t\t</div>\n\n\t\t\t<a href=\"/questions\" class=\"m-auto\" >\n\t\t\t\t<div style=\"background-image: url('static/1.jpg')\"\n\t\t\t\t\tclass=\"bg-cover m-5 mx-5 p-2 h-60 max-w-md border-2 border-sky-700 rounded-md shadow-lg shadow-sky-900 cursor-pointer\">\n\t\t\t\t\t<div class=\"p-2 rounded-md text-white text-xl align-text-top bg-gradient-to-r from-sky-700 via-transparent to-transparent\">\n\t\t\t\t\t\t<b>{Translate(store, r, \"Questions1\")}</b>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</a>\n\n\t\t\t<a href=\"/admin\" class=\"m-auto\" >\n\t\t\t\t<div style=\"background-image: url('static/2.jpg')\"\n\t\t\t\t\tclass=\"bg-cover m-5 mx-5 p-2 h-60 max-w-md lg:mx-auto border-2 border-red-700 rounded-md shadow-lg shadow-red-900 cursor-pointer\">\n\t\t\t\t\t<div class=\"p-2 rounded-md text-white text-xl align-text-top bg-gradient-to-t from-transparent via-red-900 to-transparent\">\n\t\t\t\t\t\t<b>{Translate(store, r, \"Questions2\")}</b>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</a>\n\t\t\t\n\t\t\t<a href=\"/notes\" class=\"m-auto\" >\n\t\t\t\t<div style=\"background-image: url('static/7.jpg')\"\n\t\t\t\t\tclass=\"relative bg-cover m-5 mx-5 p-1 h-60 max-w-md lg:mx-auto border-2 border-amber-800 rounded-md shadow-lg shadow-gray-900\">\n\t\t\t\t\t<div class=\"p-1 absolute top-2 md:top-2 left-2 text-white text-sm md:text-xl text-left rounded-md bg-gradient-to-br from-amber-700 to-transparent cursor-pointer\">\n\t\t\t\t\t\t<b>{Translate(store, r, \"UserNotes\")}</b>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</a>\n\n\n\t\t</div>\n\n\t\t-->")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

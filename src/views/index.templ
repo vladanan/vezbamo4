@@ -5,6 +5,8 @@ import (
 	"github.com/gorilla/sessions"
 )
 
+// Resolution 	720 x 1650 pixels (~268 ppi density)
+
 var cssindex_button string = `text-sm ml-1 px-1 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-sm shadow-md shadow-slate-500`
 
 templ index_button(link string, class string, text string) {
@@ -17,7 +19,7 @@ templ Index(store sessions.Store, r *http.Request) {
 		<div class="relative top-4">
 
 			<!-- Swiper -->
-			<div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper rounded-md lg:rounded-2xl max-w-sm lg:max-w-max">
+			<div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper lg:rounded-2xl lg:max-w-max">
 				<div class="parallax-bg" data-swiper-parallax="-23%"></div>
 				<div class="swiper-wrapper">
 
@@ -25,7 +27,7 @@ templ Index(store sessions.Store, r *http.Request) {
 					<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/office-620822_1280.jpg);">
 						<div class="title" data-swiper-parallax="-300">Step 1</div>
 						<div class="subtitle rounded-md bg-gradient-to-r from-sky-700 via-transparent to-transparent" data-swiper-parallax="-200">{Translate(store, r, "Questions1")}</div>
-						<div class="text" data-swiper-parallax="-100">
+						<div class="text text-sm lg:text-lg" data-swiper-parallax="-100">
 							<p>
 								{Translate(store, r, "Questions1-text")}
 							</p>
@@ -35,7 +37,7 @@ templ Index(store sessions.Store, r *http.Request) {
 					<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/people-2569523_1280.jpg);">
 						<div class="title" data-swiper-parallax="-300">Step 2</div>
 						<div class="subtitle rounded-md bg-gradient-to-r from-red-900 via-red-800 to-transparent" data-swiper-parallax="-200">{Translate(store, r, "Questions2")}</div>
-						<div class="text" data-swiper-parallax="-100">
+						<div class="text text-sm lg:text-lg" data-swiper-parallax="-100">
 							<p>
 								{Translate(store, r, "Questions1-text")}
 							</p>
@@ -45,26 +47,23 @@ templ Index(store sessions.Store, r *http.Request) {
 					<a href="/notes" class="swiper-slide cursor-alias" style="background-image: url(static/cat-5331883_1280.jpg);">
 						<div class="title" data-swiper-parallax="-300">Notes</div>
 						<div class="subtitle" data-swiper-parallax="-200">User area</div>
-						<div class="text rounded-md bg-gradient-to-br from-amber-900 via-transparent to-transparent " data-swiper-parallax="-100">
+						<div class="text text-sm lg:text-lg rounded-md bg-gradient-to-br from-amber-900 via-transparent to-transparent " data-swiper-parallax="-100">
 							<p>
 								{Translate(store, r, "UserNotes")}
 							</p>
 						</div>
 					</a>
 
-					<div class="swiper-slide" style="background-image: url(https://swiperjs.com/demos/images/nature-1.jpg);">
+					<div class="swiper-slide" style="background-image: url(static/Screenshot_20240417_140002_R.png);">
 						<div class="title" data-swiper-parallax="-300">MI</div>
-						<div class="subtitle" data-swiper-parallax="-200">Mega Increment area...</div>
-						<div class="text text-xs lg:text-lg" style="max-width: 800px;" data-swiper-parallax="-100">
+						<div class="subtitle" data-swiper-parallax="-200">Mega Increment</div>
+						<div class="text text-xs lg:text-lg text-sky-100 rounded-md bg-gradient-to-br from-neutral-950 via-transparent to-stone-950 " style="max-width: 800px;" data-swiper-parallax="-100">
 							<p>
 								This site is hosting public API for Mega Increment Visual Studio Code extension core functions.
 								<br></br><br></br>
-								For details please check API Docs, Readme.md for extension and Change log for entire project:
-								MACf API Docs,
-								Readme/manual,
-								Change log,
-								Licence,
-								Extension page at Visual Studio Code marketplace.
+								For details please check Readme.md, API Docs and Changelog on this link.
+								<br></br>
+								Check extension page at Visual Studio Code marketplace.
 								<br></br><br></br>
 								Does this API cover all functionalities as GUI for Advanced options in VSCode extension?
 								<br></br><br></br>
@@ -81,9 +80,9 @@ templ Index(store sessions.Store, r *http.Request) {
 								The site is part of a project for learning client and server programming languages and related web technologies.
 								The site also hosts the Mega Increment Visual Studio Code extension's public API and its core functionality.
 								<br></br><br></br>
-								The main purpose of the site is for students to get a quality learning aid through practice in composing questions, answers and tests. In addition, it is intended to be useful for the wider community of students, parents and teachers.
+								The main purpose of the site is for students and others to get a quality learning aid through practice in composing questions, answers and tests.
 								<br></br><br></br>
-								Comments and suggestions can be sent through the user portal or to e-mail: y.emailbox-vezbamo@yahoo.com. You can find out more about this project on this link.
+								Comments can be sent through the user portal or to e-mail: y.emailbox-vezbamo@yahoo.com. You can find out more about this project on this link.
 							</p>
 						</div>
 					</div>

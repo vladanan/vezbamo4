@@ -23,7 +23,7 @@ func Footer() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"relative top-10 left-2 text-blue-300 text-xs text-left\">Vezbamo: 4.0.0-alpha.15.1</p><p class=\"relative top-10 left-2 text-blue-400 text-xs text-left\">Copyright &copy; Vladan Anđelković 2022-2024.</p><a href=\"admin\" class=\"absolute top-10 right-2 text-red-300 text-xs text-left\">test admin</a> <a href=\"komponents\" class=\"absolute top-14 right-2 text-green-300 text-xs text-left\">test komponents</a>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"relative top-10 left-2 text-blue-300 text-xs text-left\">Vezbamo: 4.0.0-alpha.15.3</p><p class=\"relative top-10 left-2 text-blue-400 text-xs text-left\">Copyright &copy; Vladan Anđelković 2022-2024.</p><a href=\"admin\" class=\"absolute top-10 right-2 text-red-300 text-xs text-left\">test admin</a> <a href=\"komponents\" class=\"absolute top-14 right-2 text-green-300 text-xs text-left\">test komponents</a>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
