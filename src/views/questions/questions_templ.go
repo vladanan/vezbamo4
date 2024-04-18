@@ -42,13 +42,91 @@ func Questions(store sessions.Store, r *http.Request) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "GetFromDb"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 17, Col: 43}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 17, Col: 42}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button><br><br><br><br><br><br>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button><div class=\"relative top-4\"><!-- Swiper --><div style=\"--swiper-navigation-color: #fff; --swiper-pagination-color: #fff\" class=\"swiper mySwiper lg:rounded-2xl lg:max-w-max\"><div class=\"parallax-bg\" data-swiper-parallax=\"-23%\"></div><div class=\"swiper-wrapper\"><a href=\"/questions\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/office-620822_1280.jpg);\"><div class=\"title\" data-swiper-parallax=\"-300\">Step 1</div><div class=\"subtitle rounded-md bg-gradient-to-r from-sky-700 via-transparent to-transparent\" data-swiper-parallax=\"-200\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var4 string
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions1"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 30, Col: 168}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text text-sm lg:text-lg\" data-swiper-parallax=\"-100\"><p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var5 string
+			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions1-text"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 33, Col: 53}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a> <a href=\"/questions\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/people-2569523_1280.jpg);\"><div class=\"title\" data-swiper-parallax=\"-300\">Step 2</div><div class=\"subtitle rounded-md bg-gradient-to-r from-red-950 via-red-900 to-transparent\" data-swiper-parallax=\"-200\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var6 string
+			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions2"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 40, Col: 164}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text text-sm lg:text-lg \" data-swiper-parallax=\"-100\"><p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var7 string
+			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions1-text"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 43, Col: 53}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a> <a href=\"/questions\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/zachary-nelson-98Elr-LIvD8-unsplash-1280_C.jpg);\"><div class=\"title text-black \" data-swiper-parallax=\"-300\">Step 3</div><div class=\"subtitle text-black \" data-swiper-parallax=\"-200\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var8 string
+			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions2"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 50, Col: 108}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text text-sm lg:text-lg w-52 text-black rounded-md bg-gradient-to-bl from-blue-200 via-transparent to-transparent\" data-swiper-parallax=\"-100\"><p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var9 string
+			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions1-text"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 53, Col: 53}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a></div><div class=\"swiper-button-next\"></div><div class=\"swiper-button-prev\"></div><div class=\"swiper-pagination\"></div></div></div><br><br><br><br><br><br>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
