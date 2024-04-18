@@ -1,10 +1,10 @@
 Home = "Home"
 UserNotes = "If you want to send a message to the site editor or download templates for questions and tests, click here!"
 GetFromDb = "Get questions from db"
-Login = "Login"
-Welcome = "You are logged in!"
-UnWelcome = "You are not logged in!"
-Logout = "Logout"
+Login = "Sign in"
+Welcome = "You are signed in!"
+UnWelcome = "You are not signed in!"
+Logout = "Sign out"
 
 Questions1 = "Write the questions and the brain has already memorized about 30% of the lesson!"
 

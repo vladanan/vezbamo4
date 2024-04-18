@@ -12,6 +12,7 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/vladanan/vezbamo4/src/db"
 	views "github.com/vladanan/vezbamo4/src/views"
+	assignments "github.com/vladanan/vezbamo4/src/views/assignments"
 	questions "github.com/vladanan/vezbamo4/src/views/questions"
 	site "github.com/vladanan/vezbamo4/src/views/site"
 )
@@ -53,9 +54,33 @@ func GoToQuestions(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(questions.Questions(store, r)).Component.Render(context.Background(), w)
 }
 
+func GoToQuestionsAPI(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(questions.QuestionsAPI(store, r)).Component.Render(context.Background(), w)
+}
+
+func GoToAssignments(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(assignments.Assignments(store, r)).Component.Render(context.Background(), w)
+}
+
 func GoToNotes(w http.ResponseWriter, r *http.Request) {
 	// fmt.Println(db.GetNotes())
 	templ.Handler(site.Notes(store, r, db.GetNotes())).Component.Render(context.Background(), w)
+}
+
+func GoToMegaIncrement(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(site.MegaIncrement(store, r)).Component.Render(context.Background(), w)
+}
+
+func GoToHistory(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(site.History(store, r)).Component.Render(context.Background(), w)
+}
+
+func GoToPrivacy(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(site.Privacy(store, r)).Component.Render(context.Background(), w)
+}
+
+func GoToTerms(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(site.Terms(store, r)).Component.Render(context.Background(), w)
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {

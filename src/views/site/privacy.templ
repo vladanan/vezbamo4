@@ -1,0 +1,39 @@
+package site
+
+import (
+  "net/http"
+  "github.com/vladanan/vezbamo4/src/views"
+	"github.com/gorilla/sessions"
+)
+
+templ Privacy(store sessions.Store, r *http.Request) {
+  @views.Layout(store, r) {
+
+    <div class="relative top-4 m-5 text-blue-300">
+
+      <p class="text-2xl">Politika privatnosti</p>
+
+			<p>
+				Sajt ne prikuplja nikakve lične podatke ni kolačiće (cookies).
+			</p>
+
+			<p>
+				This site does not collect any personal data or cookies.
+			</p>
+
+			<p>
+				Pogledati i&nbsp;
+				<a href="/terms">
+					pravila upotrebe sajta / Terms of Use
+				</a>
+				.
+			</p>
+
+      <p class="text-xl text-blue-300">{views.Translate(store, r, "UnWelcome")}</p>
+
+    </div>
+      
+
+    <br></br><br></br><br></br><br></br><br></br><br></br>
+  }
+}

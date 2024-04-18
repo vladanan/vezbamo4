@@ -35,29 +35,16 @@ func Questions(store sessions.Store, r *http.Request) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button id=\"questions\" class=\"m-5 px-2 text-xl text-green-300\" hx-get=\"/htmx_get_questions\" hx-trigger=\"click\" hx-target=\"#questions\" hx-swap=\"outerHTML\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-4\"><!-- Swiper --><div style=\"--swiper-navigation-color: #fff; --swiper-pagination-color: #fff\" class=\"swiper mySwiper lg:rounded-2xl lg:max-w-max\"><div class=\"parallax-bg\" data-swiper-parallax=\"-23%\"></div><div class=\"swiper-wrapper\"><a href=\"/questions\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/office-620822_1280_Cr.jpg);\"><div class=\"title\" data-swiper-parallax=\"-300\">Step 1</div><div class=\"subtitle rounded-md bg-gradient-to-r from-sky-700 via-transparent to-transparent\" data-swiper-parallax=\"-200\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var3 string
-			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "GetFromDb"))
+			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions1"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 17, Col: 42}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 21, Col: 169}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button><div class=\"relative top-4\"><!-- Swiper --><div style=\"--swiper-navigation-color: #fff; --swiper-pagination-color: #fff\" class=\"swiper mySwiper lg:rounded-2xl lg:max-w-max\"><div class=\"parallax-bg\" data-swiper-parallax=\"-23%\"></div><div class=\"swiper-wrapper\"><a href=\"/questions\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/office-620822_1280.jpg);\"><div class=\"title\" data-swiper-parallax=\"-300\">Step 1</div><div class=\"subtitle rounded-md bg-gradient-to-r from-sky-700 via-transparent to-transparent\" data-swiper-parallax=\"-200\">")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var4 string
-			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions1"))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 30, Col: 168}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -65,12 +52,12 @@ func Questions(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var5 string
-			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions1-text"))
+			var templ_7745c5c3_Var4 string
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions1-text"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 33, Col: 53}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 24, Col: 54}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -78,12 +65,12 @@ func Questions(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var6 string
-			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions2"))
+			var templ_7745c5c3_Var5 string
+			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions2"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 40, Col: 164}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 31, Col: 165}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -91,12 +78,12 @@ func Questions(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var7 string
-			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions1-text"))
+			var templ_7745c5c3_Var6 string
+			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions1-text"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 43, Col: 53}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 34, Col: 54}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -104,12 +91,12 @@ func Questions(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var8 string
-			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions2"))
+			var templ_7745c5c3_Var7 string
+			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions2"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 50, Col: 108}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 41, Col: 109}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -117,16 +104,29 @@ func Questions(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var9 string
-			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions1-text"))
+			var templ_7745c5c3_Var8 string
+			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Questions1-text"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 53, Col: 53}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 44, Col: 54}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a></div><div class=\"swiper-button-next\"></div><div class=\"swiper-button-prev\"></div><div class=\"swiper-pagination\"></div></div></div><button id=\"questions\" class=\"m-5 px-2 text-xl text-green-300\" hx-get=\"/htmx_get_questions\" hx-trigger=\"click\" hx-target=\"#questions\" hx-swap=\"outerHTML\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var9 string
+			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "GetFromDb"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/questions/questions.templ`, Line: 66, Col: 42}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a></div><div class=\"swiper-button-next\"></div><div class=\"swiper-button-prev\"></div><div class=\"swiper-pagination\"></div></div></div><br><br><br><br><br><br>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button><br><br><br><br><br><br>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

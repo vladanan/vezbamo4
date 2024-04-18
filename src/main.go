@@ -24,8 +24,16 @@ func main() {
 
 	//http.Handle("/questions", templ.Handler(questions.Questions()))
 	http.HandleFunc("/questions", routes.GoToQuestions)
+	http.HandleFunc("/questions_api", routes.GoToQuestionsAPI)
+	http.HandleFunc("/assignments", routes.GoToAssignments)
 
 	http.HandleFunc("/notes", routes.GoToNotes)
+
+	http.HandleFunc("/mega_increment", routes.GoToMegaIncrement)
+
+	http.HandleFunc("/history", routes.GoToHistory)
+	http.HandleFunc("/privacy", routes.GoToPrivacy)
+	http.HandleFunc("/terms", routes.GoToTerms)
 
 	// http.Handle("/404", http.NotFoundHandler())
 	http.HandleFunc("/404", func(w http.ResponseWriter, r *http.Request) {

@@ -41,6 +41,9 @@ func reverser (notes []Note) []Note {
 
 templ Notes(store sessions.Store, r *http.Request, notes []byte) {
   @views.Layout(store, r) {
+    <p class="m-5 text-blue-300 font-bold text-3xl">
+        Notes, contact, FAQ
+    </p>
     <ul class="">
       for _, item := range reverser(to_struct(notes)) {
         <li class="m-5 px-2 border text-xl  rounded-m text-blue-300  ">{ fmt.Sprint(item.B_id) }: { item.Ime_tag }, { item.Tema }, { item.Poruka }</li>

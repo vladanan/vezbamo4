@@ -24,7 +24,7 @@ templ Index(store sessions.Store, r *http.Request) {
 				<div class="swiper-wrapper">
 
 
-					<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/office-620822_1280.jpg);">
+					<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/office-620822_1280_C.jpg);">
 						<div class="title" data-swiper-parallax="-300">Tests</div>
 						<div class="subtitle rounded-md bg-gradient-to-r from-sky-700 via-transparent to-transparent" data-swiper-parallax="-200">{Translate(store, r, "Questions1")}</div>
 						<div class="text text-sm lg:text-lg" data-swiper-parallax="-100">
@@ -34,7 +34,7 @@ templ Index(store sessions.Store, r *http.Request) {
 						</div>
 					</a>
 
-					<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/windows-p74ndnYWRY4-unsplash-1280_C.jpg);">
+					<a href="/questions_api" class="swiper-slide cursor-alias" style="background-image: url(static/windows-p74ndnYWRY4-unsplash-1280_C.jpg);">
 						<div class="title w-60 text-black rounded-md bg-gradient-to-r from-transparent via-transparent to-blue-200" data-swiper-parallax="-300">API for tests</div>
 						<div class="subtitle w-32 text-black" data-swiper-parallax="-200">{Translate(store, r, "Questions2")}</div>
 						<div class="relative text top-10 text-black font-bold text-sm lg:text-lg rounded-md bg-gradient-to-r from-transparent via-blue-700 to-transparent" data-swiper-parallax="-100">
@@ -44,10 +44,10 @@ templ Index(store sessions.Store, r *http.Request) {
 						</div>
 					</a>
 
-					<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/abacus-1866497_1280.jpg);">
-						<div class="title px-2 mb-2 w-96  rounded-md bg-gradient-to-r from-red-950 via-red-900 to-transparent" data-swiper-parallax="-300">Assignments</div>
-						<div class="subtitle rounded-md bg-gradient-to-r from-blue-950 via-blue-900 to-transparent" data-swiper-parallax="-200">{Translate(store, r, "Questions2")}</div>
-						<div class="text text-sm lg:text-lg rounded-md bg-gradient-to-r from-green-950 via-green-900 to-transparent" data-swiper-parallax="-100">
+					<a href="/assignments" class="swiper-slide cursor-alias" style="background-image: url(static/abacus-1866497_1280.jpg);">
+						<div class="title px-2 mb-2 w-96 rounded-md bg-gradient-to-r from-red-700 via-red-500 to-transparent" data-swiper-parallax="-300">Assignments</div>
+						<div class="subtitle rounded-md bg-gradient-to-r from-sky-700 via-sky-500 to-transparent" data-swiper-parallax="-200">{Translate(store, r, "Questions2")}</div>
+						<div class="text text-sm lg:text-lg rounded-md bg-gradient-to-r from-green-700 via-green-500 to-transparent" data-swiper-parallax="-100">
 							<p>
 								{Translate(store, r, "Questions1-text")}
 							</p>
@@ -55,78 +55,101 @@ templ Index(store sessions.Store, r *http.Request) {
 					</a>
 
 					<a href="/notes" class="swiper-slide cursor-alias" style="background-image: url(static/cat-5331883_1280.jpg);">
-						<div class="title" data-swiper-parallax="-300">Notes</div>
-						<div class="subtitle" data-swiper-parallax="-200">User area</div>
-						<div class="text text-sm lg:text-lg rounded-md bg-gradient-to-br from-amber-900 via-transparent to-transparent " data-swiper-parallax="-100">
+						<div class="title px-2 w-60 rounded-md bg-gradient-to-tr from-amber-950 via-amber-800 to-transparent" data-swiper-parallax="-300">User portal</div>
+						<div class="subtitle" data-swiper-parallax="-200">Notes, contact, FAQ</div>
+						<div class="text text-sm lg:text-lg rounded-md bg-gradient-to-br from-amber-900 via-transparent to-transparent" data-swiper-parallax="-100">
 							<p>
 								{Translate(store, r, "UserNotes")}
 							</p>
 						</div>
 					</a>
 
-					<div class="swiper-slide" style="background-image: url(static/Screenshot_20240417_140002_R_c.png);">
+					<a
+						href="https://marketplace.visualstudio.com/items?itemName=vladan-andjelkovic.mega-increment"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="swiper-slide cursor-alias"
+						style="background-image: url(static/Screenshot_20240417_140002_R_c.png);"
+					>
 						<div class="title" data-swiper-parallax="-300">MI</div>
 						<div class="subtitle" data-swiper-parallax="-200">Mega Increment</div>
-						<div class="text text-xs lg:text-lg text-sky-100 rounded-md bg-gradient-to-br from-neutral-950 via-transparent to-stone-950 " style="max-width: 800px;" data-swiper-parallax="-100">
+						<div class="text text-xs lg:text-lg text-sky-200 rounded-md bg-gradient-to-br from-transparent via-neutral-950 to-transparent " style="max-width: 800px;" data-swiper-parallax="-100">
 							<p>
-								This site is hosting public API for Mega Increment Visual Studio Code extension core functions.
+								Mega-increment Visual Studio Code extension is intended to ease parallel independent incrementations and decrementations in various strings. It can be used in writing code for lists, enums, arrays, tests, html and xml tags, csv files, data base examples and tests, date-time iterations, hexadecimal and binary register allocations and many other uses.
 								<br></br><br></br>
-								For details please check Readme.md, API Docs and Changelog on this link.
-								<br></br>
-								Check extension page at Visual Studio Code marketplace.
-								<br></br><br></br>
-								Does this API cover all functionalities as GUI for Advanced options in VSCode extension?
-								<br></br><br></br>
-								Some of the functionalities are tied to specifics of working space at VSCode editor or GUI Advanced version but all text processing available at extension is also available from this MACf API.
+								<span class="text-sky-300">Click to see extension Readme page at Visual Studio Code marketplace.</span>
 							</p>
 						</div>
-					</div>
+					</a>
 					
-					<div class="swiper-slide" style="background-image: url(static/Screenshot_20240418_083903_CC.png);">
-						<div class="title" data-swiper-parallax="-300">MI</div>
+					<a
+						href="https://github.com/vladanan/mega-increment/blob/master/PublicAPIDocs.md"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="swiper-slide cursor-alias"
+						style="background-image: url(static/Screenshot_20240418_083903_CC.png);"
+					>
+						<div class="title" data-swiper-parallax="-300">MACf</div>
 						<div class="subtitle" data-swiper-parallax="-200">Mega Increment API</div>
-						<div class="text text-xs lg:text-lg text-sky-100 rounded-md bg-gradient-to-br from-neutral-950 via-transparent to-stone-950 " style="max-width: 800px;" data-swiper-parallax="-100">
+						<div class="text text-xs lg:text-lg text-sky-200 rounded-md bg-gradient-to-br from-neutral-950 via-transparent to-stone-950 " style="max-width: 800px;" data-swiper-parallax="-100">
 							<p>
-								This site is hosting public API for Mega Increment Visual Studio Code extension core functions.
+								This site is hosting public API for Mega Increment Visual Studio Code extension Core functions.
 								<br></br><br></br>
-								For details please check Readme.md, API Docs and Changelog on this link.
-								<br></br>
-								Check extension page at Visual Studio Code marketplace.
+								<span class="text-sky-300 font-bold">Click to check the Docs</span>
 								<br></br><br></br>
 								Does this API cover all functionalities as GUI for Advanced options in VSCode extension?
 								<br></br><br></br>
 								Some of the functionalities are tied to specifics of working space at VSCode editor or GUI Advanced version but all text processing available at extension is also available from this MACf API.
 							</p>
 						</div>
-					</div>
+					</a>
 
-					<div class="swiper-slide border border-gray-800 rounded-2xl">
-						<div class="title" data-swiper-parallax="-300">EDV</div>
+					<a
+						href="https://github.com/vladanan/uxv"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="swiper-slide cursor-alias border border-gray-800 rounded-2xl"
+					>
+						<div class="title" data-swiper-parallax="-300">uxv/EDV</div>
 						<div class="subtitle" data-swiper-parallax="-200">Single-character command line editor</div>
 						<div class="text text-xs lg:text-lg " style="max-width: 800px;" data-swiper-parallax="-100">
 							<p>
-								The site is part of a project for learning client and server programming languages and related web technologies.
-								The site also hosts the Mega Increment Visual Studio Code extension's public API and its core functionality.
+								I plan for edv not to be a full screen editor like vi(m) nor even a single line editor as ed. Instead edv will be a single character editor, as strange as it sounds, but with, I hope, some special and interesting features.
 								<br></br><br></br>
-								The main purpose of the site is for students and others to get a quality learning aid through practice in composing questions, answers and tests.
+								Readme.md file and Go code for edv were entirely written on Solaris (OpenIndiana) vm and in ed in their first iterations.
 								<br></br><br></br>
-								Comments can be sent through the user portal or to e-mail: y.emailbox-vezbamo@yahoo.com. You can find out more about this project on this link.
+								Programming of edv started in ed on Solaris as some kind of distant enactment of Ken writing ancient Unix software on qed and Model 33 Teletype.
+								<br></br><br></br>
+								<span class="text-sky-300">Click to see project page at GigHub.</span>
 							</p>
 						</div>
-					</div>
+					</a>
 
 					<div class="swiper-slide border border-gray-800 rounded-2xl">
 						<div class="title" data-swiper-parallax="-300">Links</div>
-						<div class="subtitle" data-swiper-parallax="-200">Navigate through the whole site</div>
+						<div class="subtitle" data-swiper-parallax="-200">Navigate through the site</div>
 						<div class="text text-xs lg:text-lg " style="max-width: 800px;" data-swiper-parallax="-100">
-							<p>
-								The site is part of a project for learning client and server programming languages and related web technologies.
-								The site also hosts the Mega Increment Visual Studio Code extension's public API and its core functionality.
-								<br></br><br></br>
-								The main purpose of the site is for students and others to get a quality learning aid through practice in composing questions, answers and tests.
-								<br></br><br></br>
-								Comments can be sent through the user portal or to e-mail: y.emailbox-vezbamo@yahoo.com. You can find out more about this project on this link.
-							</p>
+								<a href="/questions">Qestions and tests</a>
+								<br></br>
+								<a href="/questions_api">Questions API</a>
+								<br></br>
+								<a href="/assignments">Assignments</a>
+								<br></br>
+								<a href="/notes">User portal, conntact and FAQ</a>
+								<br></br>
+								<a href="/mega_increment">Mega Increment</a>
+								<br></br>
+								<a
+									href="https://github.com/vladanan/uxv"
+									target="_blank"
+									rel="noopener noreferrer"
+								>uxv/EDV at GitHub</a>
+								<br></br>
+								<a href="/history">Projects about and history</a>
+								<br></br>
+								<a href="/privacy">Privacy Policy</a>
+								<br></br>
+								<a href="/terms">Terms of Use</a>
 						</div>
 					</div>
 
@@ -135,12 +158,15 @@ templ Index(store sessions.Store, r *http.Request) {
 						<div class="subtitle" data-swiper-parallax="-200">Few words about our projects</div>
 						<div class="text text-xs lg:text-lg " style="max-width: 800px;" data-swiper-parallax="-100">
 							<p>
-								The site is part of a project for learning client and server programming languages and related web technologies.
-								The site also hosts the Mega Increment Visual Studio Code extension's public API and its core functionality.
+								The site is part of a project for learning programming languages and web technologies.
+								<br></br>
+								The site also hosts the Mega Increment Visual Studio Code extension's public API and its Core functions.
 								<br></br><br></br>
-								The main purpose of the site is for students and others to get a quality learning aid through practice in composing questions, answers and tests.
+								Students and others can use quality learning aid through practice in composing questions, answers and tests.<br></br>Programmers can learn and practice backend, frontend and fullstack by using questions API and ready made exaple projects.
 								<br></br><br></br>
-								Comments can be sent through the user portal or to e-mail: y.emailbox-vezbamo@yahoo.com. You can find out more about this project on this link.
+								Comments can be sent through the <a href="/notes" class="text-blue-300" href="history">user portal</a>.
+								<br></br>
+								You can find out more about this project on this <a href="/history" class="text-blue-300" href="history">link</a>.
 							</p>
 						</div>
 					</div>

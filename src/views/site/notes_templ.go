@@ -70,7 +70,7 @@ func Notes(store sessions.Store, r *http.Request, notes []byte) templ.Component 
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<ul class=\"\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"m-5 text-blue-300 font-bold text-3xl\">Notes, contact, FAQ</p><ul class=\"\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -82,7 +82,7 @@ func Notes(store sessions.Store, r *http.Request, notes []byte) templ.Component 
 				var templ_7745c5c3_Var3 string
 				templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(item.B_id))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/notes.templ`, Line: 45, Col: 94}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/notes.templ`, Line: 48, Col: 94}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 				if templ_7745c5c3_Err != nil {
@@ -95,7 +95,7 @@ func Notes(store sessions.Store, r *http.Request, notes []byte) templ.Component 
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(item.Ime_tag)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/notes.templ`, Line: 45, Col: 112}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/notes.templ`, Line: 48, Col: 112}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
@@ -108,7 +108,7 @@ func Notes(store sessions.Store, r *http.Request, notes []byte) templ.Component 
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(item.Tema)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/notes.templ`, Line: 45, Col: 127}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/notes.templ`, Line: 48, Col: 127}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -121,7 +121,7 @@ func Notes(store sessions.Store, r *http.Request, notes []byte) templ.Component 
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(item.Poruka)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/notes.templ`, Line: 45, Col: 144}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/notes.templ`, Line: 48, Col: 144}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {

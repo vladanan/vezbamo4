@@ -23,7 +23,7 @@ func to_struct (questions []byte) []Question {
 templ List(questions []byte) {
   <ul class="">
   for _, item := range to_struct(questions) {
-    <li class="m-5 px-2 border text-xl rounded-m text-blue-300">{ fmt.Sprint(item.G_id) }: { item.Tip }, { item.Oblast }</li>
+    <li class="m-5 mt-10 px-2 border text-xl rounded-m text-blue-300">{ fmt.Sprint(item.G_id) }: { item.Tip }, { item.Oblast }</li>
   }
   </ul>
   <h1 class="m-5 px-2 border-1 text-xl rounded-m text-green-500">Pitanje 5 je: {to_struct(questions)[4].Oblast}</h1>

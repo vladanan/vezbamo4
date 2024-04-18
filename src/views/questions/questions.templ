@@ -9,52 +9,43 @@ import (
 templ Questions(store sessions.Store, r *http.Request) {
 	@views.Layout(store, r) {
 
-		<button id="questions" class="m-5 px-2 text-xl text-green-300"
-			hx-get="/htmx_get_questions"
-			hx-trigger="click"
-			hx-target="#questions"
-			hx-swap="outerHTML"
-		>
-			{views.Translate(store, r, "GetFromDb")}
-		</button>
-
 		<div class="relative top-4">
 
 			<!-- Swiper -->
 			<div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper lg:rounded-2xl lg:max-w-max">
 				<div class="parallax-bg" data-swiper-parallax="-23%"></div>
-				<div class="swiper-wrapper">
+					<div class="swiper-wrapper">
 
 
-					<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/office-620822_1280.jpg);">
-						<div class="title" data-swiper-parallax="-300">Step 1</div>
-						<div class="subtitle rounded-md bg-gradient-to-r from-sky-700 via-transparent to-transparent" data-swiper-parallax="-200">{views.Translate(store, r, "Questions1")}</div>
-						<div class="text text-sm lg:text-lg" data-swiper-parallax="-100">
-							<p>
-								{views.Translate(store, r, "Questions1-text")}
-							</p>
-						</div>
-					</a>
+						<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/office-620822_1280_Cr.jpg);">
+							<div class="title" data-swiper-parallax="-300">Step 1</div>
+							<div class="subtitle rounded-md bg-gradient-to-r from-sky-700 via-transparent to-transparent" data-swiper-parallax="-200">{views.Translate(store, r, "Questions1")}</div>
+							<div class="text text-sm lg:text-lg" data-swiper-parallax="-100">
+								<p>
+									{views.Translate(store, r, "Questions1-text")}
+								</p>
+							</div>
+						</a>
 
-					<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/people-2569523_1280.jpg);">
-						<div class="title" data-swiper-parallax="-300">Step 2</div>
-						<div class="subtitle rounded-md bg-gradient-to-r from-red-950 via-red-900 to-transparent" data-swiper-parallax="-200">{views.Translate(store, r, "Questions2")}</div>
-						<div class="text text-sm lg:text-lg " data-swiper-parallax="-100">
-							<p>
-								{views.Translate(store, r, "Questions1-text")}
-							</p>
-						</div>
-					</a>
+						<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/people-2569523_1280.jpg);">
+							<div class="title" data-swiper-parallax="-300">Step 2</div>
+							<div class="subtitle rounded-md bg-gradient-to-r from-red-950 via-red-900 to-transparent" data-swiper-parallax="-200">{views.Translate(store, r, "Questions2")}</div>
+							<div class="text text-sm lg:text-lg " data-swiper-parallax="-100">
+								<p>
+									{views.Translate(store, r, "Questions1-text")}
+								</p>
+							</div>
+						</a>
 
-					<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/zachary-nelson-98Elr-LIvD8-unsplash-1280_C.jpg);">
-						<div class="title text-black " data-swiper-parallax="-300">Step 3</div>
-						<div class="subtitle text-black " data-swiper-parallax="-200">{views.Translate(store, r, "Questions2")}</div>
-						<div class="text text-sm lg:text-lg w-52 text-black rounded-md bg-gradient-to-bl from-blue-200 via-transparent to-transparent" data-swiper-parallax="-100">
-							<p>
-								{views.Translate(store, r, "Questions1-text")}
-							</p>
-						</div>
-					</a>
+						<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/zachary-nelson-98Elr-LIvD8-unsplash-1280_C.jpg);">
+							<div class="title text-black " data-swiper-parallax="-300">Step 3</div>
+							<div class="subtitle text-black " data-swiper-parallax="-200">{views.Translate(store, r, "Questions2")}</div>
+							<div class="text text-sm lg:text-lg w-52 text-black rounded-md bg-gradient-to-bl from-blue-200 via-transparent to-transparent" data-swiper-parallax="-100">
+								<p>
+									{views.Translate(store, r, "Questions1-text")}
+								</p>
+							</div>
+						</a>
 
 											
 					</div>
@@ -63,9 +54,18 @@ templ Questions(store sessions.Store, r *http.Request) {
 					<div class="swiper-button-prev"></div>
 					<div class="swiper-pagination"></div>
 
-				</div>
-				
 			</div>
+				
+		</div>
+
+		<button id="questions" class="m-5 px-2 text-xl text-green-300"
+			hx-get="/htmx_get_questions"
+			hx-trigger="click"
+			hx-target="#questions"
+			hx-swap="outerHTML"
+		>
+			{views.Translate(store, r, "GetFromDb")}
+		</button>
 
 
 		<br></br><br></br><br></br><br></br><br></br><br></br>
