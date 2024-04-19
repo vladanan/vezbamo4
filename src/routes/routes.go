@@ -62,9 +62,9 @@ func GoToAssignments(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(assignments.Assignments(store, r)).Component.Render(context.Background(), w)
 }
 
-func GoToNotes(w http.ResponseWriter, r *http.Request) {
+func GoToUserPortal(w http.ResponseWriter, r *http.Request) {
 	// fmt.Println(db.GetNotes())
-	templ.Handler(site.Notes(store, r, db.GetNotes())).Component.Render(context.Background(), w)
+	templ.Handler(site.UserPortal(store, r, db.GetNotes())).Component.Render(context.Background(), w)
 }
 
 func GoToMegaIncrement(w http.ResponseWriter, r *http.Request) {
@@ -158,7 +158,7 @@ func SetEn(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	session.Values["language"] = "en-US"
+	session.Values["language"] = "en"
 	err2 := session.Save(r, w)
 	if err2 != nil {
 		// fmt.Println("engleski greška save sessio")
@@ -183,14 +183,14 @@ func SetEs(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func SetSr(w http.ResponseWriter, r *http.Request) {
+func SetSh(w http.ResponseWriter, r *http.Request) {
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
 	if err != nil {
 		// fmt.Println("srpski greška get sessio")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	session.Values["language"] = "sr"
+	session.Values["language"] = "sh"
 	err2 := session.Save(r, w)
 	if err2 != nil {
 		// fmt.Println("srpski greška save sessio")
@@ -199,21 +199,21 @@ func SetSr(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func SetBrowserLang(w http.ResponseWriter, r *http.Request) {
-	session, err := store.Get(r, "vezbamo.onrender.com-users")
-	if err != nil {
-		// fmt.Println("browser greška get sessio")
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	session.Values["language"] = ""
-	err2 := session.Save(r, w)
-	if err2 != nil {
-		// fmt.Println("brower greška save sessio")
-		http.Error(w, err2.Error(), http.StatusInternalServerError)
-		return
-	}
-}
+// func SetBrowserLang(w http.ResponseWriter, r *http.Request) {
+// 	session, err := store.Get(r, "vezbamo.onrender.com-users")
+// 	if err != nil {
+// 		// fmt.Println("browser greška get sessio")
+// 		http.Error(w, err.Error(), http.StatusInternalServerError)
+// 		return
+// 	}
+// 	session.Values["language"] = ""
+// 	err2 := session.Save(r, w)
+// 	if err2 != nil {
+// 		// fmt.Println("brower greška save sessio")
+// 		http.Error(w, err2.Error(), http.StatusInternalServerError)
+// 		return
+// 	}
+// }
 
 //*** A P I
 

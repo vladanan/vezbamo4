@@ -51,7 +51,7 @@ func reverser(notes []Note) []Note {
 	return newNotes
 }
 
-func Notes(store sessions.Store, r *http.Request, notes []byte) templ.Component {
+func UserPortal(store sessions.Store, r *http.Request, notes []byte) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -82,7 +82,7 @@ func Notes(store sessions.Store, r *http.Request, notes []byte) templ.Component 
 				var templ_7745c5c3_Var3 string
 				templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(item.B_id))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/notes.templ`, Line: 48, Col: 94}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/user_portal.templ`, Line: 48, Col: 94}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 				if templ_7745c5c3_Err != nil {
@@ -95,7 +95,7 @@ func Notes(store sessions.Store, r *http.Request, notes []byte) templ.Component 
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(item.Ime_tag)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/notes.templ`, Line: 48, Col: 112}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/user_portal.templ`, Line: 48, Col: 112}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
@@ -108,7 +108,7 @@ func Notes(store sessions.Store, r *http.Request, notes []byte) templ.Component 
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(item.Tema)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/notes.templ`, Line: 48, Col: 127}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/user_portal.templ`, Line: 48, Col: 127}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -121,7 +121,7 @@ func Notes(store sessions.Store, r *http.Request, notes []byte) templ.Component 
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(item.Poruka)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/notes.templ`, Line: 48, Col: 144}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/user_portal.templ`, Line: 48, Col: 144}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -132,7 +132,7 @@ func Notes(store sessions.Store, r *http.Request, notes []byte) templ.Component 
 					return templ_7745c5c3_Err
 				}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul><br><br><br><br><br><br>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul><div class=\"m-5 text-blue-300\"><p>Najčešće postavljana pitanja Zašto na sajtu nema odgovora na sva pitanja? Zato što, po Godingovoj teoremi nekompletnosti, u ovom svetu ili skup čenjenica nikada ne može biti kompletan ili sve činjenice nikada ne mogu biti dokazane. To je nešto slično onome što bi rekao Vitgenštajn da se ovaj svet može razumeti samo ako se neko popne iznad njega. Druga mogućnost je da korisnik koji je unosio pitanja nije uneo odgovore za neka od njih. To nije moguće potpuno iskontrolisati a svakako ne škodi da se odgovor potraži u knjizi ili svesci ;)<p></p>Da li svako može da upisuje svoja pitanja i testove na sajt? Da. Korisnici mogu da upišu svoje komplete i pitanja a možemo i mi to da uradimo umesto njih po povoljnim cenama koje su izložene ovde. Pre upisa svakako je poželjno pregledati ono što je već upisano. Pogledati i ostale napomene na pravilima sajta.</p><p>Mislio sam da ću ovde naći gotova pitanja i testove za oblast koja me zanima. Zašto ih nema? Ovaj sajt je namenjen da bude pomoć u učenju kroz tri koraka: pisanje pitanja i testova, prolazak kroz nasumično ispitivanje, rešavanje testa. To znači da je pisanje pitanja i testova (koje drugi već nisu upisali na sajt) sastavni deo učenja i mnogo bolje pomaže u učenju određene materije nego korišćenje već gotovih testova. To je zato što sam proces pregledavanja (tekstualnih, zvučnih i video) materijala i pisanja testova predstavlja značajan deo u procesu učenja. Korišćenje prećica u procesu učenja nije uvek mudro.</p><p></p></div><br><br><br><br><br><br>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

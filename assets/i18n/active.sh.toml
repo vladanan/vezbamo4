@@ -1,0 +1,83 @@
+Home = "Početna"
+
+Login = "Prijava"
+Logout = "Odjava"
+Welcome = "Prijavljeni ste na sistem!"
+UnWelcome = "Niste prijavljeni na sistem!"
+
+Index_1_title = "Testovi i pitanja"
+Index_1_subtitle = "Lako i brzo učenje u tri brza koraka"
+Index_1_text = "Svi znamo da je ponavljanje majka učenja. Ovaj sajt koristi upravo tu mudrost i urađen je na način koji vaše iskustvo učenja unapređuje kroz tri jednostavna koraka. Pripremite svoje beleške i tastaturu i idemooo..."
+
+Index_2_subtitle = "Napravite svoj sajt isti ili bolji od ovog!"
+Index_2_text = "Odličan alat za studente, nastavnike i web programere uz koji mogu da naprave svoj sajt sa pitanjima, testovima, kvizovima i takmičenjima koristeći našu bazu za pitanja i testove. Za one koji bi da idu prečicom imamo gotove primere u nekoliko programskih jezika i frejmvorkova!"
+
+Index_3_title = "Zadaci"
+Index_3_subtitle = "Zabavni i efikasni zadaci iz matematike"
+Index_3_text = "Zadaci uz koje se lako i zabavno vežbaju početne oblasti matematike za učenike osnovnih i srednjih škola"
+
+Index_4_title = "Korisnička strana"
+Index_4_subtitle = "Poruke, kontakt, često postavljana pitanja"
+Index_4_text = "Ovde možete da pošaljete poruku uredniku sajta, email ili pregledate često postavljana pitanja"
+
+Index_5_text1 = "ekstenzija je namenjena da olakša paralelna nezavisna povećanja i dekrementacije u različitim nizovima. Može se koristiti u pisanju koda za liste, enume, nizove, testove, html i xml oznake, csv datoteke, primere i testove baza podataka, iteracije datuma i vremena, heksadecimalne i binarne alokacije registara i mnoge druge namene."
+Index_5_text2 = "Kliknite da vidite"
+
+Index_8_title = "Linkovi"
+Index_8_subtitle = "Navigacija za sajt"
+Index_8_text7 = "Istorija i detalji o projektima"
+Index_8_text8 = "Politika privatnosti"
+Index_8_text9 = "Pravila sajta"
+
+Index_9_title = "O sajtu"
+Index_9_subtitle = "Par reči o našim projektima"
+Index_9_text1 = "Učenici i nastavnici mogu da koriste kvalitetnu pomoć u učenju kroz sastavljanje pitanja, odgovora i testova."
+Index_9_text2 = "Nastavnici stranih jezika mogu da iskoriste višejezični kapacitet sajta da poboljšaju učenje kreiranjem pitanja i testova na paralelnim jezicima."
+Index_9_text3 = "Programeri mogu da kreiraju full stack aplikacije koristeći gotove primere projekata i "
+Index_9_text4 = "Ovaj sajt je takođe host za: "
+Index_9_text5 = "Kliknite ovde za više detalja o našim projektima."
+Index_9_text6 = "Kliknite ovde da pošaljete komentare sa korisničke strane."
+
+Questions_1_title = "Prvi korak" 
+Questions_1_subtitle = "Upiši pitanja i mozak je zapamtio već oko 30% lekcije!"
+GetFromDb = "Učitaj pitanja iz db"
+Questions_1_text1 = "Ovaj deo sajta je namenjen kao pomoć u učenju kroz tri koraka: pisanje pitanja i testova, prolazak kroz nasumično ispitivanje, rešavanje testa."
+Questions_1_text2 = "Pisanje pitanja i odgovora na osnovu (tekstualnih, zvučnih i video) materijala predstavlja značajan deo u procesu učenja!"
+
+Questions_2_title = "Drugi korak" 
+Questions_2_subtitle = "Prođi kroz nasumično ispitivanje i gotovo je još 30%!"
+Questions_2_text1 = "Modul za nasumično ispitivanje omogućava ne samo da se proveri znanje nego i tačnost upisanih pitanja i odgovora."
+Questions_2_text2 = "Greške su idealna prilika da se nauči nešto novo!"
+
+Questions_3_title = "Treći korak" 
+Questions_3_subtitle = "Na kraju uradi test ✔ i to je već 90% od lekcije!"
+Questions_3_text1 = "Modul za testove omogućava statističku procenu rezultata testa kroz procentualni uspeh i prosečnu ocenu."
+Questions_3_text2 = "Podeli drugarima test i učite zajedno uz takmičenje ko će biti bolji!"
+
+
+Assignments_1_title = "Osnovna škola" 
+Assignments_1_subtitle = "Prvi razred"
+Assignments_1_text = "Za lako vežbanje sabiranja i oduzimanje do i preko 10 klikni ovde :)"
+
+Assignments_2_title = "Osnovna škola" 
+Assignments_2_subtitle = "Drugi razred"
+Assignments_2_text = "Za lako vežbanje sabiranja i oduzimanja do 100 i tablice množenja klikni ovde :)"
+
+Assignments_3_title = "Srednja škola" 
+Assignments_3_subtitle = "Prvi razred"
+Assignments_3_text = "Zadaci iz kombinatorike (permutacije i varijacije)"
+
+
+
+
+[MyUnreadEmails]
+description = "The number of unread emails I have"
+hash = "sha1-6a65d17f53981a3657db1897630e9cb069053ea8"
+one = "Tengo {{.PluralCount}} correo electrónico sin leer"
+other = "Tengo {{.PluralCount}} correos electrónicos no leídos"
+
+[PersonUnreadEmails]
+description = "The number of unread emails a person has"
+hash = "sha1-3a672fa89c5c8564bb233c907638004983792464"
+one = "{{.Name}} tiene {{.UnreadEmailCount}} correo electrónico no leído"
+other = "{{.Name}} tiene {{.UnreadEmailCount}} correos electrónicos no leídos"

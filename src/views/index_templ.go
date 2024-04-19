@@ -15,11 +15,14 @@ import (
 	"net/http"
 )
 
-// Resolution 	720 x 1650 pixels (~268 ppi density)
+// Resolution 720 x 1650 pixels (~268 ppi density)
 
-var cssindex_button string = `text-sm ml-1 px-1 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-sm shadow-md shadow-slate-500`
+// var cssindex_button string = `text-sm ml-1 px-1 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-sm shadow-md shadow-slate-500`
 
-func index_button(link string, class string, text string) templ.Component {
+//	templ index_button(link string, class string, text string) {
+//	  <a href={templ.URL(link)}><button class={class}>{text}</button></a>
+//	}
+func Index(store sessions.Store, r *http.Request) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -32,85 +35,35 @@ func index_button(link string, class string, text string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var2 templ.SafeURL = templ.URL(link)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var2)))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var3 = []any{class}
-		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var3...)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button class=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ.CSSClasses(templ_7745c5c3_Var3).String()))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var4 string
-		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(text)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 12, Col: 55}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button></a>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		if !templ_7745c5c3_IsBuffer {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteTo(templ_7745c5c3_W)
-		}
-		return templ_7745c5c3_Err
-	})
-}
-
-func Index(store sessions.Store, r *http.Request) templ.Component {
-	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
-		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
-		if !templ_7745c5c3_IsBuffer {
-			templ_7745c5c3_Buffer = templ.GetBuffer()
-			defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
-		}
-		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var5 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var5 == nil {
-			templ_7745c5c3_Var5 = templ.NopComponent
-		}
-		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Var6 := templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Var2 := templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 			if !templ_7745c5c3_IsBuffer {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-4\"><!-- Swiper --><div style=\"--swiper-navigation-color: #fff; --swiper-pagination-color: #fff\" class=\"swiper mySwiper lg:rounded-2xl lg:max-w-max\"><div class=\"parallax-bg\" data-swiper-parallax=\"-23%\"></div><div class=\"swiper-wrapper\"><a href=\"/questions\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/office-620822_1280_C.jpg);\"><div class=\"title\" data-swiper-parallax=\"-300\">Tests</div><div class=\"subtitle rounded-md bg-gradient-to-r from-sky-700 via-transparent to-transparent\" data-swiper-parallax=\"-200\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-4\"><!-- Swiper --><div style=\"--swiper-navigation-color: #fff; --swiper-pagination-color: #fff\" class=\"swiper mySwiper lg:rounded-2xl lg:max-w-max\"><div class=\"parallax-bg\" data-swiper-parallax=\"-23%\"></div><div class=\"swiper-wrapper\"><!-- 1 Tests and questions --><a href=\"/questions\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/office-620822_1280_C.jpg);\"><div class=\"title\" data-swiper-parallax=\"-300\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var7 string
-			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Questions1"))
+			var templ_7745c5c3_Var3 string
+			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_1_title"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 28, Col: 162}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 27, Col: 90}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"subtitle rounded-md bg-gradient-to-r from-sky-700 via-transparent to-transparent\" data-swiper-parallax=\"-200\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var4 string
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_1_subtitle"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 28, Col: 168}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -118,51 +71,64 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var8 string
-			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Questions1-text"))
+			var templ_7745c5c3_Var5 string
+			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_1_text"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 31, Col: 47}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 31, Col: 44}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a><!-- 2 API for questions --><a href=\"/questions_api\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/windows-p74ndnYWRY4-unsplash-1280_C.jpg);\"><div class=\"title w-72 text-black rounded-md bg-gradient-to-r from-transparent via-transparent to-blue-200\" data-swiper-parallax=\"-300\">Questions API</div><div class=\"subtitle w-28 text-black\" data-swiper-parallax=\"-200\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var6 string
+			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_2_subtitle"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 39, Col: 112}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"relative top-5 lg:top-0 text w-60 lg:w-80 text-black text-sm lg:text-lg rounded-md bg-gradient-to-tl from-transparent via-blue-500 to-sky-100\" data-swiper-parallax=\"-100\"><p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var7 string
+			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_2_text"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 42, Col: 44}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a><!-- 3 Assignments --><a href=\"/assignments\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/abacus-1866497_1280.jpg);\"><div class=\"title px-2 mb-2 w-96 rounded-md bg-gradient-to-r from-red-700 via-red-500 to-transparent\" data-swiper-parallax=\"-300\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var8 string
+			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_3_title"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 49, Col: 173}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a> <a href=\"/questions_api\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/windows-p74ndnYWRY4-unsplash-1280_C.jpg);\"><div class=\"title w-60 text-black rounded-md bg-gradient-to-r from-transparent via-transparent to-blue-200\" data-swiper-parallax=\"-300\">API for tests</div><div class=\"subtitle w-32 text-black\" data-swiper-parallax=\"-200\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"subtitle rounded-md bg-gradient-to-r from-sky-700 via-sky-500 to-transparent\" data-swiper-parallax=\"-200\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var9 string
-			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Questions2"))
+			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_3_subtitle"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 38, Col: 106}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 50, Col: 164}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"relative text top-10 text-black font-bold text-sm lg:text-lg rounded-md bg-gradient-to-r from-transparent via-blue-700 to-transparent\" data-swiper-parallax=\"-100\"><p>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var10 string
-			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Questions1-text"))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 41, Col: 47}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a> <a href=\"/assignments\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/abacus-1866497_1280.jpg);\"><div class=\"title px-2 mb-2 w-96 rounded-md bg-gradient-to-r from-red-700 via-red-500 to-transparent\" data-swiper-parallax=\"-300\">Assignments</div><div class=\"subtitle rounded-md bg-gradient-to-r from-sky-700 via-sky-500 to-transparent\" data-swiper-parallax=\"-200\">")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var11 string
-			templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Questions2"))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 48, Col: 158}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -170,29 +136,289 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var12 string
-			templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Questions1-text"))
+			var templ_7745c5c3_Var10 string
+			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_3_text"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 51, Col: 47}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 53, Col: 44}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a><!-- 4 User portal --><a href=\"/user_portal\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/cat-5331883_1280.jpg);\"><div class=\"title px-2 w-fit rounded-md bg-gradient-to-tr from-amber-950 via-amber-800 to-transparent\" data-swiper-parallax=\"-300\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var11 string
+			templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_4_title"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 60, Col: 174}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"subtitle w-fit mt-2 rounded-md bg-gradient-to-bl from-amber-900 via-transparent to-transparent\" data-swiper-parallax=\"-200\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var12 string
+			templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_4_subtitle"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 61, Col: 182}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a> <a href=\"/notes\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/cat-5331883_1280.jpg);\"><div class=\"title px-2 w-60 rounded-md bg-gradient-to-tr from-amber-950 via-amber-800 to-transparent\" data-swiper-parallax=\"-300\">User portal</div><div class=\"subtitle\" data-swiper-parallax=\"-200\">Notes, contact, FAQ</div><div class=\"text text-sm lg:text-lg rounded-md bg-gradient-to-br from-amber-900 via-transparent to-transparent\" data-swiper-parallax=\"-100\"><p>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text text-sm lg:text-lg rounded-md bg-gradient-to-br from-amber-900 via-transparent to-transparent\" data-swiper-parallax=\"-100\"><p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var13 string
-			templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "UserNotes"))
+			templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_4_text"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 61, Col: 41}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 63, Col: 46}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a> <a href=\"https://marketplace.visualstudio.com/items?itemName=vladan-andjelkovic.mega-increment\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/Screenshot_20240417_140002_R_c.png);\"><div class=\"title\" data-swiper-parallax=\"-300\">MI</div><div class=\"subtitle\" data-swiper-parallax=\"-200\">Mega Increment</div><div class=\"text text-xs lg:text-lg text-sky-200 rounded-md bg-gradient-to-br from-transparent via-neutral-950 to-transparent \" style=\"max-width: 800px;\" data-swiper-parallax=\"-100\"><p>Mega-increment Visual Studio Code extension is intended to ease parallel independent incrementations and decrementations in various strings. It can be used in writing code for lists, enums, arrays, tests, html and xml tags, csv files, data base examples and tests, date-time iterations, hexadecimal and binary register allocations and many other uses.<br><br><span class=\"text-sky-300\">Click to see extension Readme page at Visual Studio Code marketplace.</span></p></div></a> <a href=\"https://github.com/vladanan/mega-increment/blob/master/PublicAPIDocs.md\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/Screenshot_20240418_083903_CC.png);\"><div class=\"title\" data-swiper-parallax=\"-300\">MACf</div><div class=\"subtitle\" data-swiper-parallax=\"-200\">Mega Increment API</div><div class=\"text text-xs lg:text-lg text-sky-200 rounded-md bg-gradient-to-br from-neutral-950 via-transparent to-stone-950 \" style=\"max-width: 800px;\" data-swiper-parallax=\"-100\"><p>This site is hosting public API for Mega Increment Visual Studio Code extension Core functions.<br><br><span class=\"text-sky-300 font-bold\">Click to check the Docs</span><br><br>Does this API cover all functionalities as GUI for Advanced options in VSCode extension?<br><br>Some of the functionalities are tied to specifics of working space at VSCode editor or GUI Advanced version but all text processing available at extension is also available from this MACf API.</p></div></a> <a href=\"https://github.com/vladanan/uxv\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"swiper-slide cursor-alias border border-gray-800 rounded-2xl\"><div class=\"title\" data-swiper-parallax=\"-300\">uxv/EDV</div><div class=\"subtitle\" data-swiper-parallax=\"-200\">Single-character command line editor</div><div class=\"text text-xs lg:text-lg \" style=\"max-width: 800px;\" data-swiper-parallax=\"-100\"><p>I plan for edv not to be a full screen editor like vi(m) nor even a single line editor as ed. Instead edv will be a single character editor, as strange as it sounds, but with, I hope, some special and interesting features.<br><br>Readme.md file and Go code for edv were entirely written on Solaris (OpenIndiana) vm and in ed in their first iterations.<br><br>Programming of edv started in ed on Solaris as some kind of distant enactment of Ken writing ancient Unix software on qed and Model 33 Teletype.<br><br><span class=\"text-sky-300\">Click to see project page at GigHub.</span></p></div></a><div class=\"swiper-slide border border-gray-800 rounded-2xl\"><div class=\"title\" data-swiper-parallax=\"-300\">Links</div><div class=\"subtitle\" data-swiper-parallax=\"-200\">Navigate through the site</div><div class=\"text text-xs lg:text-lg \" style=\"max-width: 800px;\" data-swiper-parallax=\"-100\"><a href=\"/questions\">Qestions and tests</a><br><a href=\"/questions_api\">Questions API</a><br><a href=\"/assignments\">Assignments</a><br><a href=\"/notes\">User portal, conntact and FAQ</a><br><a href=\"/mega_increment\">Mega Increment</a><br><a href=\"https://github.com/vladanan/uxv\" target=\"_blank\" rel=\"noopener noreferrer\">uxv/EDV at GitHub</a><br><a href=\"/history\">Projects about and history</a><br><a href=\"/privacy\">Privacy Policy</a><br><a href=\"/terms\">Terms of Use</a></div></div><div class=\"swiper-slide border border-gray-800 rounded-2xl\"><div class=\"title\" data-swiper-parallax=\"-300\">About</div><div class=\"subtitle\" data-swiper-parallax=\"-200\">Few words about our projects</div><div class=\"text text-xs lg:text-lg \" style=\"max-width: 800px;\" data-swiper-parallax=\"-100\"><p>The site is part of a project for learning programming languages and web technologies.<br>The site also hosts the Mega Increment Visual Studio Code extension's public API and its Core functions.<br><br>Students and others can use quality learning aid through practice in composing questions, answers and tests.<br>Programmers can learn and practice backend, frontend and fullstack by using questions API and ready made exaple projects.<br><br>Comments can be sent through the <a href=\"/notes\" class=\"text-blue-300\" href=\"history\">user portal</a>.<br>You can find out more about this project on this <a href=\"/history\" class=\"text-blue-300\" href=\"history\">link</a>.</p></div></div></div><div class=\"swiper-button-next\"></div><div class=\"swiper-button-prev\"></div><div class=\"swiper-pagination\"></div></div></div><!-- \n\n\t\t<div class=\"relative top-4\">\n\t\t\t\n\t\t\t<div class=\"w-80 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-md shadow-lg shadow-slate-600\">\n\t\t\t\t<div>\n\t\t\t\t\t<img class=\"p-3 m-auto\"\n\t\t\t\t\t\tsrc=\"static/vezbamo2.svg\"\n\t\t\t\t\t\theight=\"44\"\n\t\t\t\t\t\twidth=\"350\"\n\t\t\t\t\t\talt=\"Vezbamo\" />\n\t\t\t\t</div>\n\t\t\t\t<p class=\"mr-2 mb-1 text-right text-xs\">4.0.0-alpha.14.3</p>\n\t\t\t</div>\n\n\t\t\t<a href=\"/questions\" class=\"m-auto\" >\n\t\t\t\t<div style=\"background-image: url('static/1.jpg')\"\n\t\t\t\t\tclass=\"bg-cover m-5 mx-5 p-2 h-60 max-w-md border-2 border-sky-700 rounded-md shadow-lg shadow-sky-900 cursor-pointer\">\n\t\t\t\t\t<div class=\"p-2 rounded-md text-white text-xl align-text-top bg-gradient-to-r from-sky-700 via-transparent to-transparent\">\n\t\t\t\t\t\t<b>{Translate(store, r, \"Questions1\")}</b>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</a>\n\n\t\t\t<a href=\"/admin\" class=\"m-auto\" >\n\t\t\t\t<div style=\"background-image: url('static/2.jpg')\"\n\t\t\t\t\tclass=\"bg-cover m-5 mx-5 p-2 h-60 max-w-md lg:mx-auto border-2 border-red-700 rounded-md shadow-lg shadow-red-900 cursor-pointer\">\n\t\t\t\t\t<div class=\"p-2 rounded-md text-white text-xl align-text-top bg-gradient-to-t from-transparent via-red-900 to-transparent\">\n\t\t\t\t\t\t<b>{Translate(store, r, \"Questions2\")}</b>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</a>\n\t\t\t\n\t\t\t<a href=\"/notes\" class=\"m-auto\" >\n\t\t\t\t<div style=\"background-image: url('static/7.jpg')\"\n\t\t\t\t\tclass=\"relative bg-cover m-5 mx-5 p-1 h-60 max-w-md lg:mx-auto border-2 border-amber-800 rounded-md shadow-lg shadow-gray-900\">\n\t\t\t\t\t<div class=\"p-1 absolute top-2 md:top-2 left-2 text-white text-sm md:text-xl text-left rounded-md bg-gradient-to-br from-amber-700 to-transparent cursor-pointer\">\n\t\t\t\t\t\t<b>{Translate(store, r, \"UserNotes\")}</b>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</a>\n\n\n\t\t</div>\n\n\t\t-->")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a><!-- 5 Mega Increment --><a href=\"https://marketplace.visualstudio.com/items?itemName=vladan-andjelkovic.mega-increment\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/Screenshot_20240417_140002_R_c.png);\"><div class=\"title\" data-swiper-parallax=\"-300\">MI</div><div class=\"subtitle\" data-swiper-parallax=\"-200\">Mega Increment</div><div class=\"text text-xs lg:text-lg text-sky-200 rounded-md bg-gradient-to-br from-transparent via-neutral-950 to-transparent \" style=\"max-width: 800px;\" data-swiper-parallax=\"-100\">Mega Increment Visual Studio Code ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var14 string
+			templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_5_text1"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 78, Col: 78}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<br><br>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var15 string
+			templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_5_text2"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 80, Col: 44}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <span class=\"text-sky-300\">Extension Readme.md @ Visual Studio Code Marketplace</span>.</div></a><!-- 6 Mega Increment API --><a href=\"https://github.com/vladanan/mega-increment/blob/master/PublicAPIDocs.md\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/Screenshot_20240418_083903_CC.png);\"><div class=\"title\" data-swiper-parallax=\"-300\">MACf</div><div class=\"subtitle\" data-swiper-parallax=\"-200\">Mega Increment API</div><div class=\"text text-xs lg:text-lg text-sky-200 rounded-md bg-gradient-to-br from-neutral-950 via-transparent to-stone-950 \" style=\"max-width: 800px;\" data-swiper-parallax=\"-100\">This site is hosting public API for Mega Increment Visual Studio Code extension Core functions.<br><br><span class=\"text-sky-300 font-bold\">Click to check the Docs</span><br><br>Does this API cover all functionalities as GUI for Advanced options in VSCode extension?<br><br>Some of the functionalities are tied to specifics of working space at VSCode editor or GUI Advanced version but all text processing available at extension is also available from this MACf API.</div></a><!-- 7 uxv/EDV --><a href=\"https://github.com/vladanan/uxv\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"swiper-slide cursor-alias border border-gray-800 rounded-2xl\"><div class=\"title\" data-swiper-parallax=\"-300\">uxv/EDV</div><div class=\"subtitle\" data-swiper-parallax=\"-200\">Single-character command line editor</div><div class=\"text text-xs lg:text-lg \" style=\"max-width: 800px;\" data-swiper-parallax=\"-100\">I plan for edv not to be a full screen editor like vi(m) nor even a single line editor as ed. Instead edv will be a single character editor, as strange as it sounds, but with, I hope, some special and interesting features.<br><br>Readme.md file and Go code for edv were entirely written on Solaris (OpenIndiana) vm and in ed in their first iterations.<br><br>Programming of edv started in ed on Solaris as some kind of distant enactment of Ken writing ancient Unix software on qed and Model 33 Teletype.<br><br><span class=\"text-sky-300\">Click to see project page @ GigHub.</span></div></a><!-- 8 Links --><div class=\"swiper-slide border border-gray-800 rounded-2xl\"><div class=\"title\" data-swiper-parallax=\"-300\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var16 string
+			templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_8_title"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 127, Col: 90}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"subtitle\" data-swiper-parallax=\"-200\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var17 string
+			templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_8_subtitle"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 128, Col: 96}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text text-xs lg:text-lg \" style=\"max-width: 800px;\" data-swiper-parallax=\"-100\"><a href=\"/questions\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var18 string
+			templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_1_title"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 130, Col: 66}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><br><a href=\"/questions_api\">Questions API</a><br><a href=\"/assignments\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var19 string
+			templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_3_title"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 134, Col: 68}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><br><a href=\"/user_portal\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var20 string
+			templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_4_title"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 136, Col: 68}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><br><a href=\"/mega_increment\">Mega Increment</a><br><a href=\"https://github.com/vladanan/uxv\" target=\"_blank\" rel=\"noopener noreferrer\">uxv/EDV @ GitHub</a><br><a href=\"/history\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var21 string
+			templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_8_text7"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 146, Col: 64}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><br><a href=\"/privacy\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var22 string
+			templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_8_text8"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 148, Col: 64}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var22))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><br><a href=\"/terms\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var23 string
+			templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_8_text9"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 150, Col: 62}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></div></div><!-- 9 About --><div class=\"swiper-slide border border-gray-800 rounded-2xl\"><div class=\"title\" data-swiper-parallax=\"-300\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var24 string
+			templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_9_title"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 156, Col: 90}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"subtitle\" data-swiper-parallax=\"-200\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var25 string
+			templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_9_subtitle"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 157, Col: 96}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text text-xs lg:text-lg \" style=\"max-width: 800px;\" data-swiper-parallax=\"-100\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var26 string
+			templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_9_text1"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 159, Col: 45}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var26))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<br><span class=\"text-blue-300\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var27 string
+			templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_9_text2"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 161, Col: 73}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var27))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</span><br><span class=\"text-blue-400\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var28 string
+			templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_9_text3"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 163, Col: 73}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("Questions API.</span><br><br>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var29 string
+			templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_9_text4"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 165, Col: 45}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var29))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("Mega Increment Visual Studio Code extension public API and Core functions.<br><br><a href=\"/history\" class=\"text-blue-300\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var30 string
+			templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_9_text5"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 167, Col: 86}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var30))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><br><a href=\"/user_portal\" class=\"text-blue-300\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var31 string
+			templ_7745c5c3_Var31, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_9_text6"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 169, Col: 90}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var31))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></div></div></div><div class=\"swiper-button-next\"></div><div class=\"swiper-button-prev\"></div><div class=\"swiper-pagination\"></div></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -201,7 +427,7 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 			}
 			return templ_7745c5c3_Err
 		})
-		templ_7745c5c3_Err = Layout(store, r).Render(templ.WithChildren(ctx, templ_7745c5c3_Var6), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = Layout(store, r).Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

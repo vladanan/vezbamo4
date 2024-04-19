@@ -21,11 +21,9 @@ templ MegaIncrement(store sessions.Store, r *http.Request) {
         <div class="title" data-swiper-parallax="-300">MI</div>
         <div class="subtitle" data-swiper-parallax="-200">Mega Increment</div>
         <div class="text text-xs lg:text-lg text-sky-200 rounded-md bg-gradient-to-br from-transparent via-neutral-950 to-transparent " style="max-width: 800px;" data-swiper-parallax="-100">
-          <p>
-            Mega-increment Visual Studio Code extension is intended to ease parallel independent incrementations and decrementations in various strings. It can be used in writing code for lists, enums, arrays, tests, html and xml tags, csv files, data base examples and tests, date-time iterations, hexadecimal and binary register allocations and many other uses.
-            <br></br><br></br>
-            <span class="text-sky-300">Click to see extension Readme page at Visual Studio Code marketplace.</span>
-          </p>
+          Mega Increment Visual Studio Code {views.Translate(store, r, "Index5text1")}
+          <br></br><br></br>
+          {views.Translate(store, r, "Index5text2")} <span class="text-sky-300">Extension Readme.md @ Visual Studio Code Marketplace</span>.
         </div>
       </a>
 

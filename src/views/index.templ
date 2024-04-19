@@ -5,13 +5,13 @@ import (
 	"github.com/gorilla/sessions"
 )
 
-// Resolution 	720 x 1650 pixels (~268 ppi density)
+// Resolution 720 x 1650 pixels (~268 ppi density)
 
-var cssindex_button string = `text-sm ml-1 px-1 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-sm shadow-md shadow-slate-500`
+// var cssindex_button string = `text-sm ml-1 px-1 bg-gradient-to-br from-emerald-200 to-blue-200 rounded-sm shadow-md shadow-slate-500`
 
-templ index_button(link string, class string, text string) {
-  <a href={templ.URL(link)}><button class={class}>{text}</button></a>
-}
+// templ index_button(link string, class string, text string) {
+//   <a href={templ.URL(link)}><button class={class}>{text}</button></a>
+// }
 
 templ Index(store sessions.Store, r *http.Request) {
 	@Layout(store, r) {
@@ -23,47 +23,49 @@ templ Index(store sessions.Store, r *http.Request) {
 				<div class="parallax-bg" data-swiper-parallax="-23%"></div>
 				<div class="swiper-wrapper">
 
-
+					<!-- 1 Tests and questions -->
 					<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/office-620822_1280_C.jpg);">
-						<div class="title" data-swiper-parallax="-300">Tests</div>
-						<div class="subtitle rounded-md bg-gradient-to-r from-sky-700 via-transparent to-transparent" data-swiper-parallax="-200">{Translate(store, r, "Questions1")}</div>
+						<div class="title" data-swiper-parallax="-300">{Translate(store, r, "Index_1_title")}</div>
+						<div class="subtitle rounded-md bg-gradient-to-r from-sky-700 via-transparent to-transparent" data-swiper-parallax="-200">{Translate(store, r, "Index_1_subtitle")}</div>
 						<div class="text text-sm lg:text-lg" data-swiper-parallax="-100">
 							<p>
-								{Translate(store, r, "Questions1-text")}
+								{Translate(store, r, "Index_1_text")}
 							</p>
 						</div>
 					</a>
 
+					<!-- 2 API for questions -->
 					<a href="/questions_api" class="swiper-slide cursor-alias" style="background-image: url(static/windows-p74ndnYWRY4-unsplash-1280_C.jpg);">
-						<div class="title w-60 text-black rounded-md bg-gradient-to-r from-transparent via-transparent to-blue-200" data-swiper-parallax="-300">API for tests</div>
-						<div class="subtitle w-32 text-black" data-swiper-parallax="-200">{Translate(store, r, "Questions2")}</div>
-						<div class="relative text top-10 text-black font-bold text-sm lg:text-lg rounded-md bg-gradient-to-r from-transparent via-blue-700 to-transparent" data-swiper-parallax="-100">
+						<div class="title w-72 text-black rounded-md bg-gradient-to-r from-transparent via-transparent to-blue-200" data-swiper-parallax="-300">Questions API</div>
+						<div class="subtitle w-28 text-black" data-swiper-parallax="-200">{Translate(store, r, "Index_2_subtitle")}</div>
+						<div class="relative top-5 lg:top-0 text w-60 lg:w-80 text-black text-sm lg:text-lg rounded-md bg-gradient-to-tl from-transparent via-blue-500 to-sky-100" data-swiper-parallax="-100">
 							<p>
-								{Translate(store, r, "Questions1-text")}
+								{Translate(store, r, "Index_2_text")}
 							</p>
 						</div>
 					</a>
 
+					<!-- 3 Assignments -->
 					<a href="/assignments" class="swiper-slide cursor-alias" style="background-image: url(static/abacus-1866497_1280.jpg);">
-						<div class="title px-2 mb-2 w-96 rounded-md bg-gradient-to-r from-red-700 via-red-500 to-transparent" data-swiper-parallax="-300">Assignments</div>
-						<div class="subtitle rounded-md bg-gradient-to-r from-sky-700 via-sky-500 to-transparent" data-swiper-parallax="-200">{Translate(store, r, "Questions2")}</div>
+						<div class="title px-2 mb-2 w-96 rounded-md bg-gradient-to-r from-red-700 via-red-500 to-transparent" data-swiper-parallax="-300">{Translate(store, r, "Index_3_title")}</div>
+						<div class="subtitle rounded-md bg-gradient-to-r from-sky-700 via-sky-500 to-transparent" data-swiper-parallax="-200">{Translate(store, r, "Index_3_subtitle")}</div>
 						<div class="text text-sm lg:text-lg rounded-md bg-gradient-to-r from-green-700 via-green-500 to-transparent" data-swiper-parallax="-100">
 							<p>
-								{Translate(store, r, "Questions1-text")}
+								{Translate(store, r, "Index_3_text")}
 							</p>
 						</div>
 					</a>
 
-					<a href="/notes" class="swiper-slide cursor-alias" style="background-image: url(static/cat-5331883_1280.jpg);">
-						<div class="title px-2 w-60 rounded-md bg-gradient-to-tr from-amber-950 via-amber-800 to-transparent" data-swiper-parallax="-300">User portal</div>
-						<div class="subtitle" data-swiper-parallax="-200">Notes, contact, FAQ</div>
+					<!-- 4 User portal -->
+					<a href="/user_portal" class="swiper-slide cursor-alias" style="background-image: url(static/cat-5331883_1280.jpg);">
+						<div class="title px-2 w-fit rounded-md bg-gradient-to-tr from-amber-950 via-amber-800 to-transparent" data-swiper-parallax="-300">{Translate(store, r, "Index_4_title")}</div>
+						<div class="subtitle w-fit mt-2 rounded-md bg-gradient-to-bl from-amber-900 via-transparent to-transparent" data-swiper-parallax="-200">{Translate(store, r, "Index_4_subtitle")}</div>
 						<div class="text text-sm lg:text-lg rounded-md bg-gradient-to-br from-amber-900 via-transparent to-transparent" data-swiper-parallax="-100">
-							<p>
-								{Translate(store, r, "UserNotes")}
-							</p>
+							<p>{Translate(store, r, "Index_4_text")}</p>
 						</div>
 					</a>
 
+					<!-- 5 Mega Increment -->
 					<a
 						href="https://marketplace.visualstudio.com/items?itemName=vladan-andjelkovic.mega-increment"
 						target="_blank"
@@ -74,14 +76,13 @@ templ Index(store sessions.Store, r *http.Request) {
 						<div class="title" data-swiper-parallax="-300">MI</div>
 						<div class="subtitle" data-swiper-parallax="-200">Mega Increment</div>
 						<div class="text text-xs lg:text-lg text-sky-200 rounded-md bg-gradient-to-br from-transparent via-neutral-950 to-transparent " style="max-width: 800px;" data-swiper-parallax="-100">
-							<p>
-								Mega-increment Visual Studio Code extension is intended to ease parallel independent incrementations and decrementations in various strings. It can be used in writing code for lists, enums, arrays, tests, html and xml tags, csv files, data base examples and tests, date-time iterations, hexadecimal and binary register allocations and many other uses.
-								<br></br><br></br>
-								<span class="text-sky-300">Click to see extension Readme page at Visual Studio Code marketplace.</span>
-							</p>
+							Mega Increment Visual Studio Code {Translate(store, r, "Index_5_text1")}
+							<br></br><br></br>
+							{Translate(store, r, "Index_5_text2")} <span class="text-sky-300">Extension Readme.md @ Visual Studio Code Marketplace</span>.
 						</div>
 					</a>
 					
+					<!-- 6 Mega Increment API -->
 					<a
 						href="https://github.com/vladanan/mega-increment/blob/master/PublicAPIDocs.md"
 						target="_blank"
@@ -92,7 +93,6 @@ templ Index(store sessions.Store, r *http.Request) {
 						<div class="title" data-swiper-parallax="-300">MACf</div>
 						<div class="subtitle" data-swiper-parallax="-200">Mega Increment API</div>
 						<div class="text text-xs lg:text-lg text-sky-200 rounded-md bg-gradient-to-br from-neutral-950 via-transparent to-stone-950 " style="max-width: 800px;" data-swiper-parallax="-100">
-							<p>
 								This site is hosting public API for Mega Increment Visual Studio Code extension Core functions.
 								<br></br><br></br>
 								<span class="text-sky-300 font-bold">Click to check the Docs</span>
@@ -100,10 +100,10 @@ templ Index(store sessions.Store, r *http.Request) {
 								Does this API cover all functionalities as GUI for Advanced options in VSCode extension?
 								<br></br><br></br>
 								Some of the functionalities are tied to specifics of working space at VSCode editor or GUI Advanced version but all text processing available at extension is also available from this MACf API.
-							</p>
 						</div>
 					</a>
 
+					<!-- 7 uxv/EDV -->
 					<a
 						href="https://github.com/vladanan/uxv"
 						target="_blank"
@@ -113,29 +113,28 @@ templ Index(store sessions.Store, r *http.Request) {
 						<div class="title" data-swiper-parallax="-300">uxv/EDV</div>
 						<div class="subtitle" data-swiper-parallax="-200">Single-character command line editor</div>
 						<div class="text text-xs lg:text-lg " style="max-width: 800px;" data-swiper-parallax="-100">
-							<p>
 								I plan for edv not to be a full screen editor like vi(m) nor even a single line editor as ed. Instead edv will be a single character editor, as strange as it sounds, but with, I hope, some special and interesting features.
 								<br></br><br></br>
 								Readme.md file and Go code for edv were entirely written on Solaris (OpenIndiana) vm and in ed in their first iterations.
 								<br></br><br></br>
 								Programming of edv started in ed on Solaris as some kind of distant enactment of Ken writing ancient Unix software on qed and Model 33 Teletype.
 								<br></br><br></br>
-								<span class="text-sky-300">Click to see project page at GigHub.</span>
-							</p>
+								<span class="text-sky-300">Click to see project page @ GigHub.</span>
 						</div>
 					</a>
 
+					<!-- 8 Links -->
 					<div class="swiper-slide border border-gray-800 rounded-2xl">
-						<div class="title" data-swiper-parallax="-300">Links</div>
-						<div class="subtitle" data-swiper-parallax="-200">Navigate through the site</div>
+						<div class="title" data-swiper-parallax="-300">{Translate(store, r, "Index_8_title")}</div>
+						<div class="subtitle" data-swiper-parallax="-200">{Translate(store, r, "Index_8_subtitle")}</div>
 						<div class="text text-xs lg:text-lg " style="max-width: 800px;" data-swiper-parallax="-100">
-								<a href="/questions">Qestions and tests</a>
+								<a href="/questions">{Translate(store, r, "Index_1_title")}</a>
 								<br></br>
 								<a href="/questions_api">Questions API</a>
 								<br></br>
-								<a href="/assignments">Assignments</a>
+								<a href="/assignments">{Translate(store, r, "Index_3_title")}</a>
 								<br></br>
-								<a href="/notes">User portal, conntact and FAQ</a>
+								<a href="/user_portal">{Translate(store, r, "Index_4_title")}</a>
 								<br></br>
 								<a href="/mega_increment">Mega Increment</a>
 								<br></br>
@@ -143,31 +142,32 @@ templ Index(store sessions.Store, r *http.Request) {
 									href="https://github.com/vladanan/uxv"
 									target="_blank"
 									rel="noopener noreferrer"
-								>uxv/EDV at GitHub</a>
+								>uxv/EDV @ GitHub</a>
 								<br></br>
-								<a href="/history">Projects about and history</a>
+								<a href="/history">{Translate(store, r, "Index_8_text7")}</a>
 								<br></br>
-								<a href="/privacy">Privacy Policy</a>
+								<a href="/privacy">{Translate(store, r, "Index_8_text8")}</a>
 								<br></br>
-								<a href="/terms">Terms of Use</a>
+								<a href="/terms">{Translate(store, r, "Index_8_text9")}</a>
 						</div>
 					</div>
 
+					<!-- 9 About -->
 					<div class="swiper-slide border border-gray-800 rounded-2xl">
-						<div class="title" data-swiper-parallax="-300">About</div>
-						<div class="subtitle" data-swiper-parallax="-200">Few words about our projects</div>
+						<div class="title" data-swiper-parallax="-300">{Translate(store, r, "Index_9_title")}</div>
+						<div class="subtitle" data-swiper-parallax="-200">{Translate(store, r, "Index_9_subtitle")}</div>
 						<div class="text text-xs lg:text-lg " style="max-width: 800px;" data-swiper-parallax="-100">
-							<p>
-								The site is part of a project for learning programming languages and web technologies.
+								{Translate(store, r, "Index_9_text1")}
 								<br></br>
-								The site also hosts the Mega Increment Visual Studio Code extension's public API and its Core functions.
-								<br></br><br></br>
-								Students and others can use quality learning aid through practice in composing questions, answers and tests.<br></br>Programmers can learn and practice backend, frontend and fullstack by using questions API and ready made exaple projects.
-								<br></br><br></br>
-								Comments can be sent through the <a href="/notes" class="text-blue-300" href="history">user portal</a>.
+								<span class="text-blue-300">{Translate(store, r, "Index_9_text2")}</span>
 								<br></br>
-								You can find out more about this project on this <a href="/history" class="text-blue-300" href="history">link</a>.
-							</p>
+								<span class="text-blue-400">{Translate(store, r, "Index_9_text3")}Questions API.</span>
+								<br></br><br></br>
+								{Translate(store, r, "Index_9_text4")}Mega Increment Visual Studio Code extension public API and Core functions.
+								<br></br><br></br>
+								<a href="/history" class="text-blue-300">{Translate(store, r, "Index_9_text5")}</a>
+								<br></br>
+								<a href="/user_portal" class="text-blue-300">{Translate(store, r, "Index_9_text6")}</a>
 						</div>
 					</div>
 				
@@ -180,55 +180,6 @@ templ Index(store sessions.Store, r *http.Request) {
 			</div>
 			
 		</div>
-
-		
-		<!-- 
-
-		<div class="relative top-4">
-			
-			<div class="w-80 m-auto bg-gradient-to-r from-green-100 via-white to-sky-100 rounded-md shadow-lg shadow-slate-600">
-				<div>
-					<img class="p-3 m-auto"
-						src="static/vezbamo2.svg"
-						height="44"
-						width="350"
-						alt="Vezbamo" />
-				</div>
-				<p class="mr-2 mb-1 text-right text-xs">4.0.0-alpha.14.3</p>
-			</div>
-
-			<a href="/questions" class="m-auto" >
-				<div style="background-image: url('static/1.jpg')"
-					class="bg-cover m-5 mx-5 p-2 h-60 max-w-md border-2 border-sky-700 rounded-md shadow-lg shadow-sky-900 cursor-pointer">
-					<div class="p-2 rounded-md text-white text-xl align-text-top bg-gradient-to-r from-sky-700 via-transparent to-transparent">
-						<b>{Translate(store, r, "Questions1")}</b>
-					</div>
-				</div>
-			</a>
-
-			<a href="/admin" class="m-auto" >
-				<div style="background-image: url('static/2.jpg')"
-					class="bg-cover m-5 mx-5 p-2 h-60 max-w-md lg:mx-auto border-2 border-red-700 rounded-md shadow-lg shadow-red-900 cursor-pointer">
-					<div class="p-2 rounded-md text-white text-xl align-text-top bg-gradient-to-t from-transparent via-red-900 to-transparent">
-						<b>{Translate(store, r, "Questions2")}</b>
-					</div>
-				</div>
-			</a>
-			
-			<a href="/notes" class="m-auto" >
-				<div style="background-image: url('static/7.jpg')"
-					class="relative bg-cover m-5 mx-5 p-1 h-60 max-w-md lg:mx-auto border-2 border-amber-800 rounded-md shadow-lg shadow-gray-900">
-					<div class="p-1 absolute top-2 md:top-2 left-2 text-white text-sm md:text-xl text-left rounded-md bg-gradient-to-br from-amber-700 to-transparent cursor-pointer">
-						<b>{Translate(store, r, "UserNotes")}</b>
-					</div>
-				</div>
-			</a>
-
-
-		</div>
-
-		-->
-
 
   }
 }

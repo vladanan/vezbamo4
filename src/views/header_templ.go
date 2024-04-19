@@ -75,24 +75,36 @@ import (
 // 	</button>
 // }
 
-func getLang(store sessions.Store, r *http.Request) string {
+func getLang(store sessions.Store, r *http.Request) []string {
 	session, _ := store.Get(r, "vezbamo.onrender.com-users")
 	lang_map := session.Values["language"]
 	accept := r.Header.Get("Accept-Language")
 	language := ""
-	// fmt.Println("lang, accept, 0:", language, accept, strings.Split(accept, ",")[0])
-
-	// fdsafSDGF
 
 	if lang_map != nil {
 		language = lang_map.(string)
 	}
-
 	if language == "" {
 		language = strings.Split(accept, ",")[0]
 	}
 
-	return language
+	var languageNames = map[string]string{
+		"ar": "Arabic    - العربية: ar",
+		"zh": "Chinese - 中文 (汉语): zh",
+		"en": "English  : en",
+		"fr": "French   - français: fr",
+		"de": "German - Deutch: de",
+		"hi": "Hindi      - हिन्दी: hi",
+		"it": "Italian    ;- italiano: it",
+		"ru": "Russian  - русский: ru",
+		"sr": "Serbian  - српски: sr",
+		"sh": "Serbo-Croatian - srpskohrvatski: sh",
+		"es": "Spanish  - español: es",
+	}
+
+	// fmt.Println("lang:", language, "accept:", accept, "0:", strings.Split(accept, ",")[0])
+
+	return []string{language, languageNames[language]}
 }
 
 func Header(store sessions.Store, r *http.Request) templ.Component {
@@ -115,17 +127,17 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Home"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 99, Col: 94}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 111, Col: 94}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><div class=\"absolute top-0 right-2\"><select onchange=\"sendLang(event)\" name=\"lang\" id=\"lang\" class=\"text-sm bg-sky-950 text-blue-400\"><option class=\"text-blue-100 font-bold \" value=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><div class=\"absolute top-0 right-2\"><select onchange=\"sendLang(event)\" name=\"lang\" id=\"lang\" class=\" w-[72px] text-sm bg-sky-950 text-blue-400\"><option class=\"text-blue-100 font-bold \" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(getLang(store, r)))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(getLang(store, r)[0]))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -134,15 +146,15 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var3 string
-		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(getLang(store, r))
+		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(getLang(store, r)[1])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 112, Col: 88}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 124, Col: 94}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</option> <option value=\"eng\">eng</option> <option value=\"srh\">srh</option> <option value=\"esp\">esp</option> <option value=\"browser\">auto</option></select>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</option> <option value=\"ar\">Arabic &nbsp;&nbsp;&nbsp;- العربية: ar</option> <option value=\"zh\">Chinese - 中文 (汉语): zh</option> <option value=\"en\">English&nbsp;&nbsp;: en</option> <option value=\"fr\">French &nbsp;&nbsp;- français: fr</option> <option value=\"de\">German - Deutch: de</option> <option value=\"hi\">Hindi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- हिन्दी: hi</option> <option value=\"it\">Italian &nbsp;&nbsp;&nbsp;- italiano: it</option> <option value=\"ru\">Russian &nbsp;- русский: ru</option> <option value=\"sr\">Serbian &nbsp;- српски: sr</option> <option value=\"sh\">Serbo-Croatian - srpskohrvatski: sh</option> <option value=\"es\">Spanish &nbsp;- español: es</option></select>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -155,7 +167,7 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Login"))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 129, Col: 51}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 149, Col: 51}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
@@ -173,7 +185,7 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Logout"))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 133, Col: 53}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 153, Col: 53}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {

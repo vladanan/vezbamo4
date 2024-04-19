@@ -27,7 +27,7 @@ func main() {
 	http.HandleFunc("/questions_api", routes.GoToQuestionsAPI)
 	http.HandleFunc("/assignments", routes.GoToAssignments)
 
-	http.HandleFunc("/notes", routes.GoToNotes)
+	http.HandleFunc("/user_portal", routes.GoToUserPortal)
 
 	http.HandleFunc("/mega_increment", routes.GoToMegaIncrement)
 
@@ -53,10 +53,10 @@ func main() {
 
 	http.HandleFunc("/htmx_get_questions", routes.HtmxGetQuestions)
 
-	http.HandleFunc("/eng", routes.SetEn)
-	http.HandleFunc("/esp", routes.SetEs)
-	http.HandleFunc("/srh", routes.SetSr)
-	http.HandleFunc("/browser", routes.SetBrowserLang)
+	http.HandleFunc("/en", routes.SetEn)
+	http.HandleFunc("/es", routes.SetEs)
+	http.HandleFunc("/sh", routes.SetSh)
+	// http.HandleFunc("/browser", routes.SetBrowserLang)
 
 	//***  A P I
 

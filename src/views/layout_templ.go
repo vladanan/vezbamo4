@@ -25,8 +25,8 @@ func Translate(store sessions.Store, r *http.Request, item string) string {
 	bundle := i18n.NewBundle(language.English)
 	bundle.RegisterUnmarshalFunc("toml", toml.Unmarshal)
 	bundle.MustLoadMessageFile("assets/i18n/active.en.toml")
-	bundle.MustLoadMessageFile("assets/i18n/active.es.toml")
-	bundle.MustLoadMessageFile("assets/i18n/active.sr.toml")
+	bundle.MustLoadMessageFile("assets/i18n/active.sh.toml")
+	// bundle.MustLoadMessageFile("assets/i18n/active.es.toml")
 
 	// https://pkg.go.dev/github.com/gorilla/sessions@v1.2.2#section-documentation
 	// https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cookie-same-site-00
@@ -58,7 +58,7 @@ func Translate(store sessions.Store, r *http.Request, item string) string {
 	}
 
 	lang_map := session.Values["language"]
-	sessionLanguage := ""
+	sessionLanguage := "sh"
 
 	if lang_map != nil {
 		sessionLanguage = lang_map.(string)

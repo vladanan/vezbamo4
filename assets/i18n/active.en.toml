@@ -1,17 +1,73 @@
 Home = "Home"
-UserNotes = "If you want to send a message to the site editor or download templates for questions and tests, click here!"
-GetFromDb = "Get questions from db"
+
 Login = "Sign in"
+Logout = "Sign out"
 Welcome = "You are signed in!"
 UnWelcome = "You are not signed in!"
-Logout = "Sign out"
 
-Questions1 = "Write the questions and the brain has already memorized about 30% of the lesson!"
+Index_1_title = "Tests and questions"
+Index_1_subtitle = "Quick and easy learning in three quick steps"
+Index_1_text = "We all know that repetition is the mother of learning. This site utilises that very wisdom and is implemented in a way that guides your learning experience through three simple steps. Prepare your notes and keyboard and lets goooo..."
+
+Index_2_subtitle = "Develop your site the same or better than this one!"
+Index_2_text = "A great tool for students, teachers and web developers to create their own site with questions, tests, quizzes and competitions using our database for questions and tests. For those who want to take a shortcut, we have ready-made examples in several programming languages and frameworks!"
+
+Index_3_title = "Assignments"
+Index_3_subtitle = "Fun and effective math assignments"
+Index_3_text = "Tasks with which elementary and high school students can easily and fun practice basic areas of mathematics"
+
+Index_4_title = "User portal"
+Index_4_subtitle = "Messages, contact, FAQ"
+Index_4_text = "Here you can send a message to the site editor, email or view frequently asked questions"
+
+Index_5_text1 = "extension is intended to ease parallel independent incrementations and decrementations in various strings. It can be used in writing code for lists, enums, arrays, tests, html and xml tags, csv files, data base examples and tests, date-time iterations, hexadecimal and binary register allocations and many other uses."
+Index_5_text2 = "Click to see"
+
+Index_8_title = "Links"
+Index_8_subtitle = "Navigate through the site"
+Index_8_text7 = "Projects about and history"
+Index_8_text8 = "Privacy Policy"
+Index_8_text9 = "Terms of Use"
+
+Index_9_title = "About site"
+Index_9_subtitle = "Few words about our projects"
+Index_9_text1 = "Students and teachers can use quality learning aid through practice in composing questions, answers and tests."
+Index_9_text2 = "Foreign Language teachers can utilise multi lingual capacity of site to improve learning through creating questions and tests in parallel languages."
+Index_9_text3 = "Programmers can develop full stack apps by using ready made example projects and "
+Index_9_text4 = "The site is also host for: "
+Index_9_text5 = "Click here to find out more about our projects."
+Index_9_text6 = "Click here to send comments through user page."
 
 
-Questions1-text = "We all know that repetition is the mother of learning. This site utilises that very wisdom and is implemented in a way that guides your learning experience through few simple steps. Prepare your notes and keyboard and lets goooo...."
+Questions_1_title = "First step" 
+Questions_1_subtitle = "Write the questions and the brain has already memorized about 30% of the lesson!"
+GetFromDb = "Get questions from db"
+Questions_1_text1 = "This part of the site is intended as an aid in learning through three steps: writing questions and tests, going through a random examination, solving the test."
+Questions_1_text2 = "Writing questions and answers based on (textual, audio and video) materials is an important part of the learning process!"
 
-Questions2 = "Pass the random test and it's almost 30% more!"
+Questions_2_title = "Second step" 
+Questions_2_subtitle = "Pass the random examination and it's 30% more done!"
+Questions_2_text1 = "The random examination module allows not only to check the knowledge but also the accuracy of the entered questions and answers."
+Questions_2_text2 = "Mistakes are an ideal opportunity to learn something new!"
+
+Questions_3_title = "Third step" 
+Questions_3_subtitle = "At the end, do the test ✔ and that's already 90% of the lesson!"
+Questions_3_text1 = "The test module enables statistical evaluation of test results through percentage success and average grade."
+Questions_3_text2 = "Share the test with your friends and learn together with a competition to see who will be better!"
+
+
+Assignments_1_title = "Primary school" 
+Assignments_1_subtitle = "First grade"
+Assignments_1_text = "For easy practice of addition and subtraction up to and over 10 click here :)"
+
+Assignments_2_title = "Primary school" 
+Assignments_2_subtitle = "Second grade"
+Assignments_2_text = "For easy practice of addition and subtraction up to 100 and multiplication tables, click here :)"
+
+Assignments_3_title = "High school" 
+Assignments_3_subtitle = "First grade"
+Assignments_3_text = "Problems from combinatorics (permutations and variations)"
+
 
 
 [MyUnreadEmails]

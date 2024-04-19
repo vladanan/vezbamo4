@@ -65,24 +65,36 @@ import (
 // 	</button>
 // }
 
-func getLang(store sessions.Store, r *http.Request) string {
+func getLang(store sessions.Store, r *http.Request) []string {
 	session, _ := store.Get(r, "vezbamo.onrender.com-users")
 	lang_map := session.Values["language"]
 	accept := r.Header.Get("Accept-Language")
 	language := ""
-	// fmt.Println("lang, accept, 0:", language, accept, strings.Split(accept, ",")[0])
-	
-	// fdsafSDGF
 	
 	if lang_map != nil {
 		language = lang_map.(string)
 	}
-
 	if language == "" {
 		language = strings.Split(accept, ",")[0]
 	}
 
-	return language
+	var languageNames = map[string]string {
+		"ar": "Arabic    - العربية: ar",
+		"zh": "Chinese - 中文 (汉语): zh",
+		"en": "English  : en",
+		"fr": "French   - français: fr",
+		"de": "German - Deutch: de",
+		"hi": "Hindi      - हिन्दी: hi",
+		"it": "Italian    ;- italiano: it",
+		"ru": "Russian  - русский: ru",
+		"sr": "Serbian  - српски: sr",
+		"sh": "Serbo-Croatian - srpskohrvatski: sh",
+		"es": "Spanish  - español: es",
+	}
+
+	// fmt.Println("lang:", language, "accept:", accept, "0:", strings.Split(accept, ",")[0])
+
+	return []string{language, languageNames[language]}
 }
 
 templ Header(store sessions.Store, r *http.Request) {
@@ -109,12 +121,20 @@ templ Header(store sessions.Store, r *http.Request) {
 		// 	<option hx-post="/browser" hx-on:click="delayReload()"value="browser">browser</option>
 		// </select>
 
-		<select onchange="sendLang(event)" name="lang" id="lang" class="text-sm bg-sky-950 text-blue-400">
-			<option class="text-blue-100 font-bold " value={getLang(store, r)}>{getLang(store, r)}</option>
-			<option value="eng">eng</option>
-			<option value="srh">srh</option>
-			<option value="esp">esp</option>
-			<option value="browser">auto</option>
+		<select onchange="sendLang(event)" name="lang" id="lang" class=" w-[72px] text-sm bg-sky-950 text-blue-400">
+			<option class="text-blue-100 font-bold " value={getLang(store, r)[0]}>{getLang(store, r)[1]}</option>
+			<option value="ar">Arabic &nbsp;&nbsp;&nbsp;- العربية: ar</option>
+			<option value="zh">Chinese - 中文 (汉语): zh</option>
+			<option value="en">English&nbsp;&nbsp;: en</option>
+			<option value="fr">French &nbsp;&nbsp;- français: fr</option>
+			<option value="de">German - Deutch: de</option>
+			<option value="hi">Hindi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- हिन्दी: hi</option>
+			<option value="it">Italian &nbsp;&nbsp;&nbsp;- italiano: it</option>
+			<option value="ru">Russian &nbsp;- русский: ru</option>
+			<option value="sr">Serbian &nbsp;- српски: sr</option>
+			<option value="sh">Serbo-Croatian - srpskohrvatski: sh</option>
+			<option value="es">Spanish &nbsp;- español: es</option>
+			// <option value="browser">auto</option>
 		</select>
 
 		// @header_lang_button("eng", cssheader_lang_button, "eng", store, r)
