@@ -123,17 +123,17 @@ templ Header(store sessions.Store, r *http.Request) {
 
 		<select onchange="sendLang(event)" name="lang" id="lang" class=" w-[72px] text-sm bg-sky-950 text-blue-400">
 			<option class="text-blue-100 font-bold " value={getLang(store, r)[0]}>{getLang(store, r)[1]}</option>
-			<option value="ar">Arabic &nbsp;&nbsp;&nbsp;- العربية: ar</option>
-			<option value="zh">Chinese - 中文 (汉语): zh</option>
+			<option disabled value="ar">Arabic &nbsp;&nbsp;&nbsp;- العربية: ar</option>
+			<option disabled value="zh">Chinese - 中文 (汉语): zh</option>
 			<option value="en">English&nbsp;&nbsp;: en</option>
-			<option value="fr">French &nbsp;&nbsp;- français: fr</option>
-			<option value="de">German - Deutch: de</option>
-			<option value="hi">Hindi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- हिन्दी: hi</option>
-			<option value="it">Italian &nbsp;&nbsp;&nbsp;- italiano: it</option>
-			<option value="ru">Russian &nbsp;- русский: ru</option>
-			<option value="sr">Serbian &nbsp;- српски: sr</option>
+			<option disabled value="fr">French &nbsp;&nbsp;- français: fr</option>
+			<option disabled value="de">German - Deutch: de</option>
+			<option disabled value="hi">Hindi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- हिन्दी: hi</option>
+			<option disabled value="it">Italian &nbsp;&nbsp;&nbsp;- italiano: it</option>
+			<option disabled value="ru">Russian &nbsp;- русский: ru</option>
+			<option disabled value="sr">Serbian &nbsp;- српски: sr</option>
 			<option value="sh">Serbo-Croatian - srpskohrvatski: sh</option>
-			<option value="es">Spanish &nbsp;- español: es</option>
+			<option disabled value="es">Spanish &nbsp;- español: es</option>
 			// <option value="browser">auto</option>
 		</select>
 

@@ -31,6 +31,8 @@ func main() {
 
 	http.HandleFunc("/mega_increment", routes.GoToMegaIncrement)
 
+	http.HandleFunc("/custom_apis", routes.GoToCustomAPIs)
+
 	http.HandleFunc("/history", routes.GoToHistory)
 	http.HandleFunc("/privacy", routes.GoToPrivacy)
 	http.HandleFunc("/terms", routes.GoToTerms)

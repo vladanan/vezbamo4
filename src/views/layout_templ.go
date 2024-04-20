@@ -58,7 +58,7 @@ func Translate(store sessions.Store, r *http.Request, item string) string {
 	}
 
 	lang_map := session.Values["language"]
-	sessionLanguage := "sh"
+	sessionLanguage := ""
 
 	if lang_map != nil {
 		sessionLanguage = lang_map.(string)

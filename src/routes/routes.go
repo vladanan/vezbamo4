@@ -71,6 +71,10 @@ func GoToMegaIncrement(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(site.MegaIncrement(store, r)).Component.Render(context.Background(), w)
 }
 
+func GoToCustomAPIs(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(site.CustomAPIs(store, r)).Component.Render(context.Background(), w)
+}
+
 func GoToHistory(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(site.History(store, r)).Component.Render(context.Background(), w)
 }

@@ -16,10 +16,13 @@ templ Questions(store sessions.Store, r *http.Request) {
 				<div class="parallax-bg" data-swiper-parallax="-23%"></div>
 					<div class="swiper-wrapper">
 
-
+						<!-- step 1 -->
 						<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/office-620822_1280_Cr.jpg);">
+							
 							<div class="title" data-swiper-parallax="-300">{views.Translate(store, r, "Questions_1_title")}</div>
+							
 							<div class="subtitle rounded-md bg-gradient-to-r from-sky-700 via-transparent to-transparent" data-swiper-parallax="-200">{views.Translate(store, r, "Questions_1_subtitle")}</div>
+							
 							<div class="text text-sm lg:text-lg rounded-md bg-gradient-to-bl from-sky-900 via-sky-700 to-transparent" data-swiper-parallax="-100">
 								<p>
 									{views.Translate(store, r, "Questions_1_text1")}
@@ -27,11 +30,16 @@ templ Questions(store sessions.Store, r *http.Request) {
 									{views.Translate(store, r, "Questions_1_text2")}
 								</p>
 							</div>
+
 						</a>
 
+						<!-- step 2 -->
 						<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/people-2569523_1280.jpg);">
-							<div class="title" data-swiper-parallax="-300">{views.Translate(store, r, "Questions_2_title")}</div>
-							<div class="subtitle rounded-md bg-gradient-to-r from-red-950 via-red-900 to-transparent" data-swiper-parallax="-200">{views.Translate(store, r, "Questions_2_subtitle")}</div>
+							
+							<div class="title w-fit px-2 rounded-md bg-gradient-to-r from-transparent via-transparent to-red-900" data-swiper-parallax="-300">{views.Translate(store, r, "Questions_2_title")}</div>
+							
+							<div class="subtitle mt-2 rounded-md bg-gradient-to-r from-red-950 via-red-900 to-transparent" data-swiper-parallax="-200">{views.Translate(store, r, "Questions_2_subtitle")}</div>
+							
 							<div class="text text-sm lg:text-lg rounded-md bg-gradient-to-bl from-red-950 via-red-900 to-transparent" data-swiper-parallax="-100">
 								<p>
 									{views.Translate(store, r, "Questions_2_text1")}
@@ -39,20 +47,43 @@ templ Questions(store sessions.Store, r *http.Request) {
 									{views.Translate(store, r, "Questions_2_text2")}
 								</p>
 							</div>
+
 						</a>
 
+						<!-- step 3 -->
 						<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/zachary-nelson-98Elr-LIvD8-unsplash-1280_C.jpg);">
+							
 							<div class="title text-black " data-swiper-parallax="-300">{views.Translate(store, r, "Questions_3_title")}</div>
+							
 							<div class="subtitle text-black " data-swiper-parallax="-200">{views.Translate(store, r, "Questions_3_subtitle")}</div>
+							
 							<div class="text text-sm lg:text-lg w-52 lg:w-72 text-black rounded-md bg-gradient-to-bl from-blue-200 via-transparent to-blue-200" data-swiper-parallax="-100">
 								<p>
 									{views.Translate(store, r, "Questions_3_text1")}
 									<br></br><br></br>
 									{views.Translate(store, r, "Questions_3_text2")}
 								</p>
+							
 							</div>
 						</a>
 
+						<!-- Language teachers -->
+						<!-- Image by <a href="https://pixabay.com/users/absolutvision-6158753/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7774314">Gino Crescoli</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7774314">Pixabay</a> -->
+						<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/translation-7774314_1280.jpg);">
+
+							<div class="title w-fit px-2 text-black rounded-md bg-gradient-to-bl from-transparent via-blue-200 to-transparent" data-swiper-parallax="-300">{views.Translate(store, r, "Questions_L_title")}</div>
+
+							<div class="subtitle mt-2 text-black rounded-md bg-gradient-to-bl from-blue-300 via-blue-200 to-transparent" data-swiper-parallax="-200">{views.Translate(store, r, "Questions_L_subtitle")}</div>
+
+							<div class="text text-md lg:text-lg text-black rounded-md bg-gradient-to-bl from-blue-200 via-transparent to-blue-200" data-swiper-parallax="-100">
+								<p>
+									{views.Translate(store, r, "Questions_L_text1")}
+									<br></br><br></br>
+									{views.Translate(store, r, "Questions_L_text2")}
+								</p>
+							</div>
+
+						</a>
 											
 					</div>
 

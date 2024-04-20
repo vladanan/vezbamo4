@@ -5,38 +5,38 @@ Logout = "Sign out"
 Welcome = "You are signed in!"
 UnWelcome = "You are not signed in!"
 
-Index_1_title = "Tests and questions"
-Index_1_subtitle = "Quick and easy learning in three quick steps"
-Index_1_text = "We all know that repetition is the mother of learning. This site utilises that very wisdom and is implemented in a way that guides your learning experience through three simple steps. Prepare your notes and keyboard and lets goooo..."
+Index_Q_title = "Tests and questions"
+Index_Q_subtitle = "Quick and easy learning in three quick steps"
+Index_Q_text = "We all know that repetition is the mother of learning. This site utilises that very wisdom and is implemented in a way that guides your learning experience through three simple steps. Prepare your notes and keyboard and lets goooo..."
 
-Index_2_subtitle = "Develop your site the same or better than this one!"
-Index_2_text = "A great tool for students, teachers and web developers to create their own site with questions, tests, quizzes and competitions using our database for questions and tests. For those who want to take a shortcut, we have ready-made examples in several programming languages and frameworks!"
+Index_Qapi_subtitle = "Develop your site the same or better than this one!"
+Index_Qapi_text = "A great tool for students, teachers and web developers to create their own site with questions, tests, quizzes and competitions using our database for questions and tests. For those who want to take a shortcut, we have ready-made examples in several programming languages and frameworks!"
 
-Index_3_title = "Assignments"
-Index_3_subtitle = "Fun and effective math assignments"
-Index_3_text = "Tasks with which elementary and high school students can easily and fun practice basic areas of mathematics"
+Index_A_title = "Assignments"
+Index_A_subtitle = "Fun and effective math assignments"
+Index_A_text = "Tasks with which elementary and high school students can easily and fun practice basic areas of mathematics"
 
-Index_4_title = "User portal"
-Index_4_subtitle = "Messages, contact, FAQ"
-Index_4_text = "Here you can send a message to the site editor, email or view frequently asked questions"
+Index_UP_title = "User portal"
+Index_UP_subtitle = "Messages, contact, FAQ"
+Index_UP_text = "Here you can send a message to the site editor, email or view frequently asked questions"
 
-Index_5_text1 = "extension is intended to ease parallel independent incrementations and decrementations in various strings. It can be used in writing code for lists, enums, arrays, tests, html and xml tags, csv files, data base examples and tests, date-time iterations, hexadecimal and binary register allocations and many other uses."
-Index_5_text2 = "Click to see"
+Index_MI_text1 = "extension is intended to ease parallel independent incrementations and decrementations in various strings. It can be used in writing code for lists, enums, arrays, tests, html and xml tags, csv files, data base examples and tests, date-time iterations, hexadecimal and binary register allocations and many other uses."
+Index_MI_text2 = "Click to see"
 
-Index_8_title = "Links"
-Index_8_subtitle = "Navigate through the site"
-Index_8_text7 = "Projects about and history"
-Index_8_text8 = "Privacy Policy"
-Index_8_text9 = "Terms of Use"
+Index_L_title = "Links"
+Index_L_subtitle = "Navigate through the site"
+Index_L_text7 = "Projects about and history"
+Index_L_text8 = "Privacy Policy"
+Index_L_text9 = "Terms of Use"
 
-Index_9_title = "About site"
-Index_9_subtitle = "Few words about our projects"
-Index_9_text1 = "Students and teachers can use quality learning aid through practice in composing questions, answers and tests."
-Index_9_text2 = "Foreign Language teachers can utilise multi lingual capacity of site to improve learning through creating questions and tests in parallel languages."
-Index_9_text3 = "Programmers can develop full stack apps by using ready made example projects and "
-Index_9_text4 = "The site is also host for: "
-Index_9_text5 = "Click here to find out more about our projects."
-Index_9_text6 = "Click here to send comments through user page."
+Index_Ab_title = "About site"
+Index_Ab_subtitle = "Few words about our projects"
+Index_Ab_text1 = "Students and teachers can use quality learning aid through practice in composing questions, answers and tests."
+Index_Ab_text2 = "Foreign Language teachers can utilise multi lingual capacity of site to improve learning through creating questions and tests in parallel languages."
+Index_Ab_text3 = "Programmers can develop full stack apps by using ready made example projects and "
+Index_Ab_text4 = "The site is also host for: "
+Index_Ab_text5 = "Click here to find out more about our projects."
+Index_Ab_text6 = "Click here to send comments through user page."
 
 
 Questions_1_title = "First step" 
@@ -55,18 +55,24 @@ Questions_3_subtitle = "At the end, do the test ✔ and that's already 90% of th
 Questions_3_text1 = "The test module enables statistical evaluation of test results through percentage success and average grade."
 Questions_3_text2 = "Share the test with your friends and learn together with a competition to see who will be better!"
 
+Questions_L_title = "Language tests" 
+Questions_L_subtitle = "Ideal for foreign language teachers!"
+Questions_L_text1 = "You can make tests with fun content, vocabulary checks, grammar tests, bilingual examples and much more."
+Questions_L_text2 = "If the site does not support your language, contact us!"
 
-Assignments_1_title = "Primary school" 
-Assignments_1_subtitle = "First grade"
-Assignments_1_text = "For easy practice of addition and subtraction up to and over 10 click here :)"
 
-Assignments_2_title = "Primary school" 
-Assignments_2_subtitle = "Second grade"
-Assignments_2_text = "For easy practice of addition and subtraction up to 100 and multiplication tables, click here :)"
 
-Assignments_3_title = "High school" 
-Assignments_3_subtitle = "First grade"
-Assignments_3_text = "Problems from combinatorics (permutations and variations)"
+Assignments_10_title = "Primary school" 
+Assignments_10_subtitle = "First grade"
+Assignments_10_text = "For easy practice of addition and subtraction up to and over 10 click here :)"
+
+Assignments_100_title = "Primary school" 
+Assignments_100_subtitle = "Second grade"
+Assignments_100_text = "For easy practice of addition and subtraction up to 100 and multiplication tables, click here :)"
+
+Assignments_Comb_title = "High school" 
+Assignments_Comb_subtitle = "First grade"
+Assignments_Comb_text = "Problems from combinatorics (permutations and variations)"
 
 
 
