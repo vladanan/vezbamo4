@@ -1,29 +1,4 @@
-package assignments
-
-import (
-	"github.com/vladanan/vezbamo4/src/views"
-	"net/http"
-	"github.com/gorilla/sessions"
-)
-// sfasf352
-templ PrimaryGrade1(store sessions.Store, r *http.Request) {
-	@views.Layout(store, r) {
-
-		<div class="relative top-4 left-5">
-			
-      <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-      <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-      <!-- Don't use this in production:
-			
-			<script src="static/assignments/babel.min.js"></script>
-      <script src="/static/assignments/o1.js" type="text/babel">
-			-->
-			<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-      <div id="root" class="text-blue-300"></div>
-
-      <script type="text/babel">
-			// daje random int uključujući min i max vrednosti
+// daje random int uključujući min i max vrednosti
 function rndInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
@@ -420,7 +395,6 @@ function Zadaci_o1 (props) {
 		<>
 
 			<p className="text-2xl mt-5 ml-2">Одабери задатке:</p>
-			<p className="text-2xl mt-5 ml-2">{Translate(store, r, "Logout")}</p>
 
 			<div className="mx-2 p-2 text-black max-w-sm border-2 border-sky-700 rounded-md bg-gradient-to-r from-blue-50 to-transparent">
 
@@ -513,14 +487,3 @@ function Zadaci_o1 (props) {
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 root.render(<Zadaci_o1 />);
-
-      </script>
-
-    </div>
-
-
-		<br></br><br></br><br></br><br></br><br></br><br></br>
-
-
-  }
-}

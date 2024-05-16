@@ -120,7 +120,7 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-0 left-2 w-6\"><a href=\"/\" class=\"\"><img src=\"static/vezbamo_logo6.svg\" height=\"25\" width=\"25\" alt=\"Vezbamo\"></a></div><a href=\"/\" class=\"absolute text-blue-400 top-1 left-10 text-sm\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-0 left-2 w-6\"><a href=\"/\" class=\"\"><img src=\"static/site/vezbamo_logo6.svg\" height=\"25\" width=\"25\" alt=\"Vezbamo\"></a></div><a href=\"/\" class=\"absolute text-blue-400 top-1 left-10 text-sm\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

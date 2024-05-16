@@ -35,7 +35,7 @@ func Questions(store sessions.Store, r *http.Request) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-4\"><!-- Swiper --><div style=\"--swiper-navigation-color: #fff; --swiper-pagination-color: #fff\" class=\"swiper mySwiper lg:rounded-2xl lg:max-w-max\"><div class=\"parallax-bg\" data-swiper-parallax=\"-23%\"></div><div class=\"swiper-wrapper\"><!-- step 1 --><a href=\"/questions\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/office-620822_1280_Cr.jpg);\"><div class=\"title\" data-swiper-parallax=\"-300\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-4\"><!-- Swiper --><div style=\"--swiper-navigation-color: #fff; --swiper-pagination-color: #fff\" class=\"swiper mySwiper lg:rounded-2xl lg:max-w-max\"><div class=\"parallax-bg\" data-swiper-parallax=\"-23%\"></div><div class=\"swiper-wrapper\"><!-- step 1 --><a href=\"https://vezbamo.vercel.app/\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/site/office-620822_1280_Cr.jpg);\"><div class=\"title\" data-swiper-parallax=\"-300\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -87,7 +87,7 @@ func Questions(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a><!-- step 2 --><a href=\"/questions\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/people-2569523_1280.jpg);\"><div class=\"title w-fit px-2 rounded-md bg-gradient-to-r from-transparent via-transparent to-red-900\" data-swiper-parallax=\"-300\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a><!-- step 2 --><a href=\"https://vezbamo.vercel.app/\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/site/people-2569523_1280.jpg);\"><div class=\"title w-fit px-2 rounded-md bg-gradient-to-r from-transparent via-transparent to-red-900\" data-swiper-parallax=\"-300\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -139,7 +139,7 @@ func Questions(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a><!-- step 3 --><a href=\"/questions\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/zachary-nelson-98Elr-LIvD8-unsplash-1280_C.jpg);\"><div class=\"title text-black \" data-swiper-parallax=\"-300\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a><!-- step 3 --><a href=\"https://vezbamo.vercel.app/\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/site/zachary-nelson-98Elr-LIvD8-unsplash-1280_C.jpg);\"><div class=\"title text-black \" data-swiper-parallax=\"-300\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -191,7 +191,7 @@ func Questions(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a><!-- Language teachers --><!-- Image by <a href=\"https://pixabay.com/users/absolutvision-6158753/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7774314\">Gino Crescoli</a> from <a href=\"https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7774314\">Pixabay</a> --><a href=\"/questions\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/translation-7774314_1280.jpg);\"><div class=\"title w-fit px-2 text-black rounded-md bg-gradient-to-bl from-transparent via-blue-200 to-transparent\" data-swiper-parallax=\"-300\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a><!-- Language teachers --><!-- Image by <a href=\"https://pixabay.com/users/absolutvision-6158753/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7774314\">Gino Crescoli</a> from <a href=\"https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7774314\">Pixabay</a> --><a href=\"/questions\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/site/translation-7774314_1280.jpg);\"><div class=\"title w-fit px-2 text-black rounded-md bg-gradient-to-bl from-transparent via-blue-200 to-transparent\" data-swiper-parallax=\"-300\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

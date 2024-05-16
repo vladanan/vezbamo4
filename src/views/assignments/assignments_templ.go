@@ -35,7 +35,7 @@ func Assignments(store sessions.Store, r *http.Request) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-4\"><!-- Swiper --><div style=\"--swiper-navigation-color: #fff; --swiper-pagination-color: #fff\" class=\"swiper mySwiper lg:rounded-2xl lg:max-w-max\"><div class=\"parallax-bg\" data-swiper-parallax=\"-23%\"></div><div class=\"swiper-wrapper\"><!-- up to 10 --><a href=\"/primary_grade_1\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/abacus-1866497_1280.jpg);\"><div class=\"title text-black\" data-swiper-parallax=\"-300\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-4\"><!-- Swiper --><div style=\"--swiper-navigation-color: #fff; --swiper-pagination-color: #fff\" class=\"swiper mySwiper lg:rounded-2xl lg:max-w-max\"><div class=\"parallax-bg\" data-swiper-parallax=\"-23%\"></div><div class=\"swiper-wrapper\"><!-- up to 10 --><a href=\"/primary_grade_1\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/site/abacus-1866497_1280.jpg);\"><div class=\"title text-black\" data-swiper-parallax=\"-300\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -74,7 +74,7 @@ func Assignments(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></a><!-- up to 100 --><a href=\"/primary_grade_2\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/abacus-1866497_1280.jpg);\"><div class=\"title text-black\" data-swiper-parallax=\"-300\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></a><!-- up to 100 --><a href=\"/primary_grade_2\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/site/abacus-1866497_1280.jpg);\"><div class=\"title text-black\" data-swiper-parallax=\"-300\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -113,7 +113,7 @@ func Assignments(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></a><!-- combinatorics --><a href=\"/secondary_grade_1\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/abacus-1866497_1280.jpg);\"><div class=\"title text-black \" data-swiper-parallax=\"-300\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></a><!-- combinatorics --><a href=\"/secondary_grade_1\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/site/abacus-1866497_1280.jpg);\"><div class=\"title text-black \" data-swiper-parallax=\"-300\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
