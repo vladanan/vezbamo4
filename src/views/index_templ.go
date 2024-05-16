@@ -54,7 +54,7 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"subtitle rounded-md bg-gradient-to-r from-sky-700 via-transparent to-transparent\" data-swiper-parallax=\"-200\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"subtitle rounded-md bg-gradient-to-r from-red-700 via-transparent to-transparent\" data-swiper-parallax=\"-200\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -80,7 +80,7 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a><!-- Assignments --><a href=\"/assignments\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/abacus-1866497_1280.jpg);\"><div class=\"title px-2 mb-2 w-96 rounded-md bg-gradient-to-r from-red-700 via-red-500 to-transparent\" data-swiper-parallax=\"-300\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a><!-- Assignments --><a href=\"assignments\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/abacus-1866497_1280.jpg);\"><div class=\"title px-2 mb-2 w-96 rounded-md bg-gradient-to-r from-red-700 via-red-500 to-transparent\" data-swiper-parallax=\"-300\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -314,14 +314,14 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></div></div><!-- About --><div class=\"swiper-slide border border-gray-800 rounded-2xl\"><div class=\"title\" data-swiper-parallax=\"-300\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></div></div><!-- About --><!--\t\t\t\t\t\n\t\t\t\t\t<a href=\"#sub3\" class=\"swiper-slide border border-gray-800 rounded-2xl\">\n\t\t\t\t\t--><div class=\"swiper-slide border border-gray-800 rounded-2xl\"><div class=\"title\" data-swiper-parallax=\"-300\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var24 string
 			templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_Ab_title"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 216, Col: 91}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 219, Col: 91}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
 			if templ_7745c5c3_Err != nil {
@@ -334,7 +334,7 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 			var templ_7745c5c3_Var25 string
 			templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_Ab_subtitle"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 218, Col: 97}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 221, Col: 97}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
 			if templ_7745c5c3_Err != nil {
@@ -347,7 +347,7 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 			var templ_7745c5c3_Var26 string
 			templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_Ab_text1"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 221, Col: 45}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 224, Col: 45}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var26))
 			if templ_7745c5c3_Err != nil {
@@ -360,7 +360,7 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 			var templ_7745c5c3_Var27 string
 			templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_Ab_text2"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 223, Col: 73}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 226, Col: 73}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var27))
 			if templ_7745c5c3_Err != nil {
@@ -373,7 +373,7 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 			var templ_7745c5c3_Var28 string
 			templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_Ab_text3"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 225, Col: 73}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 228, Col: 73}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
 			if templ_7745c5c3_Err != nil {
@@ -386,7 +386,7 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 			var templ_7745c5c3_Var29 string
 			templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_Ab_text4"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 227, Col: 45}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 230, Col: 45}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var29))
 			if templ_7745c5c3_Err != nil {
@@ -399,7 +399,7 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 			var templ_7745c5c3_Var30 string
 			templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_Ab_text5"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 229, Col: 86}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 232, Col: 86}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var30))
 			if templ_7745c5c3_Err != nil {
@@ -412,13 +412,13 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 			var templ_7745c5c3_Var31 string
 			templ_7745c5c3_Var31, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_Ab_text6"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 231, Col: 90}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 234, Col: 90}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var31))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></div></div></div><div class=\"swiper-button-next\"></div><div class=\"swiper-button-prev\"></div><div class=\"swiper-pagination\"></div></div></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></div></div></div><div class=\"swiper-button-next\"></div><div class=\"swiper-button-prev\"></div><div class=\"swiper-pagination\"></div></div></div><!--\n\t\t<div id=\"sub1\" class=\"relative top-10 w-96 h-60 bg-cyan-700\">\n\t\t\t<p>\n\t\t\t\ttest sub swiper section 1\n\t\t\t</p>\n\t\t</div>\n\t\t<div id=\"sub2\" class=\"relative top-14 w-96 h-60 bg-cyan-800\">\n\t\t\t<p>\n\t\t\t\ttest sub swiper section 2\n\t\t\t</p>\n\t\t</div>\n\t\t<div id=\"sub3\" class=\"relative text-white top-14 w-96 h-60 bg-cyan-900\">\n\t\t\t<p>\n\t\t\t\ttest sub swiper section 3\n\t\t\t</p>\n\t\t</div>\n\t\t-->")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

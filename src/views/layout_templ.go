@@ -71,7 +71,7 @@ func Translate(store sessions.Store, r *http.Request, item string) string {
 		accept = sessionLanguage
 	}
 
-	//fmt.Println("language: ", lang, "header: ", accept)
+	//fmt.Println("language: ", lang, "header: ", accept) ,jk
 
 	localizer := i18n.NewLocalizer(bundle, lang, accept)
 

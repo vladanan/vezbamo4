@@ -28,7 +28,7 @@ templ Index(store sessions.Store, r *http.Request) {
 						
 						<div class="title" data-swiper-parallax="-300">{Translate(store, r, "Index_Q_title")}</div>
 						
-						<div class="subtitle rounded-md bg-gradient-to-r from-sky-700 via-transparent to-transparent" data-swiper-parallax="-200">{Translate(store, r, "Index_Q_subtitle")}</div>
+						<div class="subtitle rounded-md bg-gradient-to-r from-red-700 via-transparent to-transparent" data-swiper-parallax="-200">{Translate(store, r, "Index_Q_subtitle")}</div>
 						<div class="text text-sm lg:text-lg" data-swiper-parallax="-100">
 							<p>
 								{Translate(store, r, "Index_Q_text")}
@@ -39,7 +39,7 @@ templ Index(store sessions.Store, r *http.Request) {
 
 
 					<!-- Assignments -->
-					<a href="/assignments" class="swiper-slide cursor-alias" style="background-image: url(static/abacus-1866497_1280.jpg);">
+					<a href="assignments" class="swiper-slide cursor-alias" style="background-image: url(static/abacus-1866497_1280.jpg);">
 						
 						<div class="title px-2 mb-2 w-96 rounded-md bg-gradient-to-r from-red-700 via-red-500 to-transparent" data-swiper-parallax="-300">{Translate(store, r, "Index_A_title")}</div>
 						
@@ -212,6 +212,9 @@ templ Index(store sessions.Store, r *http.Request) {
 
 
 					<!-- About -->
+					<!--					
+					<a href="#sub3" class="swiper-slide border border-gray-800 rounded-2xl">
+					-->
 					<div class="swiper-slide border border-gray-800 rounded-2xl">
 						
 						<div class="title" data-swiper-parallax="-300">{Translate(store, r, "Index_Ab_title")}</div>
@@ -243,6 +246,25 @@ templ Index(store sessions.Store, r *http.Request) {
 			</div>
 			
 		</div>
+
+		
+		<!--
+		<div id="sub1" class="relative top-10 w-96 h-60 bg-cyan-700">
+			<p>
+				test sub swiper section 1
+			</p>
+		</div>
+		<div id="sub2" class="relative top-14 w-96 h-60 bg-cyan-800">
+			<p>
+				test sub swiper section 2
+			</p>
+		</div>
+		<div id="sub3" class="relative text-white top-14 w-96 h-60 bg-cyan-900">
+			<p>
+				test sub swiper section 3
+			</p>
+		</div>
+		-->
 
   }
 }

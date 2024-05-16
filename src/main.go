@@ -25,7 +25,11 @@ func main() {
 	//http.Handle("/questions", templ.Handler(questions.Questions()))
 	http.HandleFunc("/questions", routes.GoToQuestions)
 	http.HandleFunc("/questions_api", routes.GoToQuestionsAPI)
+
 	http.HandleFunc("/assignments", routes.GoToAssignments)
+	http.HandleFunc("/primary_grade_1", routes.GoToPrimaryGrade1)
+	http.HandleFunc("/primary_grade_2", routes.GoToPrimaryGrade2)
+	http.HandleFunc("/secondary_grade_1", routes.GoToSecondaryGrade1)
 
 	http.HandleFunc("/user_portal", routes.GoToUserPortal)
 

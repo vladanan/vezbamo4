@@ -61,6 +61,15 @@ func GoToQuestionsAPI(w http.ResponseWriter, r *http.Request) {
 func GoToAssignments(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(assignments.Assignments(store, r)).Component.Render(context.Background(), w)
 }
+func GoToPrimaryGrade1(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(assignments.PrimaryGrade1(store, r)).Component.Render(context.Background(), w)
+}
+func GoToPrimaryGrade2(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(assignments.PrimaryGrade2(store, r)).Component.Render(context.Background(), w)
+}
+func GoToSecondaryGrade1(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(assignments.SecondaryGrade1(store, r)).Component.Render(context.Background(), w)
+}
 
 func GoToUserPortal(w http.ResponseWriter, r *http.Request) {
 	// fmt.Println(db.GetNotes())
