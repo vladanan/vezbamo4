@@ -40,6 +40,7 @@ func main() {
 	http.HandleFunc("/history", routes.GoToHistory)
 	http.HandleFunc("/privacy", routes.GoToPrivacy)
 	http.HandleFunc("/terms", routes.GoToTerms)
+	http.HandleFunc("/da", routes.GoToDa)
 
 	// http.Handle("/404", http.NotFoundHandler())
 	http.HandleFunc("/404", func(w http.ResponseWriter, r *http.Request) {

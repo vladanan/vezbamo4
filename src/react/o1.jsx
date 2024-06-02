@@ -35,7 +35,7 @@ function array_rand(niz, broj_clanova) {
 	return novi_niz;
 }
 
-//lažni shuffle samo za nizove sa 10 članova
+//lažni shuffle samo za nizove sa 10 članova  gsag
 function shuffle() {
 	let kombinacija = rndInt(0, 2);
 	let novi_niz = [0];
@@ -142,7 +142,6 @@ function O1m_1_10txt (props) {
 		o1m_1_10txt
 	)
 }
-
 
 
 function Zadaci_o1 (props) {
@@ -393,6 +392,19 @@ function Zadaci_o1 (props) {
 
 	return (
 		<>
+
+			{zadatak == 'o1m_1_10' && (
+				<>
+					
+						<div>
+							{props.id}
+							{props.name}
+							
+							</div>
+					
+				</>
+				)
+			}
 
 			<p className="text-2xl mt-5 ml-2">Одабери задатке:</p>
 

@@ -13,6 +13,7 @@ import (
 	"github.com/vladanan/vezbamo4/src/db"
 	views "github.com/vladanan/vezbamo4/src/views"
 	assignments "github.com/vladanan/vezbamo4/src/views/assignments"
+	da "github.com/vladanan/vezbamo4/src/views/da"
 	questions "github.com/vladanan/vezbamo4/src/views/questions"
 	site "github.com/vladanan/vezbamo4/src/views/site"
 )
@@ -94,6 +95,10 @@ func GoToPrivacy(w http.ResponseWriter, r *http.Request) {
 
 func GoToTerms(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(site.Terms(store, r)).Component.Render(context.Background(), w)
+}
+
+func GoToDa(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(da.Da(store, r)).Component.Render(context.Background(), w)
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
