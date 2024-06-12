@@ -1,89 +1,51 @@
 package assignments
 
 import (
-	//"github.com/vladanan/vezbamo4/src/views"
+	"github.com/vladanan/vezbamo4/src/views"
 	"net/http"
 	"github.com/gorilla/sessions"
-	"fmt"
+	//"fmt"
 )
-// sfasf352
 
-script renderZadacio1(id, name string) {
+script renderZadacio1(tekst []string) {
 	// Use the renderHello function from the React bundle.
-	bundle.Zadaci_o1(id, name)
+	bundle.reactRenderZadaci_o1(tekst)
 }
 
-templ Zadaci_o1(id, name string) {
-	<div class="text-blue-300" id={ id }>{id}, {name}</div>
-	@renderZadacio1(id, name)
-}
+// var id = "petzz"
+// var name = "vladan"
 
-var id = "petzz"
-var name = "vladan"
-
-
-script renderHelloReact(id, name string) {
-	// Use the renderHello function from the React bundle.
-	bundle.renderHello(id, name)
-}
-
-templ Hello(id, name string) {
-	<div id={ id }></div>
-	@renderHelloReact(id, name)
+templ Zadaci_o1(tekst []string) {
+	// <div class="text-blue-300" id={ id }>{id}, {name}</div>
+	@renderZadacio1(tekst)
 }
 
 templ PrimaryGrade1(store sessions.Store, r *http.Request) {
 
-  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-	<script src="static/assignments/babel.min.js"></script>
 
-	<div id="react-header"></div>
-	<div id="react-content"></div>
-	<div>This is server-side content from templ. 2</div>
-	<!-- Load the React bundle created using esbuild -->
-	<script src="static/assignments/index.js"></script>
+	@views.Layout(store, r) {
+		<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+		<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+		<script src="static/assignments/babel.min.js"></script>
 
-	for i, name := range []string{"Alice", "Bob", "Charlie"} {
-		@Hello(fmt.Sprintf("react-hello-%d", i), name)
-		<p>
-				{name} {fmt.Sprint(i)}
-		</p>
+		<div id="root" class="text-blue-300"></div>
+
+		<!-- Load the React bundle created using esbuild 
+		-->
+		<script src="static/assignments/o1.js"></script>
+
+		@Zadaci_o1([]string{
+			views.Translate(store, r, "Assignments_10_page_title"),
+			views.Translate(store, r, "Assignments_10_1-10"),
+			views.Translate(store, r, "Assignments_10_f1-10"),
+			views.Translate(store, r, "Assignments_10_page_result"),
+			views.Translate(store, r, "Assignments_10_page_new"),
+		})
+
+		//fmt.Sprint(views.Translate(store, r, "Index_Q_subtitle"))
+		//[]string{views.Translate(store, r, "Index_Q_subtitle"), "Bob", "fsda", "dsfaf")
 	}
 
-	// @views.Layout(store, r) {
+	<br></br><br></br><br></br><br></br><br></br><br></br>
 
-	// 	<div class="relative top-4 left-5 text-white">
-	// 		{views.Translate(store, r, "Assignments_10_page_title")}
-	// 	</div>
-
-	// 	<div class="relative top-4 left-5">
-			
-  //     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  //     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  //     <!-- Don't use this in production:
-			
-	// 		<script src="static/assignments/babel.min.js"></script>
-  //     <script src="/static/assignments/o1.js" type="text/babel">
-	// 		-->
-	// 		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-  //     <div id="root" class="text-blue-300"></div>
-
-	// 		<!-- fghfh
-  //   	<script src="/static/assignments/o1.js" type="text/babel"></script>
-	// 		-->
-  //   	<script src="/static/assignments/o1.js"></script>
-
-	// 		@Zadaci_o1(id, name)
-
-
-
-  //   </div>
-
-
-	// 	<br></br><br></br><br></br><br></br><br></br><br></br>
-
-
-  // }
 }

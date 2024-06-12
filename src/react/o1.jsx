@@ -143,10 +143,18 @@ function O1m_1_10txt (props) {
 	)
 }
 
+export function reactRenderZadaci_o1(tekst) {
+	const rootElement = document.getElementById("root");
+	if (!rootElement) {
+		throw new Error(`Could not find element with iidd ${"root"}`);
+	}
+	const reactRoot = ReactDOM.createRoot(rootElement);
+	reactRoot.render(<Zadaci_o1 tekst={tekst}/>);
+}
 
-function Zadaci_o1 (props) {
+export function Zadaci_o1 (props) {
 
-	// console.log('PROPOVI: ', props)
+	//console.log('PROPOVI: ', props)
 
 	const [zadatak, setZadatak] = React.useState('o1m_1_10');
 	const [vidljiv_odgovor, setVidljiv_odgovor] = React.useState(false);
@@ -390,6 +398,8 @@ function Zadaci_o1 (props) {
 	}
 
 
+
+
 	return (
 		<>
 
@@ -406,7 +416,7 @@ function Zadaci_o1 (props) {
 				)
 			}
 
-			<p className="text-2xl mt-5 ml-2">Одабери задатке:</p>
+			<p id="naslov" className="text-2xl mt-5 ml-2">{props.tekst[0]}</p>
 
 			<div className="mx-2 p-2 text-black max-w-sm border-2 border-sky-700 rounded-md bg-gradient-to-r from-blue-50 to-transparent">
 
@@ -414,7 +424,7 @@ function Zadaci_o1 (props) {
 				<label className={zadatak == 'o1m_1_10'
 					? "relative p-1 border-2 border-black rounded-md bg-sky-400"
 					: "relative p-1 border-2 border-black rounded-md bg-gray-400"}
-				htmlFor="o1m_1_10">Сабирање и одузимање од 1 до 10
+				htmlFor="o1m_1_10">{props.tekst[1]}
 				</label>
 				<input
 				onClick={(e) => promeniZadatak('o1m_1_10')}
@@ -427,7 +437,7 @@ function Zadaci_o1 (props) {
 				<label className={zadatak == 'o1m_1_10txt'
 					? "relative p-1 border-2 border-black rounded-md bg-gradient-to-br from-red-500 via-yellow-100 to-green-300"
 					: "relative p-1 border-2 border-black rounded-md bg-gray-400"}
-				htmlFor="o1m_1_10txt">Смешно саб. и одуз. од 1 до 10
+				htmlFor="o1m_1_10txt">{props.tekst[2]}
 				</label>
 				<input
 				onClick={(e) => promeniZadatak('o1m_1_10txt')}
@@ -443,12 +453,12 @@ function Zadaci_o1 (props) {
 					<button onClick={vidiOdgovor}
 					className="ml-10 my-2 relative
 					border-2 border-gray-500 rounded-md p-1 bg-lime-50 hover:bg-lime-200" >
-						Решење</button>
+						{props.tekst[3]}</button>
 
 					<button onClick={novoPitanje}
 					className="ml-8 my-2 relative
 					border-2 border-gray-500 rounded-md p-1 bg-blue-300 hover:bg-blue-400">
-						Нови задатак</button>
+						{props.tekst[4]}</button>
 					<br/>
 
 					<O1m_1_10
@@ -496,6 +506,6 @@ function Zadaci_o1 (props) {
 
 
 
-const container = document.getElementById('root');
-const root = ReactDOM.createRoot(container);
-root.render(<Zadaci_o1 />);
+// const container = document.getElementById('root');
+// const root = ReactDOM.createRoot(container);
+// root.render(<Zadaci_o1 />);

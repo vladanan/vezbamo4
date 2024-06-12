@@ -65,7 +65,11 @@ Assignments_10_title = "Osnovna škola"
 Assignments_10_subtitle = "Prvi razred"
 Assignments_10_text = "Za lako vežbanje sabiranja i oduzimanje do i preko 10 klikni ovde :)"
 
-Assignments_10_page_title = "Odaberi zadatke"
+Assignments_10_page_title = "Odaberi zadatak"
+Assignments_10_1-10 = "Sabiranje i oduzimanje od 1 do 10"
+Assignments_10_f1-10 = "Smešno sabiranje i oduzimanje od 1 do 10"
+Assignments_10_page_result = "Rešenje"
+Assignments_10_page_new = "Novi zadatak"
 
 Assignments_100_title = "Osnovna škola" 
 Assignments_100_subtitle = "Drugi razred"
