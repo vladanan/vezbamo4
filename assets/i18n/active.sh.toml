@@ -71,9 +71,58 @@ Assignments_10_f1-10 = "Smešno sabiranje i oduzimanje od 1 do 10"
 Assignments_10_page_result = "Rešenje"
 Assignments_10_page_new = "Novi zadatak"
 
+A_10_novo_pitanjeT11 = "Marko"
+A_10_novo_pitanjeT22 = "Maša"
+A_10_novo_pitanjeT33 = "kamiončića"
+
+A_10_Set_novo_pitanjeT11 = "Miloš"
+A_10_Set_novo_pitanjeT22 = "Jelena"
+A_10_Set_novo_pitanjeT33 = "kolača"
+
+T1_1 = "Marko"
+T1_2 = "Majmun"
+T1_3 = "Miloš"
+T1_4 = "Krokodil"
+T1_5 = "Stefan"
+T1_6 = "Slepi miš"
+T1_7 = "Ilija"
+T1_8 = "Slon"
+T1_9 = "Jovan"
+T1_10 = "Gorila"
+
+T2_1 = "Maša"
+T2_2 = "žirafa"
+T2_3 = "Jelena"
+T2_4 = "hijena"
+T2_5 = "Ivana"
+T2_6 = "čaplja"
+T2_7 = "Milena"
+T2_8 = "kokoška"
+T2_9 = "Nataša"
+T2_10 = "ovca"
+
+T3_1 = "kamiončića"
+T3_2 = "eksera"
+T3_3 = "kolača"
+T3_4 = "čekića"
+T3_5 = "dinara"
+T3_6 = "flomastera"
+T3_7 = "lizala"
+T3_8 = "cvetića"
+T3_9 = "leptirića"
+T3_10 = "ćevapčića"
+
+Ima = " ima "
+Aa = " a "
+Manje_kraj_recenice = " manje. Koliko imaju zajedno?"
+Vise_kraj_recenice = " više. Koliko imaju ukupno?"
+
+
 Assignments_100_title = "Osnovna škola" 
 Assignments_100_subtitle = "Drugi razred"
 Assignments_100_text = "Za lako vežbanje sabiranja i oduzimanja do 100 i tablice množenja klikni ovde :)"
+
+
 
 Assignments_Comb_title = "Srednja škola" 
 Assignments_Comb_subtitle = "Prvi razred"

@@ -110,10 +110,10 @@ function O1m_1_10txt (props) {
 
 	if (a > b) {
 			c = a - b;
-			label = t11 + " има " + a + " " + t33 + " a " + t22 + " " + c + " мање. Колико имају заједно?";
+			label = t11 + props.i18n.Rec.Ima + a + " " + t33 + props.i18n.Rec.Aa + t22 + " " + c + props.i18n.Rec.Manje_kraj;
 		} else {
 			c = b - a;
-			label = t11 + " има " + a + " " + t33 + " a " + t22 + " " + c + " више. Колико имају укупно?";
+			label = t11 + props.i18n.Rec.Ima + a + " " + t33 + props.i18n.Rec.Aa + t22 + " " + c + props.i18n.Rec.Vise_kraj;
 		}
 
 	pitanje =
@@ -143,18 +143,23 @@ function O1m_1_10txt (props) {
 	)
 }
 
-export function reactRenderZadaci_o1(tekst) {
+
+
+export function reactRenderZadaci_o1(translations) {
+	// console.log("json translations:", JSON.parse(translations))
 	const rootElement = document.getElementById("root");
 	if (!rootElement) {
 		throw new Error(`Could not find element with iidd ${"root"}`);
 	}
 	const reactRoot = ReactDOM.createRoot(rootElement);
-	reactRoot.render(<Zadaci_o1 tekst={tekst}/>);
+	reactRoot.render(<Zadaci_o1 i18n={JSON.parse(translations)}/>);
 }
 
-export function Zadaci_o1 (props) {
 
-	//console.log('PROPOVI: ', props)
+
+function Zadaci_o1 (props) {
+
+	// console.log('PROPOVI: ', props)
 
 	const [zadatak, setZadatak] = React.useState('o1m_1_10');
 	const [vidljiv_odgovor, setVidljiv_odgovor] = React.useState(false);
@@ -162,9 +167,9 @@ export function Zadaci_o1 (props) {
 		a: 2,
 		op2: '+',
 		b: 2,
-		t11: 'Марко',
-		t22: 'Маша',
-		t33: 'камиончића',
+		t11: props.i18n.Novo_pitanje.T11,
+		t22: props.i18n.Novo_pitanje.T22,
+		t33: props.i18n.Novo_pitanje.T33,
 		kombi: 'Кликни на: Нови задатак!'
 	});
 
@@ -180,9 +185,9 @@ export function Zadaci_o1 (props) {
 				a: 0,
 				op2: '+',
 				b: 0,
-				t11: 'Милош',
-				t22: 'Јелена',
-				t33: 'колача',
+				t11: props.i18n.SetNovo_pitanje.T11,
+				t22: props.i18n.SetNovo_pitanje.T22,
+				t33: props.i18n.SetNovo_pitanje.T33,
 				kombi: 'Кликни на: Нови задатак!'
 			});
 		} else {
@@ -190,9 +195,9 @@ export function Zadaci_o1 (props) {
 				a: 0,
 				op2: '*',
 				b: 0,
-				t11: 'Милош',
-				t22: 'Јелена',
-				t33: 'колача',
+				t11: props.i18n.SetNovo_pitanje.T11,
+				t22: props.i18n.SetNovo_pitanje.T22,
+				t33: props.i18n.SetNovo_pitanje.T33,
 				kombi: 'Кликни на: Нови задатак!'
 			});
 		}
@@ -349,9 +354,9 @@ export function Zadaci_o1 (props) {
 					a,
 					op2,
 					b,
-					t11: 'Милош',
-					t22: 'Јелена',
-					t33: 'колача',
+					t11: props.i18n.SetNovo_pitanje.T11,
+					t22: props.i18n.SetNovo_pitanje.T22,
+					t33: props.i18n.SetNovo_pitanje.T33,
 					kombi: 'Кликни на: Нови задатак!'
 				});
 				break;
@@ -360,11 +365,50 @@ export function Zadaci_o1 (props) {
 				let aa = rndInt(2, 10);
 				let bb = rndInt(2, 10);
 
-				let t1 = ["Марко", "Mајмун", "Милош", "Kрокодил", "Стефан", "Слепи миш", "Илија", "Слон", "Јован", "Горила"];
+				let t1 = [
+					props.i18n.Novo_pitanjeT1[0],
+					props.i18n.Novo_pitanjeT1[1],
+					props.i18n.Novo_pitanjeT1[2],
+					props.i18n.Novo_pitanjeT1[3],
+					props.i18n.Novo_pitanjeT1[4],
+					props.i18n.Novo_pitanjeT1[5],
+					props.i18n.Novo_pitanjeT1[6],
+					props.i18n.Novo_pitanjeT1[7],
+					props.i18n.Novo_pitanjeT1[8],
+					props.i18n.Novo_pitanjeT1[9],
+				];
 
-				let t2 = ["Маша", "жирафа", "Јелена", "хијена", "Ивана", "чапља", "Милена", "кокошка", "Наташа", "овца"];
+				let t2 = [
+					props.i18n.Novo_pitanjeT2[0],
+					props.i18n.Novo_pitanjeT2[1],
+					props.i18n.Novo_pitanjeT2[2],
+					props.i18n.Novo_pitanjeT2[3],
+					props.i18n.Novo_pitanjeT2[4],
+					props.i18n.Novo_pitanjeT2[5],
+					props.i18n.Novo_pitanjeT2[6],
+					props.i18n.Novo_pitanjeT2[7],
+					props.i18n.Novo_pitanjeT2[8],
+					props.i18n.Novo_pitanjeT2[9],
+				];
 
-				let t3 = ["камиончића", "ексера", "колача", "чекића", "динара", "фломастера" , "лизала", "цветића", "лептирића", "ћевапчића"];
+				let t3 = [
+					props.i18n.Novo_pitanjeT3[0],
+					props.i18n.Novo_pitanjeT3[1],
+					props.i18n.Novo_pitanjeT3[2],
+					props.i18n.Novo_pitanjeT3[3],
+					props.i18n.Novo_pitanjeT3[4],
+					props.i18n.Novo_pitanjeT3[5],
+					props.i18n.Novo_pitanjeT3[6],
+					props.i18n.Novo_pitanjeT3[7],
+					props.i18n.Novo_pitanjeT3[8],
+					props.i18n.Novo_pitanjeT3[9],
+				];
+
+				// let t1 = ["Марко", "Mајмун", "Милош", "Kрокодил", "Стефан", "Слепи миш", "Илија", "Слон", "Јован", "Горила"];
+
+				// let t2 = ["Маша", "жирафа", "Јелена", "хијена", "Ивана", "чапља", "Милена", "кокошка", "Наташа", "овца"];
+
+				// let t3 = ["камиончића", "ексера", "колача", "чекића", "динара", "фломастера" , "лизала", "цветића", "лептирића", "ћевапчића"];
 
 				let t11 = t1[rndInt(0, 9)];
 				let t22 = t2[rndInt(0, 9)];
@@ -416,7 +460,7 @@ export function Zadaci_o1 (props) {
 				)
 			}
 
-			<p id="naslov" className="text-2xl mt-5 ml-2">{props.tekst[0]}</p>
+			<p className="text-2xl mt-5 ml-2">{props.i18n.Title}</p>
 
 			<div className="mx-2 p-2 text-black max-w-sm border-2 border-sky-700 rounded-md bg-gradient-to-r from-blue-50 to-transparent">
 
@@ -424,7 +468,7 @@ export function Zadaci_o1 (props) {
 				<label className={zadatak == 'o1m_1_10'
 					? "relative p-1 border-2 border-black rounded-md bg-sky-400"
 					: "relative p-1 border-2 border-black rounded-md bg-gray-400"}
-				htmlFor="o1m_1_10">{props.tekst[1]}
+				htmlFor="o1m_1_10">{props.i18n.Zadaci_1_10}
 				</label>
 				<input
 				onClick={(e) => promeniZadatak('o1m_1_10')}
@@ -437,7 +481,7 @@ export function Zadaci_o1 (props) {
 				<label className={zadatak == 'o1m_1_10txt'
 					? "relative p-1 border-2 border-black rounded-md bg-gradient-to-br from-red-500 via-yellow-100 to-green-300"
 					: "relative p-1 border-2 border-black rounded-md bg-gray-400"}
-				htmlFor="o1m_1_10txt">{props.tekst[2]}
+				htmlFor="o1m_1_10txt">{props.i18n.Zadaci_smesni_1_10}
 				</label>
 				<input
 				onClick={(e) => promeniZadatak('o1m_1_10txt')}
@@ -453,12 +497,12 @@ export function Zadaci_o1 (props) {
 					<button onClick={vidiOdgovor}
 					className="ml-10 my-2 relative
 					border-2 border-gray-500 rounded-md p-1 bg-lime-50 hover:bg-lime-200" >
-						{props.tekst[3]}</button>
+						{props.i18n.Result}</button>
 
 					<button onClick={novoPitanje}
 					className="ml-8 my-2 relative
 					border-2 border-gray-500 rounded-md p-1 bg-blue-300 hover:bg-blue-400">
-						{props.tekst[4]}</button>
+						{props.i18n.New_a}</button>
 					<br/>
 
 					<O1m_1_10
@@ -478,12 +522,12 @@ export function Zadaci_o1 (props) {
 					<button onClick={vidiOdgovor}
 					className="ml-10 my-2 relative
 					border-2 border-gray-500 rounded-md p-1 bg-lime-50 hover:bg-lime-200" >
-						Решење</button>
+						{props.i18n.Result}</button>
 
 					<button onClick={novoPitanje}
 					className="ml-8 my-2 relative
 					border-2 border-gray-500 rounded-md p-1 bg-blue-300 hover:bg-blue-400">
-						Нови задатак</button>
+						{props.i18n.New_a}</button>
 					<br/>
 
 					<O1m_1_10txt
@@ -492,6 +536,7 @@ export function Zadaci_o1 (props) {
 						setOdgovor={setOdgovor}
 						rezultat={rezultat}
 						resenje={resenje}
+						i18n={props.i18n}
 					/>
 				</>
 				)}
