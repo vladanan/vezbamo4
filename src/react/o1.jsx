@@ -170,7 +170,7 @@ function Zadaci_o1 (props) {
 		t11: props.i18n.Novo_pitanje.T11,
 		t22: props.i18n.Novo_pitanje.T22,
 		t33: props.i18n.Novo_pitanje.T33,
-		kombi: 'Кликни на: Нови задатак!'
+		kombi: ''
 	});
 
 	const [odgovor, setOdgovor] = React.useState(null);
@@ -188,7 +188,7 @@ function Zadaci_o1 (props) {
 				t11: props.i18n.SetNovo_pitanje.T11,
 				t22: props.i18n.SetNovo_pitanje.T22,
 				t33: props.i18n.SetNovo_pitanje.T33,
-				kombi: 'Кликни на: Нови задатак!'
+				kombi: ''
 			});
 		} else {
 			setNovo_pitanje({
@@ -198,7 +198,7 @@ function Zadaci_o1 (props) {
 				t11: props.i18n.SetNovo_pitanje.T11,
 				t22: props.i18n.SetNovo_pitanje.T22,
 				t33: props.i18n.SetNovo_pitanje.T33,
-				kombi: 'Кликни на: Нови задатак!'
+				kombi: ''
 			});
 		}
 
@@ -357,7 +357,7 @@ function Zadaci_o1 (props) {
 					t11: props.i18n.SetNovo_pitanje.T11,
 					t22: props.i18n.SetNovo_pitanje.T22,
 					t33: props.i18n.SetNovo_pitanje.T33,
-					kombi: 'Кликни на: Нови задатак!'
+					kombi: ''
 				});
 				break;
 
@@ -428,7 +428,7 @@ function Zadaci_o1 (props) {
 					t11,
 					t22,
 					t33,
-					kombi: 'Кликни на: Нови задатак!'
+					kombi: ''
 				});
 				break;
 

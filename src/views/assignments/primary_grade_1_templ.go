@@ -24,28 +24,28 @@ type O1 struct {
 	Zadaci_smesni_1_10 string
 	Result             string
 	New_a              string
-	Novo_pitanje       Pitanje
-	SetNovo_pitanje    Pitanje
+	Novo_pitanje       Pitanje1
+	SetNovo_pitanje    Pitanje1
 	Novo_pitanjeT1     []string
 	Novo_pitanjeT2     []string
 	Novo_pitanjeT3     []string
-	Rec                DeloviRecenice
+	Rec                DeloviRecenice1
 }
 
-type Pitanje struct {
+type Pitanje1 struct {
 	T11 string
 	T22 string
 	T33 string
 }
 
-type DeloviRecenice struct {
+type DeloviRecenice1 struct {
 	Ima        string
 	Aa         string
 	Manje_kraj string
 	Vise_kraj  string
 }
 
-func getJsonFromStruct(o1 O1) string {
+func getJsonFromStruct1(o1 O1) string {
 	// fmt.Print("o1:", o1)
 	o1Json, err2 := json.Marshal(o1)
 	if err2 != nil {
@@ -60,15 +60,15 @@ func getO1Struct(store sessions.Store, r *http.Request) O1 {
 		Title:              views.Translate(store, r, "Assignments_10_page_title"),
 		Zadaci_1_10:        views.Translate(store, r, "Assignments_10_1-10"),
 		Zadaci_smesni_1_10: views.Translate(store, r, "Assignments_10_f1-10"),
-		Result:             views.Translate(store, r, "Assignments_10_page_result"),
-		New_a:              views.Translate(store, r, "Assignments_10_page_new"),
+		Result:             views.Translate(store, r, "Assignments_page_result"),
+		New_a:              views.Translate(store, r, "Assignments_page_new"),
 
-		Novo_pitanje: Pitanje{
+		Novo_pitanje: Pitanje1{
 			T11: views.Translate(store, r, "A_10_novo_pitanjeT11"),
 			T22: views.Translate(store, r, "A_10_novo_pitanjeT22"),
 			T33: views.Translate(store, r, "A_10_novo_pitanjeT33"),
 		},
-		SetNovo_pitanje: Pitanje{
+		SetNovo_pitanje: Pitanje1{
 			T11: views.Translate(store, r, "A_10_Set_novo_pitanjeT11"),
 			T22: views.Translate(store, r, "A_10_Set_novo_pitanjeT22"),
 			T33: views.Translate(store, r, "A_10_Set_novo_pitanjeT33"),
@@ -109,7 +109,7 @@ func getO1Struct(store sessions.Store, r *http.Request) O1 {
 			views.Translate(store, r, "T3_9"),
 			views.Translate(store, r, "T3_10"),
 		},
-		Rec: DeloviRecenice{
+		Rec: DeloviRecenice1{
 			Ima:        views.Translate(store, r, "Ima"),
 			Aa:         views.Translate(store, r, "Aa"),
 			Manje_kraj: views.Translate(store, r, "Manje_kraj_recenice"),
@@ -142,7 +142,7 @@ func Zadaci_o1(translations O1) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = renderZadacio1(getJsonFromStruct(translations)).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = renderZadacio1(getJsonFromStruct1(translations)).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

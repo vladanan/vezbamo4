@@ -4,31 +4,146 @@ import (
 	"github.com/vladanan/vezbamo4/src/views"
 	"net/http"
 	"github.com/gorilla/sessions"
+	"fmt"
+	"encoding/json"
 )
 
+
+type S1 struct {
+	Title string
+	Comb string
+	Comb_temp string
+	Result string
+	New_a string
+	New_b string
+	Novo_pitanjeT1 []string
+	Novo_pitanjeT2 []string
+	Novo_pitanjeT3 []string
+	Rec DeloviReceniceS1
+}
+
+
+
+func getJsonFromStructS1 (s1 S1) string {
+	// fmt.Print("o1:", o1)
+	s1Json, err2 := json.Marshal(s1)
+	if err2 != nil {
+		fmt.Printf("Json error: %v", err2)
+	}
+	// fmt.Print("o1 json:", o1Json)
+	return string(s1Json)
+}
+
+func getS1Struct (store sessions.Store, r *http.Request) S1 {
+	return S1{
+		Title: views.Translate(store, r, "Assignments_page_title"),
+		Comb: views.Translate(store, r, "Assignments_Comb-comb"),
+		Comb_temp: views.Translate(store, r, "Assignments_Comb-temp"),
+		Result: views.Translate(store, r, "Assignments_page_result"),
+		New_a: views.Translate(store, r, "Assignments_page_new"),
+		New_b: views.Translate(store, r, "Assignments_Comb-prazan"),
+
+		Novo_pitanjeT1: []string{
+			views.Translate(store, r, "CT1_1"),
+			views.Translate(store, r, "CT1_2"),
+			views.Translate(store, r, "CT1_3"),
+			views.Translate(store, r, "CT1_4"),
+			views.Translate(store, r, "CT1_5"),
+		},
+		Novo_pitanjeT2: []string{
+			views.Translate(store, r, "CT2_1"),
+			views.Translate(store, r, "CT2_2"),
+			views.Translate(store, r, "CT2_3"),
+			views.Translate(store, r, "CT2_4"),
+			views.Translate(store, r, "CT2_5"),
+		},
+		Novo_pitanjeT3: []string{
+			views.Translate(store, r, "CT3_1"),
+			views.Translate(store, r, "CT3_2"),
+			views.Translate(store, r, "CT3_3"),
+			views.Translate(store, r, "CT3_4"),
+			views.Translate(store, r, "CT3_5"),
+			views.Translate(store, r, "CT3_6"),
+			views.Translate(store, r, "CT3_7"),
+			views.Translate(store, r, "CT3_8"),
+		},
+		Rec: DeloviReceniceS1{
+			Ponavljaju: views.Translate(store, r, "Ponavljaju"),
+			Ne_ponavljaju: views.Translate(store, r, "Ne_ponavljaju"),
+			Ako_su_prva: views.Translate(store, r, "Ako_su_prva"),
+			Ako_su_zadnja: views.Translate(store, r, "Ako_su_zadnja"),
+			Broja_parna_i: views.Translate(store, r, "Broja_parna_i"),
+			Broja_neparna_i: views.Translate(store, r, "Broja_neparna_i"),
+			Deljivih_sa: views.Translate(store, r, "Deljivih_sa"),
+			Koliko: views.Translate(store, r, "Koliko"),
+			Cifrenih_brojeva: views.Translate(store, r, "Cifrenih_brojeva"),
+			Moze_da_se_dobije_od_cifara: views.Translate(store, r, "Moze_da_se_dobije_od_cifara"),
+			Ako_se_cifre: views.Translate(store, r, "Ako_se_cifre"),
+			Se_nalaze: views.Translate(store, r, "Se_nalaze"),
+			Sledecih_boja: views.Translate(store, r, "Sledecih_boja"),
+			Na_koliko_nacina_se_one_mogu_rasporediti_tako_da: views.Translate(store, r, "Na_koliko_nacina_se_one_mogu_rasporediti_tako_da"),
+			Iste_boje_budu_jedna_do_druge: views.Translate(store, r, "Iste_boje_budu_jedna_do_druge"),
+			Parnih: views.Translate(store, r, "Parnih"),
+			Neparnih: views.Translate(store, r, "Neparnih"),
+			Cifrenih: views.Translate(store, r, "Cifrenih"),
+			Brojeva_moze_da_se_dobije_od_cifara: views.Translate(store, r, "Brojeva_moze_da_se_dobije_od_cifara"),
+			Ako_se_cifre2: views.Translate(store, r, "Ako_se_cifre2"),
+		},
+	}
+}
+
+type DeloviReceniceS1 struct {
+	Ponavljaju string
+	Ne_ponavljaju string
+	Ako_su_prva string
+	Ako_su_zadnja string
+	Broja_parna_i string
+	Broja_neparna_i string
+	Deljivih_sa string
+	Koliko string
+	Cifrenih_brojeva string
+	Moze_da_se_dobije_od_cifara string
+	Ako_se_cifre string
+	
+	Se_nalaze string
+	Sledecih_boja string
+	Na_koliko_nacina_se_one_mogu_rasporediti_tako_da string
+	Iste_boje_budu_jedna_do_druge string
+
+	Parnih string
+	Neparnih string
+	Cifrenih string
+	Brojeva_moze_da_se_dobije_od_cifara string
+	Ako_se_cifre2 string
+}
+
+script renderZadacis1(translations string) {
+	// Use the renderHello function from the React bundle.
+	bundle.reactRenderZadaci_s1(translations)
+}
+
+templ Zadaci_s1(translations S1) {
+	// <div class="text-blue-300">{fmt.Sprint(translations)}</div>
+	@renderZadacis1(getJsonFromStructS1(translations))
+}
+
 templ SecondaryGrade1(store sessions.Store, r *http.Request) {
+
 	@views.Layout(store, r) {
+		<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+		<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+		<script src="static/assignments/babel.min.js"></script>
 
-		<div class="relative top-4 left-5">
-			
-      <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-      <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-      <!-- Don't use this in production:
-			
-			<script src="static/assignments/babel.min.js"></script>
-			-->
-			<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-      <div id="root" class="text-blue-300"></div>
+		<div id="root" class="text-blue-300"></div>
 
-      <script src="/static/assignments/s1.js" type="text/babel">
-      </script>
+		<!-- Load the React bundle created using esbuild 
+		-->
+		<script src="static/assignments/s1.js"></script>
 
-    </div>
+		@Zadaci_s1(getS1Struct(store, r))
 
+	}
 
-		<br></br><br></br><br></br><br></br><br></br><br></br>
+	<br></br><br></br><br></br><br></br><br></br><br></br>
 
-
-  }
 }

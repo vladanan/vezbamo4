@@ -11,12 +11,133 @@ import "io"
 import "bytes"
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/gorilla/sessions"
 	"github.com/vladanan/vezbamo4/src/views"
 	"net/http"
 )
 
-func PrimaryGrade2(store sessions.Store, r *http.Request) templ.Component {
+type O2 struct {
+	Title               string
+	Zadaci_1_100        string
+	Zadaci_smesni_1_100 string
+	Mnozenje_1_100      string
+	Mnozenje_1_100_1    string
+	Mnozenje_1_100_2    string
+	Mnozenje_1_100_svi  string
+	Result              string
+	New_a               string
+	Novo_pitanje        Pitanje2
+	SetNovo_pitanje     Pitanje2
+	Novo_pitanjeT1      []string
+	Novo_pitanjeT2      []string
+	Novo_pitanjeT3      []string
+	Rec                 DeloviRecenice2
+}
+
+type Pitanje2 struct {
+	T11 string
+	T22 string
+	T33 string
+}
+
+type DeloviRecenice2 struct {
+	Ima        string
+	Aa         string
+	Manje_kraj string
+	Vise_kraj  string
+}
+
+func getJsonFromStruct2(o2 O2) string {
+	// fmt.Print("o1:", o1)
+	o2Json, err2 := json.Marshal(o2)
+	if err2 != nil {
+		fmt.Printf("Json error: %v", err2)
+	}
+	// fmt.Print("o1 json:", o1Json)
+	return string(o2Json)
+}
+
+func getO2Struct(store sessions.Store, r *http.Request) O2 {
+	return O2{
+		Title:               views.Translate(store, r, "Assignments_10_page_title"),
+		Zadaci_1_100:        views.Translate(store, r, "Assignments_100_1-100"),
+		Zadaci_smesni_1_100: views.Translate(store, r, "Assignments_100_f1-100"),
+		Mnozenje_1_100:      views.Translate(store, r, "Assignments_100_multi-100"),
+		Mnozenje_1_100_1:    views.Translate(store, r, "Assignments_100_multi-1"),
+		Mnozenje_1_100_2:    views.Translate(store, r, "Assignments_100_multi-2"),
+		Mnozenje_1_100_svi:  views.Translate(store, r, "Assignments_100_multi-svi"),
+		Result:              views.Translate(store, r, "Assignments_10_page_result"),
+		New_a:               views.Translate(store, r, "Assignments_10_page_new"),
+
+		Novo_pitanje: Pitanje2{
+			T11: views.Translate(store, r, "A_10_novo_pitanjeT11"),
+			T22: views.Translate(store, r, "A_10_novo_pitanjeT22"),
+			T33: views.Translate(store, r, "A_10_novo_pitanjeT33"),
+		},
+		SetNovo_pitanje: Pitanje2{
+			T11: views.Translate(store, r, "A_10_Set_novo_pitanjeT11"),
+			T22: views.Translate(store, r, "A_10_Set_novo_pitanjeT22"),
+			T33: views.Translate(store, r, "A_10_Set_novo_pitanjeT33"),
+		},
+		Novo_pitanjeT1: []string{
+			views.Translate(store, r, "T1_1"),
+			views.Translate(store, r, "T1_2"),
+			views.Translate(store, r, "T1_3"),
+			views.Translate(store, r, "T1_4"),
+			views.Translate(store, r, "T1_5"),
+			views.Translate(store, r, "T1_6"),
+			views.Translate(store, r, "T1_7"),
+			views.Translate(store, r, "T1_8"),
+			views.Translate(store, r, "T1_9"),
+			views.Translate(store, r, "T1_10"),
+		},
+		Novo_pitanjeT2: []string{
+			views.Translate(store, r, "T2_1"),
+			views.Translate(store, r, "T2_2"),
+			views.Translate(store, r, "T2_3"),
+			views.Translate(store, r, "T2_4"),
+			views.Translate(store, r, "T2_5"),
+			views.Translate(store, r, "T2_6"),
+			views.Translate(store, r, "T2_7"),
+			views.Translate(store, r, "T2_8"),
+			views.Translate(store, r, "T2_9"),
+			views.Translate(store, r, "T2_10"),
+		},
+		Novo_pitanjeT3: []string{
+			views.Translate(store, r, "T3_1"),
+			views.Translate(store, r, "T3_2"),
+			views.Translate(store, r, "T3_3"),
+			views.Translate(store, r, "T3_4"),
+			views.Translate(store, r, "T3_5"),
+			views.Translate(store, r, "T3_6"),
+			views.Translate(store, r, "T3_7"),
+			views.Translate(store, r, "T3_8"),
+			views.Translate(store, r, "T3_9"),
+			views.Translate(store, r, "T3_10"),
+		},
+		Rec: DeloviRecenice2{
+			Ima:        views.Translate(store, r, "Ima"),
+			Aa:         views.Translate(store, r, "Aa"),
+			Manje_kraj: views.Translate(store, r, "Manje_kraj_recenice"),
+			Vise_kraj:  views.Translate(store, r, "Vise_kraj_recenice"),
+		},
+	}
+}
+
+func renderZadacio2(translations string) templ.ComponentScript {
+	return templ.ComponentScript{
+		Name: `__templ_renderZadacio2_11c0`,
+		Function: `function __templ_renderZadacio2_11c0(translations){// Use the renderHello function from the React bundle.
+	bundle.reactRenderZadaci_o2(translations)
+}`,
+		Call:       templ.SafeScript(`__templ_renderZadacio2_11c0`, translations),
+		CallInline: templ.SafeScriptInline(`__templ_renderZadacio2_11c0`, translations),
+	}
+}
+
+func Zadaci_o2(translations O2) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -29,13 +150,41 @@ func PrimaryGrade2(store sessions.Store, r *http.Request) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Var2 := templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Err = renderZadacio2(getJsonFromStruct2(translations)).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if !templ_7745c5c3_IsBuffer {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteTo(templ_7745c5c3_W)
+		}
+		return templ_7745c5c3_Err
+	})
+}
+
+func PrimaryGrade2(store sessions.Store, r *http.Request) templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
+		if !templ_7745c5c3_IsBuffer {
+			templ_7745c5c3_Buffer = templ.GetBuffer()
+			defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var2 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var2 == nil {
+			templ_7745c5c3_Var2 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		templ_7745c5c3_Var3 := templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 			if !templ_7745c5c3_IsBuffer {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-4 left-5\"><script src=\"https://unpkg.com/react@18/umd/react.development.js\"></script><script src=\"https://unpkg.com/react-dom@18/umd/react-dom.development.js\"></script><!-- Don't use this in production:\n\t\t\t\n\t\t\t<script src=\"static/assignments/babel.min.js\"></script>\n\t\t\t--><script src=\"https://unpkg.com/@babel/standalone/babel.min.js\"></script><div id=\"root\" class=\"text-blue-300\"></div><script src=\"/static/assignments/o2.js\" type=\"text/babel\">\n      </script></div><br><br><br><br><br><br>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<script src=\"https://unpkg.com/react@18/umd/react.development.js\"></script> <script src=\"https://unpkg.com/react-dom@18/umd/react-dom.development.js\"></script> <script src=\"static/assignments/babel.min.js\"></script> <div id=\"root\" class=\"text-blue-300\"></div><!-- Load the React bundle created using esbuild \n\t\t--> <script src=\"static/assignments/o2.js\"></script> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = Zadaci_o2(getO2Struct(store, r)).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -44,7 +193,11 @@ func PrimaryGrade2(store sessions.Store, r *http.Request) templ.Component {
 			}
 			return templ_7745c5c3_Err
 		})
-		templ_7745c5c3_Err = views.Layout(store, r).Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = views.Layout(store, r).Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<br><br><br><br><br><br>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -66,11 +66,11 @@ Assignments_10_title = "Primary school"
 Assignments_10_subtitle = "First grade"
 Assignments_10_text = "For easy practice of addition and subtraction up to and over 10 click here :)"
 
-Assignments_10_page_title = "Choose assignment"
+Assignments_page_title = "Choose assignment"
 Assignments_10_1-10 = "Addition and subtraction from 1 to 10"
-Assignments_10_f1-10 = "Funny addition and subtraction from 1 to 10"
-Assignments_10_page_result = "Result"
-Assignments_10_page_new = "New"
+Assignments_10_f1-10 = "Funny add. and sub. from 1 to 10"
+Assignments_page_result = "Result"
+Assignments_page_new = "New assignment"
 
 A_10_novo_pitanjeT11 = "Marko"
 A_10_novo_pitanjeT22 = "Masha"
@@ -124,9 +124,72 @@ Assignments_100_title = "Primary school"
 Assignments_100_subtitle = "Second grade"
 Assignments_100_text = "For easy practice of addition and subtraction up to 100 and multiplication tables, click here :)"
 
+Assignments_100_1-100 = "Addition / subtraction from 1 to 100"
+Assignments_100_f1-100 = "Funny add. and sub. from 1 to 100"
+Assignments_100_multi-100 = "Multiplication up to 100"
+
+
+Assignments_100_multi-1 = "Choose numbers for the first factor"
+Assignments_100_multi-2 = "Choose numbers for the second factor"
+Assignments_100_multi-svi = "all"
+
+
+
 Assignments_Comb_title = "High school" 
 Assignments_Comb_subtitle = "First grade"
 Assignments_Comb_text = "Problems from combinatorics (permutations and variations)"
+
+Assignments_Comb-comb = "Combinatorics for high school"
+Assignments_Comb-prazan = "Click on: New Assignment!"
+Assignments_Comb-temp = "Combinations are under construction"
+
+Ponavljaju = "repeat"
+Ne_ponavljaju = "do not repeat"
+Ako_su_prva = "if the first "
+Ako_su_zadnja = "if the last "
+Broja_parna_i = " are even numbers and "
+Broja_neparna_i = " are odd numbers and "
+Deljivih_sa = "divisible by "
+Koliko = "How many "
+Cifrenih_brojeva = " digit numbers "
+Moze_da_se_dobije_od_cifara = "can be obtained from digits"
+Ako_se_cifre = "if the digits "
+
+CT1_1 = "On the shelf"
+CT1_2 = "In the Shed"
+CT1_3 = "In the room"
+CT1_4 = "In cart"
+CT1_5 = "In the fridge"
+
+CT2_1 = "books"
+CT2_2 = "cats"
+CT2_3 = "candles"
+CT2_4 = "apples"
+CT2_5 = "witches"
+
+CT3_1 = "fiery: "
+CT3_2 = "yellow: "
+CT3_3 = "awful: "
+CT3_4 = "blue: "
+CT3_5 = "stupid: "
+CT3_6 = "red: "
+CT3_7 = "wonderful: "
+CT3_8 = "green: "
+
+Se_nalaze = "are"
+Sledecih_boja = "coloured"
+Na_koliko_nacina_se_one_mogu_rasporediti_tako_da = "In how many ways can they be arranged so that"
+Iste_boje_budu_jedna_do_druge = "of the same color will be next to each other?"
+
+Parnih = "even"
+Neparnih = "odd"
+Cifrenih = "digit"
+Brojeva_moze_da_se_dobije_od_cifara = "numbers can be obtained from digits"
+Ako_se_cifre2 = "if the digits"
+
+
+
+
 
 
 

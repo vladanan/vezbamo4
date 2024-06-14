@@ -65,11 +65,11 @@ Assignments_10_title = "Osnovna škola"
 Assignments_10_subtitle = "Prvi razred"
 Assignments_10_text = "Za lako vežbanje sabiranja i oduzimanje do i preko 10 klikni ovde :)"
 
-Assignments_10_page_title = "Odaberi zadatak"
+Assignments_page_title = "Odaberi zadatak"
 Assignments_10_1-10 = "Sabiranje i oduzimanje od 1 do 10"
-Assignments_10_f1-10 = "Smešno sabiranje i oduzimanje od 1 do 10"
-Assignments_10_page_result = "Rešenje"
-Assignments_10_page_new = "Novi zadatak"
+Assignments_10_f1-10 = "Smešno sab. i oduz. od 1 do 10"
+Assignments_page_result = "Rešenje"
+Assignments_page_new = "Novi zadatak"
 
 A_10_novo_pitanjeT11 = "Marko"
 A_10_novo_pitanjeT22 = "Maša"
@@ -122,13 +122,66 @@ Assignments_100_title = "Osnovna škola"
 Assignments_100_subtitle = "Drugi razred"
 Assignments_100_text = "Za lako vežbanje sabiranja i oduzimanja do 100 i tablice množenja klikni ovde :)"
 
+Assignments_100_1-100 = "Sabiranje i oduzimanje od 1 do 100"
+Assignments_100_f1-100 = "Smešno sab. i oduz. od 1 do 100"
+Assignments_100_multi-100 = "Množenje do 100"
+
+Assignments_100_multi-1 = "Odaberi brojeve za prvog činioca"
+Assignments_100_multi-2 = "Odaberi brojeve za drugog činioca"
+Assignments_100_multi-svi = "svi"
 
 
 Assignments_Comb_title = "Srednja škola" 
 Assignments_Comb_subtitle = "Prvi razred"
 Assignments_Comb_text = "Zadaci iz kombinatorike (permutacije i varijacije)"
 
+Assignments_Comb-comb = "Kombinatorika za srednju školu"
+Assignments_Comb-prazan = "Klikni na: Novi zadatak!"
+Assignments_Comb-temp = "Kombinacije su u izradi"
 
+Ponavljaju = "ponavljaju"
+Ne_ponavljaju = "ne ponavljaju"
+Ako_su_prva = "ako su prva "
+Ako_su_zadnja = "ako su zadnja "
+Broja_parna_i = " broja parna i "
+Broja_neparna_i = " broja neparna i "
+Deljivih_sa = "deljivih sa "
+Koliko = "Koliko "
+Cifrenih_brojeva = " cifrenih brojeva "
+Moze_da_se_dobije_od_cifara = "može da se dobije od cifara"
+Ako_se_cifre = "ako se cifre "
+
+CT1_1 = "Na polici"
+CT1_2 = "U šupi"
+CT1_3 = "U sobi"
+CT1_4 = "U korpi"
+CT1_5 = "U frižideru"
+
+CT2_1 = "knjige"
+CT2_2 = "mačke"
+CT2_3 = "sveće"
+CT2_4 = "jabuke"
+CT2_5 = "veštice"
+
+CT3_1 = "vatrene: "
+CT3_2 = "žute: "
+CT3_3 = "grozne: "
+CT3_4 = "plave: "
+CT3_5 = "glupe: "
+CT3_6 = "crvene: "
+CT3_7 = "divne: "
+CT3_8 = "zelene: "
+
+Se_nalaze = "se nalaze"
+Sledecih_boja = "sledećih boja"
+Na_koliko_nacina_se_one_mogu_rasporediti_tako_da = "Na koliko načina se one mogu rasporediti tako da"
+Iste_boje_budu_jedna_do_druge = "iste boje budu jedna do druge?"
+
+Parnih = " parnih"
+Neparnih = " neparnih"
+Cifrenih = "cifrenih"
+Brojeva_moze_da_se_dobije_od_cifara = "brojeva može da se dobije od cifara"
+Ako_se_cifre2 = "ako se cifre"
 
 
 [MyUnreadEmails]
