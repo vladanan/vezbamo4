@@ -47,9 +47,11 @@ func main() {
 		templ.Handler(site.Page404()).Component.Render(context.Background(), w)
 	})
 
-	http.HandleFunc("/login", routes.Login)
-	http.HandleFunc("/admin", routes.Admin)
-	http.HandleFunc("/logout", routes.Logout)
+	http.HandleFunc("/sign_in", routes.Sign_in)
+	http.HandleFunc("/dashboard", routes.Dashboard)
+	http.HandleFunc("/auto_login", routes.AutoLogin)
+	//http.HandleFunc("/admin", routes.Admin)
+	http.HandleFunc("/sign_out", routes.Sign_out)
 
 	http.HandleFunc("/komponents", routes.GoToKomponents)
 

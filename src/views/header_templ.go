@@ -92,13 +92,13 @@ func getLang(store sessions.Store, r *http.Request) []string {
 		"ar": "Arabic    - العربية: ar",
 		"zh": "Chinese - 中文 (汉语): zh",
 		"en": "English  : en",
+		"sh": "Ex-yu - srpskohrvatski: sh",
 		"fr": "French   - français: fr",
 		"de": "German - Deutch: de",
 		"hi": "Hindi      - हिन्दी: hi",
 		"it": "Italian    ;- italiano: it",
 		"ru": "Russian  - русский: ru",
 		"sr": "Serbian  - српски: sr",
-		"sh": "Serbo-Croatian - srpskohrvatski: sh",
 		"es": "Spanish  - español: es",
 	}
 
@@ -154,20 +154,20 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</option> <option disabled value=\"ar\">Arabic &nbsp;&nbsp;&nbsp;- العربية: ar</option> <option disabled value=\"zh\">Chinese - 中文 (汉语): zh</option> <option value=\"en\">English&nbsp;&nbsp;: en</option> <option disabled value=\"fr\">French &nbsp;&nbsp;- français: fr</option> <option disabled value=\"de\">German - Deutch: de</option> <option disabled value=\"hi\">Hindi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- हिन्दी: hi</option> <option disabled value=\"it\">Italian &nbsp;&nbsp;&nbsp;- italiano: it</option> <option disabled value=\"ru\">Russian &nbsp;- русский: ru</option> <option disabled value=\"sr\">Serbian &nbsp;- српски: sr</option> <option value=\"sh\">Serbo-Croatian - srpskohrvatski: sh</option> <option disabled value=\"es\">Spanish &nbsp;- español: es</option></select>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</option> <option disabled value=\"ar\">Arabic &nbsp;&nbsp;&nbsp;- العربية: ar</option> <option disabled value=\"zh\">Chinese - 中文 (汉语): zh</option> <option value=\"en\">English&nbsp;&nbsp;: en</option> <option value=\"sh\">Ex-yu - srpskohrvatski: sh</option> <option disabled value=\"fr\">French &nbsp;&nbsp;- français: fr</option> <option disabled value=\"de\">German - Deutch: de</option> <option disabled value=\"hi\">Hindi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- हिन्दी: hi</option> <option disabled value=\"it\">Italian &nbsp;&nbsp;&nbsp;- italiano: it</option> <option disabled value=\"ru\">Russian &nbsp;- русский: ru</option> <option disabled value=\"sr\">Serbian &nbsp;- српски: sr</option> <option disabled value=\"es\">Spanish &nbsp;- español: es</option></select>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if session, err := store.Get(r, "vezbamo.onrender.com-users"); err == nil {
 			if auth, _ := session.Values["authenticated"].(bool); !auth {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("  <button class=\"text-sm ml-1 px-1 text-blue-300\" type=\"button\"><a href=\"/login\">")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("  <button onmouseleave=\"delayReload2()\" class=\"text-sm ml-1 px-1 text-blue-300\" type=\"button\"><a href=\"/dashboard\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var4 string
-				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Login"))
+				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Sign_in"))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 149, Col: 51}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 149, Col: 57}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
@@ -178,14 +178,14 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 					return templ_7745c5c3_Err
 				}
 			} else {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button class=\"text-sm ml-1 px-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-sm\" type=\"button\"><a href=\"/logout\">")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button class=\"text-sm ml-1 px-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-sm\" type=\"button\"><a href=\"/sign_out\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var5 string
-				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Logout"))
+				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Sign_out"))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 153, Col: 53}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 153, Col: 57}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -197,7 +197,7 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 				}
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><script>\n\t\tfunction pageReload() {\n\t\t\tlocation.reload()\n\t\t}\n\t\tfunction delayReload2() {\n\t\t\tsetTimeout(pageReload(), 2000);\n\t\t}\n\t</script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

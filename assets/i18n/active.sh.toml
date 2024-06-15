@@ -1,9 +1,9 @@
 Home = "Početna"
 
-Login = "Prijava"
-Logout = "Odjava"
+Sign_in = "Prijava"
+Sign_out = "Odjava"
 Welcome = "Prijavljeni ste na sistem!"
-UnWelcome = "Niste prijavljeni na sistem!"
+UnWelcome = "Niste prijavljeni na sistem. Prijavite se vašim mejlom i lozinkom!"
 
 Index_Q_title = "Testovi i pitanja"
 Index_Q_subtitle = "Lako i brzo učenje u tri brza koraka"

@@ -1,0 +1,70 @@
+package dashboard
+
+import (
+  "net/http"
+  "github.com/vladanan/vezbamo4/src/views"
+  "github.com/gorilla/sessions"
+  "fmt"
+  "github.com/vladanan/vezbamo4/src/models"
+)
+
+func signedin(store sessions.Store, r *http.Request) string {
+  session, err := store.Get(r, "vezbamo.onrender.com-users")
+	if err != nil {
+		// http.Error(w, err.Error(), http.StatusInternalServerError)
+		// return
+		fmt.Println("Error on get store:", err)
+	}
+
+  auth := session.Values["authenticated"]
+	
+	return fmt.Sprint(auth)
+}
+
+templ Dashboard(store sessions.Store, r *http.Request, user models.User) {
+  @views.Layout(store, r) {
+
+    <p class="m-5 text-xl text-yellow-300">
+        {signedin(store, r)}
+    </p>
+
+    @DashParts(store, r, user)
+
+    // <form class="m-5 text-xl text-yellow-300" id="sign_in_form" action="/" method="GET" hx-post="/sign_in" >
+
+    //     if signedin(store, r) == "true" {
+          
+    //       @DashParts(store, r, user)
+
+    //     } else {
+    //       <p class="text-xl text-red-300">{views.Translate(store, r, "UnWelcome")}</p>
+    //       <p class="text-xl text-red-300">vladan.andjelkovic@gmail.com</p>
+    //       <p class="text-xl text-red-300">vezbamo.2015</p>
+    //       <div >
+    //         <p>
+    //             email
+    //         </p>
+    //         <input class="text-black text-sm" type="text" name="mail" />
+    //       </div>
+    //       <div >
+    //         <p>
+    //             password
+    //         </p>
+    //         <input class="text-black text-sm" type="password" name="password" />
+    //       </div>
+    //       <div>
+    //         <button class=" border-white mt-2 px-2 rounded-md border-2 font-bold " type="submit" name="sign_in" value="sign_in">Sign in</button>
+    //       </div>
+    //     }
+
+
+    // </form>
+
+
+    
+
+    <br></br>
+
+    
+  }
+}

@@ -1,9 +1,9 @@
 Home = "Home"
 
-Login = "Sign in"
-Logout = "Sign out"
+Sign_in = "Sign in"
+Sign_out = "Sign out"
 Welcome = "You are signed in!"
-UnWelcome = "You are not signed in!"
+UnWelcome = "You are not logged in to the system. Sign up with your email and password!"
 
 Index_Q_title = "Tests and questions"
 Index_Q_subtitle = "Quick and easy learning in three quick steps"

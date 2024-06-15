@@ -51,6 +51,12 @@ func Translate(store sessions.Store, r *http.Request, item string) string {
 		// SameSite: http.SameSite(0),
 	}
 
+	mail_map := session.Values["user_mail"]
+
+	if mail_map == nil {
+		session.Values["user_mail"] = "aaa"
+	}
+
 	auth_map := session.Values["authenticated"]
 
 	if auth_map == nil {

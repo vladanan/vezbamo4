@@ -1,0 +1,16 @@
+package dashboard
+
+import (
+  "net/http"
+  "github.com/vladanan/vezbamo4/src/views"
+  "github.com/gorilla/sessions"
+  //"fmt"
+)
+
+templ Admin(store sessions.Store, r *http.Request) {
+    
+    <p class="m-5 text-xl text-red-300">{views.Translate(store, r, "Welcome")} to: ADMIN SECTION</p>
+    
+    <br></br>
+
+}

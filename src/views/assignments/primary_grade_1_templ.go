@@ -57,7 +57,7 @@ func getJsonFromStruct1(o1 O1) string {
 
 func getO1Struct(store sessions.Store, r *http.Request) O1 {
 	return O1{
-		Title:              views.Translate(store, r, "Assignments_10_page_title"),
+		Title:              views.Translate(store, r, "Assignments_page_title"),
 		Zadaci_1_10:        views.Translate(store, r, "Assignments_10_1-10"),
 		Zadaci_smesni_1_10: views.Translate(store, r, "Assignments_10_f1-10"),
 		Result:             views.Translate(store, r, "Assignments_page_result"),

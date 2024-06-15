@@ -82,13 +82,13 @@ func getLang(store sessions.Store, r *http.Request) []string {
 		"ar": "Arabic    - العربية: ar",
 		"zh": "Chinese - 中文 (汉语): zh",
 		"en": "English  : en",
+		"sh": "Ex-yu - srpskohrvatski: sh",
 		"fr": "French   - français: fr",
 		"de": "German - Deutch: de",
 		"hi": "Hindi      - हिन्दी: hi",
 		"it": "Italian    ;- italiano: it",
 		"ru": "Russian  - русский: ru",
 		"sr": "Serbian  - српски: sr",
-		"sh": "Serbo-Croatian - srpskohrvatski: sh",
 		"es": "Spanish  - español: es",
 	}
 
@@ -126,13 +126,13 @@ templ Header(store sessions.Store, r *http.Request) {
 			<option disabled value="ar">Arabic &nbsp;&nbsp;&nbsp;- العربية: ar</option>
 			<option disabled value="zh">Chinese - 中文 (汉语): zh</option>
 			<option value="en">English&nbsp;&nbsp;: en</option>
+			<option value="sh">Ex-yu - srpskohrvatski: sh</option>
 			<option disabled value="fr">French &nbsp;&nbsp;- français: fr</option>
 			<option disabled value="de">German - Deutch: de</option>
 			<option disabled value="hi">Hindi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- हिन्दी: hi</option>
 			<option disabled value="it">Italian &nbsp;&nbsp;&nbsp;- italiano: it</option>
 			<option disabled value="ru">Russian &nbsp;- русский: ru</option>
 			<option disabled value="sr">Serbian &nbsp;- српски: sr</option>
-			<option value="sh">Serbo-Croatian - srpskohrvatski: sh</option>
 			<option disabled value="es">Spanish &nbsp;- español: es</option>
 			// <option value="browser">auto</option>
 		</select>
@@ -146,16 +146,25 @@ templ Header(store sessions.Store, r *http.Request) {
 			if auth, _ := session.Values["authenticated"].(bool); !auth {
 				// "text-sm ml-1 px-1 bg-gradient-to-l from-sky-200 to-blue-300 rounded-sm shadow-md shadow-slate-500"
 				// "text-sm ml-1 px-1 bg-gradient-to-r from-sky-700 to-blue-400 rounded-sm"
-				<button class="text-sm ml-1 px-1 text-blue-300" type="button">
-					<a href="/login">{Translate(store, r, "Login")}</a>
+				<button onmouseleave="delayReload2()" class="text-sm ml-1 px-1 text-blue-300" type="button">
+					<a href="/dashboard">{Translate(store, r, "Sign_in")}</a>
 				</button>
 			} else {
 				<button class="text-sm ml-1 px-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-sm" type="button">
-					<a href="/logout">{Translate(store, r, "Logout")}</a>
+					<a href="/sign_out">{Translate(store, r, "Sign_out")}</a>
 				</button>
 			}
 		}
 
 	</div>
+
+	<script>
+		function pageReload() {
+			location.reload()
+		}
+		function delayReload2() {
+			setTimeout(pageReload(), 2000);
+		}
+	</script>
 	
 }

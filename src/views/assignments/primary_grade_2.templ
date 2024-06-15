@@ -52,15 +52,15 @@ func getJsonFromStruct2 (o2 O2) string {
 
 func getO2Struct (store sessions.Store, r *http.Request) O2 {
 	return O2{
-		Title: views.Translate(store, r, "Assignments_10_page_title"),
+		Title: views.Translate(store, r, "Assignments_page_title"),
 		Zadaci_1_100: views.Translate(store, r, "Assignments_100_1-100"),
 		Zadaci_smesni_1_100: views.Translate(store, r, "Assignments_100_f1-100"),
 		Mnozenje_1_100: views.Translate(store, r, "Assignments_100_multi-100"),
 		Mnozenje_1_100_1: views.Translate(store, r, "Assignments_100_multi-1"),
 		Mnozenje_1_100_2: views.Translate(store, r, "Assignments_100_multi-2"),
 		Mnozenje_1_100_svi: views.Translate(store, r, "Assignments_100_multi-svi"),
-		Result: views.Translate(store, r, "Assignments_10_page_result"),
-		New_a: views.Translate(store, r, "Assignments_10_page_new"),
+		Result: views.Translate(store, r, "Assignments_page_result"),
+		New_a: views.Translate(store, r, "Assignments_page_new"),
 
 		Novo_pitanje: Pitanje2{
 			T11: views.Translate(store, r, "A_10_novo_pitanjeT11"),

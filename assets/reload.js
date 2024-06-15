@@ -22,7 +22,9 @@ function sendLang(e) {
     // arr.map(c => c.value == e.target.value ? c.setAttribute('selected', 'selected') : '');
   }
   //zbog firefox-a mora async da bude false i onda se buni ali radi, ostali rade u oba slučaja bez primedbi
-  xhttp.open("POST", "/" + e.target.value, false);
+  let url = ""
+  e.target.value == "sign_in" ? url = "" : url = e.target.value
+  xhttp.open("POST", "/" + url, false);
   xhttp.send();
   delayReload()
   console.log("funkcija send lang event:", e.target.value)

@@ -1,0 +1,20 @@
+package dashboard
+
+import (
+  "net/http"
+  "github.com/vladanan/vezbamo4/src/views"
+  "github.com/gorilla/sessions"
+  //"fmt"
+)
+
+templ Sign_in(store sessions.Store, r *http.Request) {
+    
+    @views.Layout(store, r) {
+    
+      <p class="m-5 text-xl text-yellow-300">{views.Translate(store, r, "UnWelcome")}</p>
+      
+
+    <br></br>
+  }
+
+}

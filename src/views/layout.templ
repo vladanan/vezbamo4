@@ -41,6 +41,13 @@ func Translate (store sessions.Store, r *http.Request, item string) string {
 		// SameSite: http.SameSite(0),
 	}
 
+	mail_map := session.Values["user_mail"]
+
+	if mail_map == nil {
+		session.Values["user_mail"] = "aaa"
+	}
+
+
 	auth_map := session.Values["authenticated"]
 
 	if auth_map == nil {
@@ -66,22 +73,22 @@ func Translate (store sessions.Store, r *http.Request, item string) string {
 	localizer := i18n.NewLocalizer(bundle, lang, accept)
 
 	helloPerson := localizer.MustLocalize(&i18n.LocalizeConfig{
-			DefaultMessage: &i18n.Message{
-				ID:    item,
-			},
-		})
+		DefaultMessage: &i18n.Message{
+			ID:    item,
+		},
+	})
 
-		// myUnreadEmails := localizer.MustLocalize(&i18n.LocalizeConfig{
-		// 	DefaultMessage: &i18n.Message{
-		// 		ID:          "MyUnreadEmails",
-		// 		Description: "The number of unread emails I have",
-		// 		One:         "I have {{.PluralCount}} unread email.",
-		// 		Other:       "I have {{.PluralCount}} unread emails.",
-		// 	},
-			
-		// })
+	// myUnreadEmails := localizer.MustLocalize(&i18n.LocalizeConfig{
+	// 	DefaultMessage: &i18n.Message{
+	// 		ID:          "MyUnreadEmails",
+	// 		Description: "The number of unread emails I have",
+	// 		One:         "I have {{.PluralCount}} unread email.",
+	// 		Other:       "I have {{.PluralCount}} unread emails.",
+	// 	},
+		
+	// })
 
-		return helloPerson
+	return helloPerson
 }
 
 
