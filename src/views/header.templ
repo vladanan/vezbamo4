@@ -146,8 +146,9 @@ templ Header(store sessions.Store, r *http.Request) {
 			if auth, _ := session.Values["authenticated"].(bool); !auth {
 				// "text-sm ml-1 px-1 bg-gradient-to-l from-sky-200 to-blue-300 rounded-sm shadow-md shadow-slate-500"
 				// "text-sm ml-1 px-1 bg-gradient-to-r from-sky-700 to-blue-400 rounded-sm"
-				<button onmouseleave="delayReload2()" class="text-sm ml-1 px-1 text-blue-300" type="button">
-					<a href="/dashboard">{Translate(store, r, "Sign_in")}</a>
+				// <button onmouseleave="delayReload2()" class="text-sm ml-1 px-1 text-blue-300" type="button">
+				<button class="text-sm ml-1 px-1 text-blue-300" type="button">
+					<a href="/sign_in">{Translate(store, r, "Sign_in")}</a>
 				</button>
 			} else {
 				<button class="text-sm ml-1 px-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-sm" type="button">

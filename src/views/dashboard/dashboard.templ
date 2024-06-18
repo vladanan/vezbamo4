@@ -28,43 +28,59 @@ templ Dashboard(store sessions.Store, r *http.Request, user models.User) {
         {signedin(store, r)}
     </p>
 
-    @DashParts(store, r, user)
+    <form class="m-5 text-xl text-yellow-300" id="sign_in_form" action="/sign_in" method="POST" >
 
-    // <form class="m-5 text-xl text-yellow-300" id="sign_in_form" action="/" method="GET" hx-post="/sign_in" >
+      if signedin(store, r) == "true" {
 
-    //     if signedin(store, r) == "true" {
-          
-    //       @DashParts(store, r, user)
+        <p class="text-xl text-yellow-300">
+          {views.Translate(store, r, "Welcome")}<br></br>
+        </p>
 
-    //     } else {
-    //       <p class="text-xl text-red-300">{views.Translate(store, r, "UnWelcome")}</p>
-    //       <p class="text-xl text-red-300">vladan.andjelkovic@gmail.com</p>
-    //       <p class="text-xl text-red-300">vezbamo.2015</p>
-    //       <div >
-    //         <p>
-    //             email
-    //         </p>
-    //         <input class="text-black text-sm" type="text" name="mail" />
-    //       </div>
-    //       <div >
-    //         <p>
-    //             password
-    //         </p>
-    //         <input class="text-black text-sm" type="password" name="password" />
-    //       </div>
-    //       <div>
-    //         <button class=" border-white mt-2 px-2 rounded-md border-2 font-bold " type="submit" name="sign_in" value="sign_in">Sign in</button>
-    //       </div>
-    //     }
+        <table>
+          <tr><th>user field</th><th>status</th></tr>
+          <tr><td>Created_at</td><td>{user.Created_at.String()}</td></tr>
+          <tr><td>email</td><td>{user.Email}</td></tr>
+          <tr><td>user name</td><td>{user.User_name}</td></tr>
+          <tr><td>...</td><td>{user.Hash_lozinka}</td></tr>
+          <tr><td>user_mode (user, mod, admin)</td><td>{user.Mode}</td></tr>
+          <tr><td>user_level (hex = 16 levels)</td><td>{user.Level}</td></tr>
+          <tr><td>user_type (basic, js, c)</td><td>{ fmt.Sprintf("%t", user.Basic)},{fmt.Sprintf("%t", user.Js)},{fmt.Sprintf("%t", user.C) }</td></tr>
+        </table>
 
+        @User(store, r)
+        
+        @Moderator(store, r)
+        
+        @Admin(store, r)
 
-    // </form>
+        } else {
+          <p class="text-xl text-red-300">{views.Translate(store, r, "UnWelcome")}</p>
+          <div >
+            <p>
+                email
+            </p>
+            <input class="text-black" type="text" name="mail" />
+          </div>
+          <div >
+            <p>
+                password
+            </p>
+            <input class="text-black" type="password" name="password" />
+          </div>
+          <p>
+                captcha
+          </p>
+          <div>
+            <button class=" border-white mt-2 px-2 rounded-md border-2 font-bold " type="submit" name="sign_in" value="sign_in">Sign in</button>
+          </div>
+          <p>
+                Register link
+          </p>
+      }
 
-
-    
-
+    </form>
+ 
     <br></br>
-
     
   }
 }

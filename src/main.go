@@ -48,10 +48,13 @@ func main() {
 	})
 
 	http.HandleFunc("/sign_in", routes.Sign_in)
-	http.HandleFunc("/dashboard", routes.Dashboard)
+	http.HandleFunc("/sign_in_post", routes.Sign_in_post)
+	// http.HandleFunc("/dashboard", routes.Dashboard)
 	http.HandleFunc("/auto_login", routes.AutoLogin)
 	//http.HandleFunc("/admin", routes.Admin)
 	http.HandleFunc("/sign_out", routes.Sign_out)
+	http.HandleFunc("/sign_up", routes.Sign_up)
+	http.HandleFunc("/sign_up_post", routes.Sign_up_post)
 
 	http.HandleFunc("/komponents", routes.GoToKomponents)
 

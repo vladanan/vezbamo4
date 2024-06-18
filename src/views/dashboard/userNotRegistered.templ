@@ -1,0 +1,20 @@
+package dashboard
+
+import (
+  "net/http"
+  "github.com/vladanan/vezbamo4/src/views"
+	"github.com/gorilla/sessions"
+)
+
+templ UserNotRegistered(store sessions.Store, r *http.Request) {
+  @views.Layout(store, r) {
+    
+    <p class="m-5 text-xl text-blue-300">UserNotRegistered Email ili lozinka su pogrešni.</p>
+    
+    // <p class="m-5 text-xl text-blue-300">{views.Translate(store, r, "UnWelcome")}</p>
+
+    // <p class="m-5 text-xl text-blue-300">Da se prijaviš na sajt klikni na link u gornjem desnom uglu.</p>
+
+    <br></br><br></br><br></br><br></br><br></br><br></br>
+  }
+}

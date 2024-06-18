@@ -2,6 +2,7 @@ Home = "Početna"
 
 Sign_in = "Prijava"
 Sign_out = "Odjava"
+Sign_up = "Nemate nalog na našem sajtu? Registracija je besplatna i brza uz dodatne pogodnosti."
 Welcome = "Prijavljeni ste na sistem!"
 UnWelcome = "Niste prijavljeni na sistem. Prijavite se vašim mejlom i lozinkom!"
 

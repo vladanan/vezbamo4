@@ -33,6 +33,8 @@ func AuthenticateUser(email string, password_str string, already_authenticated b
 	//https://pkg.go.dev/golang.org/x/crypto/bcrypt#pkg-index
 	//https://gowebexamples.com/password-hashing/
 
+	// PROVERA ZA VERIFIED EMAIL
+
 	password := []byte(password_str)
 
 	// ciphertext, err := bcrypt.GenerateFromPassword(password, 5) //df
@@ -124,7 +126,7 @@ func AuthenticateUser(email string, password_str string, already_authenticated b
 
 	if already_authenticated {
 
-		// fmt.Printf("\nProšlo je!\n")
+		// fmt.Printf("\nalready authenticated: Prošlo je!\n")
 		struct_user.Hash_lozinka = ""
 		return true, struct_user
 

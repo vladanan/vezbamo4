@@ -98,11 +98,88 @@ func GoToTerms(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(site.Terms(store, r)).Component.Render(context.Background(), w)
 }
 
+// func GoToUserNotLoged(w http.ResponseWriter, r *http.Request) {
+// 	templ.Handler(site.UserNotLogedPage(store, r)).Component.Render(context.Background(), w)
+// }
+
 // func GoToDa(w http.ResponseWriter, r *http.Request) {
 // 	templ.Handler(da.Da(store, r)).Component.Render(context.Background(), w)
 // }
 
+func Sign_up(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(dashboard.Sign_up(store, r)).Component.Render(context.Background(), w)
+}
+
+func Sign_up_post(w http.ResponseWriter, r *http.Request) {
+	// session, err := store.Get(r, "vezbamo.onrender.com-users")
+	// if err != nil {
+	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
+	// 	return
+	// }
+	// Authentication goes here
+
+	email1 := r.FormValue("mail1")
+	email2 := r.FormValue("mail2")
+	userName := r.FormValue("user_name")
+	password1 := r.FormValue("password1")
+	password2 := r.FormValue("password2")
+
+	fmt.Println("SING IN POST:", r.FormValue("mail"), r.FormValue("password"), r.Body, r.MultipartForm, r.URL, r.PostForm, r.Form, r.FormValue("mail2"), userName)
+
+	// validacija za a-zA-Z09 .,+-*:!?() min char 8 max 32 ISTO URADITI I NA FE UZ ARGUMENTS I JS
+
+	var validated bool
+
+	if email1 != email2 || password1 != password2 {
+		validated = false
+		// templ.Handler(dashboard.UserNotLogedPage(store, r)).Component.Render(context.Background(), w)
+		// return
+	} else {
+		validated = true
+	}
+
+	validated = db.AddUser(email1, userName, password1)
+
+	// Set user as authenticated
+	if validated {
+		// session.Values["authenticated"] = true
+		// session.Values["user_mail"] = email
+		// Save it before we write to the response/return from the handler.
+		// err = session.Save(r, w)
+		// if err != nil {
+		// 	http.Error(w, err.Error(), http.StatusInternalServerError)
+		// 	return
+		// }
+		// Dashboard(w, r)
+		// dashboard.DashParts(store, r) tewt
+		// templ.Handler(dashboard.DashParts(store, r, data)).Component.Render(context.Background(), w)
+
+		templ.Handler(dashboard.UserRegistered(store, r)).Component.Render(context.Background(), w)
+		return
+	} else {
+		fmt.Println("bad register")
+		// session.Values["authenticated"] = false
+		// session.Values["user_mail"] = "bbb"
+		// // Save it before we write to the response/return from the handler.
+		// err = session.Save(r, w)
+		// if err != nil {
+		// 	http.Error(w, err.Error(), http.StatusInternalServerError)
+		// 	return
+		// }
+		// Dashboard(w, r)
+		// templ.Handler(views.Index(store, r)).Component.Render(context.Background(), w)
+		// templ.Handler(dashboard.Dashboard(store, r)).Component.Render(context.Background(), w)
+		// templ.Handler(dashboard.DashParts(store, r, models.User{})).Component.Render(context.Background(), w)
+		// templ.Handler(dashboard.Sign_in(store, r)).Component.Render(context.Background(), w)
+		templ.Handler(dashboard.UserNotRegistered(store, r)).Component.Render(context.Background(), w)
+	}
+}
+
 func Sign_in(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(dashboard.Sign_in(store, r)).Component.Render(context.Background(), w)
+}
+
+func Sign_in_post(w http.ResponseWriter, r *http.Request) {
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -110,7 +187,12 @@ func Sign_in(w http.ResponseWriter, r *http.Request) {
 	}
 	// Authentication goes here
 
-	// fmt.Println("sing in", r.FormValue("mail"), r.FormValue("password"), r.Body, r.MultipartForm, r.URL, r.PostForm, r.Form, r.FormValue("mail"))
+	// PROVERA ZA:
+	// - user_name: samo a-zA-Z09 .,+-*:!?() min char 8
+	// - password: isto, min char 8
+	// ISTO URADITI I NA FE UZ ARGUMENTS I JS
+
+	// fmt.Println("SING IN POST:", r.FormValue("mail"), r.FormValue("password"), r.Body, r.MultipartForm, r.URL, r.PostForm, r.Form, r.FormValue("mail"))
 
 	email := r.FormValue("mail")
 	password := r.FormValue("password")
@@ -127,8 +209,9 @@ func Sign_in(w http.ResponseWriter, r *http.Request) {
 		}
 		// Dashboard(w, r)
 		// dashboard.DashParts(store, r) tewt
-		templ.Handler(dashboard.DashParts(store, r, data)).Component.Render(context.Background(), w)
-		// templ.Handler(dashboard.Dashboard(store, r)).Component.Render(context.Background(), w)
+		// templ.Handler(dashboard.DashParts(store, r, data)).Component.Render(context.Background(), w)
+		templ.Handler(dashboard.Dashboard(store, r, data)).Component.Render(context.Background(), w)
+		return
 	} else {
 		fmt.Println("bad sign in 2:")
 		session.Values["authenticated"] = false
@@ -142,7 +225,9 @@ func Sign_in(w http.ResponseWriter, r *http.Request) {
 		// Dashboard(w, r)
 		// templ.Handler(views.Index(store, r)).Component.Render(context.Background(), w)
 		// templ.Handler(dashboard.Dashboard(store, r)).Component.Render(context.Background(), w)
-		templ.Handler(dashboard.DashParts(store, r, models.User{})).Component.Render(context.Background(), w)
+		// templ.Handler(dashboard.DashParts(store, r, models.User{})).Component.Render(context.Background(), w)
+		// templ.Handler(dashboard.Sign_in(store, r)).Component.Render(context.Background(), w)
+		templ.Handler(dashboard.UserNotLogedPage(store, r)).Component.Render(context.Background(), w)
 	}
 }
 
@@ -207,25 +292,25 @@ func Dashboard(w http.ResponseWriter, r *http.Request) {
 
 	if auth_map == nil {
 		// session.Values["authenticated"] = false
-		fmt.Println("nema auth:", session.Values["authenticated"])
+		// fmt.Println("nema auth:", session.Values["authenticated"])
 	} else {
 		// already_authenticated = true
-		fmt.Println("ima auth sesion:", session.Values["authenticated"])
-		fmt.Println("ima auth map:", auth_map)
+		// fmt.Println("ima auth sesion:", session.Values["authenticated"])
+		// fmt.Println("ima auth map:", auth_map)
 		already_authenticated = auth_map.(bool)
-		fmt.Println("ima auth map2:", already_authenticated)
+		// fmt.Println("ima auth map2:", already_authenticated)
 	}
 
 	user_map := session.Values["user_mail"]
 	user_mail := ""
 	if user_map == nil {
-		fmt.Println("nema mail:", session.Values["user_mail"])
+		// fmt.Println("nema mail:", session.Values["user_mail"])
 	} else {
-		fmt.Println("ima mail:", session.Values["user_mail"])
+		// fmt.Println("ima mail:", session.Values["user_mail"])
 		user_mail = user_map.(string)
 	}
 	// Set user as authenticated fg
-	if already_authenticated == true {
+	if already_authenticated {
 		_, data := db.AuthenticateUser(user_mail, "", already_authenticated)
 		templ.Handler(dashboard.Dashboard(store, r, data)).Component.Render(context.Background(), w)
 	} else {
@@ -253,6 +338,7 @@ func Sign_out(w http.ResponseWriter, r *http.Request) {
 	session, _ := store.Get(r, "vezbamo.onrender.com-users")
 	// Revoke users authentication
 	session.Values["authenticated"] = false
+	session.Values["user_mail"] = nil
 	session.Save(r, w)
 	templ.Handler(views.Index(store, r)).Component.Render(context.Background(), w)
 }

@@ -160,14 +160,14 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 		}
 		if session, err := store.Get(r, "vezbamo.onrender.com-users"); err == nil {
 			if auth, _ := session.Values["authenticated"].(bool); !auth {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("  <button onmouseleave=\"delayReload2()\" class=\"text-sm ml-1 px-1 text-blue-300\" type=\"button\"><a href=\"/dashboard\">")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("   <button class=\"text-sm ml-1 px-1 text-blue-300\" type=\"button\"><a href=\"/sign_in\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Sign_in"))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 149, Col: 57}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 150, Col: 55}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
@@ -185,7 +185,7 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Sign_out"))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 153, Col: 57}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 154, Col: 57}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {

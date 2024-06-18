@@ -1,0 +1,71 @@
+package dashboard
+
+import (
+  "net/http"
+  "github.com/vladanan/vezbamo4/src/views"
+  "github.com/gorilla/sessions"
+  //"fmt"
+)
+
+templ Sign_up(store sessions.Store, r *http.Request) {
+    
+    @views.Layout(store, r) {
+    
+      // <p class="m-5 text-xl text-yellow-300">{views.Translate(store, r, "UnWelcome")}</p>
+
+      if signedin(store, r) == "true" {
+
+            <p class="text-white">
+                već si prijavljen
+            </p>
+
+        } else {
+<form class="m-5 text-xl text-green-300" id="sign_up_form" action="/sign_up_post" method="POST" >
+        <div >
+          <p>
+              email
+          </p>
+          <input class="text-black text-sm" type="email" name="mail1" required />
+        </div>
+        <div >
+          <p>
+              repeat email
+          </p>
+          <input class="text-black text-sm" type="email" name="mail2" required />
+        </div>
+        <div >
+          <p>
+              user name a-zA-Z09 .,+-*:!?() min char 8 max 32
+          </p>
+          <input class="text-black text-sm" type="text" name="user_name" required />
+        </div>
+        <div >
+          <p>
+              password a-zA-Z09 .,+-*:!?() min char 8 max 32
+          </p>
+          <input class="text-black text-sm" type="password" name="password1" required />
+        </div>
+        <div >
+          <p>
+              repeat password
+          </p>
+          <input class="text-black text-sm" type="password" name="password2" required />
+        </div>
+        <p class="text-red-300">
+            captcha
+        </p>
+        <div>
+          <button class=" border-white mt-2 px-2 rounded-md border-2 font-bold " type="submit" name="sign_up" value="sign_up">Registruj se</button>
+        </div>
+
+
+      </form>      
+    
+  }
+
+      
+
+    <br></br>
+  }
+
+}

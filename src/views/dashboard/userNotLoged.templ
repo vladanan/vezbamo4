@@ -1,4 +1,4 @@
-package site
+package dashboard
 
 import (
   "net/http"
@@ -8,7 +8,12 @@ import (
 
 templ UserNotLogedPage(store sessions.Store, r *http.Request) {
   @views.Layout(store, r) {
+    
+    <p class="m-5 text-xl text-blue-300">Email ili lozinka su pogrešni.</p>
+    
     <p class="m-5 text-xl text-blue-300">{views.Translate(store, r, "UnWelcome")}</p>
+
+    <p class="m-5 text-xl text-blue-300">Da se prijaviš na sajt klikni na link u gornjem desnom uglu.</p>
 
     <br></br><br></br><br></br><br></br><br></br><br></br>
   }

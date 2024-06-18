@@ -14,10 +14,9 @@ import (
 	"github.com/gorilla/sessions"
 	"github.com/vladanan/vezbamo4/src/views"
 	"net/http"
-	//"fmt"
 )
 
-func Sign_in(store sessions.Store, r *http.Request) templ.Component {
+func UserRegistered(store sessions.Store, r *http.Request) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -36,20 +35,7 @@ func Sign_in(store sessions.Store, r *http.Request) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <form class=\"m-5 text-xl text-yellow-300\" id=\"sign_in_form\" action=\"/sign_in_post\" method=\"POST\"><p class=\"text-xl text-red-300\">vladan.andjelkovic@gmail.com</p><p class=\"text-xl text-red-300\">vezbamo.2015</p><div><p>email</p><input class=\"text-black text-sm\" type=\"email\" name=\"mail\"></div><div><p>password</p><input class=\"text-black text-sm\" type=\"password\" name=\"password\"></div><p class=\"text-red-300\">captcha</p><div><button class=\" border-white mt-2 px-2 rounded-md border-2 font-bold \" type=\"submit\" name=\"sign_in\" value=\"sign_in\">Sign in</button></div><p class=\"text-blue-500\"><button class=\"text-sm mt-5 px-1 text-blue-300 border-1 border-yellow-500 rounded-md\" type=\"button\"><a href=\"/sign_up\">")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var3 string
-			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Sign_up"))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/dashboard/sign_in.templ`, Line: 40, Col: 63}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></button></p></form><br>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"m-5 text-xl text-blue-300\">UserRegistered proveri svoj Email za verifikaciju.</p>  <br><br><br><br><br><br>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

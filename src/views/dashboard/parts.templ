@@ -11,7 +11,7 @@ import (
 
 templ DashParts(store sessions.Store, r *http.Request, data models.User) {
 
-  <form class="m-5 text-xl text-yellow-300" id="sign_in_form" action="/" method="GET" hx-post="/sign_in" >
+  <form class="m-5 text-xl text-yellow-300" id="sign_in_form" action="/sign_in" method="POST" >
 
    if signedin(store, r) == "true" {
 
@@ -23,7 +23,7 @@ templ DashParts(store sessions.Store, r *http.Request, data models.User) {
       <tr><th>user field</th><th>status</th></tr>
       <tr><td>Created_at</td><td>{data.Created_at.String()}</td></tr>
       <tr><td>email</td><td>{data.Email}</td></tr>
-      <tr><td>test</td><td>{data.Name}</td></tr>
+      <tr><td>test</td><td>{data.User_name}</td></tr>
       <tr><td>...</td><td>{data.Hash_lozinka}</td></tr>
       <tr><td>user_mode (user, mod, admin)</td><td>{data.Mode}</td></tr>
       <tr><td>user_level (hex = 16 levels)</td><td>{data.Level}</td></tr>
