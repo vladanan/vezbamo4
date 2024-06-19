@@ -44,16 +44,21 @@ func AddUser(email_str, user_name, password_str string) bool {
 
 	password := []byte(password_str)
 
-	ciphertext_sign_in, err := bcrypt.GenerateFromPassword(password, 5) //df
+	ciphertext_sign_in, err := bcrypt.GenerateFromPassword(password, 5)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error from bcrypt encryption: %s\n", err)
 		return false
 	}
-	ciphertext_verify_mail, err := bcrypt.GenerateFromPassword([]byte(password), 7) //df
+	ciphertext_verify_mail, err := bcrypt.GenerateFromPassword([]byte(password), 7)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error from bcrypt encryption: %s\n", err)
 		return false
 	}
+
+	// kada se key koristi bez zamena / i . onda ne može da se koristi kao url jer / dovodi do toga da je url pogrešan
+	// možda se to ne dešava sa . ali sam zamenio za svaki slučaj da se ne brka domen ili tako nešto
+	ciphertext_verify_mail_string1 := strings.ReplaceAll(string(ciphertext_verify_mail), "/", "-")
+	ciphertext_verify_mail_string2 := strings.ReplaceAll(string(ciphertext_verify_mail_string1), ".", "=")
 
 	// fmt.Println("Ciphertexts: ", string(ciphertext_sign_in))
 
@@ -88,7 +93,7 @@ func AddUser(email_str, user_name, password_str string) bool {
 		"user",
 		0,
 		true, true, false,
-		ciphertext_verify_mail,
+		ciphertext_verify_mail_string2,
 		// time.Now(),
 		// time.DateTime,
 	)
@@ -105,13 +110,24 @@ func AddUser(email_str, user_name, password_str string) bool {
 
 		// Connect to the server, authenticate, set the sender and recipient,
 		// and send the email all in one step.
-		to := []string{email_str}
 
-		msg := strings.NewReader("To: " + email_str + "\r\n" +
+		var mail_for_mail string
+		var url_domain_for_mail string
+
+		if os.Getenv("PRODUCTION") == "FALSE" {
+			mail_for_mail = "vladan_zasve@yahoo.com"
+			url_domain_for_mail = "http://127.0.0.1:7331/vmk/" + string(ciphertext_verify_mail_string2)
+		} else {
+			mail_for_mail = email_str
+			url_domain_for_mail = "https://vezbamo.onrender.com/vmk/" + string(ciphertext_verify_mail_string2)
+		}
+
+		to := []string{mail_for_mail}
+
+		msg := strings.NewReader("To: " + mail_for_mail + "\r\n" +
 			"Subject: Dobrodošli na portal Vežbamo!\r\n" +
 			"\r\n" +
-			"Da bi verifikovao svoj nalog prekopiraj ovaj link u svoj browser: https://vezbamo.onrender.com/vmk/" + string(ciphertext_verify_mail) +
-			"\r\n")
+			"Da bi verifikovao svoj nalog prekopiraj ovaj link u svoj browser: " + url_domain_for_mail + "\r\n")
 
 		err := smtp.SendMail("smtp.gmail.com:587", auth, os.Getenv("SMTP_MAIL"), to, msg)
 		if err != nil {
