@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/a-h/templ"
+	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
 	"github.com/joho/godotenv"
 	"github.com/vladanan/vezbamo4/src/db"
@@ -124,7 +125,7 @@ func Sign_up_post(w http.ResponseWriter, r *http.Request) {
 	password1 := r.FormValue("password1")
 	password2 := r.FormValue("password2")
 
-	fmt.Println("SING IN POST:", r.FormValue("mail"), r.FormValue("password"), r.Body, r.MultipartForm, r.URL, r.PostForm, r.Form, r.FormValue("mail2"), userName)
+	fmt.Println("SING UP POST form:", r.Form)
 
 	// validacija za a-zA-Z09 .,+-*:!?() min char 8 max 32 ISTO URADITI I NA FE UZ ARGUMENTS I JS
 
@@ -419,6 +420,33 @@ func SetEs(w http.ResponseWriter, r *http.Request) {
 // 		return
 // 	}
 // }
+
+func GoToNV(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(dashboard.MailNotVerified(store, r)).Component.Render(context.Background(), w)
+	// templ.Handler(site.Terms(store, r)).Component.Render(context.Background(), w)
+}
+
+func CheckLinkFromEmail(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	// title := vars["title"]
+	key := vars["key"]
+
+	mailVerified := db.AuthenticateMail(key)
+
+	if mailVerified {
+		templ.Handler(dashboard.MailVerified(store, r)).Component.Render(context.Background(), w)
+		// fmt.Fprint(w, "Your mail is registered. You can go back to homepage and sign in")
+	} else {
+		// fmt.Fprintf(w, "You mail is NOT REGISTERED. Contact user support.")
+		// fmt.Fprintf(w, "You want to register this key from mail bre: %s\n", key)
+		templ.Handler(dashboard.MailNotVerified(store, r)).Component.Render(context.Background(), w)
+		// GoToNV(w, r)
+		// GoToTerms(w, r)
+	}
+	fmt.Print("vmk prošao")
+	// GoToTerms(w, r)
+
+}
 
 //*** A P I
 

@@ -14,6 +14,8 @@ require (
 require github.com/rs/cors v1.10.1
 
 require (
+	github.com/emersion/go-sasl v0.0.0-20231106173351-e73c9f7bad43 // indirect
+	github.com/emersion/go-smtp v0.21.2 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/gorilla/securecookie v1.1.2 // indirect
 	github.com/gorilla/sessions v1.2.2 // indirect

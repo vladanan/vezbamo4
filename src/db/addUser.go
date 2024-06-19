@@ -2,9 +2,19 @@ package db
 
 import (
 	"context"
+	"strings"
+
+	// "crypto/tls"
 	"fmt"
+
+	// "log"
+
+	"github.com/emersion/go-sasl"
+	"github.com/emersion/go-smtp"
+
 	"os"
-	"time"
+
+	// "time"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/joho/godotenv"
@@ -12,12 +22,6 @@ import (
 	// "encoding/json"
 	// "github.com/vladanan/vezbamo4/src/models"
 )
-
-// type User struct {
-// 	Hash_lozinka string `db:"hash_lozinka"`
-// 	Email        string `db:"email"`
-// 	Test         string `db:"test"`
-// }
 
 // func to_struct(user []byte) []models.User {
 // 	var p []models.User
@@ -28,20 +32,30 @@ import (
 // 	return p
 // }
 
-func AddUser(email, user_name, password_str string) bool {
+func AddUser(email_str, user_name, password_str string) bool {
+
+	// PROVERA DA LI NEMA VEĆ USER-A SA ISTIM MEJLOM I USER_NAME
+
 	//https://pkg.go.dev/golang.org/x/crypto/bcrypt#pkg-index
 	//https://gowebexamples.com/password-hashing/
 
+	// GenerateFromPassword does not accept passwords longer than 72 bytes, which is the longest password bcrypt will operate on.
+	// praviti da se key za proveru mejla pravi na osnovu mejla i lozinke jer su skupa 32+32=64 ispod broja koji prihvata bcrypt
+
 	password := []byte(password_str)
 
-	ciphertext, err := bcrypt.GenerateFromPassword(password, 5) //df
-	// _, err := bcrypt.GenerateFromPassword(password, 5) //df
+	ciphertext_sign_in, err := bcrypt.GenerateFromPassword(password, 5) //df
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error from bcrypt encryption: %s\n", err)
+		return false
+	}
+	ciphertext_verify_mail, err := bcrypt.GenerateFromPassword([]byte(password), 7) //df
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error from bcrypt encryption: %s\n", err)
 		return false
 	}
 
-	fmt.Println("Ciphertexts: ", string(ciphertext))
+	// fmt.Println("Ciphertexts: ", string(ciphertext_sign_in))
 
 	err2 := godotenv.Load(".env")
 	if err2 != nil {
@@ -55,26 +69,119 @@ func AddUser(email, user_name, password_str string) bool {
 	}
 	defer conn.Close(context.Background())
 
-	// U_id           int       `db:"u_id"`
-	// Created_at     time.Time `db:"created_at"`
-	// Hash_lozinka   string    `db:"hash_lozinka"`
-	// Email          string    `db:"email"`
-	// User_name      string    `db:"user_name"`
-	// Mode           string    `db:"user_mode"`
-	// Level          string    `db:"user_level"`
-	// Basic          bool      `db:"basic"`
-	// Js             bool      `db:"js"`
-	// C              bool      `db:"c"`
-	// Payment_date   time.Time `db:"payment_date"`
-	// Payment_expire time.Time `db:"payment_expire"`
-	// Verified_email bool      `db:"verified_email"`
-
-	commandTag, err := conn.Exec(context.Background(), "INSERT INTO mi_users (hash_lozinka, email, user_name, user_mode, user_level, basic, js, c, verified_email, payment_date, payment_expire) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);", ciphertext, email, user_name, "user", 0, true, true, false, false, time.DateTime, time.DateTime)
+	commandTag, err := conn.Exec(context.Background(), `INSERT INTO mi_users
+		(
+			hash_lozinka,
+			email,
+			user_name,
+			user_mode,
+			user_level,
+			basic,
+			js,
+			c,
+			verified_email
+		)
+			VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`,
+		ciphertext_sign_in,
+		email_str,
+		user_name,
+		"user",
+		0,
+		true, true, false,
+		ciphertext_verify_mail,
+		// time.Now(),
+		// time.DateTime,
+	)
 	if err != nil {
 		fmt.Printf("Unable to connect to database: %v\n", err)
 		return false
+	} else {
+		fmt.Printf("insert result: %v\n", commandTag)
+
+		// AKO JE SVE OKEJ ŠALJE SE MEJL PREKO MEJL KLIJENTA
+
+		// Set up authentication information.
+		auth := sasl.NewPlainClient("", os.Getenv("SMTP_MAIL"), os.Getenv("SMTP_APP_PASSWORD_VEZBAMO"))
+
+		// Connect to the server, authenticate, set the sender and recipient,
+		// and send the email all in one step.
+		to := []string{email_str}
+
+		msg := strings.NewReader("To: " + email_str + "\r\n" +
+			"Subject: Dobrodošli na portal Vežbamo!\r\n" +
+			"\r\n" +
+			"Da bi verifikovao svoj nalog prekopiraj ovaj link u svoj browser: https://vezbamo.onrender.com/vmk/" + string(ciphertext_verify_mail) +
+			"\r\n")
+
+		err := smtp.SendMail("smtp.gmail.com:587", auth, os.Getenv("SMTP_MAIL"), to, msg)
+		if err != nil {
+			fmt.Printf("Unable to send mail:%v\n", err)
+			return false
+			// log.Fatal(err)
+		}
+
+		// // Connect to the remote SMTP server.
+		// c, err := smtp.DialStartTLS("smtp.gmail.com:25", nil)
+		// if err != nil {
+		// 	// log.Fatal(err)
+		// 	fmt.Printf("Unable to connect to smtp server:%v\n", err)
+		// 	return false
+		// }
+
+		// gm := os.Getenv("SMTP_MAIL")
+		// gp := "" //os.Getenv("SMTP_PASSWORD")
+
+		// so := smtp.MailOptions{
+		// 	Auth: &gp,
+		// }
+
+		// fmt.Printf("For data mail:%s and pass:%p\n", gm, &gp)
+		// fmt.Print("smtp options", so, "\n")
+
+		// // Set the sender and recipient first
+		// if err := c.Mail("vladan.andjelkovic@gmail.com", &so); err != nil {
+		// 	// log.Fatal(err)
+		// 	fmt.Printf("Unable to accept sender:%v\n", err)
+		// 	fmt.Printf("For data mail:%s and pass:%p\n", gm, &gp)
+		// 	return false
+		// }
+
+		// if err := c.Rcpt("vladan_zasve@yahoo.com", nil); err != nil {
+		// 	// log.Fatal(err)
+		// 	fmt.Printf("Unable to accept recipient:%v\n", err)
+		// 	return false
+		// }
+
+		// // Send the email body.
+		// wc, err := c.Data()
+		// if err != nil {
+		// 	// log.Fatal(err)
+		// 	fmt.Printf("Unable to open wc:%v\n", err)
+		// 	return false
+		// }
+		// _, err = fmt.Fprintf(wc, "This is the email body with link for vmk: %s", ciphertext_verify_mail)
+		// if err != nil {
+		// 	// log.Fatal(err)
+		// 	fmt.Printf("Unable to create body for mail:%v\n", err)
+		// 	return false
+		// }
+		// err = wc.Close()
+		// if err != nil {
+		// 	// log.Fatal(err)
+		// 	fmt.Printf("Unable to close wc:%v\n", err)
+		// 	return false
+		// }
+
+		// Send the QUIT command and close the connection.
+		// err = c.Quit()
+		// if err != nil {
+		// 	// log.Fatal(err)
+		// 	fmt.Printf("Unable to quit connection:%v\n", err)
+		// 	return false
+		// }
+
+		return true
 	}
-	fmt.Printf("insert result: %v\n", commandTag)
 
 	// err = bcrypt.CompareHashAndPassword([]byte("$2a$05$HYej4fyvWYnC5LvrSGEOD.bztJzcYn45t62etOTrN8d59BkoD7fhy"), password)
 	// if err != nil {
@@ -137,7 +244,5 @@ func AddUser(email, user_name, password_str string) bool {
 	// 	}
 
 	// }
-
-	return true
 
 }

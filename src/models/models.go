@@ -15,5 +15,5 @@ type User struct {
 	C              bool      `db:"c"`
 	Payment_date   time.Time `db:"payment_date"`
 	Payment_expire time.Time `db:"payment_expire"`
-	Verified_email bool      `db:"verified_email"`
+	Verified_email string    `db:"verified_email"`
 }

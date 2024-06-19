@@ -7,7 +7,8 @@ import (
 
 	"github.com/jackc/pgx/v5"
 	"github.com/joho/godotenv"
-	"golang.org/x/crypto/bcrypt"
+
+	// "golang.org/x/crypto/bcrypt"
 
 	"encoding/json"
 
@@ -20,22 +21,13 @@ import (
 // 	Test         string `db:"test"`
 // }
 
-func to_struct(user []byte) []models.User {
-	var p []models.User
-	err := json.Unmarshal(user, &p)
-	if err != nil {
-		fmt.Printf("Json error: %v", err)
-	}
-	return p
-}
-
-func AuthenticateUser(email string, password_str string, already_authenticated bool) (bool, models.User) {
+func AuthenticateMail(key string) bool {
 	//https://pkg.go.dev/golang.org/x/crypto/bcrypt#pkg-index
 	//https://gowebexamples.com/password-hashing/
 
 	// PROVERA ZA VERIFIED EMAIL
 
-	password := []byte(password_str)
+	// password := []byte(password_str)
 
 	// ciphertext, err := bcrypt.GenerateFromPassword(password, 5) //df
 	// _, err := bcrypt.GenerateFromPassword(password, 5) //df
@@ -72,82 +64,57 @@ func AuthenticateUser(email string, password_str string, already_authenticated b
 	// 	fmt.Printf("\nProšlo je!")
 	// }
 
-	rows, err2 := conn.Query(context.Background(), "SELECT * FROM mi_users where email=$1;", email)
+	rows, err2 := conn.Query(context.Background(), "SELECT * FROM mi_users where verified_email=$1;", key)
 	if err2 != nil {
 		fmt.Printf("Unable to make query: %v\n", err2)
-		return false, models.User{}
+		return false
 	}
 
-	pgx_user, err := pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
+	pgx_key, err := pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
 	if err != nil {
 		fmt.Printf("CollectRows error: %v", err)
 		//return
-		return false, models.User{}
+		return false
 	}
 
 	// fmt.Print("pgx user::", pgx_user)
 
-	bytearray_user, err2 := json.Marshal(pgx_user)
+	bytearray_key, err2 := json.Marshal(pgx_key)
 	if err2 != nil {
 		fmt.Printf("Json error: %v", err2)
 	}
 
-	// fmt.Print("bytearray user:", bytearray_user)
-
-	// for _, item := range to_struct(bytearray_user) {
-	// 	fmt.Print("\n")
-	// 	fmt.Print(item.Email)
-	// 	fmt.Print("\n")
-	// 	fmt.Print(item.Test)
-	// 	fmt.Print("\n")
-	// 	fmt.Print(item.Hash_lozinka)
-	// }
-
-	// var time_stamp time.Time
-	// err = conn.QueryRow(context.Background(), "select created_at from mi_users where email=$1", email).Scan(&time_stamp)
-	// if err != nil {
-	// 	fmt.Fprintf(os.Stderr, "QueryRow failed: %v\n", err)
-	// 	// os.Exit(1)
-	// 	return false
-	// }
-
-	// fmt.Print("\n")
-	// fmt.Print(time_stamp)
-
 	var struct_user models.User
 
-	if string(bytearray_user) != "null" {
-		struct_user = to_struct(bytearray_user)[0]
+	if string(bytearray_key) != "null" {
+		struct_user = to_struct(bytearray_key)[0]
 	} else {
-		return false, models.User{}
+		return false
 	}
 
 	// fmt.Print(struct_user)
 
-	if already_authenticated {
+	if len(struct_user.Verified_email) > 8 {
 
-		// fmt.Printf("\nalready authenticated: Prošlo je!\n")
-		struct_user.Hash_lozinka = ""
-		return true, struct_user
-
-	} else {
-
-		err = bcrypt.CompareHashAndPassword([]byte(struct_user.Hash_lozinka), password)
+		fmt.Print("Key for db write", struct_user.Verified_email)
+		//     update mytab set c=3, d=4, e=5 where a = 0;
+		commandTag, err := conn.Exec(context.Background(), `UPDATE mi_users SET verified_email=$1 where verified_email=$2;`,
+			"verified",
+			struct_user.Verified_email,
+		)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Error from bcrypt Dencryption: %s\n", err)
-			return false, models.User{}
+			fmt.Printf("Unable to connect to database to write verified field: %v\n", err)
+			return false
 		} else {
+			fmt.Printf("insert result: %v\n", commandTag)
 
-			if struct_user.Verified_email == "verified" {
-				// fmt.Printf("\nProšlo je!\n")
-				struct_user.Hash_lozinka = ""
-				return true, struct_user
-
-			} else {
-				return false, models.User{}
-			}
+			// AKO JE SVE OKEJ
+			fmt.Printf("\nmail verified: Prošlo je!\n")
+			return true
 		}
 
+	} else {
+		return false
 	}
 
 }

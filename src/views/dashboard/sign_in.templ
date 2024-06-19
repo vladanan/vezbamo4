@@ -15,9 +15,6 @@ templ Sign_in(store sessions.Store, r *http.Request) {
 
       <form class="m-5 text-xl text-yellow-300" id="sign_in_form" action="/sign_in_post" method="POST" >
                 
-        <p class="text-xl text-red-300">vladan.andjelkovic@gmail.com</p>
-        <p class="text-xl text-red-300">vezbamo.2015</p>
-          
         <div >
           <p>
               email
@@ -37,7 +34,7 @@ templ Sign_in(store sessions.Store, r *http.Request) {
           <button class=" border-white mt-2 px-2 rounded-md border-2 font-bold " type="submit" name="sign_in" value="sign_in">Sign in</button>
         </div>
         <p class="text-blue-500">
-          <button class="text-sm mt-5 px-1 text-blue-300 border-1 border-yellow-500 rounded-md" type="button">
+          <button class="text-md mt-5 px-1 text-blue-300 border-2 border-yellow-500 rounded-md" type="button">
 					  <a href="/sign_up">{views.Translate(store, r, "Sign_up")}</a>
 				  </button>
         </p>

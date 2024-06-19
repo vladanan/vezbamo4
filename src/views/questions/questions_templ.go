@@ -35,7 +35,7 @@ func Questions(store sessions.Store, r *http.Request) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-4\"><!-- Swiper --><div style=\"--swiper-navigation-color: #fff; --swiper-pagination-color: #fff\" class=\"swiper mySwiper lg:rounded-2xl lg:max-w-max\"><div class=\"parallax-bg\" data-swiper-parallax=\"-23%\"></div><div class=\"swiper-wrapper\"><!-- step 1 --><a href=\"https://vezbamo.vercel.app/\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/site/office-620822_1280_Cr.jpg);\"><div class=\"title\" data-swiper-parallax=\"-300\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-4\"><!-- Swiper --><div style=\"--swiper-navigation-color: #fff; --swiper-pagination-color: #fff\" class=\"swiper mySwiper lg:rounded-2xl lg:max-w-max\"><div class=\"parallax-bg\" data-swiper-parallax=\"-23%\"></div><div class=\"swiper-wrapper\"><!-- step 1 --><a href=\"https://vezbamo.vercel.app/\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(/static/site/office-620822_1280_Cr.jpg);\"><div class=\"title\" data-swiper-parallax=\"-300\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
