@@ -17,6 +17,7 @@ import (
 	//"fmt"
 )
 
+// napraviti tabelu koja prikazuje neaktivne korisnike tako što proverava last_log_in polje i omogućava da se oni automatski obrišu pogotovo ako je last_sign_in isti kao created_at jer će to polje automatski da se upisuje tako da se razlikuju nalozi koji su napravljeni samo radi bombardovanja lažnim nalozima
 func Admin(store sessions.Store, r *http.Request) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
@@ -37,7 +38,7 @@ func Admin(store sessions.Store, r *http.Request) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Welcome"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/dashboard/admin.templ`, Line: 11, Col: 77}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/dashboard/admin.templ`, Line: 13, Col: 77}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {

@@ -9,18 +9,19 @@ import (
 
 templ Sign_up(store sessions.Store, r *http.Request) {
     
-    @views.Layout(store, r) {
-    
-      // <p class="m-5 text-xl text-yellow-300">{views.Translate(store, r, "UnWelcome")}</p>
+  @views.Layout(store, r) {
+  
+    // <p class="m-5 text-xl text-yellow-300">{views.Translate(store, r, "UnWelcome")}</p>
 
-      if signedin(store, r) == "true" {
+    if signedin(store, r) == "true" {
 
-            <p class="text-white">
-                već si prijavljen
-            </p>
+          <p class="text-white">
+              već si prijavljen
+          </p>
 
-        } else {
-<form class="m-5 text-xl text-green-300" id="sign_up_form" action="/sign_up_post" method="POST" >
+    } else {
+      
+      <form class="m-5 text-xl text-green-300" id="sign_up_form" action="/sign_up_post" method="POST" >
         <div >
           <p>
               email
@@ -60,10 +61,10 @@ templ Sign_up(store sessions.Store, r *http.Request) {
 
 
       </form>      
-    
-  }
 
-      
+    }
+
+    
 
     <br></br>
   }

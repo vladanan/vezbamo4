@@ -6,6 +6,7 @@ import (
   "github.com/gorilla/sessions"
   "fmt"
   "github.com/vladanan/vezbamo4/src/models"
+  "encoding/json"
 )
 
 func signedin(store sessions.Store, r *http.Request) string {
@@ -21,7 +22,25 @@ func signedin(store sessions.Store, r *http.Request) string {
 	return fmt.Sprint(auth)
 }
 
+func to_struct(headers []byte) http.Header {
+	var p http.Header
+	err := json.Unmarshal(headers, &p)
+	if err != nil {
+		fmt.Printf("Dashboard: Json error: %v", err)
+	}
+	return p
+}
+
+func GetXForwardedFor(headers string) string {
+  var headers_http http.Header = to_struct([]byte(headers))
+  // fmt.Print("dashboard hederi", headers_http)
+  // fmt.Print("dashboard hederi", headers_http["X-Forwarded-For"])
+
+  return headers_http["X-Forwarded-For"][0]
+}
+
 templ Dashboard(store sessions.Store, r *http.Request, user models.User) {
+
   @views.Layout(store, r) {
 
     <p class="m-5 text-xl text-yellow-300">
@@ -38,7 +57,9 @@ templ Dashboard(store sessions.Store, r *http.Request, user models.User) {
 
         <table>
           <tr><th>user field</th><th>status</th></tr>
-          <tr><td>Created_at</td><td>{user.Created_at.String()}</td></tr>
+          <tr><td>Created_at_time</td><td>{user.Created_at_time.String()}</td></tr>
+          <tr><td>Last_sign_in_time</td><td>{user.Last_sign_in_time.String()}</td></tr>
+          <tr><td>"X-Forwarded-For"</td><td>{GetXForwardedFor(user.Last_sign_in_headers)}</td></tr>
           <tr><td>email</td><td>{user.Email}</td></tr>
           <tr><td>user name</td><td>{user.User_name}</td></tr>
           <tr><td>...</td><td>{user.Hash_lozinka}</td></tr>

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"context"
+	// "context"
 	"errors"
 	"flag"
 	"fmt"
@@ -9,10 +9,11 @@ import (
 	"os"
 	"time"
 
-	"github.com/a-h/templ"
+	// "github.com/a-h/templ"
 	"github.com/rs/cors"
 	"github.com/vladanan/vezbamo4/src/routes"
-	site "github.com/vladanan/vezbamo4/src/views/site"
+
+	// site "github.com/vladanan/vezbamo4/src/views/site"
 
 	"github.com/gorilla/mux"
 )
@@ -54,15 +55,15 @@ func main() {
 	// http.HandleFunc("/da", routes.GoToDa)
 
 	// http.Handle("/404", http.NotFoundHandler())
-	r.HandleFunc("/404", func(w http.ResponseWriter, r *http.Request) {
-		templ.Handler(site.Page404()).Component.Render(context.Background(), w)
-	})
+	// r.HandleFunc("/404", func(w http.ResponseWriter, r *http.Request) {
+	// 	templ.Handler(site.Page404()).Component.Render(context.Background(), w)
+	// })
+	r.NotFoundHandler = http.HandlerFunc(routes.GoTo404)
 
+	r.HandleFunc("/auto_login", routes.AutoLogin)
 	r.HandleFunc("/sign_in", routes.Sign_in)
 	r.HandleFunc("/sign_in_post", routes.Sign_in_post)
-	// r.HandleFunc("/dashboard", routes.Dashboard)
-	r.HandleFunc("/auto_login", routes.AutoLogin)
-	//r.HandleFunc("/admin", routes.Admin)
+	r.HandleFunc("/dashboard", routes.Dashboard)
 	r.HandleFunc("/sign_out", routes.Sign_out)
 	r.HandleFunc("/sign_up", routes.Sign_up)
 	r.HandleFunc("/sign_up_post", routes.Sign_up_post)

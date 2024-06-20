@@ -50,14 +50,14 @@ func DashParts(store sessions.Store, r *http.Request, data models.User) templ.Co
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<br></p><table><tr><th>user field</th><th>status</th></tr><tr><td>Created_at</td><td>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<br></p><table><tr><th>user field</th><th>status</th></tr><tr><td>Created_at_time</td><td>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var3 string
-			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(data.Created_at.String())
+			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(data.Created_at_time.String())
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/dashboard/parts.templ`, Line: 23, Col: 58}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/dashboard/parts.templ`, Line: 23, Col: 68}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {

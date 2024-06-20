@@ -21,7 +21,7 @@ templ DashParts(store sessions.Store, r *http.Request, data models.User) {
 
     <table>
       <tr><th>user field</th><th>status</th></tr>
-      <tr><td>Created_at</td><td>{data.Created_at.String()}</td></tr>
+      <tr><td>Created_at_time</td><td>{data.Created_at_time.String()}</td></tr>
       <tr><td>email</td><td>{data.Email}</td></tr>
       <tr><td>test</td><td>{data.User_name}</td></tr>
       <tr><td>...</td><td>{data.Hash_lozinka}</td></tr>
