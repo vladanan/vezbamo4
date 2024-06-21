@@ -32,16 +32,19 @@ func AddUser(email_str, user_name, password_str string) bool {
 	//https://gowebexamples.com/password-hashing/
 
 	// GenerateFromPassword does not accept passwords longer than 72 bytes, which is the longest password bcrypt will operate on.
-	// praviti da se key za proveru mejla pravi na osnovu mejla i lozinke jer su skupa 32+32=64 ispod broja koji prihvata bcrypt
+	// nije dobro da se key za proveru mejla pravi na osnovu lozinke
+	// da se ne bi desilo da neko proba da rekonstruiše password iz poslatog linka
+	// najbolje samo iz mejla jer je mejl svakako već poznat onome ko ima link a novi link svakako ne može sam da generiše
 
 	password := []byte(password_str)
+	email := []byte(email_str)
 
 	ciphertext_sign_in, err := bcrypt.GenerateFromPassword(password, 5)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "AddUser: Error from bcrypt encryption ciphertext_sign_in: %s\n", err)
 		return false
 	}
-	ciphertext_verify_mail, err := bcrypt.GenerateFromPassword([]byte(password), 7)
+	ciphertext_verify_mail, err := bcrypt.GenerateFromPassword([]byte(email), 7)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "AddUser: Error from bcrypt encryption ciphertext_verify_mail: %s\n", err)
 		return false
@@ -50,7 +53,7 @@ func AddUser(email_str, user_name, password_str string) bool {
 	// kada se key koristi bez zamena / i . onda ne može da se koristi kao url jer / dovodi do toga da je url pogrešan
 	// možda se to ne dešava sa . ali sam zamenio za svaki slučaj da se ne brka domen ili tako nešto
 	ciphertext_verify_mail_string1 := strings.ReplaceAll(string(ciphertext_verify_mail), "/", "-")
-	ciphertext_verify_mail_string2 := strings.ReplaceAll(string(ciphertext_verify_mail_string1), ".", "=")
+	ciphertext_verify_mail_string2 := strings.ReplaceAll(string(ciphertext_verify_mail_string1), ".", "_")
 
 	// fmt.Println("Ciphertexts: ", string(ciphertext_sign_in))
 
@@ -111,10 +114,10 @@ func AddUser(email_str, user_name, password_str string) bool {
 
 		if os.Getenv("PRODUCTION") == "FALSE" {
 			mail_for_mail = "vladan_zasve@yahoo.com"
-			url_domain_for_mail = "http://127.0.0.1:7331/vmk/" + string(ciphertext_verify_mail_string2)
+			url_domain_for_mail = "http://127.0.0.1:7331/vmk/" + string(ciphertext_verify_mail_string2) + "?mail=" + mail_for_mail
 		} else {
 			mail_for_mail = email_str
-			url_domain_for_mail = "https://vezbamo.onrender.com/vmk/" + string(ciphertext_verify_mail_string2)
+			url_domain_for_mail = "https://vezbamo.onrender.com/vmk/" + string(ciphertext_verify_mail_string2) + "?mail=" + mail_for_mail
 		}
 
 		to := []string{mail_for_mail}

@@ -86,7 +86,17 @@ func main() {
 	r.HandleFunc("/sh", routes.SetSh)
 	// http.HandleFunc("/browser", routes.SetBrowserLang)
 
-	r.HandleFunc("/vmk/{key}", routes.CheckLinkFromEmail)
+	// r.Path("/vmk/{key}").Queries("mail", "a").HandlerFunc(routes.CheckLinkFromEmail)
+	// r.NewRoute().Path("/vmk/{key}").HandlerFunc(routes.CheckLinkFromEmail).Queries("mail", "a")
+	// r.NewRoute().Path("/vmk/{key}").Handler(http.HandlerFunc(routes.CheckLinkFromEmail)).Queries("mail", "a")
+	// https://chromium.googlesource.com/external/github.com/gorilla/mux/+/refs/tags/v1.7.4/mux_test.go
+	// https://stackoverflow.com/questions/64279203/gorilla-mux-router-get-url-with-multiple-query-param-only-matches-if-called-by-a
+	// https://pkg.go.dev/github.com/gorilla/mux@v1.8.1#Route.Queries
+	// Queries(key, value) pairs: mail "" može bilo šta mail=bla@bla.com, "user" "vladan" može samo user=vladan
+	// takođe "mail" "{mail}" isto može bilo šta (nije mi jasna razlika između "" i "{mail}")
+	// tako samo query koji ima u sebi tačno određene promenljive sa određenim vrednostima (regex: "id", "{id:[0-9]+}") može da prođe
+	// to otežava provaljivanje i povećava bezbednost, može da ima i više promenljivih u query nego što je definisano ali mora da ima one koje su definisane
+	r.HandleFunc("/vmk/{key}", routes.CheckLinkFromEmail).Queries("mail", "") //, "user", "vladan")
 
 	//***  A P I
 

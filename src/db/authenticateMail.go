@@ -25,7 +25,8 @@ func AuthenticateMail(key string) bool {
 	//https://pkg.go.dev/golang.org/x/crypto/bcrypt#pkg-index
 	//https://gowebexamples.com/password-hashing/
 
-	// PROVERA ZA VERIFIED EMAIL
+	// PROVERA ZA key (urađena)
+	// PROVERA ZA i za mail da se ne desi da ima neki zaostali isti key sa kreiranja nekog drugog neverifikovanog naloga
 
 	// password := []byte(password_str)
 
@@ -89,7 +90,7 @@ func AuthenticateMail(key string) bool {
 	if string(bytearray_key) != "null" {
 		struct_user = to_struct(bytearray_key)[0]
 	} else {
-		return false
+		return false // ovo se dešava ako je ključ netačan ili u bazi nema uopšte tog ključa jer je mejl već verifikovan
 	}
 
 	// fmt.Print(struct_user)

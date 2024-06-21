@@ -429,8 +429,15 @@ func GoToNV(w http.ResponseWriter, r *http.Request) {
 
 func CheckLinkFromEmail(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
+
+	// https://stackoverflow.com/questions/45378566/gorilla-mux-optional-query-values
+
+	// delovi patha-a tj. urla
 	// title := vars["title"]
 	key := vars["key"]
+
+	// deo iz query URL.Query i FormValue ne rade na isti način pogotovo ako u r ima body i multipart form
+	fmt.Print("CheckLinkFromEmail: url vars and queries:", vars, r.URL.Query(), r.FormValue("mail"), "\n")
 
 	mailVerified := db.AuthenticateMail(key)
 
@@ -444,7 +451,7 @@ func CheckLinkFromEmail(w http.ResponseWriter, r *http.Request) {
 		// GoToNV(w, r)
 		// GoToTerms(w, r)
 	}
-	fmt.Print("vmk prošao")
+	// fmt.Print("vmk prošao")
 	// GoToTerms(w, r)
 
 }
