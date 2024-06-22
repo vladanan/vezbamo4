@@ -92,7 +92,7 @@ func getLang(store sessions.Store, r *http.Request) []string {
 		"ar": "Arabic    - العربية: ar",
 		"zh": "Chinese - 中文 (汉语): zh",
 		"en": "English  : en",
-		"sh": "Ex-yu - srpskohrvatski: sh",
+		"sh": "Ex-yug srpskohrvatski: sh",
 		"fr": "French   - français: fr",
 		"de": "German - Deutch: de",
 		"hi": "Hindi      - हिन्दी: hi",
@@ -154,7 +154,7 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</option> <option disabled value=\"ar\">Arabic &nbsp;&nbsp;&nbsp;- العربية: ar</option> <option disabled value=\"zh\">Chinese - 中文 (汉语): zh</option> <option value=\"en\">English&nbsp;&nbsp;: en</option> <option value=\"sh\">Ex-yu - srpskohrvatski: sh</option> <option disabled value=\"fr\">French &nbsp;&nbsp;- français: fr</option> <option disabled value=\"de\">German - Deutch: de</option> <option disabled value=\"hi\">Hindi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- हिन्दी: hi</option> <option disabled value=\"it\">Italian &nbsp;&nbsp;&nbsp;- italiano: it</option> <option disabled value=\"ru\">Russian &nbsp;- русский: ru</option> <option disabled value=\"sr\">Serbian &nbsp;- српски: sr</option> <option disabled value=\"es\">Spanish &nbsp;- español: es</option></select>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</option> <option disabled value=\"ar\">Arabic &nbsp;&nbsp;&nbsp;- العربية: ar</option> <option disabled value=\"zh\">Chinese - 中文 (汉语): zh</option> <option value=\"en\">English&nbsp;&nbsp;: en</option> <option value=\"sh\">Ex-yug srpskohrvatski: sh</option> <option disabled value=\"fr\">French &nbsp;&nbsp;- français: fr</option> <option disabled value=\"de\">German - Deutch: de</option> <option disabled value=\"hi\">Hindi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- हिन्दी: hi</option> <option disabled value=\"it\">Italian &nbsp;&nbsp;&nbsp;- italiano: it</option> <option disabled value=\"ru\">Russian &nbsp;- русский: ru</option> <option disabled value=\"sr\">Serbian &nbsp;- српски: sr</option> <option disabled value=\"es\">Spanish &nbsp;- español: es</option></select>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
