@@ -21,7 +21,7 @@ import (
 // 	Test         string `db:"test"`
 // }
 
-func AuthenticateMail(key string) bool {
+func AuthenticateMail(key, mail string) bool {
 	//https://pkg.go.dev/golang.org/x/crypto/bcrypt#pkg-index
 	//https://gowebexamples.com/password-hashing/
 
@@ -65,7 +65,7 @@ func AuthenticateMail(key string) bool {
 	// 	fmt.Printf("\nProšlo je!")
 	// }
 
-	rows, err2 := conn.Query(context.Background(), "SELECT * FROM mi_users where verified_email=$1;", key)
+	rows, err2 := conn.Query(context.Background(), "SELECT * FROM mi_users where verified_email=$1 and email=$2;", key, mail)
 	if err2 != nil {
 		fmt.Printf("Unable to make query: %v\n", err2)
 		return false

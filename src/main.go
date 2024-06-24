@@ -84,7 +84,7 @@ func main() {
 	r.HandleFunc("/en", routes.SetEn)
 	r.HandleFunc("/es", routes.SetEs)
 	r.HandleFunc("/sh", routes.SetSh)
-	// http.HandleFunc("/browser", routes.SetBrowserLang)
+	// http.HandleFunc("/browser", routes.SetBrowserLang)523523523
 
 	// r.Path("/vmk/{key}").Queries("mail", "a").HandlerFunc(routes.CheckLinkFromEmail)
 	// r.NewRoute().Path("/vmk/{key}").HandlerFunc(routes.CheckLinkFromEmail).Queries("mail", "a")

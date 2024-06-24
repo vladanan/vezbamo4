@@ -432,14 +432,15 @@ func CheckLinkFromEmail(w http.ResponseWriter, r *http.Request) {
 
 	// https://stackoverflow.com/questions/45378566/gorilla-mux-optional-query-values
 
+	// deo iz query URL.Query i FormValue ne rade na isti način pogotovo ako u r ima body i multipart form
+	fmt.Print("CheckLinkFromEmail: url vars and queries:", vars, r.URL.Query()["mail"][0], r.FormValue("mail"), "\n")
+
 	// delovi patha-a tj. urla
 	// title := vars["title"]
 	key := vars["key"]
+	email := r.URL.Query()["mail"][0]
 
-	// deo iz query URL.Query i FormValue ne rade na isti način pogotovo ako u r ima body i multipart form
-	fmt.Print("CheckLinkFromEmail: url vars and queries:", vars, r.URL.Query(), r.FormValue("mail"), "\n")
-
-	mailVerified := db.AuthenticateMail(key)
+	mailVerified := db.AuthenticateMail(key, email)
 
 	if mailVerified {
 		templ.Handler(dashboard.MailVerified(store, r)).Component.Render(context.Background(), w)
