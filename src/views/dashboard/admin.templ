@@ -10,6 +10,8 @@ import (
 
 // napraviti tabelu koja prikazuje neaktivne korisnike tako što proverava last_log_in polje i omogućava da se oni automatski obrišu pogotovo ako je last_sign_in isti kao created_at jer će to polje automatski da se upisuje tako da se razlikuju nalozi koji su napravljeni samo radi bombardovanja lažnim nalozima
 
+// notes
+
 templ Admin(store sessions.Store, r *http.Request) {
     
   <p class="m-5 text-xl text-red-300">{views.Translate(store, r, "Welcome")} to: ADMIN SECTION</p>
