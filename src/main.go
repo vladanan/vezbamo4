@@ -84,7 +84,7 @@ func main() {
 	r.HandleFunc("/en", routes.SetEn)
 	r.HandleFunc("/es", routes.SetEs)
 	r.HandleFunc("/sh", routes.SetSh)
-	// http.HandleFunc("/browser", routes.SetBrowserLang)523523523
+	// http.HandleFunc("/browser", routes.SetBrowserLang)
 
 	// r.Path("/vmk/{key}").Queries("mail", "a").HandlerFunc(routes.CheckLinkFromEmail)
 	// r.NewRoute().Path("/vmk/{key}").HandlerFunc(routes.CheckLinkFromEmail).Queries("mail", "a")
@@ -97,6 +97,8 @@ func main() {
 	// tako samo query koji ima u sebi tačno određene promenljive sa određenim vrednostima (regex: "id", "{id:[0-9]+}") može da prođe
 	// to otežava provaljivanje i povećava bezbednost, može da ima i više promenljivih u query nego što je definisano ali mora da ima one koje su definisane
 	r.HandleFunc("/vmk/{key}", routes.CheckLinkFromEmail).Queries("mail", "") //, "user", "vladan")
+
+	r.HandleFunc("/html/verify_email.html", routes.GetVerifyEmailHtml)
 
 	//***  A P I
 

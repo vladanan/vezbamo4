@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/a-h/templ"
 	"github.com/gorilla/mux"
@@ -117,7 +118,7 @@ func Sign_up_post(w http.ResponseWriter, r *http.Request) {
 	password1 := r.FormValue("password1")
 	password2 := r.FormValue("password2")
 
-	// PROVERA DA LI JE KORISNIK VEĆ PRIJAVLJEN
+	// PROVERA DA LI JE KORISNIK VEĆ PRIJAVLJEN:
 
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
 	if err != nil {
@@ -146,21 +147,21 @@ func Sign_up_post(w http.ResponseWriter, r *http.Request) {
 	} else {
 
 		// validacija za UPIS NOVOG KORISNIKA a-zA-Z09 .,+-*:!?() min char 8 max 32 ISTO URADITI I NA FE UZ ARGUMENTS I JS
-		fmt.Println("SING UP POST form:", r.Form, len(r.Form) == 0)
+		// fmt.Println("SING UP POST form:", r.Form, len(r.Form) == 0)
 
 		var validated bool
 
 		if email1 != email2 || password1 != password2 {
 			validated = false
-			fmt.Print("Sign_up_post: validacija za upis korisnika nije prošla ISTI MEJL/PASS")
+			fmt.Print("Sign_up_post: validacija za upis korisnika nije prošla ISTI MEJL/PASS\n")
 		} else if len(r.Form) == 0 {
 			validated = false
-			fmt.Print("Sign_up_post: validacija za upis korisnika nije prošla PRAZAN FORM")
+			fmt.Print("Sign_up_post: validacija za upis korisnika nije prošla PRAZAN FORM\n")
 		} else {
 			// NA DB PROVERITI DA LI VEĆ POSTOJI MAIL I USER NAME i vratiti odgovarajuće poruke nazad osim bool za validated
 			// NA DB PROVERITI da li je sa istog ip-a već bio upis u prethodnih 10min u odnosu na created_at
-			validated = db.AddUser(email1, userName, password1)
-			fmt.Print("Sign_up_post: validacija IZ DB:", validated)
+			validated = db.AddUser(email1, userName, password1, r)
+			fmt.Print("Sign_up_post: validacija IZ DB:", validated, "\n")
 		}
 
 		if validated {
@@ -422,11 +423,6 @@ func SetEs(w http.ResponseWriter, r *http.Request) {
 // 	}
 // }
 
-func GoToNV(w http.ResponseWriter, r *http.Request) {
-	templ.Handler(dashboard.MailNotVerified(store, r)).Component.Render(context.Background(), w)
-	// templ.Handler(site.Terms(store, r)).Component.Render(context.Background(), w)
-}
-
 func CheckLinkFromEmail(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
@@ -454,6 +450,36 @@ func CheckLinkFromEmail(w http.ResponseWriter, r *http.Request) {
 	}
 	// fmt.Print("vmk prošao")
 	// GoToTerms(w, r)
+
+}
+
+func GetVerifyEmailHtml(w http.ResponseWriter, r *http.Request) {
+
+	session, err := store.Get(r, "vezbamo.onrender.com-users")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	user_map := session.Values["user_mail"]
+	user_mail := ""
+	if user_map == nil {
+		// fmt.Println("nema mail:", session.Values["user_mail"])
+	} else {
+		// fmt.Println("ima mail:", session.Values["user_mail"])
+		user_mail = user_map.(string)
+	}
+
+	// uzima se html fajl za mejl za verifikaciju
+	dat, err1 := os.ReadFile("src/html/verify_email.html")
+	if err1 != nil {
+		fmt.Printf("getVerifyEmailHtml: greška čitanje html fajla: %v\n", err1)
+	}
+	html := strings.ReplaceAll(string(dat), "+user_name+", "user_name")
+	html = strings.ReplaceAll(html, "+url_domain_for_mail+", "http://127.0.0.1:7331/vmk/$2a$07$IFkFJy1NufwawNGqoef6kuJLuVFKzhqI4v_hYYwK2f_Y6Y3pP2eGu?mail=y.emailbox-proba@yahoo.com")
+	html = strings.ReplaceAll(html, "+mail_for_mail+", user_mail)
+
+	w.Write([]byte(html))
 
 }
 
