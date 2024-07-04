@@ -14,11 +14,13 @@ import (
 
 	"encoding/json"
 
-	"github.com/vladanan/vezbamo4/src/models"
+	model "github.com/vladanan/vezbamo4/src/models"
+
+	"log"
 )
 
-func to_struct(user []byte) []models.User {
-	var p []models.User
+func to_struct(user []byte) []model.User {
+	var p []model.User
 	err := json.Unmarshal(user, &p)
 	if err != nil {
 		fmt.Printf("Json error: %v", err)
@@ -26,48 +28,51 @@ func to_struct(user []byte) []models.User {
 	return p
 }
 
-func AuthenticateUser(email string, password_str string, already_authenticated bool, r *http.Request) (bool, models.User) {
+func AuthenticateUser(email string, password_str string, already_authenticated bool, r *http.Request) (bool, model.User) {
 	//https://pkg.go.dev/golang.org/x/crypto/bcrypt#pkg-index
 	//https://gowebexamples.com/password-hashing/
+
+	l := log.New(os.Stdout, "", log.Ltime|log.Lshortfile)
+	f := false
+	u := model.User{}
 
 	password := []byte(password_str)
 
 	// ENV, BAZA, UZIMANJE USERA
 
-	err := godotenv.Load(".env")
-	if err != nil {
-		fmt.Printf("AuthenticateUser: Error loading .env file\n")
+	e := godotenv.Load(".env")
+	if e != nil {
+		l.Print(e)
+		return f, u
 	}
 
-	conn, err := pgx.Connect(context.Background(), os.Getenv("SUPABASE_CONNECTION_STRING"))
-	if err != nil {
-		fmt.Printf("AuthenticateUser: Unable to connect to database: %v\n", err)
-		os.Exit(1)
+	conn, e := pgx.Connect(context.Background(), os.Getenv("SUPABASE_CONNECTION_STRING"))
+	if e != nil {
+		l.Print(e)
+		return f, u
+		// os.Exit(1)
 	}
 	defer conn.Close(context.Background())
-
-	rows, err2 := conn.Query(context.Background(), "SELECT * FROM mi_users where email=$1;", email)
-	if err2 != nil {
-		fmt.Printf("AuthenticateUser: Unable to make query: %v\n", err2)
-		return false, models.User{}
+	rows, e := conn.Query(context.Background(), "SELECT * FROM mi_users777 where email=$1;", email)
+	if e != nil {
+		l.Print(e)
+		return f, u
 	}
-
-	pgx_user, err := pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
-	if err != nil {
-		fmt.Printf("AuthenticateUser: CollectRows error: %v\n", err)
-		return false, models.User{}
+	pgx_user, e := pgx.CollectRows(rows, pgx.RowToStructByName[model.User])
+	if e != nil {
+		l.Print(e)
+		return f, u
 	}
-
 	// fmt.Print("AuthenticateUser: pgx user:", pgx_user)
-
-	bytearray_user, err2 := json.Marshal(pgx_user)
-	if err2 != nil {
-		fmt.Printf("AuthenticateUser: user JSON error: %v\n", err2)
+	bytearray_user, e := json.Marshal(pgx_user)
+	if e != nil {
+		l.Print(e)
+		return f, u
 	}
 
 	// fmt.Print("bytearray user: ", bytearray_user)
 
-	var struct_user models.User
+	var struct_user model.User
 	if string(bytearray_user) != "null" { // array nije prazan tj. ima zapisa sa odgovarajućim mejlom
 		struct_user = pgx_user[0] //to_struct(bytearray_user)[0]
 	}
@@ -88,15 +93,15 @@ func AuthenticateUser(email string, password_str string, already_authenticated b
 		BAD_SIGN_IN_TIME_LIMIT = 0
 	}
 
-	rows2, err2 := conn.Query(context.Background(), "SELECT * FROM v_settings where s_id=1;")
-	if err2 != nil {
-		fmt.Printf("AuthenticateUser: Unable to make query: %v\n", err2)
-		return false, models.User{}
+	rows2, e := conn.Query(context.Background(), "SELECT * FROM v_settings where s_id=1;")
+	if e != nil {
+		l.Print(e)
+		return f, u
 	}
-	pgx_settings, err := pgx.CollectRows(rows2, pgx.RowToStructByName[models.Settings])
-	if err != nil {
-		fmt.Printf("AuthenticateUser: CollectRows error: %v\n", err)
-		return false, models.User{}
+	pgx_settings, e := pgx.CollectRows(rows2, pgx.RowToStructByName[model.Settings])
+	if e != nil {
+		l.Print(e)
+		return f, u
 	}
 
 	db_bad_sign_in_attempts_limit, err := strconv.ParseInt(pgx_settings[0].Bad_sign_in_attempts_limit, 0, 8)
@@ -132,67 +137,70 @@ func AuthenticateUser(email string, password_str string, already_authenticated b
 	} else if int64(struct_user.Bad_sign_in_attempts) < bad_sign_in_attempts_limit { // ako je broj neuselih pokušaja manji od limita ide se na dalje proverese broj neuspelih pokušaja
 
 		fmt.Print("AuthenticateUser: add 1 to bad sign in attempts:", struct_user.Bad_sign_in_attempts, "\n")
-		_, err := conn.Exec(context.Background(), `UPDATE mi_users SET bad_sign_in_attempts=$1 where email=$2;`,
+
+		_, e := conn.Exec(context.Background(), `UPDATE mi_users SET bad_sign_in_attempts=$1 where email=$2;`,
 			struct_user.Bad_sign_in_attempts+1,
 			email,
 		)
-		if err != nil {
-			fmt.Printf("AuthenticateUser: Unable to connect to database to write bad sign in attempts:%v\n", err)
-			return false, models.User{}
+		if e != nil {
+			l.Print(e)
+			return f, u
 		}
 
 		// fmt.Print("AuthenticateUser: prošlo minuta od poslednjeg lošeg sign in-a: ", time.Since(struct_user.Bad_sign_in_time).Minutes(), "\n")
 		fmt.Print("AuthenticateUser: set last bad sign time\n")
-		_, err = conn.Exec(context.Background(), `UPDATE mi_users SET bad_sign_in_time=$1 where email=$2;`,
+		_, e = conn.Exec(context.Background(), `UPDATE mi_users SET bad_sign_in_time=$1 where email=$2;`,
 			time.Now(),
 			email,
 		)
-		if err != nil {
-			fmt.Printf("AuthenticateUser: Unable to connect to database to write bad sign in attempts:%v\n", err)
-			return false, models.User{}
+		if e != nil {
+			l.Print(e)
+			return f, u
 		}
 
 		if string(bytearray_user) != "null" { // array nije prazan tj. ima zapisa sa odgovarajućim mejlom
 
-			err = bcrypt.CompareHashAndPassword([]byte(struct_user.Hash_lozinka), password) // provera lozinke
+			e = bcrypt.CompareHashAndPassword([]byte(struct_user.Hash_lozinka), password) // provera lozinke
 
-			if err != nil {
-
-				fmt.Fprintf(os.Stderr, "AuthenticateUser: Loša lozinka: %s\n", err)
-				return false, models.User{}
+			if e != nil {
+				// fmt.Fprintf(os.Stderr, "AuthenticateUser: Loša lozinka: %s\n", err)
+				l.Print(e)
+				return f, u
 
 			} else if struct_user.Verified_email == "verified" { // ako je lozinka dobra onda se proverava da li je mejl verifikovan
 
-				_, err = conn.Exec(context.Background(), `UPDATE mi_users SET last_sign_in_time=$1 where email=$2;`,
+				_, e = conn.Exec(context.Background(), `UPDATE mi_users SET last_sign_in_time=$1 where email=$2;`,
 					time.Now(),
 					email,
 				)
-				if err != nil {
-					fmt.Print("AuthenticateUser: Unable to connect to database to write last sign in field:", err, "\n")
-					return false, models.User{}
+				if e != nil {
+					l.Print(e)
+					return f, u
 				}
 
-				bytearray_headers, err := json.Marshal(r.Header)
-				if err != nil {
-					fmt.Printf("AuthenticateUser: headers JSON error: %v", err)
+				bytearray_headers, e := json.Marshal(r.Header)
+				if e != nil {
+					l.Print(e)
+					return f, u
 				}
-				_, err = conn.Exec(context.Background(), `UPDATE mi_users SET last_sign_in_headers=$1 where email=$2;`,
+				_, e = conn.Exec(context.Background(), `UPDATE mi_users SET last_sign_in_headers=$1 where email=$2;`,
 					string(bytearray_headers),
 					email,
 				)
-				if err != nil {
-					fmt.Print("AuthenticateUser: Unable to connect to database to write last sign in headers field:", err, "\n")
-					return false, models.User{}
+				if e != nil {
+					l.Print(e)
+					return f, u
 				}
 
 				fmt.Print("\nAuthenticateUser: zero bad sign in attempts:", struct_user.Bad_sign_in_attempts, "\n")
-				_, err = conn.Exec(context.Background(), `UPDATE mi_users SET bad_sign_in_attempts=$1 where email=$2;`,
+
+				_, e = conn.Exec(context.Background(), `UPDATE mi_users SET bad_sign_in_attempts=$1 where email=$2;`,
 					0,
 					email,
 				)
-				if err != nil {
-					fmt.Print("AuthenticateUser: Unable to connect to database to write bad attempts field:", err, "\n")
-					return false, models.User{}
+				if e != nil {
+					l.Print(e)
+					return f, u
 				}
 
 				// fmt.Print("\nAuthenticateUser: Prošlo je!\n")
@@ -201,15 +209,15 @@ func AuthenticateUser(email string, password_str string, already_authenticated b
 
 			} else {
 
-				fmt.Print("AuthenticateUser: Mejl nije verifikovan!\n")
-				return false, models.User{}
+				l.Print("Mejl nije verifikovan!\n")
+				return f, u
 
 			}
 
 		} else {
 
-			fmt.Print("AuthenticateUser: nema korisnika sa tim mejlom i lozinkom", email, password_str, "\n")
-			return false, models.User{}
+			l.Print("Nema korisnika sa tim mejlom i lozinkom", email, password_str, "\n")
+			return f, u
 
 		}
 
@@ -217,24 +225,24 @@ func AuthenticateUser(email string, password_str string, already_authenticated b
 
 		if time.Since(struct_user.Bad_sign_in_time).Minutes() < float64(bad_sign_in_time_limit) {
 
-			fmt.Print("AuthenticateUser: previše pokušaja za sign in\n")
-			fmt.Print("AuthenticateUser: pokušati za minuta:", float64(bad_sign_in_time_limit)-time.Since(struct_user.Bad_sign_in_time).Minutes(), "\n")
-			return false, models.User{}
+			l.Print("AuthenticateUser: previše pokušaja za sign in\n")
+			l.Print("AuthenticateUser: pokušati za minuta:", float64(bad_sign_in_time_limit)-time.Since(struct_user.Bad_sign_in_time).Minutes(), "\n")
+			return f, u
 
 		} else {
 
 			fmt.Print("AuthenticateUser: zeroing bad sign in attempts:", struct_user.Bad_sign_in_attempts, "\n")
-			_, err := conn.Exec(context.Background(), `UPDATE mi_users SET bad_sign_in_attempts=$1 where email=$2;`,
+			_, e := conn.Exec(context.Background(), `UPDATE mi_users SET bad_sign_in_attempts=$1 where email=$2;`,
 				0,
 				email,
 			)
-			if err != nil {
-				fmt.Printf("AuthenticateUser: Unable to connect to database to write bad sign in attempts:%v\n", err)
-				return false, models.User{}
+			if e != nil {
+				l.Print(e)
+				return f, u
 			}
 
-			fmt.Print("AuthenticateUser: moguće je ponovo probati sign in\n")
-			return false, models.User{}
+			l.Print("Moguće je ponovo probati sign in\n")
+			return f, u
 
 		}
 
