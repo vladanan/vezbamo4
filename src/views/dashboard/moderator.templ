@@ -4,13 +4,12 @@ import (
   "net/http"
   "github.com/vladanan/vezbamo4/src/views"
   "github.com/gorilla/sessions"
+  "github.com/vladanan/vezbamo4/src/models"
   //"fmt"
 )
 
-templ Moderator(store sessions.Store, r *http.Request) {
+templ Moderator(store sessions.Store, r *http.Request, user models.User) {
     
-    <p class="m-5 text-xl text-blue-300">{views.Translate(store, r, "Welcome")} to: MODERATOR SECTION</p>
-    
-    <br></br>
+  <p class="m-5 text-xl text-blue-300">{views.Translate(store, r, "Welcome")} :: MODERATOR: {user.User_name}</p>
 
 }

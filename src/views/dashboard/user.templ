@@ -4,13 +4,38 @@ import (
   "net/http"
   "github.com/vladanan/vezbamo4/src/views"
   "github.com/gorilla/sessions"
-  //"fmt"
+  "github.com/vladanan/vezbamo4/src/models"
+  "fmt"
 )
 
-templ User(store sessions.Store, r *http.Request) {
+func GetXForwardedFor(headers string) string {
+  var headers_http http.Header = to_struct([]byte(headers))
+  return headers_http["X-Forwarded-For"][0]
+}
+
+templ User(store sessions.Store, r *http.Request, user models.User) {
     
-    <p class="m-5 text-xl text-white">{views.Translate(store, r, "Welcome")} to: USER SECTION</p>
-    
-    <br></br>
+  <p class="m-5 text-xl text-white">{views.Translate(store, r, "Welcome")} :: USER SECTION</p>
+
+  <table class="m-5 text-xl text-yellow-300">
+    <tr><th>account data</th><th>status</th></tr>
+    <tr><td>registered at:</td><td>{user.Created_at_time.String()}</td></tr>
+    <tr><td>e-mail address:</td><td>{user.Email}</td></tr>
+    <tr><td>user name:</td><td>{user.User_name}</td></tr>
+    <tr><td>type of service (basic, js, c):</td><td> { fmt.Sprintf("%t", user.Basic)},{fmt.Sprintf("%t", user.Js)},{fmt.Sprintf("%t", user.C) }</td></tr>
+    <tr><td>service level:</td><td>{user.Level}</td></tr>
+
+    <tr><td>pay from</td><td>{user.Payment_date.String()}</td></tr>
+    <tr><td>pay credit</td><td>{string(user.Payment_amount)}</td></tr>
+    <tr><td>pay type</td><td>{user.Payment_currency}</td></tr>
+    <tr><td>pay until</td><td>{user.Payment_expire.String()}</td></tr>
+
+    if user.Mode == "admin" {
+      <tr class="text-red-500"><td>user_mode</td><td>{user.Mode}</td></tr>
+      <tr class="text-red-500"><td>aaaLast_sign_in_time</td><td>{user.Last_sign_in_time.String()}</td></tr>
+      <tr class="text-red-500"><td>"X-Forwarded-For"</td><td>{GetXForwardedFor(user.Last_sign_in_headers)}</td></tr>
+      <tr class="text-red-500"><td>...</td><td>{user.Hash_lozinka}</td></tr>
+    }
+  </table>
 
 }

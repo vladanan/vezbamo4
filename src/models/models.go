@@ -26,4 +26,13 @@ type User struct {
 	Deleted_at           time.Time `db:"deleted_at"`
 	Bad_sign_in_attempts int       `db:"bad_sign_in_attempts"`
 	Bad_sign_in_time     time.Time `db:"bad_sign_in_time"`
+	Updated_at           time.Time `db:"updated_at"`
+}
+
+type Settings struct {
+	S_id                       int       `db:"s_id"`
+	Updated_at                 time.Time `db:"updated_at"`
+	Bad_sign_in_attempts_limit string    `db:"bad_sign_in_attempts_limit"`
+	Bad_sign_in_time_limit     string    `db:"bad_sign_in_time_limit"`
+	Same_ip_sign_up_time_limit string    `db:"same_ip_sign_up_time_limit"`
 }

@@ -31,77 +31,30 @@ func to_struct(headers []byte) http.Header {
 	return p
 }
 
-func GetXForwardedFor(headers string) string {
-  var headers_http http.Header = to_struct([]byte(headers))
-  // fmt.Print("dashboard hederi", headers_http)
-  // fmt.Print("dashboard hederi", headers_http["X-Forwarded-For"])
-
-  return headers_http["X-Forwarded-For"][0]
-}
-
 templ Dashboard(store sessions.Store, r *http.Request, user models.User) {
 
   @views.Layout(store, r) {
 
-    <p class="m-5 text-xl text-yellow-300">
-        {signedin(store, r)}
-    </p>
+    if signedin(store, r) == "true" {
 
-    <form class="m-5 text-xl text-yellow-300" id="sign_in_form" action="/sign_in" method="POST" >
-
-      if signedin(store, r) == "true" {
-
-        <p class="text-xl text-yellow-300">
-          {views.Translate(store, r, "Welcome")}<br></br>
-        </p>
-
-        <table>
-          <tr><th>user field</th><th>status</th></tr>
-          <tr><td>Created_at_time</td><td>{user.Created_at_time.String()}</td></tr>
-          <tr><td>Last_sign_in_time</td><td>{user.Last_sign_in_time.String()}</td></tr>
-          <tr><td>"X-Forwarded-For"</td><td>{GetXForwardedFor(user.Last_sign_in_headers)}</td></tr>
-          <tr><td>email</td><td>{user.Email}</td></tr>
-          <tr><td>user name</td><td>{user.User_name}</td></tr>
-          <tr><td>...</td><td>{user.Hash_lozinka}</td></tr>
-          <tr><td>user_mode (user, mod, admin)</td><td>{user.Mode}</td></tr>
-          <tr><td>user_level (hex = 16 levels)</td><td>{user.Level}</td></tr>
-          <tr><td>user_type (basic, js, c)</td><td>{ fmt.Sprintf("%t", user.Basic)},{fmt.Sprintf("%t", user.Js)},{fmt.Sprintf("%t", user.C) }</td></tr>
-        </table>
-
-        @User(store, r)
-        
-        @Moderator(store, r)
-        
-        @Admin(store, r)
-
-        } else {
-          <p class="text-xl text-red-300">{views.Translate(store, r, "UnWelcome")}</p>
-          <div >
-            <p>
-                email
-            </p>
-            <input class="text-black" type="text" name="mail" />
-          </div>
-          <div >
-            <p>
-                password
-            </p>
-            <input class="text-black" type="password" name="password" />
-          </div>
-          <p>
-                captcha
-          </p>
-          <div>
-            <button class=" border-white mt-2 px-2 rounded-md border-2 font-bold " type="submit" name="sign_in" value="sign_in">Sign in</button>
-          </div>
-          <p>
-                Register link
-          </p>
+      if user.Mode == "user" || user.Mode == "mod" || user.Mode == "admin" {
+        @User(store, r, user)
+      }
+      
+      if user.Mode == "mod" || user.Mode == "admin" {
+        @Moderator(store, r, user)
       }
 
-    </form>
- 
-    <br></br>
+      if user.Mode == "admin" {          
+        @Admin(store, r, user)
+      }
+
+
+    } else {
+
+      <p class="m-5 text-xl text-red-300">{views.Translate(store, r, "UnWelcome")}</p>
+
+    }
     
   }
 }

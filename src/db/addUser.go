@@ -66,13 +66,13 @@ func AddUser(email_str, user_name, password_str string, r *http.Request) bool {
 
 	// fmt.Println("Ciphertexts: ", string(ciphertext_sign_in))
 
-	// uzimamo header za kasnije poređenje X-Forwarded-For i za ubacivanje u db polje radi evidencije i poređenja
+	// UZIMAMO HEADER ZA KASNIJE POREĐENJE X-FORWARDED-FOR I ZA UBACIVANJE U DB POLJE RADI EVIDENCIJE I POREĐENJA
 	bytearray_headers, err := json.Marshal(r.Header)
 	if err != nil {
 		fmt.Printf("AddUser: json 1: %v", err)
 	}
 
-	// uzima se html fajl za mejl za verifikaciju
+	// UZIMA SE HTML FAJL ZA MEJL ZA VERIFIKACIJU
 	// https://gobyexample.com/reading-files
 	dat, err1 := os.ReadFile("src/html/verify_email.html")
 	if err1 != nil {
@@ -82,7 +82,7 @@ func AddUser(email_str, user_name, password_str string, r *http.Request) bool {
 	// fmt.Print("AddUser: html fajl:", string(dat))
 	html := string(dat)
 
-	// db
+	// DB
 	err2 := godotenv.Load(".env")
 	if err2 != nil {
 		fmt.Printf("AddUser: greška učitavanja za .env")
@@ -136,7 +136,43 @@ func AddUser(email_str, user_name, password_str string, r *http.Request) bool {
 
 		// ne mogu da se koriste prepared statements niti sql promenljive u upitima za sadržaj X-Forwarded-For heder u jsonb polju (može sa string concatenation ali to je opasno) tako da mora prvo da se pokupe upisi u poslednjih 10 min i zatim da se kod svih uporedi X-Forwarded-For sa aktuelnim
 
-		rows2, err2 := conn.Query(context.Background(), `select * from  mi_users where (now() :: timestamp - created_at_time) < interval '3m'`)
+		// UZIMANJE PROMENLJIVIH IZ ENV I DB ZA ATTEMPT TIME LIMIT
+
+		var same_ip_sign_up_time_limit = "2m"
+
+		SAME_IP_SIGN_UP_TIME_LIMIT := os.Getenv("SAME_IP_SIGN_UP_TIME_LIMIT")
+		if SAME_IP_SIGN_UP_TIME_LIMIT == "" || SAME_IP_SIGN_UP_TIME_LIMIT == "0" {
+			SAME_IP_SIGN_UP_TIME_LIMIT = "0m"
+		}
+
+		rows2, err := conn.Query(context.Background(), "SELECT * FROM v_settings where s_id=1;")
+		if err != nil {
+			fmt.Printf("AddUser: Unable to make query: %v\n", err)
+			return false
+		}
+		pgx_settings, err := pgx.CollectRows(rows2, pgx.RowToStructByName[models.Settings])
+		if err != nil {
+			fmt.Printf("AddUser: CollectRows error: %v\n", err)
+			return false
+		}
+
+		db_same_ip_sign_up_time_limit := pgx_settings[0].Same_ip_sign_up_time_limit
+		if db_same_ip_sign_up_time_limit == "" || db_same_ip_sign_up_time_limit == "0" {
+			db_same_ip_sign_up_time_limit = "0m"
+		}
+
+		if SAME_IP_SIGN_UP_TIME_LIMIT != "0m" {
+			same_ip_sign_up_time_limit = "'" + SAME_IP_SIGN_UP_TIME_LIMIT + "m'"
+		} else if db_same_ip_sign_up_time_limit != "0m" {
+			same_ip_sign_up_time_limit = "'" + db_same_ip_sign_up_time_limit + "m'"
+		}
+
+		fmt.Print("AddUser: bad env: ", SAME_IP_SIGN_UP_TIME_LIMIT, db_same_ip_sign_up_time_limit, same_ip_sign_up_time_limit, "\n")
+
+		rows2, err2 := conn.Query(
+			context.Background(),
+			`select * from  mi_users where (now() :: timestamp - created_at_time) < interval `+same_ip_sign_up_time_limit)
+		// rows2, err2 := conn.Query(context.Background(), `select * from  mi_users where (now() :: timestamp - created_at_time) < interval '3m'`)
 		if err2 != nil {
 			fmt.Printf("AddUser: query 2: %v\n", err2)
 			return false
@@ -151,7 +187,7 @@ func AddUser(email_str, user_name, password_str string, r *http.Request) bool {
 
 		if pgx_user2 == nil {
 
-			fmt.Print("AddUser: nema upisa od pre N min:\n")
+			fmt.Print("AddUser: nema upisa od pre " + same_ip_sign_up_time_limit + ":\n")
 
 		} else {
 
@@ -159,12 +195,12 @@ func AddUser(email_str, user_name, password_str string, r *http.Request) bool {
 
 				if to_map([]byte(item.Created_at_headers))["X-Forwarded-For"][0] == to_map(bytearray_headers)["X-Forwarded-For"][0] {
 
-					fmt.Print("AddUser: ima upis u posledjih N min i JESTE isti ip:", to_map([]byte(item.Created_at_headers))["X-Forwarded-For"][0], "\n")
+					fmt.Print("AddUser: ima upis u posledjih "+same_ip_sign_up_time_limit+" i JESTE isti ip:", to_map([]byte(item.Created_at_headers))["X-Forwarded-For"][0], "\n")
 					return false
 
 				} else {
 
-					fmt.Print("AddUser: ima upis u posledjih N min ali NIJE isti ip:", to_map([]byte(item.Created_at_headers))["X-Forwarded-For"][0], "\n")
+					fmt.Print("AddUser: ima upis u posledjih "+same_ip_sign_up_time_limit+" ali NIJE isti ip:", to_map([]byte(item.Created_at_headers))["X-Forwarded-For"][0], "\n")
 
 				}
 

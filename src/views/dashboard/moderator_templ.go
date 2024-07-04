@@ -12,12 +12,13 @@ import "bytes"
 
 import (
 	"github.com/gorilla/sessions"
+	"github.com/vladanan/vezbamo4/src/models"
 	"github.com/vladanan/vezbamo4/src/views"
 	"net/http"
 	//"fmt"
 )
 
-func Moderator(store sessions.Store, r *http.Request) templ.Component {
+func Moderator(store sessions.Store, r *http.Request, user models.User) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -37,13 +38,26 @@ func Moderator(store sessions.Store, r *http.Request) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Welcome"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/dashboard/moderator.templ`, Line: 11, Col: 78}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/dashboard/moderator.templ`, Line: 12, Col: 76}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" to: MODERATOR SECTION</p><br>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" :: MODERATOR: ")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var3 string
+		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(user.User_name)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/dashboard/moderator.templ`, Line: 12, Col: 107}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

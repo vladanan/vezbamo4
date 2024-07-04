@@ -234,12 +234,14 @@ func Sign_in_post(w http.ResponseWriter, r *http.Request) {
 
 	email := r.FormValue("mail")
 	password := r.FormValue("password")
-	authenticated, _ := db.AuthenticateUser(email, password, false, r)
+	authenticated, user := db.AuthenticateUser(email, password, false, r)
 
 	// Set user as authenticated
 	if authenticated {
+		fmt.Print("Sign_in_post: mail i user name", user.Email, user.User_name, "\n")
 		session.Values["authenticated"] = true
-		session.Values["user_mail"] = email
+		session.Values["user_mail"] = user.Email
+		session.Values["user_name"] = user.User_name
 		// Save it before we write to the response/return from the handler.
 		err = session.Save(r, w)
 		if err != nil {
@@ -261,7 +263,7 @@ func Sign_in_post(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func AutoLogin(w http.ResponseWriter, r *http.Request) {
+func AutoLoginUser(w http.ResponseWriter, r *http.Request) {
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -272,11 +274,49 @@ func AutoLogin(w http.ResponseWriter, r *http.Request) {
 	password := "b"
 	// email := "vladan.andjelkovic@gmail.com"
 	// password := "vezbamo.2015"
-	authenticated, _ := db.AuthenticateUser(email, password, false, r)
+	authenticated, user := db.AuthenticateUser(email, password, false, r)
 	// Set user as authenticated
 	if authenticated {
 		session.Values["authenticated"] = true
-		session.Values["user_mail"] = email
+		session.Values["user_mail"] = user.Email
+		session.Values["user_name"] = user.User_name
+		// Save it before we write to the response/return from the handler.
+		err = session.Save(r, w)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		Dashboard(w, r)
+	} else {
+		fmt.Println("AutoLogin: autentikacija admina nije prošla")
+		session.Values["authenticated"] = false
+		session.Values["user_mail"] = "ccc"
+		// Save it before we write to the response/return from the handler.
+		err = session.Save(r, w)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		templ.Handler(dashboard.UserNotLogedPage(store, r)).Component.Render(context.Background(), w)
+	}
+}
+func AutoLoginAdmin(w http.ResponseWriter, r *http.Request) {
+	session, err := store.Get(r, "vezbamo.onrender.com-users")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	// Authentication goes here
+	// email := "vladan_zasve@yahoo.com"
+	// password := "b"
+	email := "vladan.andjelkovic@gmail.com"
+	password := "vezbamo.2015"
+	authenticated, user := db.AuthenticateUser(email, password, false, r)
+	// Set user as authenticated
+	if authenticated {
+		session.Values["authenticated"] = true
+		session.Values["user_mail"] = user.Email
+		session.Values["user_name"] = user.User_name
 		// Save it before we write to the response/return from the handler.
 		err = session.Save(r, w)
 		if err != nil {
@@ -461,13 +501,22 @@ func GetVerifyEmailHtml(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user_map := session.Values["user_mail"]
+	user_mail_map := session.Values["user_mail"]
 	user_mail := ""
-	if user_map == nil {
+	if user_mail_map == nil {
 		// fmt.Println("nema mail:", session.Values["user_mail"])
 	} else {
 		// fmt.Println("ima mail:", session.Values["user_mail"])
-		user_mail = user_map.(string)
+		user_mail = user_mail_map.(string)
+	}
+
+	user_name_map := session.Values["user_name"]
+	user_name := ""
+	if user_name_map == nil {
+		// fmt.Println("nema mail:", session.Values["user_mail"])
+	} else {
+		// fmt.Println("ima mail:", session.Values["user_mail"])
+		user_name = user_name_map.(string)
 	}
 
 	// uzima se html fajl za mejl za verifikaciju
@@ -475,7 +524,7 @@ func GetVerifyEmailHtml(w http.ResponseWriter, r *http.Request) {
 	if err1 != nil {
 		fmt.Printf("getVerifyEmailHtml: greška čitanje html fajla: %v\n", err1)
 	}
-	html := strings.ReplaceAll(string(dat), "+user_name+", "user_name")
+	html := strings.ReplaceAll(string(dat), "+user_name+", user_name)
 	html = strings.ReplaceAll(html, "+url_domain_for_mail+", "http://127.0.0.1:7331/vmk/$2a$07$IFkFJy1NufwawNGqoef6kuJLuVFKzhqI4v_hYYwK2f_Y6Y3pP2eGu?mail=y.emailbox-proba@yahoo.com")
 	html = strings.ReplaceAll(html, "+mail_for_mail+", user_mail)
 

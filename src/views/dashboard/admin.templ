@@ -4,6 +4,7 @@ import (
   "net/http"
   "github.com/vladanan/vezbamo4/src/views"
   "github.com/gorilla/sessions"
+  "github.com/vladanan/vezbamo4/src/models"
   // "os"
   // "fmt"
 )
@@ -12,11 +13,11 @@ import (
 
 // notes
 
-templ Admin(store sessions.Store, r *http.Request) {
+templ Admin(store sessions.Store, r *http.Request, user models.User) {
     
-  <p class="m-5 text-xl text-red-300">{views.Translate(store, r, "Welcome")} to: ADMIN SECTION</p>
+  <p class="m-5 text-xl text-red-500">{views.Translate(store, r, "Welcome")} :: ADMINISTRATOR: {user.User_name}</p>
 
-  <iframe src="html/verify_email.html" title="very" height="320" width="1000"></iframe>
+  <iframe src="html/verify_email.html" title="very" height="350" width="1000"></iframe>
 
   // <div class="bg-slate-500 px-5">
   //   @templ.Raw("<h1>proba za h1 raw html tekst</h1>")

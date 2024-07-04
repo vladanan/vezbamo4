@@ -60,7 +60,8 @@ func main() {
 	// })
 	r.NotFoundHandler = http.HandlerFunc(routes.GoTo404)
 
-	r.HandleFunc("/auto_login", routes.AutoLogin)
+	r.HandleFunc("/auto_login_user", routes.AutoLoginUser)
+	r.HandleFunc("/auto_login_admin", routes.AutoLoginAdmin)
 	r.HandleFunc("/sign_in", routes.Sign_in)
 	r.HandleFunc("/sign_in_post", routes.Sign_in_post)
 	r.HandleFunc("/dashboard", routes.Dashboard)
