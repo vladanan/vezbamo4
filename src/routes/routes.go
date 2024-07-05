@@ -67,12 +67,15 @@ func GoToQuestionsAPI(w http.ResponseWriter, r *http.Request) {
 func GoToAssignments(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(assignments.Assignments(store, r)).Component.Render(context.Background(), w)
 }
+
 func GoToPrimaryGrade1(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(assignments.PrimaryGrade1(store, r)).Component.Render(context.Background(), w)
 }
+
 func GoToPrimaryGrade2(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(assignments.PrimaryGrade2(store, r)).Component.Render(context.Background(), w)
 }
+
 func GoToSecondaryGrade1(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(assignments.SecondaryGrade1(store, r)).Component.Render(context.Background(), w)
 }
@@ -111,7 +114,6 @@ func Sign_up(w http.ResponseWriter, r *http.Request) {
 }
 
 func Sign_up_post(w http.ResponseWriter, r *http.Request) {
-
 	email1 := r.FormValue("mail1")
 	email2 := r.FormValue("mail2")
 	userName := r.FormValue("user_name")
@@ -141,7 +143,7 @@ func Sign_up_post(w http.ResponseWriter, r *http.Request) {
 
 	if already_authenticated {
 
-		_, data := db.AuthenticateUser(user_mail, "", already_authenticated, r)
+		_, data, _ := db.AuthenticateUser(user_mail, "", already_authenticated, r)
 		templ.Handler(dashboard.Dashboard(store, r, data)).Component.Render(context.Background(), w)
 
 	} else {
@@ -171,11 +173,9 @@ func Sign_up_post(w http.ResponseWriter, r *http.Request) {
 		}
 
 	}
-
 }
 
 func Sign_in(w http.ResponseWriter, r *http.Request) {
-
 	// bytearray_headers, err2 := json.Marshal(r.Header)
 	// if err2 != nil {
 	// 	fmt.Printf("Sign_in: JSON error: %v", err2)
@@ -206,16 +206,14 @@ func Sign_in(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if already_authenticated {
-		_, data := db.AuthenticateUser(user_mail, "", already_authenticated, r)
+		_, data, _ := db.AuthenticateUser(user_mail, "", already_authenticated, r)
 		templ.Handler(dashboard.Dashboard(store, r, data)).Component.Render(context.Background(), w)
 	} else {
 		templ.Handler(dashboard.Sign_in(store, r)).Component.Render(context.Background(), w)
 	}
-
 }
 
 func Sign_in_post(w http.ResponseWriter, r *http.Request) {
-
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -234,7 +232,7 @@ func Sign_in_post(w http.ResponseWriter, r *http.Request) {
 
 	email := r.FormValue("mail")
 	password := r.FormValue("password")
-	authenticated, user := db.AuthenticateUser(email, password, false, r)
+	authenticated, user, _ := db.AuthenticateUser(email, password, false, r)
 
 	// Set user as authenticated
 	if authenticated {
@@ -274,7 +272,7 @@ func AutoLoginUser(w http.ResponseWriter, r *http.Request) {
 	password := "b"
 	// email := "vladan.andjelkovic@gmail.com"
 	// password := "vezbamo.2015"
-	authenticated, user := db.AuthenticateUser(email, password, false, r)
+	authenticated, user, _ := db.AuthenticateUser(email, password, false, r)
 	// Set user as authenticated
 	if authenticated {
 		session.Values["authenticated"] = true
@@ -300,6 +298,7 @@ func AutoLoginUser(w http.ResponseWriter, r *http.Request) {
 		templ.Handler(dashboard.UserNotLogedPage(store, r)).Component.Render(context.Background(), w)
 	}
 }
+
 func AutoLoginAdmin(w http.ResponseWriter, r *http.Request) {
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
 	if err != nil {
@@ -311,7 +310,7 @@ func AutoLoginAdmin(w http.ResponseWriter, r *http.Request) {
 	// password := "b"
 	email := "vladan.andjelkovic@gmail.com"
 	password := "vezbamo.2015"
-	authenticated, user := db.AuthenticateUser(email, password, false, r)
+	authenticated, user, _ := db.AuthenticateUser(email, password, false, r)
 	// Set user as authenticated
 	if authenticated {
 		session.Values["authenticated"] = true
@@ -369,12 +368,11 @@ func Dashboard(w http.ResponseWriter, r *http.Request) {
 	}
 	// Set user as authenticated
 	if already_authenticated {
-		_, data := db.AuthenticateUser(user_mail, "", already_authenticated, r)
+		_, data, _ := db.AuthenticateUser(user_mail, "", already_authenticated, r)
 		templ.Handler(dashboard.Dashboard(store, r, data)).Component.Render(context.Background(), w)
 	} else {
 		templ.Handler(dashboard.Dashboard(store, r, models.User{})).Component.Render(context.Background(), w)
 	}
-
 }
 
 func Sign_out(w http.ResponseWriter, r *http.Request) {
@@ -490,11 +488,9 @@ func CheckLinkFromEmail(w http.ResponseWriter, r *http.Request) {
 	}
 	// fmt.Print("vmk prošao")
 	// GoToTerms(w, r)
-
 }
 
 func GetVerifyEmailHtml(w http.ResponseWriter, r *http.Request) {
-
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -529,7 +525,6 @@ func GetVerifyEmailHtml(w http.ResponseWriter, r *http.Request) {
 	html = strings.ReplaceAll(html, "+mail_for_mail+", user_mail)
 
 	w.Write([]byte(html))
-
 }
 
 //*** A P I
@@ -542,8 +537,8 @@ func GetLocationsForAngularFE(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	io.WriteString(w, string(dat))
-	//fmt.Println("\ndat: ", string(dat))
-	//w.Write(string(dat)) dfaljfa
+	// fmt.Println("\ndat: ", string(dat))
+	// w.Write(string(dat)) dfaljfa
 }
 
 func APIgetQuestions(w http.ResponseWriter, r *http.Request) {

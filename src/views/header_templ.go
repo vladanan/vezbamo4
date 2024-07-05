@@ -205,7 +205,7 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 				}
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><script>\n\t\tfunction pageReload() {\n\t\t\tlocation.reload()\n\t\t}\n\t\tfunction delayReload2() {\n\t\t\tsetTimeout(pageReload(), 2000);\n\t\t}\n\t</script>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
