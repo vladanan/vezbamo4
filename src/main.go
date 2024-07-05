@@ -113,7 +113,7 @@ func main() {
 
 	//***  S E R V E R
 
-	fmt.Println("Main done", time.Now().Second())
+	fmt.Println("Main done", time.Now().Local().Format(time.TimeOnly))
 
 	srv := &http.Server{
 		Handler: r,

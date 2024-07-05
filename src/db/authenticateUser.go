@@ -2,10 +2,16 @@ package db
 
 import (
 	"context"
+	// "errors"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
+	"runtime"
 	"strconv"
+	"sync"
+
+	// "sync/atomic"
 	"time"
 
 	"github.com/jackc/pgx/v5"
@@ -28,13 +34,193 @@ func to_struct(user []byte) []model.User {
 	return p
 }
 
+// **********************************************************************
+
+// type ll struct {
+// 	lls string
+// }
+
+// func (ll ll) Output2(level int, s string) string {
+// 	return "log poruka: " + strconv.Itoa(level) + " " + s
+// }
+
+// type ee struct {
+// 	ees string
+// }
+
+// func (ee ee) Error2() string {
+// 	return ee.ees
+// }
+
+// **********************************************************************
+
+const (
+	Ldate         = 1 << iota     // the date in the local time zone: 2009/01/23
+	Ltime                         // the time in the local time zone: 01:23:23
+	Lmicroseconds                 // microsecond resolution: 01:23:23.123123.  assumes Ltime.
+	Llongfile                     // full file name and line number: /a/b/c/d.go:23
+	Lshortfile                    // final file name element and line number: d.go:23. overrides Llongfile
+	LUTC                          // if Ldate or Ltime is set, use UTC rather than the local time zone
+	Lmsgprefix                    // move the "prefix" from the beginning of the line to before the message
+	LstdFlags     = Ldate | Ltime // initial values for the standard logger
+)
+
+// A Logger represents an active logging object that generates lines of
+// output to an io.Writer. Each logging operation makes a single call to
+// the Writer's Write method. A Logger can be used simultaneously from
+// multiple goroutines; it guarantees to serialize access to the Writer.
+type Logger struct {
+	mu     sync.Mutex // ensures atomic writes; protects the following fields
+	prefix string     // prefix on each line to identify the logger (but see Lmsgprefix)
+	flag   int        // properties
+	out    io.Writer  // destination for output
+	buf    []byte     // for accumulating text to write
+	// isDiscard atomic.Bool // whether out == io.Discard
+}
+
+// Cheap integer to fixed-width decimal ASCII. Give a negative width to avoid zero-padding.
+func itoa(buf *[]byte, i int, wid int) {
+	// Assemble decimal in reverse order.
+	var b [20]byte
+	bp := len(b) - 1
+	for i >= 10 || wid > 1 {
+		wid--
+		q := i / 10
+		b[bp] = byte('0' + i - q*10)
+		bp--
+		i = q
+	}
+	// i < 10
+	b[bp] = byte('0' + i)
+	*buf = append(*buf, b[bp:]...)
+}
+
+// formatHeader writes log header to buf in following order:
+//   - l.prefix (if it's not blank and Lmsgprefix is unset),
+//   - date and/or time (if corresponding flags are provided),
+//   - file and line number (if corresponding flags are provided),
+//   - l.prefix (if it's not blank and Lmsgprefix is set).
+func (l *Logger) formatHeader(buf *[]byte, t time.Time, file string, line int) {
+	if l.flag&Lmsgprefix == 0 {
+		*buf = append(*buf, l.prefix...)
+	}
+	if l.flag&(Ldate|Ltime|Lmicroseconds) != 0 {
+		if l.flag&LUTC != 0 {
+			t = t.UTC()
+		}
+		if l.flag&Ldate != 0 {
+			year, month, day := t.Date()
+			itoa(buf, year, 4)
+			*buf = append(*buf, '/')
+			itoa(buf, int(month), 2)
+			*buf = append(*buf, '/')
+			itoa(buf, day, 2)
+			*buf = append(*buf, ' ')
+		}
+		if l.flag&(Ltime|Lmicroseconds) != 0 {
+			hour, min, sec := t.Clock()
+			itoa(buf, hour, 2)
+			*buf = append(*buf, ':')
+			itoa(buf, min, 2)
+			*buf = append(*buf, ':')
+			itoa(buf, sec, 2)
+			if l.flag&Lmicroseconds != 0 {
+				*buf = append(*buf, '.')
+				itoa(buf, t.Nanosecond()/1e3, 6)
+			}
+			*buf = append(*buf, ' ')
+		}
+	}
+	if l.flag&(Lshortfile|Llongfile) != 0 {
+		if l.flag&Lshortfile != 0 {
+			short := file
+			for i := len(file) - 1; i > 0; i-- {
+				if file[i] == '/' {
+					short = file[i+1:]
+					break
+				}
+			}
+			file = short
+		}
+		*buf = append(*buf, file...)
+		*buf = append(*buf, ':')
+		itoa(buf, line, -1)
+		*buf = append(*buf, ": "...)
+	}
+	if l.flag&Lmsgprefix != 0 {
+		*buf = append(*buf, l.prefix...)
+	}
+}
+
+// Output writes the output for a logging event. The string s contains
+// the text to print after the prefix specified by the flags of the
+// Logger. A newline is appended if the last character of s is not
+// already a newline. Calldepth is used to recover the PC and is
+// provided for generality, although at the moment on all pre-defined
+// paths it will be 2.
+func (l *Logger) o(s string) error {
+	calldepth := 1
+	now := time.Now() // get this early.
+	var file string
+	var line int
+	l.mu.Lock()
+	defer l.mu.Unlock()
+	if l.flag&(Lshortfile|Llongfile) != 0 {
+		// Release lock while getting caller info - it's expensive.
+		l.mu.Unlock()
+		var ok bool
+		_, file, line, ok = runtime.Caller(calldepth)
+		if !ok {
+			file = "???"
+			line = 0
+		}
+		l.mu.Lock()
+	}
+	l.buf = l.buf[:0]
+	l.formatHeader(&l.buf, now, file, line)
+	l.buf = append(l.buf, s...)
+	if len(s) == 0 || s[len(s)-1] != '\n' {
+		l.buf = append(l.buf, '\n')
+	}
+	_, err := l.out.Write(l.buf)
+	return err
+}
+
+// **********************************************************************
+
+type shortError struct {
+}
+
+// Adding this Error method makes argError implement the error interface.
+
+func (e shortError) r(er error) string {
+	return fmt.Sprintf("%s", er)
+}
+
+// **********************************************************************
+
 func AuthenticateUser(email string, password_str string, already_authenticated bool, r *http.Request) (bool, model.User) {
 	//https://pkg.go.dev/golang.org/x/crypto/bcrypt#pkg-index
 	//https://gowebexamples.com/password-hashing/
 
-	l := log.New(os.Stdout, "", log.Ltime|log.Lshortfile)
 	f := false
 	u := model.User{}
+	l := log.New(os.Stdout, "", log.Ltime|log.Lshortfile)
+	m := Logger{out: os.Stdout, prefix: "", flag: log.LstdFlags | log.Lshortfile}
+	s := shortError{}
+
+	//2354213jdjh232
+
+	// llv := ll{lls: "string iz ll"}
+	// eev := ee{ees: "string iz ee"}
+
+	if _, e := strconv.Atoi("v"); e != nil {
+		m.o(s.r(e))
+		// m.o(1, s.r(e))
+		// m.o(1, e.Error())
+		// return f, u, l._(1, e._())
+		// return f, u, log.Output(1, e.Error())
+	}
 
 	password := []byte(password_str)
 
@@ -53,7 +239,7 @@ func AuthenticateUser(email string, password_str string, already_authenticated b
 		// os.Exit(1)
 	}
 	defer conn.Close(context.Background())
-	rows, e := conn.Query(context.Background(), "SELECT * FROM mi_users777 where email=$1;", email)
+	rows, e := conn.Query(context.Background(), "SELECT * FROM mi_users where email=$1;", email)
 	if e != nil {
 		l.Print(e)
 		return f, u

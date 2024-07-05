@@ -1,6 +1,8 @@
+#!/bin/bash 
 #ls views
-#echo "lsviews"
-date +%S
+FAJL="lsviews.bash: "
+echo $FAJL $(date +%T)
+#echo "lsviews.bash:" && date +%T
 # folder=$(ls views)
 # seconds=$(date +%S)
 # echo "$folder $seconds"
