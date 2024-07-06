@@ -50,7 +50,7 @@ func AuthenticateUser(email string, password_str string, already_authenticated b
 		// os.Exit(1)
 	}
 	defer conn.Close(context.Background())
-	rows, e := conn.Query(context.Background(), "SELECT * FROM mi_users777 where email=$1;", email)
+	rows, e := conn.Query(context.Background(), "SELECT * FROM mi_users where email=$1;", email)
 	if e != nil {
 		return l(e)
 	}
