@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"strings"
@@ -214,8 +215,11 @@ func Sign_in(w http.ResponseWriter, r *http.Request) {
 }
 
 func Sign_in_post(w http.ResponseWriter, r *http.Request) {
+	// log.SetFlags(log.Ltime | log.Lshortfile)
+
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
 	if err != nil {
+		log.Println(err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -232,29 +236,31 @@ func Sign_in_post(w http.ResponseWriter, r *http.Request) {
 
 	email := r.FormValue("mail")
 	password := r.FormValue("password")
-	authenticated, user, _ := db.AuthenticateUser(email, password, false, r)
+	authenticated, user, msg_fe := db.AuthenticateUser(email, password, false, r)
 
 	// Set user as authenticated
 	if authenticated {
-		fmt.Print("Sign_in_post: mail i user name", user.Email, user.User_name, "\n")
+		// fmt.Println("Sign_in_post: mail i user name", user.Email, user.User_name)
 		session.Values["authenticated"] = true
 		session.Values["user_mail"] = user.Email
 		session.Values["user_name"] = user.User_name
 		// Save it before we write to the response/return from the handler.
 		err = session.Save(r, w)
 		if err != nil {
+			log.Println(err)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
-		fmt.Print("Sign_in_post: autentikacija JE PROŠLA\n")
+		fmt.Println("Sign_in_post: autentikacija JE PROŠLA")
 		// templ.Handler(dashboard.Dashboard(store, r, data)).Component.Render(context.Background(), w)
 		Dashboard(w, r)
 	} else {
-		fmt.Print("Sign_in_post: autentikacija korisnika NIJE prošla\n")
+		fmt.Println("Sign_in_post: autentikacija korisnika NIJE prošla, msg: ", msg_fe)
 		session.Values["authenticated"] = false
 		session.Values["user_mail"] = "bbb"
 		// Save it before we write to the response/return from the handler.
 		err = session.Save(r, w)
 		if err != nil {
+			log.Println(err)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 		templ.Handler(dashboard.UserNotLogedPage(store, r)).Component.Render(context.Background(), w)

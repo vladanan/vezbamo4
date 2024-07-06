@@ -1,0 +1,6 @@
+2024/07/06 21:03:58 authenticateUser.go:55: ERROR: relation "mi_users777" does not exist (SQLSTATE 42P01)
+2024/07/06 20:48:07 authenticateUser.go:55: ERROR: relation "mi_users777" does not exist (SQLSTATE 42P01)
+2024/07/06 20:47:39 authenticateUser.go:55: ERROR: relation "mi_users777" does not exist (SQLSTATE 42P01)
+2024/07/06 20:04:54 authenticateUser.go:55: ERROR: relation "mi_users777" does not exist (SQLSTATE 42P01)
+enticateUser.go:48: failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
+2024/07/06 16:31:34 authenticateUser.go:146: crypto/bcrypt: hashedPassword is not the hash of the given password

@@ -1,11 +1,13 @@
 package errorlogres
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"log"
 	"os"
 	"runtime"
+	"strings"
 	"sync"
 	"time"
 
@@ -130,14 +132,73 @@ func (l *Logger) formatHeader(buf *[]byte, t time.Time, file string, line int) {
 	}
 }
 
+func prependLogToFile(file string, buf []byte) bool {
+	dat, err := os.ReadFile(file)
+	if err != nil {
+		log.Println(err)
+		return false
+	}
+
+	// If the file doesn't exist, create it, or append to the file
+	// sys, err := os.OpenFile("sys.log", os.O_CREATE|os.O_WRONLY, 0644)
+	sys, err := os.OpenFile(file, os.O_WRONLY, 0644)
+	if err != nil {
+		// log.Fatal(err)
+		log.Println(err)
+		return false
+	}
+	// WriteAt will *OVERWRITE* the contents from the given offset, so your expected result "12A345" is incorrect. It is not possible to insert characters in the middle of the file with the WriteAt or Write methods.
+	written, err := sys.WriteAt(buf, 0)
+	if err != nil {
+		sys.Close() // ignore error; Write error takes precedence
+		// log.Fatal(err)
+		log.Println(err)
+		return false
+	}
+	if _, err := sys.WriteAt(dat, int64(written)); err != nil {
+		sys.Close() // ignore error; Write error takes precedence
+		// log.Fatal(err)
+		log.Println(err)
+		return false
+	}
+	sys.Sync()
+	defer sys.Close()
+	return true
+}
+
 // Modifikovana funkcija koja koja daje f za false, u za user{}
-// Output writes the output for a logging event. The string s contains
+//
+// log.Output writes the output for a logging event. The string s contains
 // the text to print after the prefix specified by the flags of the
 // Logger. A newline is appended if the last character of s is not
 // already a newline. Calldepth is used to recover the PC and is
 // provided for generality, although at the moment on all pre-defined
 // paths it will be 2.
-func (l *Logger) OutputIzmenjen(s string) (bool, models.User, error) {
+func (l *Logger) OutputIzmenjen(a any) (bool, models.User, string) {
+
+	log.SetFlags(log.Ltime | log.Lshortfile)
+
+	var msg_fe string
+	for_sys_log := true
+	for_usr_log := false
+	var s string
+
+	switch a.(type) {
+	case string:
+		msg_fe = fmt.Sprint(a)
+		s = fmt.Sprint(a)
+	case error:
+		s = fmt.Sprint(a)
+		if strings.Contains(s, "Pogrešna lozinka za:") {
+			for_usr_log = true
+			for_sys_log = false
+			msg_fe = "Nema korisnika sa tim mejlom ili lozinkom!"
+		}
+	default:
+		s = "Funkcija nije dobila ni string ni error!"
+		a = errors.New("Funkcija nije dobila ni string ni error!")
+	}
+
 	calldepth := 1
 	now := time.Now() // get this early.
 	var file string
@@ -162,30 +223,83 @@ func (l *Logger) OutputIzmenjen(s string) (bool, models.User, error) {
 		l.Buf = append(l.Buf, '\n')
 	}
 	_, err := l.Out.Write(l.Buf)
-	return false, models.User{}, err
+	if err != nil {
+		log.Println(fmt.Sprint(err))
+		l.Buf = append(l.Buf, fmt.Sprint(err)...)
+	}
+
+	switch a.(type) {
+	case error:
+
+		file := "sys.log"
+
+		if for_sys_log {
+			file = "sys.log"
+		} else if for_usr_log {
+			file = "usr.log"
+		}
+
+		ok := prependLogToFile(file, l.Buf)
+		if !ok {
+			log.Println("Nije uspelo dodavanje loga na fajl!")
+		}
+
+	default:
+
+	}
+
+	return false, models.User{}, msg_fe
 }
+
+// func (l *Logger) OutputIzmenjen1(s string) (bool, models.User, error) {
+// 	calldepth := 1
+// 	now := time.Now() // get this early.
+// 	var file string
+// 	var line int
+// 	l.Mu.Lock()
+// 	defer l.Mu.Unlock()
+// 	if l.Flag&(Lshortfile|Llongfile) != 0 {
+// 		// Release lock while getting caller info - it's expensive.
+// 		l.Mu.Unlock()
+// 		var ok bool
+// 		_, file, line, ok = runtime.Caller(calldepth)
+// 		if !ok {
+// 			file = "???"
+// 			line = 0
+// 		}
+// 		l.Mu.Lock()
+// 	}
+// 	l.Buf = l.Buf[:0]
+// 	l.formatHeader(&l.Buf, now, file, line)
+// 	l.Buf = append(l.Buf, s...)
+// 	if len(s) == 0 || s[len(s)-1] != '\n' {
+// 		l.Buf = append(l.Buf, '\n')
+// 	}
+// 	_, err := l.Out.Write(l.Buf)
+// 	return false, models.User{}, err
+// }
 
 // **********************************************************************
-
-func StringIzError(e error) string {
-	return fmt.Sprintf("%s", e)
-}
 
 /*
 Daje:
 
-	za l: Logger.OutputIzmenjen(string) koja daje (false, User{}, error) za AuthenticateUser()
-	za i: StringIzError(error) koja daje string za l
+	za l: Logger.OutputIzmenjen(string) koja daje (false, User{}, string) za AuthenticateUser()
 
 Na taj način se rade tri stvari u vrlo malecnom if e != nil{} kodu koji:
   - hendluje error
   - loguje grešku na konzoli tamo gde je i nastala
-  - šalje response bool, User{} i error routeru.
+  - šalje response false, models.User{} i mag_fe ruteru.
 */
-func GetELRvars() (func(string) (bool, models.User, error), func(error) string) {
+func GetELRfunc() func(any) (bool, models.User, string) {
 	loger := Logger{Out: os.Stdout, Prefix: "", Flag: log.LstdFlags | log.Lshortfile}
-	return loger.OutputIzmenjen, StringIzError
+	return loger.OutputIzmenjen
 }
+
+// func GetELRvars_ex() (func(string) (bool, models.User, error), func(error) string) {
+// 	loger := Logger{Out: os.Stdout, Prefix: "", Flag: log.LstdFlags | log.Lshortfile}
+// 	return loger.OutputIzmenjen1, StringIzError
+// }
 
 // func GetELRvars() (func(error) string, func(string) (bool, models.User, error)) {
 // 	loger := Logger{Out: os.Stdout, Prefix: "", Flag: log.LstdFlags | log.Lshortfile}
@@ -196,6 +310,10 @@ func GetELRvars() (func(string) (bool, models.User, error), func(error) string) 
 // }
 
 // type ShortError struct{}
+
+// func StringIzError(e error) string {
+// 	return fmt.Sprintf("%s", e)
+// }
 
 // func (se ShortError) Error(er error) string {
 // 	return fmt.Sprintf("%s", er)
