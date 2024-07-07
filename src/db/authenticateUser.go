@@ -38,7 +38,7 @@ func AuthenticateUser(email string, password_str string, already_authenticated b
 	// 	return l(e)
 	// }
 
-	// ENV, BAZA, UZIMANJE USERA 323
+	// ENV, BAZA, UZIMANJE USERA 323sfds
 
 	e := godotenv.Load(".env")
 	if e != nil {
