@@ -2,6 +2,7 @@ package routes
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
@@ -15,22 +16,22 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/vladanan/vezbamo4/src/db"
+	"github.com/vladanan/vezbamo4/src/errorlogres"
 	"github.com/vladanan/vezbamo4/src/models"
 	views "github.com/vladanan/vezbamo4/src/views"
 	assignments "github.com/vladanan/vezbamo4/src/views/assignments"
 	dashboard "github.com/vladanan/vezbamo4/src/views/dashboard"
 	questions "github.com/vladanan/vezbamo4/src/views/questions"
 	site "github.com/vladanan/vezbamo4/src/views/site"
-	// "encoding/json"
 )
 
 // var store string = ""
 
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
+// func check(e error) {
+// 	if e != nil {
+// 		panic(e)
+// 	}
+// }
 
 var godotevn_err = godotenv.Load(".env")
 
@@ -41,11 +42,11 @@ var (
 	store = sessions.NewCookieStore(key)
 )
 
-//***  P A G E S
+////**** SITE
 
 // http://127.0.0.1:7331
 
-func GoToIndex(w http.ResponseWriter, r *http.Request) {
+func Index(w http.ResponseWriter, r *http.Request) {
 	// ovo mora da bude tu da bi store i ostalo radili oko os.Getenv("SESSION_KEY")
 	if godotevn_err != nil {
 		fmt.Printf("Error loading .env file")
@@ -57,58 +58,63 @@ func GoTo404(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(site.Page404()).Component.Render(context.Background(), w)
 }
 
-func GoToQuestions(w http.ResponseWriter, r *http.Request) {
-	templ.Handler(questions.Questions(store, r)).Component.Render(context.Background(), w)
-}
-
-func GoToQuestionsAPI(w http.ResponseWriter, r *http.Request) {
-	templ.Handler(questions.QuestionsAPI(store, r)).Component.Render(context.Background(), w)
-}
-
-func GoToAssignments(w http.ResponseWriter, r *http.Request) {
-	templ.Handler(assignments.Assignments(store, r)).Component.Render(context.Background(), w)
-}
-
-func GoToPrimaryGrade1(w http.ResponseWriter, r *http.Request) {
-	templ.Handler(assignments.PrimaryGrade1(store, r)).Component.Render(context.Background(), w)
-}
-
-func GoToPrimaryGrade2(w http.ResponseWriter, r *http.Request) {
-	templ.Handler(assignments.PrimaryGrade2(store, r)).Component.Render(context.Background(), w)
-}
-
-func GoToSecondaryGrade1(w http.ResponseWriter, r *http.Request) {
-	templ.Handler(assignments.SecondaryGrade1(store, r)).Component.Render(context.Background(), w)
-}
-
-func GoToUserPortal(w http.ResponseWriter, r *http.Request) {
+func UserPortal(w http.ResponseWriter, r *http.Request) {
 	// fmt.Println(db.GetNotes())
 	templ.Handler(site.UserPortal(store, r, db.GetNotes())).Component.Render(context.Background(), w)
 }
 
-func GoToMegaIncrement(w http.ResponseWriter, r *http.Request) {
+func MegaIncrement(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(site.MegaIncrement(store, r)).Component.Render(context.Background(), w)
 }
 
-func GoToCustomAPIs(w http.ResponseWriter, r *http.Request) {
+func CustomAPIs(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(site.CustomAPIs(store, r)).Component.Render(context.Background(), w)
 }
 
-func GoToHistory(w http.ResponseWriter, r *http.Request) {
+func History(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(site.History(store, r)).Component.Render(context.Background(), w)
 }
 
-func GoToPrivacy(w http.ResponseWriter, r *http.Request) {
+func Privacy(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(site.Privacy(store, r)).Component.Render(context.Background(), w)
 }
 
-func GoToTerms(w http.ResponseWriter, r *http.Request) {
+func Terms(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(site.Terms(store, r)).Component.Render(context.Background(), w)
 }
 
-// func GoToDa(w http.ResponseWriter, r *http.Request) {
-// 	templ.Handler(da.Da(store, r)).Component.Render(context.Background(), w)
-// }
+func Komponents(w http.ResponseWriter, r *http.Request) {
+	// fmt.Println(db.GetNotes())
+	templ.Handler(views.Komponents()).Component.Render(context.Background(), w)
+}
+
+// //**** QUESTIONS
+func Questions(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(questions.Questions(store, r)).Component.Render(context.Background(), w)
+}
+
+func QuestionsAPI(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(questions.QuestionsAPI(store, r)).Component.Render(context.Background(), w)
+}
+
+// //**** ASSIGNMENTS
+func Assignments(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(assignments.Assignments(store, r)).Component.Render(context.Background(), w)
+}
+
+func PrimaryGrade1(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(assignments.PrimaryGrade1(store, r)).Component.Render(context.Background(), w)
+}
+
+func PrimaryGrade2(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(assignments.PrimaryGrade2(store, r)).Component.Render(context.Background(), w)
+}
+
+func SecondaryGrade1(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(assignments.SecondaryGrade1(store, r)).Component.Render(context.Background(), w)
+}
+
+////**** USERS
 
 func Sign_up(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(dashboard.Sign_up(store, r)).Component.Render(context.Background(), w)
@@ -390,83 +396,6 @@ func Sign_out(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(views.Index(store, r)).Component.Render(context.Background(), w)
 }
 
-func GoToKomponents(w http.ResponseWriter, r *http.Request) {
-	// fmt.Println(db.GetNotes())
-	templ.Handler(views.Komponents()).Component.Render(context.Background(), w)
-}
-
-//*** I N T E R N A L
-
-func HtmxGetQuestions(w http.ResponseWriter, r *http.Request) {
-	list := db.GetQuestions()
-	templ.Handler(questions.List(list)).Component.Render(context.Background(), w)
-}
-
-func SetEn(w http.ResponseWriter, r *http.Request) {
-	session, err := store.Get(r, "vezbamo.onrender.com-users")
-	// fmt.Println("engleski podešavanje")
-	if err != nil {
-		// fmt.Println("engleski greška get sessio")
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	session.Values["language"] = "en"
-	err2 := session.Save(r, w)
-	if err2 != nil {
-		// fmt.Println("engleski greška save sessio")
-		http.Error(w, err2.Error(), http.StatusInternalServerError)
-		return
-	}
-}
-
-func SetSh(w http.ResponseWriter, r *http.Request) {
-	session, err := store.Get(r, "vezbamo.onrender.com-users")
-	if err != nil {
-		// fmt.Println("srpski greška get sessio")
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	session.Values["language"] = "sh"
-	err2 := session.Save(r, w)
-	if err2 != nil {
-		// fmt.Println("srpski greška save sessio")
-		http.Error(w, err2.Error(), http.StatusInternalServerError)
-		return
-	}
-}
-
-func SetEs(w http.ResponseWriter, r *http.Request) {
-	// fmt.Println("španski podešavanje")
-	session, err := store.Get(r, "vezbamo.onrender.com-users")
-	if err != nil {
-		// fmt.Println("špnski greška get sessio")
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	session.Values["language"] = "es"
-	err2 := session.Save(r, w)
-	if err2 != nil {
-		http.Error(w, err2.Error(), http.StatusInternalServerError)
-		return
-	}
-}
-
-// func SetBrowserLang(w http.ResponseWriter, r *http.Request) {
-// 	session, err := store.Get(r, "vezbamo.onrender.com-users")
-// 	if err != nil {
-// 		// fmt.Println("browser greška get sessio")
-// 		http.Error(w, err.Error(), http.StatusInternalServerError)
-// 		return
-// 	}
-// 	session.Values["language"] = ""
-// 	err2 := session.Save(r, w)
-// 	if err2 != nil {
-// 		// fmt.Println("brower greška save sessio")
-// 		http.Error(w, err2.Error(), http.StatusInternalServerError)
-// 		return
-// 	}
-// }
-
 func CheckLinkFromEmail(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
@@ -533,12 +462,48 @@ func GetVerifyEmailHtml(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(html))
 }
 
-//*** A P I
+////*** API
+
+type Question struct {
+	G_id   int8   `db:"g_id"`
+	Tip    string `db:"tip"`
+	Oblast string `db:"oblast"`
+}
+
+func to_struct(questions []byte) []Question {
+	var p []Question
+	err := json.Unmarshal(questions, &p)
+	if err != nil {
+		fmt.Printf("Json error: %v", err)
+	}
+	return p
+}
+
+func APIgetQuestions(w http.ResponseWriter, r *http.Request) error {
+	// return errorlogres.NewAPIError(418, "there is no tea at the table")
+	// both work the same (sending json string)
+	// but with w.Write there is no extra conversion to string but uses []byte from db
+	// curl http://127.0.0.1:7331/api_questions
+	// io.WriteString(w, string(db.GetQuestions()))
+	list := db.GetQuestions()
+	l2 := to_struct(list)
+	return errorlogres.WriteJSON(w, 200, l2)
+
+	// w.Write(db.GetQuestions())
+}
+
+func HtmxGetQuestions(w http.ResponseWriter, r *http.Request) {
+	list := db.GetQuestions()
+	templ.Handler(questions.List(list)).Component.Render(context.Background(), w)
+}
 
 func GetLocationsForAngularFE(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("\nget locations", r.URL)
 	dat, err := os.ReadFile("src/db/locations.json")
-	check(err)
+	if err != nil {
+		log.Println("ne može da se pročita fajl za locations")
+	}
+	// check(err)
 
 	w.Header().Set("Content-Type", "application/json")
 
@@ -547,10 +512,82 @@ func GetLocationsForAngularFE(w http.ResponseWriter, r *http.Request) {
 	// w.Write(string(dat)) dfaljfa
 }
 
-func APIgetQuestions(w http.ResponseWriter, r *http.Request) {
-	// both work the same (sending json string)
-	// but with w.Write there is no extra conversion to string but uses []byte from db
-	// curl http://127.0.0.1:7331/api_questions
-	// io.WriteString(w, string(db.GetQuestions()))
-	w.Write(db.GetQuestions())
+////**** SERVER
+
+func SetSh(w http.ResponseWriter, r *http.Request) {
+	session, err := store.Get(r, "vezbamo.onrender.com-users")
+	if err != nil {
+		// fmt.Println("srpski greška get sessio")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	session.Values["language"] = "sh"
+	err2 := session.Save(r, w)
+	if err2 != nil {
+		// fmt.Println("srpski greška save sessio")
+		http.Error(w, err2.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+func SetEn(w http.ResponseWriter, r *http.Request) {
+	session, err := store.Get(r, "vezbamo.onrender.com-users")
+	// fmt.Println("engleski podešavanje")
+	if err != nil {
+		// fmt.Println("engleski greška get sessio")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	session.Values["language"] = "en"
+	err2 := session.Save(r, w)
+	if err2 != nil {
+		// fmt.Println("engleski greška save sessio")
+		http.Error(w, err2.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+func SetEs(w http.ResponseWriter, r *http.Request) {
+	// fmt.Println("španski podešavanje")
+	session, err := store.Get(r, "vezbamo.onrender.com-users")
+	if err != nil {
+		// fmt.Println("špnski greška get sessio")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	session.Values["language"] = "es"
+	err2 := session.Save(r, w)
+	if err2 != nil {
+		http.Error(w, err2.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+// func SetBrowserLang(w http.ResponseWriter, r *http.Request) {
+// 	session, err := store.Get(r, "vezbamo.onrender.com-users")
+// 	if err != nil {
+// 		// fmt.Println("browser greška get sessio")
+// 		http.Error(w, err.Error(), http.StatusInternalServerError)
+// 		return
+// 	}
+// 	session.Values["language"] = ""
+// 	err2 := session.Save(r, w)
+// 	if err2 != nil {
+// 		// fmt.Println("brower greška save sessio")
+// 		http.Error(w, err2.Error(), http.StatusInternalServerError)
+// 		return
+// 	}
+// }
+
+// https://stackoverflow.com/questions/15834278/serving-static-content-with-a-root-url-with-the-gorilla-toolkits
+func ServeStatic(router *mux.Router, staticDirectory string) {
+	staticPaths := map[string]string{
+		"/":    "" + staticDirectory,
+		"vmk":  "/vmk" + staticDirectory,
+		"qapi": "/questions" + staticDirectory,
+	}
+	for _, pathValue := range staticPaths {
+		// pathPrefix := "/" + pathName + "/"
+		router.PathPrefix(pathValue).Handler(http.StripPrefix(pathValue, http.FileServer(http.Dir("assets"))))
+	}
 }

@@ -5,34 +5,21 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"log/slog"
+	"net/http"
 	"os"
 	"runtime"
 	"strings"
 	"sync"
 	"time"
 
+	"github.com/segmentio/encoding/json"
 	"github.com/vladanan/vezbamo4/src/models"
 )
 
 // **********************************************************************
 
-// type ll struct {
-// 	lls string
-// }
-
-// func (ll ll) Output2(level int, s string) string {
-// 	return "log poruka: " + strconv.Itoa(level) + " " + s
-// }
-
-// type ee struct {
-// 	ees string
-// }
-
-// func (ee ee) Error2() string {
-// 	return ee.ees
-// }
-
-// **********************************************************************
+////**** CUSTOM LOGER
 
 const (
 	Ldate         = 1 << iota     // the date in the local time zone: 2009/01/23
@@ -279,8 +266,6 @@ func (l *Logger) OutputIzmenjen(a any) (bool, models.User, string) {
 // 	return false, models.User{}, err
 // }
 
-// **********************************************************************
-
 /*
 Daje:
 
@@ -321,39 +306,45 @@ func GetELRfunc() func(any) (bool, models.User, string) {
 
 // **********************************************************************
 
-// m := Logger{Out: os.Stdout, Prefix: "", Flag: log.LstdFlags | log.Lshortfile}
-// o := m.J
+////**** CUSTOM ERROR
 
-// return F(), U(), m.J(I(e))
-// m.O(P(e))
-// m.O(s.R(e))
-// m.o(1, s.r(e))
-// m.o(1, e.Error())
-// return f, u, l._(1, e._())
-// return f, u, log.Output(1, e.Error())
+type APIError struct {
+	StatusCode int `json:"statusCode"`
+	Msg        any `json:"msg"`
+}
 
-// func Demo() (bool, models.User, error) {
-// 	l := log.New(os.Stdout, "", log.Ltime|log.Lshortfile)
-// 	f := false
-// 	u := models.User{}
-// 	m := Logger{Out: os.Stdout, Prefix: "", Flag: log.LstdFlags | log.Lshortfile}
+func (e APIError) Error() string {
+	return fmt.Sprintf("API erorr %d", e.StatusCode)
+}
 
-// 	_, e := strconv.Atoi("v")
-// 	if e != nil {
-// 		m.J(I(e))
-// 		return f, u, m.J(I(e))
-// 	}
+func NewAPIError(status int, msg any) APIError {
+	return APIError{
+		StatusCode: status,
+		Msg:        msg,
+	}
+}
 
-// 	_, e = strconv.Atoi("v")
-// 	if e != nil {
-// 		l.Print(e)
-// 		return f, u, nil
-// 	}
+type APIfunc func(w http.ResponseWriter, r *http.Request) error
 
-// 	_, e = strconv.Atoi("v")
-// 	if e != nil {
-// 		return f, u, m.J(I(e))
-// 	}
+func Check(h APIfunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if err := h(w, r); err != nil {
+			if apiErr, ok := err.(APIError); ok {
+				WriteJSON(w, apiErr.StatusCode, apiErr)
+			} else {
+				errResp := map[string]any{
+					"statusCode": http.StatusInternalServerError,
+					"msg":        "internal server error",
+				}
+				WriteJSON(w, http.StatusInternalServerError, errResp)
+			}
+			slog.Error("http api errof", "err", err.Error(), "path", r.URL.Path)
+		}
+	}
+}
 
-// 	return f, u, m.J(I(e))
-// }
+func WriteJSON(w http.ResponseWriter, status int, v any) error {
+	w.WriteHeader(status)
+	w.Header().Set("Content-Type", "application/json")
+	return json.NewEncoder(w).Encode(v)
+}
