@@ -1,3 +1,4 @@
+// Package routes služi da obrađuje zahvete iz main
 package routes
 
 import (
@@ -6,23 +7,27 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"log/slog"
 	"net/http"
+	"net/http/httptest"
 	"os"
 	"strings"
 
 	"github.com/a-h/templ"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
+	"github.com/rs/cors"
 
 	"github.com/joho/godotenv"
+	testsAPI "github.com/vladanan/vezbamo4/src/api/vezbamo/v1"
 	"github.com/vladanan/vezbamo4/src/db"
 	"github.com/vladanan/vezbamo4/src/errorlogres"
 	"github.com/vladanan/vezbamo4/src/models"
-	views "github.com/vladanan/vezbamo4/src/views"
-	assignments "github.com/vladanan/vezbamo4/src/views/assignments"
-	dashboard "github.com/vladanan/vezbamo4/src/views/dashboard"
-	questions "github.com/vladanan/vezbamo4/src/views/questions"
-	site "github.com/vladanan/vezbamo4/src/views/site"
+	"github.com/vladanan/vezbamo4/src/views"
+	"github.com/vladanan/vezbamo4/src/views/assignments"
+	"github.com/vladanan/vezbamo4/src/views/dashboard"
+	"github.com/vladanan/vezbamo4/src/views/site"
+	"github.com/vladanan/vezbamo4/src/views/tests"
 )
 
 // var store string = ""
@@ -33,7 +38,7 @@ import (
 // 	}
 // }
 
-var godotevn_err = godotenv.Load(".env")
+var godotevnErr = godotenv.Load(".env")
 
 var (
 	// key must be 16, 24 or 32 bytes long (AES-128, AES-192 or AES-256)
@@ -42,13 +47,83 @@ var (
 	store = sessions.NewCookieStore(key)
 )
 
-////**** SITE
-
 // http://127.0.0.1:7331
+
+func RouterSite(r *mux.Router) {
+	r.HandleFunc("/", Index)
+	r.HandleFunc("/assignments", Assignments)
+	r.HandleFunc("/tests", Tests)
+	r.HandleFunc("/user_portal", UserPortal)
+	r.HandleFunc("/tests_api", TestsAPI)
+	r.HandleFunc("/mega_increment", MegaIncrement)
+	r.HandleFunc("/custom_apis", CustomAPIs)
+	r.HandleFunc("/history", History)
+	r.HandleFunc("/privacy", Privacy)
+	r.HandleFunc("/terms", Terms)
+	r.HandleFunc("/komponents", Komponents)
+}
+
+func RouterTests(r *mux.Router) {
+	r.HandleFunc("/htmx_get_tests", HtmxGetTests)
+}
+
+func RouterAssignments(r *mux.Router) {
+	r.HandleFunc("/primary_grade_1", PrimaryGrade1)
+	r.HandleFunc("/primary_grade_2", PrimaryGrade2)
+	r.HandleFunc("/secondary_grade_1", SecondaryGrade1)
+}
+
+func RouterUsers(r *mux.Router) {
+	r.HandleFunc("/sign_up", Sign_up)
+	r.HandleFunc("/sign_up_post", Sign_up_post)
+	r.HandleFunc("/sign_in", Sign_in)
+	r.HandleFunc("/sign_in_post", Sign_in_post)
+	r.HandleFunc("/auto_login_user", AutoLoginUser)
+	r.HandleFunc("/auto_login_admin", AutoLoginAdmin)
+	r.HandleFunc("/dashboard", Dashboard)
+	r.HandleFunc("/sign_out", Sign_out)
+	// samo query koji ima u sebi tačno određene promenljive može da prođe
+	r.HandleFunc("/vmk/{key}", CheckLinkFromEmail).Queries("mail", "") // , "user", "vladan")
+	r.HandleFunc("/html/verify_email.html", GetVerifyEmailHtml)
+}
+
+func RouterAPI(r *mux.Router) {
+	r.HandleFunc("/api_get_tests", errorlogres.Check(testsAPI.GetTests))
+	// r.HandleFunc("/api_get_questions", APIgetQuestions) //3
+
+	c := cors.New(cors.Options{
+		AllowedOrigins: []string{"http://localhost:4200"},
+	})
+	r.Handle("/locations", c.Handler(http.HandlerFunc(GetLocationsForAngularFE)))
+	r.Handle("/locations/", c.Handler(http.HandlerFunc(GetLocationsForAngularFE)))
+}
+
+func RouterI18n(r *mux.Router) {
+	r.HandleFunc("/sh", SetSh)
+	r.HandleFunc("/en", SetEn)
+	r.HandleFunc("/es", SetEs)
+}
+
+// static sa funkcijom koja pravi niz mux PathPrefix handlera jer bi se inače main zagušio sa vazdan njih
+// za svaki folder gde se koristi path sa promeljivima kao što je r.HandleFunc("/vmk/{key}"
+// https://stackoverflow.com/questions/15834278/serving-static-content-with-a-root-url-with-the-gorilla-toolkits
+func ServeStatic(router *mux.Router, staticDirectory string) {
+	staticPaths := map[string]string{
+		"/":   "" + staticDirectory,
+		"vmk": "/vmk" + staticDirectory,
+		// "qapi": "/questions" + staticDirectory,
+	}
+	for _, pathValue := range staticPaths {
+		// pathPrefix := "/" + pathName + "/"
+		router.PathPrefix(pathValue).Handler(http.StripPrefix(pathValue, http.FileServer(http.Dir("assets"))))
+	}
+}
+
+////**** SITE
 
 func Index(w http.ResponseWriter, r *http.Request) {
 	// ovo mora da bude tu da bi store i ostalo radili oko os.Getenv("SESSION_KEY")
-	if godotevn_err != nil {
+	if godotevnErr != nil {
 		fmt.Printf("Error loading .env file")
 	}
 	templ.Handler(views.Index(store, r)).Component.Render(context.Background(), w)
@@ -58,9 +133,17 @@ func GoTo404(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(site.Page404()).Component.Render(context.Background(), w)
 }
 
+func Tests(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(tests.Tests(store, r)).Component.Render(context.Background(), w)
+}
+
 func UserPortal(w http.ResponseWriter, r *http.Request) {
 	// fmt.Println(db.GetNotes())
 	templ.Handler(site.UserPortal(store, r, db.GetNotes())).Component.Render(context.Background(), w)
+}
+
+func TestsAPI(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(tests.TestsAPI(store, r)).Component.Render(context.Background(), w)
 }
 
 func MegaIncrement(w http.ResponseWriter, r *http.Request) {
@@ -89,12 +172,29 @@ func Komponents(w http.ResponseWriter, r *http.Request) {
 }
 
 // //**** QUESTIONS
-func Questions(w http.ResponseWriter, r *http.Request) {
-	templ.Handler(questions.Questions(store, r)).Component.Render(context.Background(), w)
-}
 
-func QuestionsAPI(w http.ResponseWriter, r *http.Request) {
-	templ.Handler(questions.QuestionsAPI(store, r)).Component.Render(context.Background(), w)
+func HtmxGetTests(w http.ResponseWriter, r *http.Request) {
+
+	// https://stackoverflow.com/questions/13765797/the-best-way-to-get-a-string-from-a-writer
+	ioWriter := httptest.NewRecorder()
+	err := testsAPI.GetTests(ioWriter, r)
+	if err != nil {
+		slog.Error("greška na api")
+	}
+	// f(rr)
+	var all_tests []models.Test
+
+	list_string := ioWriter.Body.String() // r.Body is a *bytes.Buffer
+
+	dec := json.NewDecoder(strings.NewReader(list_string))
+	dec.Decode(&all_tests)
+
+	log.Println("novi list:", all_tests)
+
+	templ.Handler(tests.List(all_tests)).Component.Render(context.Background(), w)
+
+	// list1 := db.GetQuestions()
+	// templ.Handler(questions.List(list1)).Component.Render(context.Background(), w)
 }
 
 // //**** ASSIGNMENTS
@@ -464,39 +564,6 @@ func GetVerifyEmailHtml(w http.ResponseWriter, r *http.Request) {
 
 ////*** API
 
-type Question struct {
-	G_id   int8   `db:"g_id"`
-	Tip    string `db:"tip"`
-	Oblast string `db:"oblast"`
-}
-
-func to_struct(questions []byte) []Question {
-	var p []Question
-	err := json.Unmarshal(questions, &p)
-	if err != nil {
-		fmt.Printf("Json error: %v", err)
-	}
-	return p
-}
-
-func APIgetQuestions(w http.ResponseWriter, r *http.Request) error {
-	// return errorlogres.NewAPIError(418, "there is no tea at the table")
-	// both work the same (sending json string)
-	// but with w.Write there is no extra conversion to string but uses []byte from db
-	// curl http://127.0.0.1:7331/api_questions
-	// io.WriteString(w, string(db.GetQuestions()))
-	list := db.GetQuestions()
-	l2 := to_struct(list)
-	return errorlogres.WriteJSON(w, 200, l2)
-
-	// w.Write(db.GetQuestions())
-}
-
-func HtmxGetQuestions(w http.ResponseWriter, r *http.Request) {
-	list := db.GetQuestions()
-	templ.Handler(questions.List(list)).Component.Render(context.Background(), w)
-}
-
 func GetLocationsForAngularFE(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("\nget locations", r.URL)
 	dat, err := os.ReadFile("src/db/locations.json")
@@ -512,7 +579,7 @@ func GetLocationsForAngularFE(w http.ResponseWriter, r *http.Request) {
 	// w.Write(string(dat)) dfaljfa
 }
 
-////**** SERVER
+////**** i18n
 
 func SetSh(w http.ResponseWriter, r *http.Request) {
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
@@ -578,16 +645,3 @@ func SetEs(w http.ResponseWriter, r *http.Request) {
 // 		return
 // 	}
 // }
-
-// https://stackoverflow.com/questions/15834278/serving-static-content-with-a-root-url-with-the-gorilla-toolkits
-func ServeStatic(router *mux.Router, staticDirectory string) {
-	staticPaths := map[string]string{
-		"/":    "" + staticDirectory,
-		"vmk":  "/vmk" + staticDirectory,
-		"qapi": "/questions" + staticDirectory,
-	}
-	for _, pathValue := range staticPaths {
-		// pathPrefix := "/" + pathName + "/"
-		router.PathPrefix(pathValue).Handler(http.StripPrefix(pathValue, http.FileServer(http.Dir("assets"))))
-	}
-}

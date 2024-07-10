@@ -50,12 +50,12 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-4\"><!-- Swiper --><div style=\"--swiper-navigation-color: #fff; --swiper-pagination-color: #fff\" class=\"swiper mySwiper lg:rounded-2xl lg:max-w-max\"><div class=\"parallax-bg\" data-swiper-parallax=\"-23%\"></div><div class=\"swiper-wrapper\"><!-- Tests and questions --><a href=\"/questions\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/site/office-620822_1280_C.jpg);\"><div class=\"title\" data-swiper-parallax=\"-300\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative top-4\"><!-- Swiper --><div style=\"--swiper-navigation-color: #fff; --swiper-pagination-color: #fff\" class=\"swiper mySwiper lg:rounded-2xl lg:max-w-max\"><div class=\"parallax-bg\" data-swiper-parallax=\"-23%\"></div><div class=\"swiper-wrapper\"><!-- Tests --><a href=\"/tests\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/site/office-620822_1280_C.jpg);\"><div class=\"title\" data-swiper-parallax=\"-300\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var3 string
-			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_Q_title"))
+			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_T_title"))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 29, Col: 90}
 			}
@@ -68,7 +68,7 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var4 string
-			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_Q_subtitle"))
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_T_subtitle"))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 31, Col: 168}
 			}
@@ -81,7 +81,7 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var5 string
-			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_Q_text"))
+			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_T_text"))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 34, Col: 44}
 			}
@@ -167,12 +167,12 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a><!-- API for questions --><a href=\"/questions_api\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/site/windows-p74ndnYWRY4-unsplash-1280_C.jpg);\"><div class=\"title w-72 text-black rounded-md bg-gradient-to-r from-transparent via-transparent to-blue-200\" data-swiper-parallax=\"-300\">Questions API</div><div class=\"subtitle w-28 text-black\" data-swiper-parallax=\"-200\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></a><!-- API for tests --><a href=\"/testss_api\" class=\"swiper-slide cursor-alias\" style=\"background-image: url(static/site/windows-p74ndnYWRY4-unsplash-1280_C.jpg);\"><div class=\"title w-72 text-black rounded-md bg-gradient-to-r from-transparent via-transparent to-blue-200\" data-swiper-parallax=\"-300\">Tests API</div><div class=\"subtitle w-28 text-black\" data-swiper-parallax=\"-200\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var12 string
-			templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_Qapi_subtitle"))
+			templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_Tapi_subtitle"))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 77, Col: 115}
 			}
@@ -185,7 +185,7 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var13 string
-			templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_Qapi_text"))
+			templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_Tapi_text"))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 81, Col: 47}
 			}
@@ -245,14 +245,14 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text text-xs lg:text-lg \" style=\"max-width: 800px;\" data-swiper-parallax=\"-100\"><a href=\"/questions\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text text-xs lg:text-lg \" style=\"max-width: 800px;\" data-swiper-parallax=\"-100\"><a href=\"/tests\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var18 string
-			templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_Q_title"))
+			templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Index_T_title"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 186, Col: 65}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/index.templ`, Line: 186, Col: 61}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 			if templ_7745c5c3_Err != nil {
@@ -284,7 +284,7 @@ func Index(store sessions.Store, r *http.Request) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><br><a href=\"/questions_api\">Questions API</a><br><a href=\"/mega_increment\">Mega Increment</a><br><a href=\"/custom_apis\">Custom APIs</a><br><a href=\"https://github.com/vladanan/uxv\" target=\"_blank\" rel=\"noopener noreferrer\">uxv/EDV @ GitHub</a><br><a href=\"/history\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><br><a href=\"/tests_api\">User tests API</a><br><a href=\"/mega_increment\">Mega Increment</a><br><a href=\"/custom_apis\">Custom APIs</a><br><a href=\"https://github.com/vladanan/uxv\" target=\"_blank\" rel=\"noopener noreferrer\">uxv/EDV @ GitHub</a><br><a href=\"/history\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

@@ -23,15 +23,15 @@ templ Index(store sessions.Store, r *http.Request) {
 				<div class="parallax-bg" data-swiper-parallax="-23%"></div>
 				<div class="swiper-wrapper">
 
-					<!-- Tests and questions -->
-					<a href="/questions" class="swiper-slide cursor-alias" style="background-image: url(static/site/office-620822_1280_C.jpg);">
+					<!-- Tests -->
+					<a href="/tests" class="swiper-slide cursor-alias" style="background-image: url(static/site/office-620822_1280_C.jpg);">
 						
-						<div class="title" data-swiper-parallax="-300">{Translate(store, r, "Index_Q_title")}</div>
+						<div class="title" data-swiper-parallax="-300">{Translate(store, r, "Index_T_title")}</div>
 						
-						<div class="subtitle rounded-md bg-gradient-to-r from-red-700 via-transparent to-transparent" data-swiper-parallax="-200">{Translate(store, r, "Index_Q_subtitle")}</div>
+						<div class="subtitle rounded-md bg-gradient-to-r from-red-700 via-transparent to-transparent" data-swiper-parallax="-200">{Translate(store, r, "Index_T_subtitle")}</div>
 						<div class="text text-sm lg:text-lg" data-swiper-parallax="-100">
 							<p>
-								{Translate(store, r, "Index_Q_text")}
+								{Translate(store, r, "Index_T_text")}
 							</p>
 						</div>
 
@@ -69,16 +69,16 @@ templ Index(store sessions.Store, r *http.Request) {
 					</a>
 
 
-					<!-- API for questions -->
-					<a href="/questions_api" class="swiper-slide cursor-alias" style="background-image: url(static/site/windows-p74ndnYWRY4-unsplash-1280_C.jpg);">
+					<!-- API for tests -->
+					<a href="/testss_api" class="swiper-slide cursor-alias" style="background-image: url(static/site/windows-p74ndnYWRY4-unsplash-1280_C.jpg);">
 						
-						<div class="title w-72 text-black rounded-md bg-gradient-to-r from-transparent via-transparent to-blue-200" data-swiper-parallax="-300">Questions API</div>
+						<div class="title w-72 text-black rounded-md bg-gradient-to-r from-transparent via-transparent to-blue-200" data-swiper-parallax="-300">Tests API</div>
 						
-						<div class="subtitle w-28 text-black" data-swiper-parallax="-200">{Translate(store, r, "Index_Qapi_subtitle")}</div>
+						<div class="subtitle w-28 text-black" data-swiper-parallax="-200">{Translate(store, r, "Index_Tapi_subtitle")}</div>
 						
 						<div class="relative top-5 lg:top-0 text w-60 lg:w-80 text-black text-sm lg:text-lg rounded-md bg-gradient-to-tl from-transparent via-blue-500 to-sky-100" data-swiper-parallax="-100">
 							<p>
-								{Translate(store, r, "Index_Qapi_text")}
+								{Translate(store, r, "Index_Tapi_text")}
 							</p>
 						</div>
 
@@ -183,13 +183,13 @@ templ Index(store sessions.Store, r *http.Request) {
 						<div class="subtitle" data-swiper-parallax="-200">{Translate(store, r, "Index_L_subtitle")}</div>
 						
 						<div class="text text-xs lg:text-lg " style="max-width: 800px;" data-swiper-parallax="-100">
-							<a href="/questions">{Translate(store, r, "Index_Q_title")}</a>
+							<a href="/tests">{Translate(store, r, "Index_T_title")}</a>
 							<br></br>
 							<a href="/assignments">{Translate(store, r, "Index_A_title")}</a>
 							<br></br>
 							<a href="/user_portal">{Translate(store, r, "Index_UP_title")}</a>
 							<br></br>
-							<a href="/questions_api">Questions API</a>
+							<a href="/tests_api">User tests API</a>
 							<br></br>
 							<a href="/mega_increment">Mega Increment</a>
 							<br></br>

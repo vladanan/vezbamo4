@@ -36,3 +36,9 @@ type Settings struct {
 	Bad_sign_in_time_limit     string    `db:"bad_sign_in_time_limit"`
 	Same_ip_sign_up_time_limit string    `db:"same_ip_sign_up_time_limit"`
 }
+
+type Test struct {
+	G_id   int8   `db:"g_id"`
+	Tip    string `db:"tip"`
+	Oblast string `db:"oblast"`
+}

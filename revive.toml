@@ -6,5 +6,7 @@ errorCode = 0
 warningCode = 0
 
 # Enable all available rules
-enableAllRules = false
+enableAllRules = true
 
+[rule.line-length-limit]
+    Disabled = true

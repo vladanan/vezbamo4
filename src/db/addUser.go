@@ -26,7 +26,7 @@ import (
 	// "github.com/vladanan/vezbamo4/src/models"
 )
 
-func to_map(headers []byte) map[string][]string {
+func toMap(headers []byte) map[string][]string {
 	var h map[string][]string
 	err := json.Unmarshal(headers, &h)
 	if err != nil {
@@ -36,7 +36,7 @@ func to_map(headers []byte) map[string][]string {
 	return h
 }
 
-func AddUser(email_str, user_name, password_str string, r *http.Request) bool {
+func AddUser(emailString, userName, passwordString string, r *http.Request) bool {
 
 	//https://pkg.go.dev/golang.org/x/crypto/bcrypt#pkg-index
 	//https://gowebexamples.com/password-hashing/
@@ -45,15 +45,15 @@ func AddUser(email_str, user_name, password_str string, r *http.Request) bool {
 	// da se ne bi desilo da neko proba da rekonstruiše password iz poslatog linka
 	// najbolje samo iz mejla jer je mejl svakako već poznat onome ko ima link a novi link svakako ne može sam da generiše
 
-	password := []byte(password_str)
-	email := []byte(email_str)
+	password := []byte(passwordString)
+	email := []byte(emailString)
 
-	ciphertext_sign_in, err := bcrypt.GenerateFromPassword(password, 5)
+	ciphertextSignIn, err := bcrypt.GenerateFromPassword(password, 5)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "AddUser: greška bcrypt ciphertext_sign_in: %s\n", err)
 		return false
 	}
-	ciphertext_verify_mail, err := bcrypt.GenerateFromPassword([]byte(email), 7)
+	ciphertextVerifyMail, err := bcrypt.GenerateFromPassword([]byte(email), 7)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "AddUser: greška bcrypt ciphertext_verify_mail: %s\n", err)
 		return false
@@ -61,13 +61,13 @@ func AddUser(email_str, user_name, password_str string, r *http.Request) bool {
 
 	// kada se key koristi bez zamena / i . onda ne može da se koristi kao url jer / dovodi do toga da je url pogrešan
 	// možda se to ne dešava sa . ali sam zamenio za svaki slučaj da se ne brka domen ili tako nešto
-	ciphertext_verify_mail_string1 := strings.ReplaceAll(string(ciphertext_verify_mail), "/", "-")
-	ciphertext_verify_mail_string2 := strings.ReplaceAll(string(ciphertext_verify_mail_string1), ".", "_")
+	ciphertextVerifyMailString1 := strings.ReplaceAll(string(ciphertextVerifyMail), "/", "-")
+	ciphertextVerifyMailString2 := strings.ReplaceAll(string(ciphertextVerifyMailString1), ".", "_")
 
 	// fmt.Println("Ciphertexts: ", string(ciphertext_sign_in))
 
 	// UZIMAMO HEADER ZA KASNIJE POREĐENJE X-FORWARDED-FOR I ZA UBACIVANJE U DB POLJE RADI EVIDENCIJE I POREĐENJA
-	bytearray_headers, err := json.Marshal(r.Header)
+	bytearrayHeaders, err := json.Marshal(r.Header)
 	if err != nil {
 		fmt.Printf("AddUser: json 1: %v", err)
 	}
@@ -98,25 +98,25 @@ func AddUser(email_str, user_name, password_str string, r *http.Request) bool {
 
 	// PROVERA DA LI NEMA VEĆ USER-A SA ISTIM MEJLOM I USER_NAME
 
-	rows, err2 := conn.Query(context.Background(), "SELECT * FROM mi_users where email=$1 OR user_name=$2;", email_str, user_name)
+	rows, err2 := conn.Query(context.Background(), "SELECT * FROM mi_users where email=$1 OR user_name=$2;", emailString, userName)
 	if err2 != nil {
 		fmt.Printf("AddUser: Query 1: %v\n", err2)
 		return false
 	}
-	pgx_user, err := pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
+	pgxUser, err := pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
 	if err != nil {
 		fmt.Printf("AddUser: CollectRows 1: %v\n", err)
 		return false
 	}
 	// fmt.Print("AddUser: pgx user:", pgx_user)
-	bytearray_user, err2 := json.Marshal(pgx_user)
+	bytearrayUser, err2 := json.Marshal(pgxUser)
 	if err2 != nil {
 		fmt.Printf("AddUser: json 2: %v\n", err2)
 		return false
 	}
 	// fmt.Print("bytearray user: ", bytearray_user)
 
-	if string(bytearray_user) != "null" { // array nije prazan tj. ima zapisa sa istim mejlom ili userom
+	if string(bytearrayUser) != "null" { // array nije prazan tj. ima zapisa sa istim mejlom ili userom
 
 		fmt.Print("AddUser: već ima korisnik sa takvim mejlom/user name\n")
 		return false
@@ -150,13 +150,13 @@ func AddUser(email_str, user_name, password_str string, r *http.Request) bool {
 			fmt.Printf("AddUser: Unable to make query: %v\n", err)
 			return false
 		}
-		pgx_settings, err := pgx.CollectRows(rows2, pgx.RowToStructByName[models.Settings])
+		pgxSettings, err := pgx.CollectRows(rows2, pgx.RowToStructByName[models.Settings])
 		if err != nil {
 			fmt.Printf("AddUser: CollectRows error: %v\n", err)
 			return false
 		}
 
-		db_same_ip_sign_up_time_limit := pgx_settings[0].Same_ip_sign_up_time_limit
+		db_same_ip_sign_up_time_limit := pgxSettings[0].Same_ip_sign_up_time_limit
 		if db_same_ip_sign_up_time_limit == "" || db_same_ip_sign_up_time_limit == "0" {
 			db_same_ip_sign_up_time_limit = "0m"
 		}
@@ -177,7 +177,7 @@ func AddUser(email_str, user_name, password_str string, r *http.Request) bool {
 			fmt.Printf("AddUser: query 2: %v\n", err2)
 			return false
 		}
-		pgx_user2, err := pgx.CollectRows(rows2, pgx.RowToStructByName[models.User])
+		pgxUser2, err := pgx.CollectRows(rows2, pgx.RowToStructByName[models.User])
 		if err != nil {
 			fmt.Printf("AddUser: CollectRows 2: %v\n", err)
 			return false
@@ -185,22 +185,22 @@ func AddUser(email_str, user_name, password_str string, r *http.Request) bool {
 
 		// fmt.Print("AddUser: pgx:", pgx_user2, "\n")
 
-		if pgx_user2 == nil {
+		if pgxUser2 == nil {
 
 			fmt.Print("AddUser: nema upisa od pre " + same_ip_sign_up_time_limit + ":\n")
 
 		} else {
 
-			for _, item := range pgx_user2 {
+			for _, item := range pgxUser2 {
 
-				if to_map([]byte(item.Created_at_headers))["X-Forwarded-For"][0] == to_map(bytearray_headers)["X-Forwarded-For"][0] {
+				if toMap([]byte(item.Created_at_headers))["X-Forwarded-For"][0] == toMap(bytearrayHeaders)["X-Forwarded-For"][0] {
 
-					fmt.Print("AddUser: ima upis u posledjih "+same_ip_sign_up_time_limit+" i JESTE isti ip:", to_map([]byte(item.Created_at_headers))["X-Forwarded-For"][0], "\n")
+					fmt.Print("AddUser: ima upis u posledjih "+same_ip_sign_up_time_limit+" i JESTE isti ip:", toMap([]byte(item.Created_at_headers))["X-Forwarded-For"][0], "\n")
 					return false
 
 				} else {
 
-					fmt.Print("AddUser: ima upis u posledjih "+same_ip_sign_up_time_limit+" ali NIJE isti ip:", to_map([]byte(item.Created_at_headers))["X-Forwarded-For"][0], "\n")
+					fmt.Print("AddUser: ima upis u posledjih "+same_ip_sign_up_time_limit+" ali NIJE isti ip:", toMap([]byte(item.Created_at_headers))["X-Forwarded-For"][0], "\n")
 
 				}
 
@@ -224,14 +224,14 @@ func AddUser(email_str, user_name, password_str string, r *http.Request) bool {
 			created_at_headers
 		)
 			VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`,
-		ciphertext_sign_in,
-		email_str,
-		user_name,
+		ciphertextSignIn,
+		emailString,
+		userName,
 		"user",
 		0,
 		true, true, false,
-		ciphertext_verify_mail_string2,
-		string(bytearray_headers),
+		ciphertextVerifyMailString2,
+		string(bytearrayHeaders),
 		// time.Now(),
 		// time.DateTime,
 	)
@@ -251,28 +251,28 @@ func AddUser(email_str, user_name, password_str string, r *http.Request) bool {
 
 		// Connect to the server, authenticate, set the sender and recipient,and send the email all in one step.
 
-		var mail_for_mail string
-		var url_domain_for_mail string
+		var mailForMail string
+		var urlDomainForMail string
 
 		if os.Getenv("PRODUCTION") == "FALSE" {
-			mail_for_mail = email_str //"vladan_zasve@yahoo.com"
-			url_domain_for_mail = "http://127.0.0.1:7331/vmk/" + string(ciphertext_verify_mail_string2) + "?mail=" + mail_for_mail
+			mailForMail = emailString //"vladan_zasve@yahoo.com"
+			urlDomainForMail = "http://127.0.0.1:7331/vmk/" + string(ciphertextVerifyMailString2) + "?mail=" + mailForMail
 		} else {
-			mail_for_mail = email_str
-			url_domain_for_mail = "https://vezbamo.onrender.com/vmk/" + string(ciphertext_verify_mail_string2) + "?mail=" + mail_for_mail
+			mailForMail = emailString
+			urlDomainForMail = "https://vezbamo.onrender.com/vmk/" + string(ciphertextVerifyMailString2) + "?mail=" + mailForMail
 		}
 
-		to := []string{mail_for_mail}
+		to := []string{mailForMail}
 
-		html = strings.ReplaceAll(html, "+user_name+", user_name)
-		html = strings.ReplaceAll(html, "+url_domain_for_mail+", url_domain_for_mail)
-		html = strings.ReplaceAll(html, "+mail_for_mail+", mail_for_mail)
+		html = strings.ReplaceAll(html, "+userName+", userName)
+		html = strings.ReplaceAll(html, "+urlDomainForMail+", urlDomainForMail)
+		html = strings.ReplaceAll(html, "+mailForMail+", mailForMail)
 		// fmt.Print("AddUser: html za mejl:", html)
 
 		msg := strings.NewReader(
 			`Content-Transfer-Encoding: quoted-printable` + "\r\n" +
 				`Content-Type: text/html; charset="UTF-8"` + "\r\n" +
-				`To: ` + mail_for_mail + "\r\n" +
+				`To: ` + mailForMail + "\r\n" +
 				`Subject: Dobrodošli na portal Vežbamo!` + "\r\n" +
 				"\r\n" +
 

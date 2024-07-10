@@ -19,7 +19,7 @@ import (
 	"github.com/vladanan/vezbamo4/src/models"
 )
 
-func to_struct(user []byte) []models.User {
+func toStruct(user []byte) []models.User {
 	var p []models.User
 	err := json.Unmarshal(user, &p)
 	if err != nil {
@@ -28,10 +28,10 @@ func to_struct(user []byte) []models.User {
 	return p
 }
 
-func AuthenticateUser(email string, password_str string, already_authenticated bool, r *http.Request) (bool, models.User, string) {
+func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated bool, r *http.Request) (bool, models.User, string) {
 	l := errorlogres.GetELRfunc()
 	log.SetFlags(log.Ltime | log.Lshortfile)
-	password := []byte(password_str)
+	password := []byte(passwordStr)
 
 	// if _, e := strconv.Atoi("v"); e != nil {
 	// 	l("neka greškaaaaa bez veze")
@@ -54,17 +54,17 @@ func AuthenticateUser(email string, password_str string, already_authenticated b
 	if e != nil {
 		return l(e)
 	}
-	pgx_user, e := pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
+	pgxUser, e := pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
 	if e != nil {
 		return l(e)
 	}
-	bytearray_user, e := json.Marshal(pgx_user)
+	bytearrayUser, e := json.Marshal(pgxUser)
 	if e != nil {
 		return l(e)
 	}
-	var struct_user models.User
-	if string(bytearray_user) != "null" { // array nije prazan tj. ima zapisa sa odgovarajućim mejlom
-		struct_user = pgx_user[0] // to_struct(bytearray_user)[0]
+	var structUser models.User
+	if string(bytearrayUser) != "null" { // array nije prazan tj. ima zapisa sa odgovarajućim mejlom
+		structUser = pgxUser[0] // to_struct(bytearray_user)[0]
 	}
 
 	// UZIMANJE PROMENLJIVIH IZ ENV I DB ZA BAD ATTEMPT LIMITE
@@ -85,16 +85,16 @@ func AuthenticateUser(email string, password_str string, already_authenticated b
 	if e != nil {
 		return l(e)
 	}
-	pgx_settings, e := pgx.CollectRows(rows2, pgx.RowToStructByName[models.Settings])
+	pgxSettings, e := pgx.CollectRows(rows2, pgx.RowToStructByName[models.Settings])
 	if e != nil {
 		return l(e)
 	}
 
-	db_bad_sign_in_attempts_limit, err := strconv.ParseInt(pgx_settings[0].Bad_sign_in_attempts_limit, 0, 8)
+	db_bad_sign_in_attempts_limit, err := strconv.ParseInt(pgxSettings[0].Bad_sign_in_attempts_limit, 0, 8)
 	if err != nil {
 		db_bad_sign_in_attempts_limit = 0
 	}
-	db_bad_sign_in_time_limit, err := strconv.ParseInt(pgx_settings[0].Bad_sign_in_time_limit, 0, 8)
+	db_bad_sign_in_time_limit, err := strconv.ParseInt(pgxSettings[0].Bad_sign_in_time_limit, 0, 8)
 	if err != nil {
 		db_bad_sign_in_time_limit = 0
 	}
@@ -110,32 +110,32 @@ func AuthenticateUser(email string, password_str string, already_authenticated b
 		bad_sign_in_time_limit = db_bad_sign_in_time_limit
 	}
 
-	if already_authenticated {
+	if alreadyAuthenticated {
 
 		log.Println("Already authenticated")
-		struct_user.Hash_lozinka = ""
-		return true, struct_user, ""
+		structUser.Hash_lozinka = ""
+		return true, structUser, ""
 
-	} else if string(bytearray_user) == "null" { // array je prazan tj. nema korisnika sa takvim mejlom ali se to ne odaje nego se piše i lozinka
+	} else if string(bytearrayUser) == "null" { // array je prazan tj. nema korisnika sa takvim mejlom ali se to ne odaje nego se piše i lozinka
 
 		return l(fmt.Sprintln("Nema korisnika sa tim mejlom ili lozinkom!")) //, email, password_str
 
-	} else if struct_user.Verified_email != "verified" { // ako ima mejla proverava se verifikacija
+	} else if structUser.Verified_email != "verified" { // ako ima mejla proverava se verifikacija
 
 		return l("Mejl nije verifikovan!\n")
 
 		//
-	} else if int64(struct_user.Bad_sign_in_attempts) < bad_sign_in_attempts_limit { // mejl je verifikovan i ide se na proveru broja neuspelih pokušaja: ako je broj neuspelih pokušaja manji od limita upisuje se pokušaj i ide se na proveru lozinke
+	} else if int64(structUser.Bad_sign_in_attempts) < bad_sign_in_attempts_limit { // mejl je verifikovan i ide se na proveru broja neuspelih pokušaja: ako je broj neuspelih pokušaja manji od limita upisuje se pokušaj i ide se na proveru lozinke
 
 		_, e := conn.Exec(context.Background(), `UPDATE mi_users SET bad_sign_in_attempts=$1 where email=$2;`,
-			struct_user.Bad_sign_in_attempts+1,
+			structUser.Bad_sign_in_attempts+1,
 			email,
 		)
 		if e != nil {
 			return l(e)
 		} else {
 
-			log.Println("Add 1 to bad sign in attempts:", struct_user.Bad_sign_in_attempts)
+			log.Println("Add 1 to bad sign in attempts:", structUser.Bad_sign_in_attempts)
 		}
 
 		_, e = conn.Exec(context.Background(), `UPDATE mi_users SET bad_sign_in_time=$1 where email=$2;`,
@@ -149,7 +149,7 @@ func AuthenticateUser(email string, password_str string, already_authenticated b
 
 		// https://pkg.go.dev/golang.org/x/crypto/bcrypt#pkg-index
 		// https://gowebexamples.com/password-hashing/
-		e = bcrypt.CompareHashAndPassword([]byte(struct_user.Hash_lozinka), password) // provera lozinke
+		e = bcrypt.CompareHashAndPassword([]byte(structUser.Hash_lozinka), password) // provera lozinke
 
 		if e != nil { // LOŠA LOZINKA
 
@@ -161,12 +161,12 @@ func AuthenticateUser(email string, password_str string, already_authenticated b
 			if e != nil {
 				return l(e)
 			}
-			bytearray_headers, e := json.Marshal(r.Header)
+			bytearrayHeaders, e := json.Marshal(r.Header)
 			if e != nil {
 				return l(e)
 			}
 			_, e = conn.Exec(context.Background(), `UPDATE mi_users SET last_sign_in_headers=$1 where email=$2;`,
-				string(bytearray_headers),
+				string(bytearrayHeaders),
 				email,
 			)
 			if e != nil {
@@ -176,20 +176,20 @@ func AuthenticateUser(email string, password_str string, already_authenticated b
 			if e != nil {
 				return l(e)
 			} else {
-				log.Println("OK Zeroing bad sign in attempts:", struct_user.Bad_sign_in_attempts)
+				log.Println("OK Zeroing bad sign in attempts:", structUser.Bad_sign_in_attempts)
 			}
 
-			struct_user.Hash_lozinka = ""
+			structUser.Hash_lozinka = ""
 			log.Println("AuthenticateUser: Prošlo je!")
-			return true, struct_user, ""
+			return true, structUser, ""
 		}
 
 	} else { // ako je broj neuselih pokušaja veći od limita gleda se da li je prošlo više vremena od limita
 
-		if time.Since(struct_user.Bad_sign_in_time).Minutes() < float64(bad_sign_in_time_limit) { //
+		if time.Since(structUser.Bad_sign_in_time).Minutes() < float64(bad_sign_in_time_limit) { //
 
 			return l(fmt.Sprint("Previše pokušaja za sign in. Pokušati za minuta: ",
-				float64(bad_sign_in_time_limit)-time.Since(struct_user.Bad_sign_in_time).Minutes()))
+				float64(bad_sign_in_time_limit)-time.Since(structUser.Bad_sign_in_time).Minutes()))
 
 			//
 		} else { // kada je prošlo dovoljno vremena resetuje se broj neuspelih pokušaja
@@ -198,7 +198,7 @@ func AuthenticateUser(email string, password_str string, already_authenticated b
 			if e != nil {
 				return l(e)
 			} else {
-				log.Println("Time up zeroing bad sign in attempts:", struct_user.Bad_sign_in_attempts)
+				log.Println("Time up zeroing bad sign in attempts:", structUser.Bad_sign_in_attempts)
 			}
 
 			return l("Moguće je ponovo probati sign in")

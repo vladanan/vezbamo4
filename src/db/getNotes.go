@@ -47,7 +47,7 @@ func GetNotes() []byte {
 		fmt.Printf("Unable to make query: %v\n", err)
 	}
 
-	pgx_notes, err := pgx.CollectRows(rows, pgx.RowToStructByName[Note])
+	pgxNotes, err := pgx.CollectRows(rows, pgx.RowToStructByName[Note])
 	if err != nil {
 		fmt.Printf("CollectRows error: %v", err)
 		//return
@@ -58,7 +58,7 @@ func GetNotes() []byte {
 	// 	fmt.Printf("%v, %s: $%s\n", b.B_id, b.Poruka, b.Tema)
 	// }
 
-	bytearray_notes, err2 := json.Marshal(pgx_notes)
+	bytearrayNotes, err2 := json.Marshal(pgxNotes)
 	if err2 != nil {
 		fmt.Printf("Json error: %v", err2)
 	}
@@ -97,5 +97,5 @@ func GetNotes() []byte {
 
 	// fmt.Println(string(bytearray_notes))
 
-	return bytearray_notes
+	return bytearrayNotes
 }

@@ -1,0 +1,24 @@
+package tests
+
+import (
+  "fmt"
+ 	"github.com/vladanan/vezbamo4/src/models"
+)
+
+// func to_struct (questions []byte) []models.Question {
+//   var p []models.Question
+// 	err := stdjson.Unmarshal(questions, &p)
+//   if err != nil {
+//     fmt.Printf("Json error: %v", err)
+//   }
+//   return p
+// }
+
+templ List(tests []models.Test) {
+  <ul class="">
+  for _, item := range tests {
+    <li class="m-5 mt-10 px-2 border text-xl rounded-m text-blue-300">{ fmt.Sprint(item.G_id) }: { item.Tip }, { item.Oblast }</li>
+  }
+  </ul>
+  <h1 class="m-5 px-2 border-1 text-xl rounded-m text-green-500">Pitanje 5 je: {tests[4].Oblast}</h1>
+}

@@ -2,21 +2,21 @@ package db
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"os"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/joho/godotenv"
+	"github.com/vladanan/vezbamo4/src/models"
 )
 
-type Question struct {
-	G_id   int8   `db:"g_id"`
-	Tip    string `db:"tip"`
-	Oblast string `db:"oblast"`
-}
+// type Question struct {
+// 	G_id   int8   `db:"g_id"`
+// 	Tip    string `db:"tip"`
+// 	Oblast string `db:"oblast"`
+// }
 
-func GetQuestions() []byte {
+func GetTests() []models.Test {
 
 	err := godotenv.Load(".env")
 	if err != nil {
@@ -37,20 +37,20 @@ func GetQuestions() []byte {
 		fmt.Printf("Unable to make query: %v\n", err)
 	}
 
-	pgx_questions, err := pgx.CollectRows(rows, pgx.RowToStructByName[Question])
+	pgxTests, err := pgx.CollectRows(rows, pgx.RowToStructByName[models.Test])
 	if err != nil {
 		fmt.Printf("CollectRows error: %v", err)
-		//return
+		//return 56
 	}
 
-	bytearray_questions, err2 := json.Marshal(pgx_questions)
-	if err2 != nil {
-		fmt.Printf("Json error: %v", err2)
-	}
+	// bytearray_tests, err2 := json.Marshal(pgx_tests)
+	// if err2 != nil {
+	// 	fmt.Printf("Json error: %v", err2)
+	// }
 
 	// jsonstring_pitanja := string(bytearray_pitanja)
 	// fmt.Println("json string pitanja:", jsonstring_pitanja)
 
-	return bytearray_questions
+	return pgxTests
 
 }

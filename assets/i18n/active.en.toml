@@ -6,12 +6,12 @@ Sign_up = "Don't have an account on our site? Registration is free and fast with
 Welcome = "You are signed in!"
 UnWelcome = "You are not logged in to the system. Sign in with your email and password."
 
-Index_Q_title = "Tests and questions"
-Index_Q_subtitle = "Quick and easy learning in three quick steps"
-Index_Q_text = "We all know that repetition is the mother of learning. This site utilises that very wisdom and is implemented in a way that guides your learning experience through three simple steps. Prepare your notes and keyboard and lets goooo..."
+Index_T_title = "Tests"
+Index_T_subtitle = "Quick and easy learning in three quick steps"
+Index_T_text = "We all know that repetition is the mother of learning. This site utilises that very wisdom and is implemented in a way that guides your learning experience through three simple steps. Prepare your notes and keyboard and lets goooo..."
 
-Index_Qapi_subtitle = "Develop your site the same or better than this one!"
-Index_Qapi_text = "A great tool for students, teachers and web developers to create their own site with questions, tests, quizzes and competitions using our database for questions and tests. For those who want to take a shortcut, we have ready-made examples in several programming languages and frameworks!"
+Index_Tapi_subtitle = "Develop your site the same or better than this one!"
+Index_Tapi_text = "A great tool for students, teachers and web developers to create their own site with questions, tests, quizzes and competitions using our database for questions and tests. For those who want to take a shortcut, we have ready-made examples in several programming languages and frameworks!"
 
 Index_A_title = "Assignments"
 Index_A_subtitle = "Fun and effective math assignments"
@@ -39,27 +39,30 @@ Index_Ab_text4 = "The site is also host for: "
 Index_Ab_text5 = "Click here to find out more about our projects."
 Index_Ab_text6 = "Click here to send comments through user page."
 
+Index5text1 = "eng nešto"
+Index5text2 = "eng nešto drugo"
 
-Questions_1_title = "First step" 
-Questions_1_subtitle = "Write the questions and the brain has already memorized about 30% of the lesson!"
-GetFromDb = "Get questions from db"
-Questions_1_text1 = "This part of the site is intended as an aid in learning through three steps: writing questions and tests, going through a random examination, solving the test."
-Questions_1_text2 = "Writing questions and answers based on (textual, audio and video) materials is an important part of the learning process!"
 
-Questions_2_title = "Second step" 
-Questions_2_subtitle = "Pass the random examination and it's 30% more done!"
-Questions_2_text1 = "The random examination module allows not only to check the knowledge but also the accuracy of the entered questions and answers."
-Questions_2_text2 = "Mistakes are an ideal opportunity to learn something new!"
+Tests_1_title = "First step" 
+Tests_1_subtitle = "Write questions for test and the brain has already memorized about 30% of the lesson!"
+GetFromDb = "Get tests from db"
+Tests_1_text1 = "This part of the site is intended as an aid in learning through three steps: writing questions and tests, going through a random examination, solving the test."
+Tests_1_text2 = "Writing questions and answers based on (textual, audio and video) materials is an important part of the learning process!"
 
-Questions_3_title = "Third step" 
-Questions_3_subtitle = "At the end, do the test ✔ and that's already 90% of the lesson!"
-Questions_3_text1 = "The test module enables statistical evaluation of test results through percentage success and average grade."
-Questions_3_text2 = "Share the test with your friends and learn together with a competition to see who will be better!"
+Tests_2_title = "Second step" 
+Tests_2_subtitle = "Pass the random examination and it's 30% more done!"
+Tests_2_text1 = "The random examination module allows not only to check the knowledge but also the accuracy of the entered questions and answers."
+Tests_2_text2 = "Mistakes are an ideal opportunity to learn something new!"
 
-Questions_L_title = "Language tests" 
-Questions_L_subtitle = "Ideal for foreign language teachers!"
-Questions_L_text1 = "You can make tests with fun content, vocabulary checks, grammar tests, bilingual examples and much more."
-Questions_L_text2 = "If the site does not support your language, contact us!"
+Tests_3_title = "Third step" 
+Tests_3_subtitle = "At the end, do the test ✔ and that's already 90% of the lesson!"
+Tests_3_text1 = "The test module enables statistical evaluation of test results through percentage success and average grade."
+Tests_3_text2 = "Share the test with your friends and learn together with a competition to see who will be better!"
+
+Tests_L_title = "Language tests" 
+Tests_L_subtitle = "Ideal for foreign language teachers!"
+Tests_L_text1 = "You can make tests with fun content, vocabulary checks, grammar tests, bilingual examples and much more."
+Tests_L_text2 = "If the site does not support your language, contact us!"
 
 
 

@@ -2,16 +2,12 @@ package db
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"os"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/joho/godotenv"
-
-	// "golang.org/x/crypto/bcrypt"
-
-	"encoding/json"
-
 	"github.com/vladanan/vezbamo4/src/models"
 )
 
@@ -47,7 +43,8 @@ func AuthenticateMail(key, mail string) bool {
 	conn, err := pgx.Connect(context.Background(), os.Getenv("SUPABASE_CONNECTION_STRING"))
 	if err != nil {
 		fmt.Printf("Unable to connect to database: %v\n", err)
-		os.Exit(1)
+		// os.Exit(1)
+		return false
 	}
 	defer conn.Close(context.Background())
 
@@ -71,7 +68,7 @@ func AuthenticateMail(key, mail string) bool {
 		return false
 	}
 
-	pgx_key, err := pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
+	pgxKey, err := pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
 	if err != nil {
 		fmt.Printf("CollectRows error: %v", err)
 		//return
@@ -80,28 +77,28 @@ func AuthenticateMail(key, mail string) bool {
 
 	// fmt.Print("pgx user::", pgx_user)
 
-	bytearray_key, err2 := json.Marshal(pgx_key)
+	bytearrayKey, err2 := json.Marshal(pgxKey)
 	if err2 != nil {
 		fmt.Printf("Json error: %v", err2)
 	}
 
-	var struct_user models.User
+	var structUser models.User
 
-	if string(bytearray_key) != "null" {
-		struct_user = to_struct(bytearray_key)[0]
+	if string(bytearrayKey) != "null" {
+		structUser = toStruct(bytearrayKey)[0]
 	} else {
 		return false // ovo se dešava ako je ključ netačan ili u bazi nema uopšte tog ključa jer je mejl već verifikovan
 	}
 
 	// fmt.Print(struct_user)
 
-	if len(struct_user.Verified_email) > 8 {
+	if len(structUser.Verified_email) > 8 {
 
-		fmt.Print("Key for db write", struct_user.Verified_email)
+		fmt.Print("Key for db write", structUser.Verified_email)
 		//     update mytab set c=3, d=4, e=5 where a = 0;
 		commandTag, err := conn.Exec(context.Background(), `UPDATE mi_users SET verified_email=$1 where verified_email=$2;`,
 			"verified",
-			struct_user.Verified_email,
+			structUser.Verified_email,
 		)
 		if err != nil {
 			fmt.Printf("Unable to connect to database to write verified field: %v\n", err)
