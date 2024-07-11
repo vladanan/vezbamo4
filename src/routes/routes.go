@@ -84,12 +84,15 @@ func RouterUsers(r *mux.Router) {
 	r.HandleFunc("/sign_out", Sign_out)
 	// samo query koji ima u sebi tačno određene promenljive može da prođe
 	r.HandleFunc("/vmk/{key}", CheckLinkFromEmail).Queries("mail", "") // , "user", "vladan")
+	// isto kao i ono gore:
+	// vmk := r.PathPrefix("/vmk").Subrouter()
+	// vmk.HandleFunc("/{key}", CheckLinkFromEmail).Queries("mail", "")
 	r.HandleFunc("/html/verify_email.html", GetVerifyEmailHtml)
 }
 
 func RouterAPI(r *mux.Router) {
 	r.HandleFunc("/api_get_tests", errorlogres.Check(testsAPI.GetTests))
-	// r.HandleFunc("/api_get_questions", APIgetQuestions) //3
+	// r.HandleFunc("/api_get_questions", APIgetQuestions)
 
 	c := cors.New(cors.Options{
 		AllowedOrigins: []string{"http://localhost:4200"},
@@ -555,9 +558,9 @@ func GetVerifyEmailHtml(w http.ResponseWriter, r *http.Request) {
 	if err1 != nil {
 		fmt.Printf("getVerifyEmailHtml: greška čitanje html fajla: %v\n", err1)
 	}
-	html := strings.ReplaceAll(string(dat), "+user_name+", user_name)
-	html = strings.ReplaceAll(html, "+url_domain_for_mail+", "http://127.0.0.1:7331/vmk/$2a$07$IFkFJy1NufwawNGqoef6kuJLuVFKzhqI4v_hYYwK2f_Y6Y3pP2eGu?mail=y.emailbox-proba@yahoo.com")
-	html = strings.ReplaceAll(html, "+mail_for_mail+", user_mail)
+	html := strings.ReplaceAll(string(dat), "+userName+", user_name)
+	html = strings.ReplaceAll(html, "+urlDomainForMail+", "http://127.0.0.1:7331/vmk/$2a$07$IFkFJy1NufwawNGqoef6kuJLuVFKzhqI4v_hYYwK2f_Y6Y3pP2eGu?mail=y.emailbox-proba@yahoo.com")
+	html = strings.ReplaceAll(html, "+mailForMail+", user_mail)
 
 	w.Write([]byte(html))
 }

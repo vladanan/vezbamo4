@@ -28,7 +28,7 @@ templ User(store sessions.Store, r *http.Request, user models.User) {
 		<tr><td>pay until</td><td>{ user.Payment_expire.String() }</td></tr>
 		if user.Mode == "admin" {
 			<tr class="text-red-500"><td>user_mode</td><td>{ user.Mode }</td></tr>
-			<tr class="text-red-500"><td>aaaLast_sign_in_time</td><td>{ user.Last_sign_in_time.String() }</td></tr>
+			<tr class="text-red-500"><td>Last_sign_in_time</td><td>{ user.Last_sign_in_time.String() }</td></tr>
 			<tr class="text-red-500"><td>"X-Forwarded-For"</td><td>{ GetXForwardedFor(user.Last_sign_in_headers) }</td></tr>
 			<tr class="text-red-500"><td>...</td><td>{ user.Hash_lozinka }</td></tr>
 		}

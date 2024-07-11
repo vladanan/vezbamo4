@@ -30,7 +30,13 @@ func toStruct(user []byte) []models.User {
 
 func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated bool, r *http.Request) (bool, models.User, string) {
 	l := errorlogres.GetELRfunc()
+	// var Red = "\033[31m"
+	// var Reset = "\033[0m"
 	log.SetFlags(log.Ltime | log.Lshortfile)
+	// log.SetPrefix(Red)
+	// defer func() { log.SetFlags(log.LstdFlags); log.SetPrefix(Reset) }()
+	// defer log.SetFlags(log.LstdFlags)
+
 	password := []byte(passwordStr)
 
 	// if _, e := strconv.Atoi("v"); e != nil {
@@ -50,8 +56,11 @@ func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated boo
 		// os.Exit(1)
 	}
 	defer conn.Close(context.Background())
-	rows, e := conn.Query(context.Background(), "SELECT * FROM mi_users where email=$1;", email)
+	rows, e := conn.Query(context.Background(), "SELECT * FROM mi_users777 where email=$1;", email)
 	if e != nil {
+		var color = "\033[41m"
+		var Reset = "\033[0m"
+		e = fmt.Errorf(color + e.Error() + Reset)
 		return l(e)
 	}
 	pgxUser, e := pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
