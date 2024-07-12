@@ -3,7 +3,6 @@ package db
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"log"
 	"net/http"
@@ -31,10 +30,10 @@ func toStruct(user []byte) []models.User {
 func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated bool, r *http.Request) (bool, models.User, string) {
 	l := errorlogres.GetELRfunc()
 	// var Red = "\033[31m"
-	// var Reset = "\033[0m"
+	var Reset = "\033[0m"
 	log.SetFlags(log.Ltime | log.Lshortfile)
 	// log.SetPrefix(Red)
-	// defer func() { log.SetFlags(log.LstdFlags); log.SetPrefix(Reset) }()
+	defer func() { log.SetFlags(log.LstdFlags); log.SetPrefix(Reset) }()
 	// defer log.SetFlags(log.LstdFlags)
 
 	password := []byte(passwordStr)
@@ -56,11 +55,8 @@ func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated boo
 		// os.Exit(1)
 	}
 	defer conn.Close(context.Background())
-	rows, e := conn.Query(context.Background(), "SELECT * FROM mi_users777 where email=$1;", email)
+	rows, e := conn.Query(context.Background(), "SELECT * FROM mi_users where email=$1;", email)
 	if e != nil {
-		var color = "\033[41m"
-		var Reset = "\033[0m"
-		e = fmt.Errorf(color + e.Error() + Reset)
 		return l(e)
 	}
 	pgxUser, e := pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
@@ -71,9 +67,17 @@ func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated boo
 	if e != nil {
 		return l(e)
 	}
+
+	// pgxUser = []models.User{}
+
 	var structUser models.User
-	if string(bytearrayUser) != "null" { // array nije prazan tj. ima zapisa sa odgovarajućim mejlom
-		structUser = pgxUser[0] // to_struct(bytearray_user)[0]
+
+	// log.Println("pred dodelu iz niza", pgxUser)
+
+	if len(pgxUser) != 0 {
+		structUser = pgxUser[0]
+	} else {
+		log.Println("prazan user")
 	}
 
 	// UZIMANJE PROMENLJIVIH IZ ENV I DB ZA BAD ATTEMPT LIMITE
@@ -131,7 +135,7 @@ func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated boo
 
 	} else if structUser.Verified_email != "verified" { // ako ima mejla proverava se verifikacija
 
-		return l("Mejl nije verifikovan!\n")
+		return l("Mejl nije verifikovan!")
 
 		//
 	} else if int64(structUser.Bad_sign_in_attempts) < bad_sign_in_attempts_limit { // mejl je verifikovan i ide se na proveru broja neuspelih pokušaja: ako je broj neuspelih pokušaja manji od limita upisuje se pokušaj i ide se na proveru lozinke
@@ -162,7 +166,7 @@ func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated boo
 
 		if e != nil { // LOŠA LOZINKA
 
-			return l(errors.New(fmt.Sprintln("Pogrešna lozinka za:", email)))
+			return l(fmt.Errorf("Pogrešna lozinka za: %v", email))
 
 		} else { // SVE JE OKEJ (mejl, ver, pokušaji, pass) UPISUJE SE U BAZU SVE ŠTO TREBA I PODACI ŠALJU RUTERU
 

@@ -1,3 +1,40 @@
+2024/07/12 20:18:40 authenticateUser.go:60:  ERROR: syntax error at or near "email" (SQLSTATE 42601)
+2024/07/12 20:17:17 authenticateUser.go:60:  ERROR: syntax error at or near "email" (SQLSTATE 42601)
+[42m2024/07/12 20:16:10 authenticateUser.go:60:  ERROR: syntax error at or near "email" (SQLSTATE 42601)
+[42m2024/07/12 20:11:23 authenticateUser.go:60:  ERROR: syntax error at or near "email" (SQLSTATE 42601)
+[42m2024/07/12 20:11:12 authenticateUser.go:60: [101m ERROR: syntax error at or near "email" (SQLSTATE 42601)
+[42m2024/07/12 20:09:42 authenticateUser.go:60: [95m ERROR: syntax error at or near "email" (SQLSTATE 42601)
+[42m2024/07/12 20:09:27 authenticateUser.go:60: [35m ERROR: syntax error at or near "email" (SQLSTATE 42601)
+[42m2024/07/12 20:08:51 authenticateUser.go:60: [31m ERROR: syntax error at or near "email" (SQLSTATE 42601)
+[42m2024/07/12 20:08:31 authenticateUser.go:60: [91m ERROR: syntax error at or near "email" (SQLSTATE 42601)
+[42m2024/07/12 20:03:52 authenticateUser.go:60: ERROR: syntax error at or near "email" (SQLSTATE 42601)
+[42m2024/07/12 20:02:06 authenticateUser.go:60: ERROR: syntax error at or near "email" (SQLSTATE 42601)
+2024/07/12 19:22:16 authenticateUser.go:60: ERROR: syntax error at or near "7" (SQLSTATE 42601)
+2024/07/12 19:20:07 authenticateUser.go:60: [31mERROR: syntax error at or near "7" (SQLSTATE 42601)
+2024/07/12 19:19:52 authenticateUser.go:60: [91mERROR: syntax error at or near "7" (SQLSTATE 42601)
+2024/07/12 15:55:22 authenticateUser.go:60: ERROR: syntax error at or near "77" (SQLSTATE 42601)
+2024/07/12 15:53:00 authenticateUser.go:60: ERROR: syntax error at or near "777" (SQLSTATE 42601)
+[41m2024/07/12 15:06:23 authenticateUser.go:65: ERROR: syntax error at or near "7" (SQLSTATE 42601)[0m
+[41m2024/07/12 14:58:30 authenticateUser.go:65: ERROR: syntax error at or near "7" (SQLSTATE 42601)[0m
+2024/07/12 14:57:05 authenticateUser.go:65: [31mERROR: syntax error at or near "7" (SQLSTATE 42601)[0m
+[41m2024/07/12 14:55:48 authenticateUser.go:65: [31mERROR: syntax error at or near "7" (SQLSTATE 42601)[0m
+[41m2024/07/12 14:55:13 authenticateUser.go:65: [31mERROR: syntax error at or near "7" (SQLSTATE 42601)[0m
+[41m2024/07/12 14:53:48 authenticateUser.go:65: ERROR: syntax error at or near "7" (SQLSTATE 42601)
+[41m2024/07/12 14:53:23 authenticateUser.go:65: ERROR: syntax error at or near "7" (SQLSTATE 42601)
+[41m2024/07/12 14:52:57 authenticateUser.go:65: ERROR: syntax error at or near "7" (SQLSTATE 42601)
+[41m2024/07/12 14:52:21 authenticateUser.go:65: ERROR: syntax error at or near "7" (SQLSTATE 42601)
+[41m2024/07/12 14:51:11 authenticateUser.go:65: ERROR: syntax error at or near "7" (SQLSTATE 42601)
+[41m2024/07/12 14:50:20 authenticateUser.go:65: ERROR: syntax error at or near "7" (SQLSTATE 42601)
+[41m2024/07/12 14:37:49 authenticateUser.go:65: ERROR: syntax error at or near "7" (SQLSTATE 42601)
+[0m2024/07/12 14:37:15 authenticateUser.go:65: ERROR: syntax error at or near "7" (SQLSTATE 42601)
+2024/07/12 14:36:00 authenticateUser.go:65: ERROR: syntax error at or near "7" (SQLSTATE 42601)
+[41m2024/07/12 14:27:56 authenticateUser.go:65: ERROR: syntax error at or near "7" (SQLSTATE 42601)
+[41m2024/07/12 14:27:21 authenticateUser.go:65: ERROR: syntax error at or near "7" (SQLSTATE 42601)
+[31m2024/07/12 14:26:33 authenticateUser.go:65: ERROR: syntax error at or near "7" (SQLSTATE 42601)
+2024/07/12 14:14:41 authenticateUser.go:65: ERROR: syntax error at or near "7" (SQLSTATE 42601)
+2024/07/12 12:05:25 authenticateUser.go:69: cannot find field u_id in returned row
+2024/07/12 11:59:07 authenticateUser.go:51: open .envM: no such file or directory
+2024/07/12 11:57:30 authenticateUser.go:55: failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
 2024/07/12 00:18:40 authenticateUser.go:64: [41mERROR: relation "mi_users777" does not exist (SQLSTATE 42P01)[0m
 2024/07/12 00:10:57 authenticateUser.go:73: [41mERROR: relation "mi_users777" does not exist (SQLSTATE 42P01)[0m
 2024/07/12 00:07:57 authenticateUser.go:70: [41mERROR: relation "mi_users777" does not exist (SQLSTATE 42P01)[0m

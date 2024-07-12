@@ -21,6 +21,42 @@ import (
 
 ////**** CUSTOM LOGER
 
+const ( // console escape characters for colors
+	Reset          = "\033[0m"
+	Black          = "\033[30m"
+	Red            = "\033[31m"
+	Green          = "\033[32m"
+	Yellow         = "\033[33m"
+	Blue           = "\033[34m"
+	Magenta        = "\033[35m"
+	Cyan           = "\033[36m"
+	LightGray      = "\033[37m"
+	Gray           = "\033[90m"
+	LightRed       = "\033[91m"
+	LightGreen     = "\033[92m"
+	LightYellow    = "\033[93m"
+	LightBlue      = "\033[94m"
+	LightMagenta   = "\033[95m"
+	LightCyan      = "\033[96m"
+	White          = "\033[97m"
+	BgBlack        = "\033[40m"
+	BgRed          = "\033[41m"
+	BgGreen        = "\033[42m"
+	BgYellow       = "\033[43m"
+	BgBlue         = "\033[44m"
+	BgMagenta      = "\033[45m"
+	BgCyan         = "\033[46m"
+	BgLightGray    = "\033[47m"
+	BgGray         = "\033[100m"
+	BgLightRed     = "\033[101m"
+	BgLightGreen   = "\033[102m"
+	BgLightYellow  = "\033[103m"
+	BgLightBlue    = "\033[104m"
+	BgLightMagenta = "\033[105m"
+	BgLightCyan    = "\033[106m"
+	BgWhite        = "\033[107m"
+)
+
 const (
 	Ldate         = 1 << iota     // the date in the local time zone: 2009/01/23
 	Ltime                         // the time in the local time zone: 01:23:23
@@ -119,7 +155,17 @@ func (l *Logger) formatHeader(buf *[]byte, t time.Time, file string, line int) {
 	}
 }
 
+// ubacuje log zapis na početak log fajla umesto kao što je default za write metode da rade append na kraju fajla
 func prependLogToFile(file string, buf []byte) bool {
+
+	// čišćenje teksta od oznaka za boje za log jer je to nepotrebno u fajlovima
+	bstring := string(buf)
+	bstring = strings.ReplaceAll(bstring, BgGreen, "")
+	bstring = strings.ReplaceAll(bstring, LightYellow, "")
+	bstring = strings.ReplaceAll(bstring, BgRed, "")
+	bstring = strings.ReplaceAll(bstring, Reset, "")
+	buf = []byte(bstring)
+
 	dat, err := os.ReadFile(file)
 	if err != nil {
 		log.Println(err)
@@ -163,8 +209,6 @@ func prependLogToFile(file string, buf []byte) bool {
 // paths it will be 2.
 func (l *Logger) OutputIzmenjen(a any) (bool, models.User, string) {
 
-	log.SetFlags(log.Ltime | log.Lshortfile)
-
 	var msg_fe string
 	for_sys_log := true
 	for_usr_log := false
@@ -173,9 +217,11 @@ func (l *Logger) OutputIzmenjen(a any) (bool, models.User, string) {
 	switch a.(type) {
 	case string:
 		msg_fe = fmt.Sprint(a)
-		s = fmt.Sprint(a)
+		// s = BgLightBlue + " " + fmt.Sprint(a) + Reset
+		s = Reset + LightYellow + " " + fmt.Sprint(a) + Reset
 	case error:
-		s = fmt.Sprint(a)
+		// s = Reset + LightMagenta + " " + fmt.Sprint(a) + Reset
+		s = BgRed + " " + fmt.Sprint(a) + Reset
 		if strings.Contains(s, "Pogrešna lozinka za:") {
 			for_usr_log = true
 			for_sys_log = false
@@ -277,7 +323,7 @@ Na taj način se rade tri stvari u vrlo malecnom if e != nil{} kodu koji:
   - šalje response false, models.User{} i mag_fe ruteru.
 */
 func GetELRfunc() func(any) (bool, models.User, string) {
-	loger := Logger{Out: os.Stdout, Prefix: "", Flag: log.LstdFlags | log.Lshortfile}
+	loger := Logger{Out: os.Stdout, Prefix: BgGreen, Flag: log.LstdFlags | log.Lshortfile}
 	return loger.OutputIzmenjen
 }
 
@@ -348,3 +394,5 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
 	w.Header().Set("Content-Type", "application/json")
 	return json.NewEncoder(w).Encode(v)
 }
+
+// **********************************************************************

@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"flag"
-	"fmt"
 	"log"
 	"log/slog"
 	"net/http"
@@ -13,6 +12,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+	"github.com/vladanan/vezbamo4/src/errorlogres"
 	"github.com/vladanan/vezbamo4/src/routes"
 )
 
@@ -35,18 +35,7 @@ func main() {
 
 	routes.ServeStatic(r, "/static/")
 
-	var Reset = "\033[0m"
-	var Red = "\033[31m"
-	var Green = "\033[32m"
-	var Yellow = "\033[33m"
-	var Blue = "\033[34m"
-	var Magenta = "\033[35m"
-	var Cyan = "\033[36m"
-	var Gray = "\033[37m"
-	var White = "\033[97m"
-	// log.SetPrefix("\n")
-	fmt.Println(Red + Green + Yellow + Blue + Magenta + Cyan + Gray + White + Reset)
-	slog.Info(Green + "Main done" + Reset)
+	slog.Info(errorlogres.Green + "Main done" + errorlogres.Reset)
 
 	go gamesForLearningChannelsAndLogs()
 
@@ -106,41 +95,15 @@ func main() {
 
 func gamesForLearningChannelsAndLogs() {
 
-	s := "nešto"
+	s := "jedan"
 	cc := make(chan string)
 	go func() {
-		dva := " i nešto drugo test 3"
 		log.Println(s)
-		time.Sleep(time.Second * 5)
-		slog.Info(dva)
+		dva := " dva"
+		time.Sleep(time.Second * 0)
+		// slog.Info(dva)
 		cc <- s + dva
 	}()
-	log.Println(<-cc)
+	slog.Info(<-cc)
 
-	var Reset = "\033[0m"
-	var Red = "\033[31m"
-	var Green = "\033[32m"
-	var Yellow = "\033[33m"
-	var Blue = "\033[34m"
-	var Magenta = "\033[35m"
-	var Cyan = "\033[36m"
-	var Gray = "\033[37m"
-	var White = "\033[97m"
-	// log.SetPrefix("\n")
-	fmt.Println(Red + Green + Yellow + Blue + Magenta + Cyan + Gray + White + Reset)
-
-	// log.SetPrefix("")
-	// e := fmt.Errorf("neka greška")
-	// lE(e)
-	// slog.Info("zadnji")
-}
-
-func lE(e error) {
-	var Reset = "\033[0m"
-	// var Red = "\033[31m"
-	var Yellow = "\033[33m"
-	// log.SetFlags(log.Ltime | log.Lshortfile)
-	// log.SetPrefix(Red)
-	fmt.Println(Yellow + e.Error() + Reset)
-	// defer func() { log.SetFlags(log.LstdFlags); log.SetPrefix(Reset) }()
 }
