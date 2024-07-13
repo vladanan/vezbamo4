@@ -14,7 +14,7 @@ import (
 	"net/http"
 )
 
-func UserNotLogedPage(store sessions.Store, r *http.Request) templ.Component {
+func UserNotLogedPage(store sessions.Store, r *http.Request, msg_fe string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -44,14 +44,14 @@ func UserNotLogedPage(store sessions.Store, r *http.Request) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"m-5 text-xl text-blue-300\">Email ili lozinka su pogrešni.</p><p class=\"m-5 text-xl text-blue-300\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"m-5 text-xl text-red-300\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var3 string
-			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "UnWelcome"))
+			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, msg_fe))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/dashboard/userNotLoged.templ`, Line: 14, Col: 80}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/dashboard/userNotLoged.templ`, Line: 12, Col: 74}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {

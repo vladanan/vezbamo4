@@ -6,6 +6,8 @@ Sign_up = "Nemate nalog na našem sajtu? Registracija je besplatna i brza uz dod
 Welcome = "Prijavljeni ste na sistem!"
 UnWelcome = "Niste prijavljeni na sistem. Prijavite se vašim mejlom i lozinkom."
 
+Mail_or_pass_wrong = "Nema korisnika sa tim mejlom ili lozinkom!"
+
 Index_T_title = "Testovi"
 Index_T_subtitle = "Lako i brzo učenje u tri brza koraka"
 Index_T_text = "Svi znamo da je ponavljanje majka učenja. Ovaj sajt koristi upravo tu mudrost i urađen je na način koji vaše iskustvo učenja unapređuje kroz tri jednostavna koraka. Pripremite svoje beleške i tastaturu i idemooo..."

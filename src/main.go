@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/vladanan/vezbamo4/src/errorlogres"
+	elr "github.com/vladanan/vezbamo4/src/errorlogres"
 	"github.com/vladanan/vezbamo4/src/routes"
 )
 
@@ -35,9 +35,9 @@ func main() {
 
 	routes.ServeStatic(r, "/static/")
 
-	slog.Info(errorlogres.Green + "Main done" + errorlogres.Reset)
+	log.Print(elr.Green + "Main done" + elr.Reset)
 
-	go gamesForLearningChannelsAndLogs()
+	// go gamesForLearningChannelsAndLogs()
 
 	server := &http.Server{
 		Addr: "0.0.0.0:10000",
@@ -52,9 +52,9 @@ func main() {
 	go func() {
 		if err := server.ListenAndServe(); err != nil {
 			if errors.Is(err, http.ErrServerClosed) {
-				slog.Info("server closed")
+				log.Println("server closed")
 			} else {
-				slog.Error("error starting server", "error", err.Error())
+				log.Println("error starting server, error:", err.Error())
 				// os.Exit(1)
 			}
 		}
@@ -79,7 +79,7 @@ func main() {
 	// Optionally, you could run srv.Shutdown in a goroutine and block on
 	// <-ctx.Done() if your application should wait for other services
 	// to finalize based on context cancellation.
-	slog.Info("shutting down")
+	log.Println("shutting down")
 	os.Exit(0)
 
 	// var err = srv.ListenAndServe("0.0.0.0:10000", r)
@@ -93,6 +93,7 @@ func main() {
 
 }
 
+// isključio u staticcheck "-U1000" da ne javlja za postojeće a neiskorišćene funkcije
 func gamesForLearningChannelsAndLogs() {
 
 	s := "jedan"

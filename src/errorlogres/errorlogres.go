@@ -18,6 +18,16 @@ import (
 )
 
 // **********************************************************************
+// //**** UNUSED FOR GO COMPILER STUPIDITY
+
+// kompajler javlja grešku za neiskorišćene promenljive i funkcije (za importe radi ekstenzija)
+// tako da to ne može da se isključi linterom jer je hardcoded u kompajleru
+// može da se zaobiđe tako da se promenljiva upotrebi sa _ kao: a:= 5; _ = a
+// može i da se stavi van funkcija tj. kao globalna promenljivi i onda će da se pokazuje kao upozorenje ali će da prolazi kompajler
+// još jedan workaround je funkcija koja upotrebljava sve takve promenljive i funkcijem
+func X(x any) {}
+
+// **********************************************************************
 
 ////**** CUSTOM LOGER
 
@@ -220,12 +230,12 @@ func (l *Logger) OutputIzmenjen(a any) (bool, models.User, string) {
 		// s = BgLightBlue + " " + fmt.Sprint(a) + Reset
 		s = Reset + LightYellow + " " + fmt.Sprint(a) + Reset
 	case error:
-		// s = Reset + LightMagenta + " " + fmt.Sprint(a) + Reset
+		// s = Reset + LightMagenta + " " + fmt.Sprint(a) + Reset 989876
 		s = BgRed + " " + fmt.Sprint(a) + Reset
 		if strings.Contains(s, "Pogrešna lozinka za:") {
 			for_usr_log = true
 			for_sys_log = false
-			msg_fe = "Nema korisnika sa tim mejlom ili lozinkom!"
+			msg_fe = "Mail_or_pass_wrong"
 		}
 	default:
 		s = "Funkcija nije dobila ni string ni error!"

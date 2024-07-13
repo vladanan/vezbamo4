@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"log/slog"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -21,7 +20,7 @@ import (
 	"github.com/joho/godotenv"
 	testsAPI "github.com/vladanan/vezbamo4/src/api/vezbamo/v1"
 	"github.com/vladanan/vezbamo4/src/db"
-	"github.com/vladanan/vezbamo4/src/errorlogres"
+	elr "github.com/vladanan/vezbamo4/src/errorlogres"
 	"github.com/vladanan/vezbamo4/src/models"
 	"github.com/vladanan/vezbamo4/src/views"
 	"github.com/vladanan/vezbamo4/src/views/assignments"
@@ -91,7 +90,7 @@ func RouterUsers(r *mux.Router) {
 }
 
 func RouterAPI(r *mux.Router) {
-	r.HandleFunc("/api_get_tests", errorlogres.Check(testsAPI.GetTests))
+	r.HandleFunc("/api_get_tests", elr.Check(testsAPI.GetTests))
 	// r.HandleFunc("/api_get_questions", APIgetQuestions)
 
 	c := cors.New(cors.Options{
@@ -182,7 +181,7 @@ func HtmxGetTests(w http.ResponseWriter, r *http.Request) {
 	ioWriter := httptest.NewRecorder()
 	err := testsAPI.GetTests(ioWriter, r)
 	if err != nil {
-		slog.Error("greška na api")
+		log.Println("greška na api")
 	}
 	// f(rr)
 	var all_tests []models.Test
@@ -192,7 +191,7 @@ func HtmxGetTests(w http.ResponseWriter, r *http.Request) {
 	dec := json.NewDecoder(strings.NewReader(list_string))
 	dec.Decode(&all_tests)
 
-	log.Println("novi list:", all_tests)
+	// log.Println("novi list:", all_tests)
 
 	templ.Handler(tests.List(all_tests)).Component.Render(context.Background(), w)
 
@@ -265,15 +264,15 @@ func Sign_up_post(w http.ResponseWriter, r *http.Request) {
 
 		if email1 != email2 || password1 != password2 {
 			validated = false
-			fmt.Print("Sign_up_post: validacija za upis korisnika nije prošla ISTI MEJL/PASS\n")
+			log.Println("Sign_up_post: validacija za upis korisnika nije prošla ISTI MEJL/PASS")
 		} else if len(r.Form) == 0 {
 			validated = false
-			fmt.Print("Sign_up_post: validacija za upis korisnika nije prošla PRAZAN FORM\n")
+			log.Println("Sign_up_post: validacija za upis korisnika nije prošla PRAZAN FORM")
 		} else {
 			// NA DB PROVERITI DA LI VEĆ POSTOJI MAIL I USER NAME i vratiti odgovarajuće poruke nazad osim bool za validated
 			// NA DB PROVERITI da li je sa istog ip-a već bio upis u prethodnih 10min u odnosu na created_at
 			validated = db.AddUser(email1, userName, password1, r)
-			fmt.Print("Sign_up_post: validacija IZ DB:", validated, "\n")
+			log.Println("Sign_up_post: validacija IZ DB:", validated)
 		}
 
 		if validated {
@@ -324,6 +323,7 @@ func Sign_in(w http.ResponseWriter, r *http.Request) {
 }
 
 func Sign_in_post(w http.ResponseWriter, r *http.Request) {
+
 	// log.SetFlags(log.Ltime | log.Lshortfile)
 
 	session, err := store.Get(r, "vezbamo.onrender.com-users")
@@ -363,7 +363,7 @@ func Sign_in_post(w http.ResponseWriter, r *http.Request) {
 		// templ.Handler(dashboard.Dashboard(store, r, data)).Component.Render(context.Background(), w)
 		Dashboard(w, r)
 	} else {
-		fmt.Println("Sign_in_post: autentikacija korisnika NIJE prošla, msg: ", msg_fe)
+		fmt.Println("Sign_in_post: autentikacija korisnika NIJE prošla, msg_fe: ", msg_fe)
 		session.Values["authenticated"] = false
 		session.Values["user_mail"] = "bbb"
 		// Save it before we write to the response/return from the handler.
@@ -372,7 +372,7 @@ func Sign_in_post(w http.ResponseWriter, r *http.Request) {
 			log.Println(err)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
-		templ.Handler(dashboard.UserNotLogedPage(store, r)).Component.Render(context.Background(), w)
+		templ.Handler(dashboard.UserNotLogedPage(store, r, msg_fe)).Component.Render(context.Background(), w)
 	}
 }
 
@@ -387,7 +387,7 @@ func AutoLoginUser(w http.ResponseWriter, r *http.Request) {
 	password := "b"
 	// email := "vladan.andjelkovic@gmail.com"
 	// password := "vezbamo.2015"
-	authenticated, user, _ := db.AuthenticateUser(email, password, false, r)
+	authenticated, user, msg_fe := db.AuthenticateUser(email, password, false, r)
 	// Set user as authenticated
 	if authenticated {
 		session.Values["authenticated"] = true
@@ -410,7 +410,7 @@ func AutoLoginUser(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		templ.Handler(dashboard.UserNotLogedPage(store, r)).Component.Render(context.Background(), w)
+		templ.Handler(dashboard.UserNotLogedPage(store, r, msg_fe)).Component.Render(context.Background(), w)
 	}
 }
 
@@ -425,7 +425,7 @@ func AutoLoginAdmin(w http.ResponseWriter, r *http.Request) {
 	// password := "b"
 	email := "vladan.andjelkovic@gmail.com"
 	password := "vezbamo.2015"
-	authenticated, user, _ := db.AuthenticateUser(email, password, false, r)
+	authenticated, user, msg_fe := db.AuthenticateUser(email, password, false, r)
 	// Set user as authenticated
 	if authenticated {
 		session.Values["authenticated"] = true
@@ -448,7 +448,7 @@ func AutoLoginAdmin(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		templ.Handler(dashboard.UserNotLogedPage(store, r)).Component.Render(context.Background(), w)
+		templ.Handler(dashboard.UserNotLogedPage(store, r, msg_fe)).Component.Render(context.Background(), w)
 	}
 }
 
