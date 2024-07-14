@@ -14,7 +14,7 @@ import (
 	"github.com/joho/godotenv"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/vladanan/vezbamo4/src/errorlogres"
+	elr "github.com/vladanan/vezbamo4/src/errorlogres"
 	"github.com/vladanan/vezbamo4/src/models"
 )
 
@@ -27,8 +27,8 @@ func toStruct(user []byte) []models.User {
 	return p
 }
 
-func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated bool, r *http.Request) (bool, models.User, string) {
-	l := errorlogres.GetELRfunc()
+func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated bool, r *http.Request) (bool, models.User, error) {
+	l := elr.GetELRfunc()
 	// var Red = "\033[31m"
 	var Reset = "\033[0m"
 	log.SetFlags(log.Ltime | log.Lshortfile)
@@ -127,7 +127,7 @@ func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated boo
 
 		log.Println("Already authenticated")
 		structUser.Hash_lozinka = ""
-		return true, structUser, ""
+		return true, structUser, nil
 
 	} else if string(bytearrayUser) == "null" { // array je prazan tj. nema korisnika sa takvim mejlom ali se to ne odaje nego se piše i lozinka
 
@@ -194,7 +194,7 @@ func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated boo
 
 			structUser.Hash_lozinka = ""
 			log.Println("AuthenticateUser: Prošlo je!")
-			return true, structUser, ""
+			return true, structUser, nil
 		}
 
 	} else { // ako je broj neuselih pokušaja veći od limita gleda se da li je prošlo više vremena od limita

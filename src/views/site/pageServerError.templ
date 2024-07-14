@@ -1,0 +1,11 @@
+package site
+
+import (
+  "strconv"
+  elr "github.com/vladanan/vezbamo4/src/errorlogres"
+  "fmt"
+)
+
+templ ServerError(err elr.APIError) {
+  <h1 class="m-5 px-2 border-1 text-xl rounded-m text-green-500"> {strconv.Itoa(err.StatusCode)} {fmt.Sprint(err.Msg)}</h1>
+}

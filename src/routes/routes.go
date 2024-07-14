@@ -90,7 +90,7 @@ func RouterUsers(r *mux.Router) {
 }
 
 func RouterAPI(r *mux.Router) {
-	r.HandleFunc("/api_get_tests", elr.Check(testsAPI.GetTests))
+	r.HandleFunc("/api_get_tests", elr.CheckFunc(testsAPI.GetTests))
 	// r.HandleFunc("/api_get_questions", APIgetQuestions)
 
 	c := cors.New(cors.Options{
@@ -176,28 +176,30 @@ func Komponents(w http.ResponseWriter, r *http.Request) {
 // //**** QUESTIONS
 
 func HtmxGetTests(w http.ResponseWriter, r *http.Request) {
-
 	// https://stackoverflow.com/questions/13765797/the-best-way-to-get-a-string-from-a-writer
 	ioWriter := httptest.NewRecorder()
 	err := testsAPI.GetTests(ioWriter, r)
 	if err != nil {
-		log.Println("greška na api")
+		// log.Println("greška na api")
+		templ.Handler(site.ServerError(elr.CheckErr(r, err))).Component.Render(context.Background(), w)
+	} else {
+		list_string := ioWriter.Body.String() // r.Body is a *bytes.Buffer
+		dec := json.NewDecoder(strings.NewReader(list_string))
+		var all_tests []models.Test
+		if err := dec.Decode(&all_tests); err != nil {
+			// log.Println("greška json dekodera")
+			templ.Handler(site.ServerError(elr.CheckErr(r, err))).Component.Render(context.Background(), w)
+		} else {
+			templ.Handler(tests.List(all_tests)).Component.Render(context.Background(), w)
+		}
 	}
-	// f(rr)
-	var all_tests []models.Test
 
-	list_string := ioWriter.Body.String() // r.Body is a *bytes.Buffer
-
-	dec := json.NewDecoder(strings.NewReader(list_string))
-	dec.Decode(&all_tests)
-
-	// log.Println("novi list:", all_tests)
-
-	templ.Handler(tests.List(all_tests)).Component.Render(context.Background(), w)
-
-	// list1 := db.GetQuestions()
-	// templ.Handler(questions.List(list1)).Component.Render(context.Background(), w)
 }
+
+// log.Println("novi list:", all_tests)
+
+// list1 := db.GetQuestions()
+// templ.Handler(questions.List(list1)).Component.Render(context.Background(), w)
 
 // //**** ASSIGNMENTS
 func Assignments(w http.ResponseWriter, r *http.Request) {
@@ -345,7 +347,13 @@ func Sign_in_post(w http.ResponseWriter, r *http.Request) {
 
 	email := r.FormValue("mail")
 	password := r.FormValue("password")
-	authenticated, user, msg_fe := db.AuthenticateUser(email, password, false, r)
+	authenticated, user, err := db.AuthenticateUser(email, password, false, r)
+	msg_fe := ""
+	if err != nil {
+		msg_fe = "Mail_or_pass_wrong"
+	} else {
+		msg_fe = "Unwelcome"
+	}
 
 	// Set user as authenticated
 	if authenticated {
@@ -387,7 +395,13 @@ func AutoLoginUser(w http.ResponseWriter, r *http.Request) {
 	password := "b"
 	// email := "vladan.andjelkovic@gmail.com"
 	// password := "vezbamo.2015"
-	authenticated, user, msg_fe := db.AuthenticateUser(email, password, false, r)
+	authenticated, user, err := db.AuthenticateUser(email, password, false, r)
+	msg_fe := ""
+	if err != nil {
+		msg_fe = "Mail_or_pass_wrong"
+	} else {
+		msg_fe = "Unwelcome"
+	}
 	// Set user as authenticated
 	if authenticated {
 		session.Values["authenticated"] = true
@@ -425,7 +439,13 @@ func AutoLoginAdmin(w http.ResponseWriter, r *http.Request) {
 	// password := "b"
 	email := "vladan.andjelkovic@gmail.com"
 	password := "vezbamo.2015"
-	authenticated, user, msg_fe := db.AuthenticateUser(email, password, false, r)
+	authenticated, user, err := db.AuthenticateUser(email, password, false, r)
+	msg_fe := ""
+	if err != nil {
+		msg_fe = "Mail_or_pass_wrong"
+	} else {
+		msg_fe = "Unwelcome"
+	}
 	// Set user as authenticated
 	if authenticated {
 		session.Values["authenticated"] = true

@@ -42,3 +42,10 @@ type Test struct {
 	Tip    string `db:"tip"`
 	Oblast string `db:"oblast"`
 }
+
+type FileLog struct {
+	Date  string
+	Time  string
+	File  string
+	Error string
+}

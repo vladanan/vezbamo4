@@ -1,11 +1,11 @@
 package errorlogres
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"io"
 	"log"
-	"log/slog"
 	"net/http"
 	"os"
 	"runtime"
@@ -25,7 +25,8 @@ import (
 // može da se zaobiđe tako da se promenljiva upotrebi sa _ kao: a:= 5; _ = a
 // može i da se stavi van funkcija tj. kao globalna promenljivi i onda će da se pokazuje kao upozorenje ali će da prolazi kompajler
 // još jedan workaround je funkcija koja upotrebljava sve takve promenljive i funkcijem
-func X(x any) {}
+
+func X(x ...any) {}
 
 // **********************************************************************
 
@@ -174,6 +175,8 @@ func prependLogToFile(file string, buf []byte) bool {
 	bstring = strings.ReplaceAll(bstring, LightYellow, "")
 	bstring = strings.ReplaceAll(bstring, BgRed, "")
 	bstring = strings.ReplaceAll(bstring, Reset, "")
+	bstring = strings.ReplaceAll(bstring, BgBlue, "")
+
 	buf = []byte(bstring)
 
 	dat, err := os.ReadFile(file)
@@ -206,6 +209,57 @@ func prependLogToFile(file string, buf []byte) bool {
 	}
 	sys.Sync()
 	defer sys.Close()
+
+	// parse .log file to .json log file
+	dat, err = os.ReadFile(file)
+	if err != nil {
+		log.Println(err)
+		return false
+	}
+
+	var jsonLog string
+
+	lines := strings.Split(string(dat), "\n")
+
+	jsonStart := "[\n"
+	jsonEnd := "]"
+
+	for index, line := range lines {
+		// log se sastoji iz datuma, vremena, fajla i greške, prva tri su odvojena od greške sa dva razmaka
+		// fajl ne sme da ima na kraju prazan novi red niti sme da ima manje od dva razmaka između greške i ostalog
+		dtfAndMsg := strings.Split(line, "  ")
+		dtf := strings.Split(dtfAndMsg[0], " ")
+		fileLog := models.FileLog{
+			Date:  dtf[0],
+			Time:  dtf[1],
+			File:  dtf[2],
+			Error: dtfAndMsg[1],
+		}
+		bufJson := new(bytes.Buffer)
+		json.NewEncoder(bufJson).Encode(fileLog)
+		line = bufJson.String() // returns a string of what was written to it
+		if index < len(lines)-1 {
+			line = strings.ReplaceAll(line, "\n", ",\n")
+		}
+		jsonLog = jsonLog + line
+	}
+
+	// pravljenje json niza
+	jsonLog = jsonStart + jsonLog + jsonEnd
+	// lepo formatiranje json fajla
+	jsonLog = strings.ReplaceAll(jsonLog, "{", "\t{\n\t\t")
+	jsonLog = strings.ReplaceAll(jsonLog, "},", "\n\t},")
+	jsonLog = strings.ReplaceAll(jsonLog, "}\n]", "\n\t}\n]")
+	// ako se koristi `` da bi se našao i ubacio \n onda se on ubacuje kao takav i ne može da se escapuje
+	// zato prvo ubacujem sedam , pa umesto njih \n i ostalo šta treba
+	jsonLog = strings.ReplaceAll(jsonLog, `:","Error":"`, `:",,,,,,,"Error":"`)
+	jsonLog = strings.ReplaceAll(jsonLog, ",,,,,,,", ",\n\t\t")
+
+	if err := os.WriteFile(file+".json", []byte(jsonLog), os.ModePerm); err != nil {
+		log.Println(err)
+		return false
+	}
+
 	return true
 }
 
@@ -217,12 +271,18 @@ func prependLogToFile(file string, buf []byte) bool {
 // already a newline. Calldepth is used to recover the PC and is
 // provided for generality, although at the moment on all pre-defined
 // paths it will be 2.
-func (l *Logger) OutputIzmenjen(a any) (bool, models.User, string) {
+func (l *Logger) OutputIzmenjen(a any) (bool, models.User, error) {
 
 	var msg_fe string
 	for_sys_log := true
 	for_usr_log := false
 	var s string
+	var e error
+	if err, ok := a.(error); ok {
+		e = err
+	} else {
+		e = errors.New(fmt.Sprint(a))
+	}
 
 	switch a.(type) {
 	case string:
@@ -291,36 +351,65 @@ func (l *Logger) OutputIzmenjen(a any) (bool, models.User, string) {
 
 	}
 
-	return false, models.User{}, msg_fe
+	X(msg_fe)
+
+	return false, models.User{}, e
 }
 
-// func (l *Logger) OutputIzmenjen1(s string) (bool, models.User, error) {
-// 	calldepth := 1
-// 	now := time.Now() // get this early.
-// 	var file string
-// 	var line int
-// 	l.Mu.Lock()
-// 	defer l.Mu.Unlock()
-// 	if l.Flag&(Lshortfile|Llongfile) != 0 {
-// 		// Release lock while getting caller info - it's expensive.
-// 		l.Mu.Unlock()
-// 		var ok bool
-// 		_, file, line, ok = runtime.Caller(calldepth)
-// 		if !ok {
-// 			file = "???"
-// 			line = 0
-// 		}
-// 		l.Mu.Lock()
-// 	}
-// 	l.Buf = l.Buf[:0]
-// 	l.formatHeader(&l.Buf, now, file, line)
-// 	l.Buf = append(l.Buf, s...)
-// 	if len(s) == 0 || s[len(s)-1] != '\n' {
-// 		l.Buf = append(l.Buf, '\n')
-// 	}
-// 	_, err := l.Out.Write(l.Buf)
-// 	return false, models.User{}, err
-// }
+func (l *Logger) OutputIzmenjen2(e error) error {
+
+	for_sys_log := true
+	for_usr_log := false
+
+	s := BgRed + " " + e.Error() + Reset
+	if strings.Contains(s, "Pogrešna lozinka za:") {
+		for_usr_log = true
+		for_sys_log = false
+	}
+
+	calldepth := 1
+	now := time.Now() // get this early.
+	var file string
+	var line int
+	l.Mu.Lock()
+	defer l.Mu.Unlock()
+	if l.Flag&(Lshortfile|Llongfile) != 0 {
+		// Release lock while getting caller info - it's expensive.
+		l.Mu.Unlock()
+		var ok bool
+		_, file, line, ok = runtime.Caller(calldepth)
+		if !ok {
+			file = "???"
+			line = 0
+		}
+		l.Mu.Lock()
+	}
+	l.Buf = l.Buf[:0]
+	l.formatHeader(&l.Buf, now, file, line)
+	l.Buf = append(l.Buf, s...)
+	if len(s) == 0 || s[len(s)-1] != '\n' {
+		l.Buf = append(l.Buf, '\n')
+	}
+	_, err := l.Out.Write(l.Buf)
+	if err != nil {
+		log.Println(fmt.Sprint(err))
+		l.Buf = append(l.Buf, fmt.Sprint(err)...)
+	}
+
+	file = "sys.log"
+
+	if for_sys_log {
+		file = "sys.log"
+	} else if for_usr_log {
+		file = "usr.log"
+	}
+
+	if ok := prependLogToFile(file, l.Buf); !ok {
+		log.Println("Nije uspelo dodavanje loga na fajl!")
+	}
+
+	return e
+}
 
 /*
 Daje:
@@ -332,9 +421,14 @@ Na taj način se rade tri stvari u vrlo malecnom if e != nil{} kodu koji:
   - loguje grešku na konzoli tamo gde je i nastala
   - šalje response false, models.User{} i mag_fe ruteru.
 */
-func GetELRfunc() func(any) (bool, models.User, string) {
-	loger := Logger{Out: os.Stdout, Prefix: BgGreen, Flag: log.LstdFlags | log.Lshortfile}
+func GetELRfunc() func(any) (bool, models.User, error) {
+	loger := Logger{Out: os.Stdout, Prefix: BgBlue, Flag: log.LstdFlags | log.Lshortfile}
 	return loger.OutputIzmenjen
+}
+
+func GetELRfunc2() func(e error) error {
+	loger := Logger{Out: os.Stdout, Prefix: BgGreen, Flag: log.LstdFlags | log.Lshortfile}
+	return loger.OutputIzmenjen2
 }
 
 // func GetELRvars_ex() (func(string) (bool, models.User, error), func(error) string) {
@@ -348,16 +442,6 @@ func GetELRfunc() func(any) (bool, models.User, string) {
 // 			return fmt.Sprintf("%s", e)
 // 		},
 // 		loger.OutputModified
-// }
-
-// type ShortError struct{}
-
-// func StringIzError(e error) string {
-// 	return fmt.Sprintf("%s", e)
-// }
-
-// func (se ShortError) Error(er error) string {
-// 	return fmt.Sprintf("%s", er)
 // }
 
 // **********************************************************************
@@ -382,7 +466,7 @@ func NewAPIError(status int, msg any) APIError {
 
 type APIfunc func(w http.ResponseWriter, r *http.Request) error
 
-func Check(h APIfunc) http.HandlerFunc {
+func CheckFunc(h APIfunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if err := h(w, r); err != nil {
 			if apiErr, ok := err.(APIError); ok {
@@ -390,11 +474,13 @@ func Check(h APIfunc) http.HandlerFunc {
 			} else {
 				errResp := map[string]any{
 					"statusCode": http.StatusInternalServerError,
-					"msg":        "internal server error",
+					"msg":        "internal server error breee",
 				}
 				WriteJSON(w, http.StatusInternalServerError, errResp)
 			}
-			slog.Error("http api errof", "err", err.Error(), "path", r.URL.Path)
+			// slog.Error("http api error", "err", err.Error(), "path", r.URL.Path)
+			// slog.Error("on http api:", "path", r.URL.Path)
+			log.Print(Yellow + "error on http api path: " + r.URL.Path + Reset)
 		}
 	}
 }
@@ -403,6 +489,20 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
 	w.WriteHeader(status)
 	w.Header().Set("Content-Type", "application/json")
 	return json.NewEncoder(w).Encode(v)
+}
+
+func CheckErr(r *http.Request, err error) APIError {
+
+	log.Print(Yellow + "error on internal api path: " + r.URL.Path + Reset)
+	if apiErr, ok := err.(APIError); ok {
+		return apiErr
+	} else {
+		return APIError{
+			StatusCode: http.StatusInternalServerError,
+			Msg:        "internal server error, check again later or contact support",
+		}
+	}
+
 }
 
 // **********************************************************************

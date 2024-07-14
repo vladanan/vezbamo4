@@ -24,6 +24,8 @@ func main() {
 
 	r := mux.NewRouter()
 
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
+
 	r.NotFoundHandler = http.HandlerFunc(routes.GoTo404)
 
 	routes.RouterSite(r)
