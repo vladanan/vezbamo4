@@ -1,322 +1,377 @@
 [
 	{
-		"Date":"2024/07/15","Time":"00:13:45","File":"getTests.go:28:",
-		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)"
+		"Date":"2024/07/15","Time":"16:46:49","File":"getTests.go:36:",
+		"Error":"ERROR: syntax error at or near \"999\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/15","Time":"00:11:14","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"16:45:22","File":"getTests.go:36:",
+		"Error":"ERROR: syntax error at or near \"999\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/15","Time":"00:10:46","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"16:41:50","File":"getTests.go:25:",
+		"Error":"open ../../../../.env: no such file or directory",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/15","Time":"00:10:23","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"14:47:07","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"444\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/15","Time":"00:08:22","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"14:42:39","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"3333\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/15","Time":"00:07:50","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"14:40:07","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"3333\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/15","Time":"00:06:43","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"14:27:24","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"3333\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/15","Time":"00:05:53","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"14:22:20","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/15","Time":"00:03:31","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"14:06:03","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/15","Time":"00:02:59","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"14:06:03","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/15","Time":"00:01:35","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"14:00:04","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/15","Time":"00:00:07","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"14:00:03","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:59:49","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"14:00:02","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:58:35","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"14:00:01","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:56:41","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:54:52","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:55:04","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:53:58","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:48:38","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:51:29","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:47:36","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:51:28","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:43:39","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:51:27","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:42:52","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:49:26","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:41:18","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:49:25","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:40:23","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:49:24","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:39:16","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:49:23","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:37:18","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:49:22","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:34:41","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:49:21","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:33:39","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:49:20","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:32:00","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:49:19","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:30:54","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:46:13","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:30:11","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:46:12","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:29:42","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:46:10","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:29:22","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:46:09","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:29:09","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:46:08","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:29:01","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:46:07","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:28:55","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:46:06","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:28:51","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:46:05","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:28:49","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:44:42","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:28:47","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:44:41","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:28:46","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:44:40","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:28:45","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:44:39","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:28:45","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:42:58","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:28:44","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:42:57","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:28:44","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:42:56","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:28:44","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:42:55","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:28:44","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:42:54","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"23:28:44","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:41:25","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"22:19:54","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:41:24","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"22:18:49","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:41:23","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"22:18:28","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:39:00","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"22:12:05","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:38:59","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"22:11:52","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:38:58","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"22:04:42","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:38:57","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"22:04:18","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:38:57","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/htmx_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"22:02:44","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:33:36","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"22:01:25","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:33:34","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"21:43:07","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:33:32","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"21:42:29","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:33:31","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"21:17:41","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:33:30","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"21:15:33","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:33:28","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"21:14:33","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:33:27","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"21:10:37","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:33:26","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"21:10:28","File":"getTests.go:22:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:33:25","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"20:39:08","File":"getTests.go:34:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:32:58","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"20:36:05","File":"getTests.go:34:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:32:49","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"20:33:49","File":"getTests.go:34:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:32:48","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"20:33:24","File":"getTests.go:34:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:32:37","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"20:31:47","File":"getTests.go:34:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:32:33","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"20:31:36","File":"getTests.go:34:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:32:33","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"17:18:29","File":"getTests.go:34:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:32:30","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"17:18:18","File":"getTests.go:34:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:32:27","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"17:18:09","File":"getTests.go:34:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:32:25","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"17:17:59","File":"getTests.go:34:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:32:24","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"17:15:40","File":"getTests.go:34:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:32:23","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"17:10:48","File":"getTests.go:34:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:32:22","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"17:10:31","File":"getTests.go:34:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
+		"Date":"2024/07/15","Time":"13:32:21","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	},
 	{
-		"Date":"2024/07/14","Time":"17:04:40","File":"getTests.go:34:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
-	},
-	{
-		"Date":"2024/07/14","Time":"17:02:34","File":"getTests.go:34:",
-		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)"
-	},
-	{
-		"Date":"2024/07/14","Time":"16:06:53","File":"getTests.go:27:",
-		"Error":"open .env---: no such file or directory"
-	},
-	{
-		"Date":"2024/07/14","Time":"16:06:10","File":"getTests.go:27:",
-		"Error":"open .env---: no such file or directory"
-	},
-	{
-		"Date":"2024/07/12","Time":"20:18:40","File":"authenticateUser.go:60:",
-		"Error":"ERROR: syntax error at or near \"email\" (SQLSTATE 42601)"
-	},
-	{
-		"Date":"2024/07/12","Time":"20:17:17","File":"authenticateUser.go:60:",
-		"Error":"ERROR: syntax error at or near \"email\" (SQLSTATE 42601)"
+		"Date":"2024/07/15","Time":"13:32:20","File":"getTests.go:28:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
 	}
 ]

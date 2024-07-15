@@ -177,18 +177,18 @@ func Komponents(w http.ResponseWriter, r *http.Request) {
 
 func HtmxGetTests(w http.ResponseWriter, r *http.Request) {
 	// https://stackoverflow.com/questions/13765797/the-best-way-to-get-a-string-from-a-writer
-	ioWriter := httptest.NewRecorder()
-	err := testsAPI.GetTests(ioWriter, r)
+	rr := httptest.NewRecorder()
+	err := testsAPI.GetTests(rr, r)
 	if err != nil {
 		// log.Println("greška na api")
-		templ.Handler(site.ServerError(elr.CheckErr(r, err))).Component.Render(context.Background(), w)
+		templ.Handler(site.ServerError(elr.CheckErr(err))).Component.Render(context.Background(), w)
 	} else {
-		list_string := ioWriter.Body.String() // r.Body is a *bytes.Buffer
+		list_string := rr.Body.String() // r.Body is a *bytes.Buffer
 		dec := json.NewDecoder(strings.NewReader(list_string))
 		var all_tests []models.Test
 		if err := dec.Decode(&all_tests); err != nil {
 			// log.Println("greška json dekodera")
-			templ.Handler(site.ServerError(elr.CheckErr(r, err))).Component.Render(context.Background(), w)
+			templ.Handler(site.ServerError(elr.CheckErr(err))).Component.Render(context.Background(), w)
 		} else {
 			templ.Handler(tests.List(all_tests)).Component.Render(context.Background(), w)
 		}

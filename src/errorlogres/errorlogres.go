@@ -32,6 +32,23 @@ func X(x ...any) {}
 
 ////**** CUSTOM LOGER
 
+// https://pkg.go.dev/golang.org/x/exp/slog#Level
+// const (
+// 	LevelDebug = -4
+// 	LevelInfo  = 0
+// 	LevelWarn  = 4
+// 	LevelError = 8
+// )
+
+// https://opentelemetry.io/docs/specs/otel/logs/data-model/
+// Severity	range	Range name	Meaning
+// 1-4						TRACE				A fine-grained debugging event. Typically disabled in default configurations.
+// 5-8						DEBUG				A debugging event.
+// 9-12						INFO				An informational event. Indicates that an event happened.
+// 13-16					WARN				A warning event. Not an error but is likely more important than an informational event.
+// 17-20					ERROR				An error event. Something went wrong.
+// 21-24					FATAL				A fatal error such as application or system crash.
+
 const ( // console escape characters for colors
 	Reset          = "\033[0m"
 	Black          = "\033[30m"
@@ -67,6 +84,42 @@ const ( // console escape characters for colors
 	BgLightCyan    = "\033[106m"
 	BgWhite        = "\033[107m"
 )
+
+var consoleColors = map[string]string{ // console escape characters for colors
+	"Reset":          "\033[0m",
+	"Black":          "\033[30m",
+	"Red":            "\033[31m",
+	"Green":          "\033[32m",
+	"Yellow":         "\033[33m",
+	"Blue":           "\033[34m",
+	"Magenta":        "\033[35m",
+	"Cyan":           "\033[36m",
+	"LightGray":      "\033[37m",
+	"Gray":           "\033[90m",
+	"LightRed":       "\033[91m",
+	"LightGreen":     "\033[92m",
+	"LightYellow":    "\033[93m",
+	"LightBlue":      "\033[94m",
+	"LightMagenta":   "\033[95m",
+	"LightCyan":      "\033[96m",
+	"White":          "\033[97m",
+	"BgBlack":        "\033[40m",
+	"BgRed":          "\033[41m",
+	"BgGreen":        "\033[42m",
+	"BgYellow":       "\033[43m",
+	"BgBlue":         "\033[44m",
+	"BgMagenta":      "\033[45m",
+	"BgCyan":         "\033[46m",
+	"BgLightGray":    "\033[47m",
+	"BgGray":         "\033[100m",
+	"BgLightRed":     "\033[101m",
+	"BgLightGreen":   "\033[102m",
+	"BgLightYellow":  "\033[103m",
+	"BgLightBlue":    "\033[104m",
+	"BgLightMagenta": "\033[105m",
+	"BgLightCyan":    "\033[106m",
+	"BgWhite":        "\033[107m",
+}
 
 const (
 	Ldate         = 1 << iota     // the date in the local time zone: 2009/01/23
@@ -166,18 +219,26 @@ func (l *Logger) formatHeader(buf *[]byte, t time.Time, file string, line int) {
 	}
 }
 
+//
+//
+
 // ubacuje log zapis na početak log fajla umesto kao što je default za write metode da rade append na kraju fajla
 func prependLogToFile(file string, buf []byte) bool {
 
-	// čišćenje teksta od oznaka za boje za log jer je to nepotrebno u fajlovima
+	// čišćenje teksta od oznaka za boje za log
+	// jer je to nepotrebno u fajlovima i pravi probleme sa json parsingom
 	bstring := string(buf)
-	bstring = strings.ReplaceAll(bstring, BgGreen, "")
-	bstring = strings.ReplaceAll(bstring, LightYellow, "")
-	bstring = strings.ReplaceAll(bstring, BgRed, "")
-	bstring = strings.ReplaceAll(bstring, Reset, "")
-	bstring = strings.ReplaceAll(bstring, BgBlue, "")
+
+	for color := range consoleColors {
+		// log.Println("color from map", consoleColors[color])
+		bstring = strings.ReplaceAll(bstring, consoleColors[color], "")
+	}
 
 	buf = []byte(bstring)
+
+	testpath := "" // ../../../../
+	X(testpath)
+	file = testpath + file
 
 	dat, err := os.ReadFile(file)
 	if err != nil {
@@ -221,39 +282,46 @@ func prependLogToFile(file string, buf []byte) bool {
 
 	lines := strings.Split(string(dat), "\n")
 
-	jsonStart := "[\n"
-	jsonEnd := "]"
-
 	for index, line := range lines {
-		// log se sastoji iz datuma, vremena, fajla i greške, prva tri su odvojena od greške sa dva razmaka
-		// fajl ne sme da ima na kraju prazan novi red niti sme da ima manje od dva razmaka između greške i ostalog
-		dtfAndMsg := strings.Split(line, "  ")
-		dtf := strings.Split(dtfAndMsg[0], " ")
+		// log se sastoji iz datuma, vremena, fajla, greške i path
+		// prva tri su odvojena od druga dva sa po dva razmaka
+		// fajl ne sme da ima na kraju prazan novi red
+		// niti sme da ima manje od dva razmaka između prva tri i greške i path
+		dtfErrPath := strings.Split(line, "  ")
+		dtf := strings.Split(dtfErrPath[0], " ")
 		fileLog := models.FileLog{
 			Date:  dtf[0],
 			Time:  dtf[1],
 			File:  dtf[2],
-			Error: dtfAndMsg[1],
+			Error: dtfErrPath[1],
+			Path:  dtfErrPath[2],
 		}
 		bufJson := new(bytes.Buffer)
-		json.NewEncoder(bufJson).Encode(fileLog)
+		if err := json.NewEncoder(bufJson).Encode(fileLog); err != nil {
+			log.Println(err)
+			return false
+		}
 		line = bufJson.String() // returns a string of what was written to it
 		if index < len(lines)-1 {
-			line = strings.ReplaceAll(line, "\n", ",\n")
+			line = strings.ReplaceAll(line, "\n", ",")
+		} else {
+			line = strings.ReplaceAll(line, "\n", "")
 		}
 		jsonLog = jsonLog + line
 	}
 
 	// pravljenje json niza
-	jsonLog = jsonStart + jsonLog + jsonEnd
-	// lepo formatiranje json fajla
-	jsonLog = strings.ReplaceAll(jsonLog, "{", "\t{\n\t\t")
-	jsonLog = strings.ReplaceAll(jsonLog, "},", "\n\t},")
-	jsonLog = strings.ReplaceAll(jsonLog, "}\n]", "\n\t}\n]")
+	jsonLog = "[" + jsonLog + "]"
+
+	// beautify json fajla
+	jsonLog = strings.ReplaceAll(jsonLog, "{", "\n\t{\n\t\t")
 	// ako se koristi `` da bi se našao i ubacio \n onda se on ubacuje kao takav i ne može da se escapuje
 	// zato prvo ubacujem sedam , pa umesto njih \n i ostalo šta treba
-	jsonLog = strings.ReplaceAll(jsonLog, `:","Error":"`, `:",,,,,,,"Error":"`)
+	jsonLog = strings.ReplaceAll(jsonLog, `","Error":"`, `",,,,,,,"Error":"`)
+	jsonLog = strings.ReplaceAll(jsonLog, `","Path":"`, `",,,,,,,"Path":"`)
 	jsonLog = strings.ReplaceAll(jsonLog, ",,,,,,,", ",\n\t\t")
+	jsonLog = strings.ReplaceAll(jsonLog, "},", "\n\t},")
+	jsonLog = strings.ReplaceAll(jsonLog, "}]", "\n\t}\n]")
 
 	if err := os.WriteFile(file+".json", []byte(jsonLog), os.ModePerm); err != nil {
 		log.Println(err)
@@ -290,9 +358,11 @@ func (l *Logger) OutputIzmenjen(a any) (bool, models.User, error) {
 		// s = BgLightBlue + " " + fmt.Sprint(a) + Reset
 		s = Reset + LightYellow + " " + fmt.Sprint(a) + Reset
 	case error:
-		// s = Reset + LightMagenta + " " + fmt.Sprint(a) + Reset 989876
+		// s = Reset + LightMagenta + " " + fmt.Sprint(a) + Reset 989876kjhuj
 		s = BgRed + " " + fmt.Sprint(a) + Reset
 		if strings.Contains(s, "Pogrešna lozinka za:") {
+			s = BgRed + " " + fmt.Sprint(a) + "  " + "tmp/r.URL.Path" + Reset
+			// s = Reset + LightYellow + " " + e.Error() + "  " + "tmp/r.URL.Path" + Reset
 			for_usr_log = true
 			for_sys_log = false
 			msg_fe = "Mail_or_pass_wrong"
@@ -356,15 +426,33 @@ func (l *Logger) OutputIzmenjen(a any) (bool, models.User, error) {
 	return false, models.User{}, e
 }
 
-func (l *Logger) OutputIzmenjen2(e error) error {
+//
+//
 
-	for_sys_log := true
-	for_usr_log := false
+func (l *Logger) OutputIzmenjen2(r *http.Request, level int, e error) error {
 
-	s := BgRed + " " + e.Error() + Reset
+	var s string
+	var logfile string
+
+	// level 0 info ne ide u fajlove
+	// 4 warn je user error ide u user log
+	// 8 erro server ide u sys log
+	switch level {
+	case 0:
+		s = BgBlue + " " + e.Error() + "  " + r.URL.Path + Reset
+	case 4:
+		s = Reset + LightYellow + " " + e.Error() + "  " + r.URL.Path + Reset
+		logfile = "usr.log"
+	case 8:
+		s = BgRed + " " + e.Error() + "  " + r.URL.Path + Reset
+		logfile = "sys.log"
+	default:
+		s = BgMagenta + " " + e.Error() + "  " + r.URL.Path + Reset
+		logfile = "sys.log"
+	}
+
 	if strings.Contains(s, "Pogrešna lozinka za:") {
-		for_usr_log = true
-		for_sys_log = false
+		logfile = "usr.log"
 	}
 
 	calldepth := 1
@@ -396,16 +484,10 @@ func (l *Logger) OutputIzmenjen2(e error) error {
 		l.Buf = append(l.Buf, fmt.Sprint(err)...)
 	}
 
-	file = "sys.log"
-
-	if for_sys_log {
-		file = "sys.log"
-	} else if for_usr_log {
-		file = "usr.log"
-	}
-
-	if ok := prependLogToFile(file, l.Buf); !ok {
-		log.Println("Nije uspelo dodavanje loga na fajl!")
+	if logfile != "" {
+		if ok := prependLogToFile(logfile, l.Buf); !ok {
+			log.Println("Nije uspelo dodavanje loga na fajl!")
+		}
 	}
 
 	return e
@@ -426,7 +508,7 @@ func GetELRfunc() func(any) (bool, models.User, error) {
 	return loger.OutputIzmenjen
 }
 
-func GetELRfunc2() func(e error) error {
+func GetELRfunc2() func(r *http.Request, level int, e error) error {
 	loger := Logger{Out: os.Stdout, Prefix: BgGreen, Flag: log.LstdFlags | log.Lshortfile}
 	return loger.OutputIzmenjen2
 }
@@ -480,7 +562,7 @@ func CheckFunc(h APIfunc) http.HandlerFunc {
 			}
 			// slog.Error("http api error", "err", err.Error(), "path", r.URL.Path)
 			// slog.Error("on http api:", "path", r.URL.Path)
-			log.Print(Yellow + "error on http api path: " + r.URL.Path + Reset)
+			// log.Print(Yellow + "error on http api path: " + r.URL.Path + Reset)
 		}
 	}
 }
@@ -491,9 +573,9 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
 	return json.NewEncoder(w).Encode(v)
 }
 
-func CheckErr(r *http.Request, err error) APIError {
+func CheckErr(err error) APIError {
 
-	log.Print(Yellow + "error on internal api path: " + r.URL.Path + Reset)
+	// log.Print(Yellow + "error on internal api path: " + r.URL.Path + Reset)
 	if apiErr, ok := err.(APIError); ok {
 		return apiErr
 	} else {
@@ -504,5 +586,37 @@ func CheckErr(r *http.Request, err error) APIError {
 	}
 
 }
+
+// type ServerError struct {
+// 	StatusCode int `json:"statusCode"`
+// 	Msg        any `json:"msg"`
+// }
+
+// func (e ServerError) Error() string {
+// 	return fmt.Sprintf("API erorr %d", e.StatusCode)
+// }
+
+// func NewServerError(status int, msg any) ServerError {
+// 	return ServerError{
+// 		StatusCode: status,
+// 		Msg:        msg,
+// 	}
+// }
+
+// type UserError struct {
+// 	StatusCode int `json:"statusCode"`
+// 	Msg        any `json:"msg"`
+// }
+
+// func (e UserError) Error() string {
+// 	return fmt.Sprintf("API erorr %d", e.StatusCode)
+// }
+
+// func NewUserError(status int, msg any) UserError {
+// 	return UserError{
+// 		StatusCode: status,
+// 		Msg:        msg,
+// 	}
+// }
 
 // **********************************************************************

@@ -13,7 +13,7 @@ func GetTests(w http.ResponseWriter, r *http.Request) error {
 	// io.WriteString(w, string(db.GetQuestions()))
 	// curl http://127.0.0.1:7331/api_get_tests
 
-	allTests, err := db.GetTests()
+	allTests, err := db.GetTests(r)
 	if err != nil {
 		return err
 	}

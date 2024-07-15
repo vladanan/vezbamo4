@@ -1,80 +1,75 @@
-2024/07/15 00:13:45 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)
-2024/07/15 00:11:14 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/15 00:10:46 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/15 00:10:23 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/15 00:08:22 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/15 00:07:50 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/15 00:06:43 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/15 00:05:53 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/15 00:03:31 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/15 00:02:59 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/15 00:01:35 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/15 00:00:07 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:59:49 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:58:35 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:56:41 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:55:04 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:48:38 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:47:36 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:43:39 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:42:52 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:41:18 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:40:23 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:39:16 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:37:18 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:34:41 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:33:39 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:32:00 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:30:54 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:30:11 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:29:42 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:29:22 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:29:09 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:29:01 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:28:55 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:28:51 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:28:49 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:28:47 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:28:46 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:28:45 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:28:45 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:28:44 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:28:44 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:28:44 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:28:44 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 23:28:44 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 22:19:54 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 22:18:49 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 22:18:28 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 22:12:05 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 22:11:52 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 22:04:42 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 22:04:18 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 22:02:44 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 22:01:25 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 21:43:07 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 21:42:29 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 21:17:41 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 21:15:33 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 21:14:33 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 21:10:37 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 21:10:28 getTests.go:22:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 20:39:08 getTests.go:34:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 20:36:05 getTests.go:34:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 20:33:49 getTests.go:34:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 20:33:24 getTests.go:34:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 20:31:47 getTests.go:34:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 20:31:36 getTests.go:34:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 17:18:29 getTests.go:34:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 17:18:18 getTests.go:34:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 17:18:09 getTests.go:34:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 17:17:59 getTests.go:34:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 17:15:40 getTests.go:34:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 17:10:48 getTests.go:34:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 17:10:31 getTests.go:34:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 17:04:40 getTests.go:34:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 17:02:34 getTests.go:34:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)
-2024/07/14 16:06:53 getTests.go:27:  open .env---: no such file or directory
-2024/07/14 16:06:10 getTests.go:27:  open .env---: no such file or directory
-2024/07/12 20:18:40 authenticateUser.go:60:  ERROR: syntax error at or near "email" (SQLSTATE 42601)
-2024/07/12 20:17:17 authenticateUser.go:60:  ERROR: syntax error at or near "email" (SQLSTATE 42601)
+2024/07/15 16:46:49 getTests.go:36:  ERROR: syntax error at or near "999" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 16:45:22 getTests.go:36:  ERROR: syntax error at or near "999" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 16:41:50 getTests.go:25:  open ../../../../.env: no such file or directory  /api_get_tests
+2024/07/15 14:47:07 getTests.go:28:  ERROR: syntax error at or near "444" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 14:42:39 getTests.go:28:  ERROR: syntax error at or near "3333" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 14:40:07 getTests.go:28:  ERROR: syntax error at or near "3333" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 14:27:24 getTests.go:28:  ERROR: syntax error at or near "3333" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 14:22:20 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 14:06:03 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 14:06:03 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 14:00:04 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 14:00:03 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 14:00:02 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 14:00:01 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:54:52 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:53:58 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:51:29 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:51:28 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:51:27 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:49:26 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:49:25 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:49:24 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:49:23 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:49:22 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:49:21 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:49:20 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:49:19 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:46:13 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:46:12 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:46:10 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:46:09 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:46:08 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:46:07 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:46:06 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:46:05 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:44:42 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:44:41 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:44:40 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:44:39 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:42:58 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:42:57 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:42:56 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:42:55 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:42:54 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:41:25 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:41:24 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:41:23 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:39:00 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:38:59 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:38:58 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:38:57 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:38:57 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /htmx_get_tests
+2024/07/15 13:33:36 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:33:34 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:33:32 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:33:31 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:33:30 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:33:28 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:33:27 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:33:26 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:33:25 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:32:58 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:32:49 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:32:48 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:32:37 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:32:33 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:32:33 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:32:30 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:32:27 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:32:25 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:32:24 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:32:23 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:32:22 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:32:21 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests
+2024/07/15 13:32:20 getTests.go:28:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /api_get_tests

@@ -48,4 +48,5 @@ type FileLog struct {
 	Time  string
 	File  string
 	Error string
+	Path  string
 }
