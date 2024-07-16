@@ -18,7 +18,7 @@ import (
 	"github.com/rs/cors"
 
 	"github.com/joho/godotenv"
-	testsAPI "github.com/vladanan/vezbamo4/src/api/vezbamo/v1"
+	"github.com/vladanan/vezbamo4/src/api/vezbamo"
 	"github.com/vladanan/vezbamo4/src/db"
 	elr "github.com/vladanan/vezbamo4/src/errorlogres"
 	"github.com/vladanan/vezbamo4/src/models"
@@ -90,7 +90,7 @@ func RouterUsers(r *mux.Router) {
 }
 
 func RouterAPI(r *mux.Router) {
-	r.HandleFunc("/api_get_tests", elr.CheckFunc(testsAPI.GetTests))
+	r.HandleFunc("/test", elr.CheckFunc(vezbamo.GetTests)).Methods("GET")
 	// r.HandleFunc("/api_get_questions", APIgetQuestions)
 
 	c := cors.New(cors.Options{
@@ -178,7 +178,7 @@ func Komponents(w http.ResponseWriter, r *http.Request) {
 func HtmxGetTests(w http.ResponseWriter, r *http.Request) {
 	// https://stackoverflow.com/questions/13765797/the-best-way-to-get-a-string-from-a-writer
 	rr := httptest.NewRecorder()
-	err := testsAPI.GetTests(rr, r)
+	err := vezbamo.GetTests(rr, r)
 	if err != nil {
 		// log.Println("greška na api")
 		templ.Handler(site.ServerError(elr.CheckErr(err))).Component.Render(context.Background(), w)

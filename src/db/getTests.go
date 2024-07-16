@@ -17,13 +17,11 @@ func GetTests(r *http.Request) ([]models.Test, error) {
 
 	//https://stackoverflow.com/questions/61704842/how-to-scan-a-queryrow-into-a-struct-with-pgx
 
-	testpath := "" // ../../../../
-	elr.X(testpath)
-	// sistem radi i bez učitavanja .env jer je valjda već učitano u routes.go ali kada se radi test onda mora i ovde jer se prilikom testa izgleda ne učitavaju svi fajlovi nego samo ono što je potrebno
-	err := godotenv.Load(testpath + ".env")
-	if err != nil {
-		return nil, l(r, 8, err)
-	}
+	// sistem radi i bez učitavanja .env jer je valjda već učitano u routes.go ali kada se radi unit test onda mora i ovde jer se prilikom testa izgleda ne učitavaju svi fajlovi nego samo ono što je potrebno
+	// zato se ovde .env učitava samo sa pathom za unit test jer sa normalan režim ovde nema ni potrebe da se učitava .env
+	// zato nije ni potrebno da se reaguje ni kada van test okruženja učitavanje pukne jer je već pravilno učitano u routes
+	godotenv.Load("../../../../.env")
+	godotenv.Load(".env")
 
 	conn, err := pgx.Connect(context.Background(), os.Getenv("SUPABASE_CONNECTION_STRING"))
 	if err != nil {
@@ -40,6 +38,18 @@ func GetTests(r *http.Request) ([]models.Test, error) {
 	if err != nil {
 		return nil, l(r, 8, err)
 	}
+
+	// rows2, err := conn.Query(context.Background(), "SELECT g_id, tip, oblast, obrazovni_profil FROM g_pitanja_c_testovi;")
+	// if err != nil {
+	// 	return nil, l(r, 8, err)
+	// }
+	// for rows2.Next() {
+	// 	if val, err := rows2.Values(); err != nil {
+	// 		log.Print(err)
+	// 	} else {
+	// 		println("proba pgx:", fmt.Sprint(val))
+	// 	}
+	// }
 
 	// bytearray_tests, err2 := json.Marshal(pgx_tests)
 	// if err2 != nil {

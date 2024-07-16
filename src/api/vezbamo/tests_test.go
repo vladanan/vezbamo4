@@ -1,4 +1,4 @@
-package testsAPI
+package vezbamo
 
 import (
 	"encoding/json"
@@ -15,7 +15,7 @@ func TestGetTests(t *testing.T) {
 	// https://go.dev/doc/code
 	// https://www.cloudbees.com/blog/testing-http-handlers-go
 
-	r, err := http.NewRequest(http.MethodGet, "/api_get_tests", nil)
+	r, err := http.NewRequest(http.MethodDelete, "/test", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -26,18 +26,18 @@ func TestGetTests(t *testing.T) {
 	handler.ServeHTTP(rr, r)
 
 	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("api handler returned wrong status code: got %v, want %v", status, http.StatusOK)
+		t.Errorf("api handler returned status code: %v, want %v", status, http.StatusOK)
 	}
 
 	list_string := rr.Body.String() // r.Body is a *bytes.Buffer
 	dec := json.NewDecoder(strings.NewReader(list_string))
 	var all_tests []models.Test
 	if err := dec.Decode(&all_tests); err != nil {
-		t.Errorf("json decode greška: %v", err)
+		t.Error(err)
 	}
 
 	if len(all_tests) < 1 {
-		t.Errorf("api handler returned unexpected body: got %v, want %v", len(all_tests), ">1")
+		t.Errorf("api handler returned array of %v, want %v", len(all_tests), "> 0")
 
 	}
 

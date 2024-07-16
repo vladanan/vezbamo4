@@ -236,9 +236,10 @@ func prependLogToFile(file string, buf []byte) bool {
 
 	buf = []byte(bstring)
 
-	testpath := "" // ../../../../
-	X(testpath)
-	file = testpath + file
+	// provera za test režim uz pomoć .env fajla jer se fajlovi u tekst režimu ne pokreću iz root nego iz mesta test fajla i onda ostali path ne valjaju
+	if _, err := os.ReadFile(".env"); err != nil {
+		file = "../../../../" + file // ../../../../
+	}
 
 	dat, err := os.ReadFile(file)
 	if err != nil {
@@ -439,7 +440,7 @@ func (l *Logger) OutputIzmenjen2(r *http.Request, level int, e error) error {
 	// 8 erro server ide u sys log
 	switch level {
 	case 0:
-		s = BgBlue + " " + e.Error() + "  " + r.URL.Path + Reset
+		s = Reset + Blue + " " + e.Error() + "  " + r.URL.Path + Reset
 	case 4:
 		s = Reset + LightYellow + " " + e.Error() + "  " + r.URL.Path + Reset
 		logfile = "usr.log"

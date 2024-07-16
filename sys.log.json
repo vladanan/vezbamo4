@@ -1,5 +1,110 @@
 [
 	{
+		"Date":"2024/07/16","Time":"16:45:36","File":"getTests.go:34:",
+		"Error":"ERROR: syntax error at or near \"54354\" (SQLSTATE 42601)",
+		"Path":"/test"
+	},
+	{
+		"Date":"2024/07/16","Time":"16:44:04","File":"getTests.go:27:",
+		"Error":"failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)",
+		"Path":"/test"
+	},
+	{
+		"Date":"2024/07/16","Time":"16:21:25","File":"getTests.go:33:",
+		"Error":"ERROR: syntax error at or near \"754\" (SQLSTATE 42601)",
+		"Path":"/test"
+	},
+	{
+		"Date":"2024/07/16","Time":"16:19:53","File":"getTests.go:33:",
+		"Error":"ERROR: syntax error at or near \"754\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
+	},
+	{
+		"Date":"2024/07/16","Time":"15:58:12","File":"getTests.go:47:",
+		"Error":"struct doesn't have corresponding row field obrazovni_profil",
+		"Path":"/api_get_tests"
+	},
+	{
+		"Date":"2024/07/16","Time":"15:54:53","File":"getTests.go:38:",
+		"Error":"struct doesn't have corresponding row field obrazovni_profil",
+		"Path":"/api_get_tests"
+	},
+	{
+		"Date":"2024/07/16","Time":"15:54:27","File":"getTests.go:33:",
+		"Error":"ERROR: column \"obrazovn_profil\" does not exist (SQLSTATE 42703)",
+		"Path":"/api_get_tests"
+	},
+	{
+		"Date":"2024/07/16","Time":"15:41:48","File":"getTests.go:33:",
+		"Error":"ERROR: syntax error at or near \"8675876\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
+	},
+	{
+		"Date":"2024/07/16","Time":"15:28:30","File":"getTests.go:33:",
+		"Error":"ERROR: syntax error at or near \"888\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
+	},
+	{
+		"Date":"2024/07/16","Time":"15:28:19","File":"getTests.go:33:",
+		"Error":"ERROR: syntax error at or near \"888\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
+	},
+	{
+		"Date":"2024/07/16","Time":"15:27:13","File":"getTests.go:33:",
+		"Error":"ERROR: syntax error at or near \"888\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
+	},
+	{
+		"Date":"2024/07/16","Time":"15:24:34","File":"getTests.go:33:",
+		"Error":"ERROR: syntax error at or near \"888\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
+	},
+	{
+		"Date":"2024/07/16","Time":"15:24:28","File":"getTests.go:33:",
+		"Error":"ERROR: syntax error at or near \"888\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
+	},
+	{
+		"Date":"2024/07/16","Time":"15:14:20","File":"getTests.go:39:",
+		"Error":"ERROR: syntax error at or near \"888\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
+	},
+	{
+		"Date":"2024/07/16","Time":"15:08:35","File":"getTests.go:39:",
+		"Error":"ERROR: syntax error at or near \"888\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
+	},
+	{
+		"Date":"2024/07/16","Time":"15:04:46","File":"getTests.go:37:",
+		"Error":"ERROR: syntax error at or near \"888\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
+	},
+	{
+		"Date":"2024/07/16","Time":"15:02:17","File":"getTests.go:35:",
+		"Error":"ERROR: syntax error at or near \"888\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
+	},
+	{
+		"Date":"2024/07/16","Time":"15:01:10","File":"getTests.go:36:",
+		"Error":"ERROR: syntax error at or near \"888\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
+	},
+	{
+		"Date":"2024/07/16","Time":"15:00:35","File":"getTests.go:36:",
+		"Error":"ERROR: syntax error at or near \"888\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
+	},
+	{
+		"Date":"2024/07/16","Time":"15:00:06","File":"getTests.go:36:",
+		"Error":"ERROR: syntax error at or near \"888\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
+	},
+	{
+		"Date":"2024/07/16","Time":"14:57:32","File":"getTests.go:43:",
+		"Error":"ERROR: syntax error at or near \"888\" (SQLSTATE 42601)",
+		"Path":"/api_get_tests"
+	},
+	{
 		"Date":"2024/07/15","Time":"16:46:49","File":"getTests.go:36:",
 		"Error":"ERROR: syntax error at or near \"999\" (SQLSTATE 42601)",
 		"Path":"/api_get_tests"
