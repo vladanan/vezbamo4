@@ -238,7 +238,7 @@ func prependLogToFile(file string, buf []byte) bool {
 
 	// provera za test režim uz pomoć .env fajla jer se fajlovi u tekst režimu ne pokreću iz root nego iz mesta test fajla i onda ostali path ne valjaju
 	if _, err := os.ReadFile(".env"); err != nil {
-		file = "../../../../" + file // ../../../../
+		file = "../../../" + file // ../../../../
 	}
 
 	dat, err := os.ReadFile(file)

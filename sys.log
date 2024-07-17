@@ -1,3 +1,6 @@
+2024/07/17 12:26:04 getTests.go:35:  ERROR: syntax error at or near "12345" (SQLSTATE 42601)  /test
+2024/07/17 11:51:05 getTests.go:35:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /test
+2024/07/17 11:49:14 getTests.go:35:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /test
 2024/07/16 16:45:36 getTests.go:34:  ERROR: syntax error at or near "54354" (SQLSTATE 42601)  /test
 2024/07/16 16:44:04 getTests.go:27:  failed to connect to `host=/tmp user=vladan database=`: dial error (dial unix /tmp/.s.PGSQL.5432: connect: no such file or directory)  /test
 2024/07/16 16:21:25 getTests.go:33:  ERROR: syntax error at or near "754" (SQLSTATE 42601)  /test

@@ -1,4 +1,4 @@
-package vezbamo
+package testovi
 
 import (
 	"log"
@@ -9,8 +9,8 @@ func TestGetTests2(t *testing.T) {
 	// https://go.dev/doc/code
 	// https://www.cloudbees.com/blog/testing-http-handlers-go
 
-	log.Print("kao neki neuspeli test")
-	t.Error("pukao sam")
+	log.Print("kao neki neuspeli test 2")
+	t.Error("pukao sam 2")
 
 	// r, err := http.NewRequest(http.MethodGet, "/api_get_tests", nil)
 	// if err != nil {
