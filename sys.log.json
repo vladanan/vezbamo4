@@ -1,5 +1,10 @@
 [
 	{
+		"Date":"2024/07/17","Time":"13:18:51","File":"getTests.go:34:",
+		"Error":"ERROR: syntax error at or near \"12345\" (SQLSTATE 42601)",
+		"Path":"/test"
+	},
+	{
 		"Date":"2024/07/17","Time":"12:39:52","File":"getTests.go:34:",
 		"Error":"ERROR: syntax error at or near \"12345\" (SQLSTATE 42601)",
 		"Path":"/htmx_get_tests"

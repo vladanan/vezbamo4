@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/jackc/pgx/v5"
+	"github.com/joho/godotenv"
 	elr "github.com/vladanan/vezbamo4/src/errorlogres"
 	"github.com/vladanan/vezbamo4/src/models"
 )
@@ -19,9 +20,8 @@ func GetTests(r *http.Request) ([]models.Test, error) {
 	// sistem radi i bez učitavanja .env jer je valjda već učitano u routes.go ali kada se radi unit test onda mora i ovde jer se prilikom testa izgleda ne učitavaju svi fajlovi nego samo ono što je potrebno
 	// zato se ovde .env učitava samo sa pathom za unit test jer sa normalan režim ovde nema ni potrebe da se učitava .env
 	// zato nije ni potrebno da se reaguje ni kada van test okruženja učitavanje pukne jer je već pravilno učitano u routes
-	// godotenv.Load("../.env")
-	// godotenv.Load("../../../.env")
 	// godotenv.Load(".env")
+	godotenv.Load("../../../.env")
 
 	conn, err := pgx.Connect(context.Background(), os.Getenv("SUPABASE_CONNECTION_STRING"))
 	if err != nil {
@@ -29,7 +29,7 @@ func GetTests(r *http.Request) ([]models.Test, error) {
 	}
 	defer conn.Close(context.Background())
 
-	rows, err := conn.Query(context.Background(), "SELECT g_id, tip, oblast 12345 FROM g_pitanja_c_testovi;")
+	rows, err := conn.Query(context.Background(), "SELECT g_id, tip, oblast FROM g_pitanja_c_testovi;")
 	if err != nil {
 		return nil, l(r, 8, err)
 	}

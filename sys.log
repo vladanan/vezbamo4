@@ -1,3 +1,4 @@
+2024/07/17 13:18:51 getTests.go:34:  ERROR: syntax error at or near "12345" (SQLSTATE 42601)  /test
 2024/07/17 12:39:52 getTests.go:34:  ERROR: syntax error at or near "12345" (SQLSTATE 42601)  /htmx_get_tests
 2024/07/17 12:26:04 getTests.go:35:  ERROR: syntax error at or near "12345" (SQLSTATE 42601)  /test
 2024/07/17 11:51:05 getTests.go:35:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /test
