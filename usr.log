@@ -1,3 +1,11 @@
+2024/07/17 22:17:34 tests.go:31:  strconv.Atoi: parsing "-9h": invalid syntax  /test/-9h
+2024/07/17 22:16:59 tests.go:31:  strconv.Atoi: parsing "-1.98769069786576845": invalid syntax  /test/-1.98769069786576845
+2024/07/17 21:51:09 tests.go:31:  strconv.Atoi: parsing "56h": invalid syntax  /test/56h
+2024/07/17 21:50:47 tests.go:31:  strconv.Atoi: parsing "78mf": invalid syntax  /test/78mf
+2024/07/17 21:49:54 tests.go:31:  strconv.Atoi: parsing "78m": invalid syntax  /test/78m
+2024/07/17 21:49:15 tests.go:31:  strconv.Atoi: parsing "2m": invalid syntax  /test/2m
+2024/07/17 21:39:41 tests.go:26:  strconv.Atoi: parsing "2v": invalid syntax  /test/2v
+2024/07/17 21:39:23 tests.go:26:  strconv.Atoi: parsing "": invalid syntax  /test
 2024/07/17 15:00:39 authenticateUser.go:169:  Pogrešna lozinka za: vladan_zasve@yahoo.com  tmp/r.URL.Path
 2024/07/17 14:44:57 authenticateUser.go:169:  Pogrešna lozinka za: vladan_zasve@yahoo.com  tmp/r.URL.Path
 2024/07/15 14:30:09 getTests.go:28:  ERROR: syntax error at or near "3333" (SQLSTATE 42601)  /htmx_get_tests

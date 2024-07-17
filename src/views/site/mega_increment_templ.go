@@ -52,7 +52,7 @@ func MegaIncrement(store sessions.Store, r *http.Request) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Index5text1"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/mega-increment.templ`, Line: 24, Col: 85}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/mega_increment.templ`, Line: 24, Col: 85}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -65,7 +65,7 @@ func MegaIncrement(store sessions.Store, r *http.Request) templ.Component {
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "Index5text2"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/mega-increment.templ`, Line: 26, Col: 51}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/mega_increment.templ`, Line: 26, Col: 51}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {

@@ -10,11 +10,11 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import (
 	"fmt"
-	elr "github.com/vladanan/vezbamo4/src/errorlogres"
+	"github.com/vladanan/vezbamo4/src/clr"
 	"strconv"
 )
 
-func ServerError(err elr.APIError) templ.Component {
+func ServerError(err clr.APIError) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -39,7 +39,7 @@ func ServerError(err elr.APIError) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(err.StatusCode))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/pageServerError.templ`, Line: 10, Col: 95}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/page_server_error.templ`, Line: 10, Col: 95}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -52,7 +52,7 @@ func ServerError(err elr.APIError) templ.Component {
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(err.Msg))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/pageServerError.templ`, Line: 10, Col: 117}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/page_server_error.templ`, Line: 10, Col: 117}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {

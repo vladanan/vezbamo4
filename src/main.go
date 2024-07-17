@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	elr "github.com/vladanan/vezbamo4/src/errorlogres"
+	"github.com/vladanan/vezbamo4/src/clr"
 	"github.com/vladanan/vezbamo4/src/routes"
 )
 
@@ -37,7 +37,7 @@ func main() {
 
 	routes.ServeStatic(r, "/static/")
 
-	log.Print(elr.Green + "Main done" + elr.Reset)
+	log.Print(clr.Green + "Main done" + clr.Reset)
 
 	// go gamesForLearningChannelsAndLogs()
 

@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/vladanan/vezbamo4/src/errorlogres"
+	"github.com/vladanan/vezbamo4/src/clr"
 	"github.com/vladanan/vezbamo4/src/models"
 )
 
@@ -22,7 +22,7 @@ func TestGetTests(t *testing.T) {
 
 	rr := httptest.NewRecorder()
 
-	handler := http.HandlerFunc(errorlogres.CheckFunc(GetTests))
+	handler := http.HandlerFunc(clr.CheckFunc(GetTests))
 	handler.ServeHTTP(rr, r)
 
 	if status := rr.Code; status != http.StatusOK {

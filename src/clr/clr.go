@@ -1,4 +1,5 @@
-package errorlogres
+// package for custom log and error
+package clr
 
 import (
 	"bytes"

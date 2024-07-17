@@ -1,5 +1,45 @@
 [
 	{
+		"Date":"2024/07/17","Time":"22:17:34","File":"tests.go:31:",
+		"Error":"strconv.Atoi: parsing \"-9h\": invalid syntax",
+		"Path":"/test/-9h"
+	},
+	{
+		"Date":"2024/07/17","Time":"22:16:59","File":"tests.go:31:",
+		"Error":"strconv.Atoi: parsing \"-1.98769069786576845\": invalid syntax",
+		"Path":"/test/-1.98769069786576845"
+	},
+	{
+		"Date":"2024/07/17","Time":"21:51:09","File":"tests.go:31:",
+		"Error":"strconv.Atoi: parsing \"56h\": invalid syntax",
+		"Path":"/test/56h"
+	},
+	{
+		"Date":"2024/07/17","Time":"21:50:47","File":"tests.go:31:",
+		"Error":"strconv.Atoi: parsing \"78mf\": invalid syntax",
+		"Path":"/test/78mf"
+	},
+	{
+		"Date":"2024/07/17","Time":"21:49:54","File":"tests.go:31:",
+		"Error":"strconv.Atoi: parsing \"78m\": invalid syntax",
+		"Path":"/test/78m"
+	},
+	{
+		"Date":"2024/07/17","Time":"21:49:15","File":"tests.go:31:",
+		"Error":"strconv.Atoi: parsing \"2m\": invalid syntax",
+		"Path":"/test/2m"
+	},
+	{
+		"Date":"2024/07/17","Time":"21:39:41","File":"tests.go:26:",
+		"Error":"strconv.Atoi: parsing \"2v\": invalid syntax",
+		"Path":"/test/2v"
+	},
+	{
+		"Date":"2024/07/17","Time":"21:39:23","File":"tests.go:26:",
+		"Error":"strconv.Atoi: parsing \"\": invalid syntax",
+		"Path":"/test"
+	},
+	{
 		"Date":"2024/07/17","Time":"15:00:39","File":"authenticateUser.go:169:",
 		"Error":"Pogrešna lozinka za: vladan_zasve@yahoo.com",
 		"Path":"tmp/r.URL.Path"

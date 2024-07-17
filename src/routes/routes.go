@@ -19,8 +19,8 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/vladanan/vezbamo4/src/api/vezbamo"
+	"github.com/vladanan/vezbamo4/src/clr"
 	"github.com/vladanan/vezbamo4/src/db"
-	elr "github.com/vladanan/vezbamo4/src/errorlogres"
 	"github.com/vladanan/vezbamo4/src/models"
 	"github.com/vladanan/vezbamo4/src/views"
 	"github.com/vladanan/vezbamo4/src/views/assignments"
@@ -90,7 +90,8 @@ func RouterUsers(r *mux.Router) {
 }
 
 func RouterAPI(r *mux.Router) {
-	r.HandleFunc("/test", elr.CheckFunc(vezbamo.GetTests)).Methods("GET")
+	r.HandleFunc("/test", clr.CheckFunc(vezbamo.GetTests)).Methods("GET")
+	r.HandleFunc("/test/{id}", clr.CheckFunc(vezbamo.GetTests)).Methods("GET")
 	// r.HandleFunc("/api_get_questions", APIgetQuestions)
 
 	c := cors.New(cors.Options{
@@ -145,7 +146,7 @@ func UserPortal(w http.ResponseWriter, r *http.Request) {
 }
 
 func TestsAPI(w http.ResponseWriter, r *http.Request) {
-	templ.Handler(tests.TestsAPI(store, r)).Component.Render(context.Background(), w)
+	templ.Handler(site.TestsAPI(store, r)).Component.Render(context.Background(), w)
 }
 
 func MegaIncrement(w http.ResponseWriter, r *http.Request) {
@@ -181,14 +182,14 @@ func HtmxGetTests(w http.ResponseWriter, r *http.Request) {
 	err := vezbamo.GetTests(rr, r)
 	if err != nil {
 		// log.Println("greška na api")
-		templ.Handler(site.ServerError(elr.CheckErr(err))).Component.Render(context.Background(), w)
+		templ.Handler(site.ServerError(clr.CheckErr(err))).Component.Render(context.Background(), w)
 	} else {
 		list_string := rr.Body.String() // r.Body is a *bytes.Buffer
 		dec := json.NewDecoder(strings.NewReader(list_string))
 		var all_tests []models.Test
 		if err := dec.Decode(&all_tests); err != nil {
 			// log.Println("greška json dekodera")
-			templ.Handler(site.ServerError(elr.CheckErr(err))).Component.Render(context.Background(), w)
+			templ.Handler(site.ServerError(clr.CheckErr(err))).Component.Render(context.Background(), w)
 		} else {
 			templ.Handler(tests.List(all_tests)).Component.Render(context.Background(), w)
 		}

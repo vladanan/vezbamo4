@@ -14,7 +14,7 @@ import (
 	"github.com/joho/godotenv"
 	"golang.org/x/crypto/bcrypt"
 
-	elr "github.com/vladanan/vezbamo4/src/errorlogres"
+	"github.com/vladanan/vezbamo4/src/clr"
 	"github.com/vladanan/vezbamo4/src/models"
 )
 
@@ -28,7 +28,7 @@ func toStruct(user []byte) []models.User {
 }
 
 func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated bool, r *http.Request) (bool, models.User, error) {
-	l := elr.GetELRfunc()
+	l := clr.GetELRfunc()
 	// var Red = "\033[31m"
 	var Reset = "\033[0m"
 	log.SetFlags(log.Ltime | log.Lshortfile)

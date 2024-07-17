@@ -7,13 +7,13 @@ import (
 
 	"github.com/jackc/pgx/v5"
 	"github.com/joho/godotenv"
-	elr "github.com/vladanan/vezbamo4/src/errorlogres"
+	"github.com/vladanan/vezbamo4/src/clr"
 	"github.com/vladanan/vezbamo4/src/models"
 )
 
-func GetTests(r *http.Request) ([]models.Test, error) {
+func GetTests(r *http.Request, g_id int) ([]models.Test, error) {
 
-	l := elr.GetELRfunc2()
+	l := clr.GetELRfunc2()
 
 	//https://stackoverflow.com/questions/61704842/how-to-scan-a-queryrow-into-a-struct-with-pgx
 
@@ -29,7 +29,15 @@ func GetTests(r *http.Request) ([]models.Test, error) {
 	}
 	defer conn.Close(context.Background())
 
-	rows, err := conn.Query(context.Background(), "SELECT g_id, tip, oblast FROM g_pitanja_c_testovi;")
+	var rows pgx.Rows
+
+	switch {
+	case g_id <= 0 && r.Method == "GET":
+		rows, err = conn.Query(context.Background(), "SELECT g_id, tip, oblast FROM g_pitanja_c_testovi;")
+	default:
+		rows, err = conn.Query(context.Background(), "SELECT g_id, tip, oblast FROM g_pitanja_c_testovi;")
+	}
+
 	if err != nil {
 		return nil, l(r, 8, err)
 	}

@@ -1,10 +1,13 @@
-package testovi
+package vezbamo
 
 import (
+	"fmt"
 	"net/http"
+	"strconv"
 
+	"github.com/gorilla/mux"
+	"github.com/vladanan/vezbamo4/src/clr"
 	"github.com/vladanan/vezbamo4/src/db"
-	elr "github.com/vladanan/vezbamo4/src/errorlogres"
 )
 
 func GetTests(w http.ResponseWriter, r *http.Request) error {
@@ -13,11 +16,29 @@ func GetTests(w http.ResponseWriter, r *http.Request) error {
 	// io.WriteString(w, string(db.GetQuestions()))
 	// curl http://127.0.0.1:7331/api_get_tests
 
-	allTests, err := db.GetTests(r)
+	l := clr.GetELRfunc2()
+
+	vars := mux.Vars(r)
+	id := vars["id"]
+	var g_id int
+
+	switch id {
+	case "":
+	default:
+		var err error
+		g_id, err = strconv.Atoi(id)
+		if err != nil {
+			l(r, 4, err)
+		}
+	}
+
+	fmt.Println("traži se test:", id, "broj:", g_id, r.Method)
+
+	allTests, err := db.GetTests(r, g_id)
 	if err != nil {
 		return err
 	}
-	return elr.WriteJSON(w, 200, allTests)
+	return clr.WriteJSON(w, 200, allTests)
 
 	// w.Write(db.GetQuestions())
 	// return db.GetQuestions()
