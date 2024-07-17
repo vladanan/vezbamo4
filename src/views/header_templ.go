@@ -10,9 +10,9 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import (
 	"github.com/gorilla/sessions"
+	"log"
 	"net/http"
 	"strings"
-	// "fmt"
 )
 
 // func showLanguage (store sessions.Store, r *http.Request, item string) bool {
@@ -74,7 +74,12 @@ import (
 // }
 
 func getLang(store sessions.Store, r *http.Request) []string {
-	session, _ := store.Get(r, "vezbamo.onrender.com-users")
+	session, err := store.Get(r, "vezbamo.onrender.com-users")
+	if err != nil {
+		// http.Error(w, err.Error(), http.StatusInternalServerError)
+		// return
+		log.Println("header: getLang: Error on get store:", err)
+	}
 	lang_map := session.Values["language"]
 	accept := r.Header.Get("Accept-Language")
 	language := ""
@@ -130,7 +135,7 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Home"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 112, Col: 94}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 117, Col: 94}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -143,7 +148,7 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(getLang(store, r)[0])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 125, Col: 71}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 130, Col: 71}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
@@ -156,7 +161,7 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(getLang(store, r)[1])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 125, Col: 94}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 130, Col: 94}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
@@ -175,7 +180,7 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Sign_in"))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 151, Col: 55}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 156, Col: 55}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -193,7 +198,7 @@ func Header(store sessions.Store, r *http.Request) templ.Component {
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(Translate(store, r, "Sign_out"))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 155, Col: 57}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/header.templ`, Line: 160, Col: 57}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {

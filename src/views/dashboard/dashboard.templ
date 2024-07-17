@@ -7,6 +7,7 @@ import (
   "fmt"
   "github.com/vladanan/vezbamo4/src/models"
   "encoding/json"
+  "log"
 )
 
 func signedin(store sessions.Store, r *http.Request) string {
@@ -14,7 +15,7 @@ func signedin(store sessions.Store, r *http.Request) string {
 	if err != nil {
 		// http.Error(w, err.Error(), http.StatusInternalServerError)
 		// return
-		fmt.Println("Error on get store:", err)
+		log.Println("dashboard: signedin: Error on get store:", err)
 	}
 
   auth := session.Values["authenticated"]

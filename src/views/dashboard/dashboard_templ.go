@@ -14,6 +14,7 @@ import (
 	"github.com/gorilla/sessions"
 	"github.com/vladanan/vezbamo4/src/models"
 	"github.com/vladanan/vezbamo4/src/views"
+	"log"
 	"net/http"
 )
 
@@ -22,7 +23,7 @@ func signedin(store sessions.Store, r *http.Request) string {
 	if err != nil {
 		// http.Error(w, err.Error(), http.StatusInternalServerError)
 		// return
-		fmt.Println("Error on get store:", err)
+		log.Println("dashboard: signedin: Error on get store:", err)
 	}
 
 	auth := session.Values["authenticated"]
@@ -104,7 +105,7 @@ func Dashboard(store sessions.Store, r *http.Request, user models.User) templ.Co
 				var templ_7745c5c3_Var3 string
 				templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(views.Translate(store, r, "UnWelcome"))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/dashboard/dashboard.templ`, Line: 55, Col: 81}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/dashboard/dashboard.templ`, Line: 56, Col: 81}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 				if templ_7745c5c3_Err != nil {

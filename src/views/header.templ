@@ -4,7 +4,7 @@ import (
   "net/http"
   "strings"
 	"github.com/gorilla/sessions"
-	// "fmt"
+	"log"
 )
 
 // func showLanguage (store sessions.Store, r *http.Request, item string) bool {
@@ -66,7 +66,12 @@ import (
 // }
 
 func getLang(store sessions.Store, r *http.Request) []string {
-	session, _ := store.Get(r, "vezbamo.onrender.com-users")
+	session, err := store.Get(r, "vezbamo.onrender.com-users")
+	if err != nil {
+		// http.Error(w, err.Error(), http.StatusInternalServerError)
+		// return
+		log.Println("header: getLang: Error on get store:", err)
+	}
 	lang_map := session.Values["language"]
 	accept := r.Header.Get("Accept-Language")
 	language := ""

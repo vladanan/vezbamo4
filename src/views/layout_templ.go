@@ -13,8 +13,8 @@ import (
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 	"golang.org/x/text/language"
 
-	"fmt"
 	"github.com/gorilla/sessions"
+	"log"
 	"net/http"
 )
 
@@ -35,7 +35,7 @@ func Translate(store sessions.Store, r *http.Request, item string) string {
 	if err != nil {
 		// http.Error(w, err.Error(), http.StatusInternalServerError)
 		// return
-		fmt.Println("Error on get store:", err)
+		log.Println("layout: Translate: Error on get store:", err)
 	}
 
 	session.Options = &sessions.Options{
