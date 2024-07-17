@@ -53,7 +53,7 @@ func AddUser(emailString, userName, passwordString string, r *http.Request) bool
 		fmt.Fprintf(os.Stderr, "AddUser: greška bcrypt ciphertext_sign_in: %s\n", err)
 		return false
 	}
-	ciphertextVerifyMail, err := bcrypt.GenerateFromPassword([]byte(email), 7)
+	ciphertextVerifyEmail, err := bcrypt.GenerateFromPassword([]byte(email), 7)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "AddUser: greška bcrypt ciphertext_verify_mail: %s\n", err)
 		return false
@@ -61,8 +61,8 @@ func AddUser(emailString, userName, passwordString string, r *http.Request) bool
 
 	// kada se key koristi bez zamena / i . onda ne može da se koristi kao url jer / dovodi do toga da je url pogrešan
 	// možda se to ne dešava sa . ali sam zamenio za svaki slučaj da se ne brka domen ili tako nešto
-	ciphertextVerifyMailString1 := strings.ReplaceAll(string(ciphertextVerifyMail), "/", "-")
-	ciphertextVerifyMailString2 := strings.ReplaceAll(string(ciphertextVerifyMailString1), ".", "_")
+	ciphertextVerifyEmailString1 := strings.ReplaceAll(string(ciphertextVerifyEmail), "/", "-")
+	ciphertextVerifyEmailString2 := strings.ReplaceAll(string(ciphertextVerifyEmailString1), ".", "_")
 
 	// fmt.Println("Ciphertexts: ", string(ciphertext_sign_in))
 
@@ -167,7 +167,7 @@ func AddUser(emailString, userName, passwordString string, r *http.Request) bool
 			same_ip_sign_up_time_limit = "'" + db_same_ip_sign_up_time_limit + "m'"
 		}
 
-		fmt.Print("AddUser: bad env: ", SAME_IP_SIGN_UP_TIME_LIMIT, db_same_ip_sign_up_time_limit, same_ip_sign_up_time_limit, "\n")
+		// fmt.Print("AddUser: bad env: ", SAME_IP_SIGN_UP_TIME_LIMIT, db_same_ip_sign_up_time_limit, same_ip_sign_up_time_limit, "\n")
 
 		rows2, err2 := conn.Query(
 			context.Background(),
@@ -230,7 +230,7 @@ func AddUser(emailString, userName, passwordString string, r *http.Request) bool
 		"user",
 		0,
 		true, true, false,
-		ciphertextVerifyMailString2,
+		ciphertextVerifyEmailString2,
 		string(bytearrayHeaders),
 		// time.Now(),
 		// time.DateTime,
@@ -244,35 +244,35 @@ func AddUser(emailString, userName, passwordString string, r *http.Request) bool
 
 		fmt.Printf("AddUser: insert rezultat: %v\n", commandTag)
 
-		// AKO JE SVE OKEJ ŠALJE SE MEJL PREKO MEJL KLIJENTA
+		// AKO JE SVE OKEJ ŠALJE SE EMAIL PREKO EMAIL KLIJENTA
 
 		// Set up authentication information.
-		auth := sasl.NewPlainClient("", os.Getenv("SMTP_MAIL"), os.Getenv("SMTP_APP_PASSWORD_VEZBAMO"))
+		auth := sasl.NewPlainClient("", os.Getenv("SMTP_EMAIL"), os.Getenv("SMTP_APP_PASSWORD_VEZBAMO"))
 
 		// Connect to the server, authenticate, set the sender and recipient,and send the email all in one step.
 
-		var mailForMail string
-		var urlDomainForMail string
+		var emailForEmail string
+		var urlDomainForEmail string
 
 		if os.Getenv("PRODUCTION") == "FALSE" {
-			mailForMail = emailString //"vladan_zasve@yahoo.com"
-			urlDomainForMail = "http://127.0.0.1:7331/vmk/" + string(ciphertextVerifyMailString2) + "?mail=" + mailForMail
+			emailForEmail = emailString //"vladan_zasve@yahoo.com"
+			urlDomainForEmail = "http://127.0.0.1:7331/vmk/" + string(ciphertextVerifyEmailString2) + "?email=" + emailForEmail
 		} else {
-			mailForMail = emailString
-			urlDomainForMail = "https://vezbamo.onrender.com/vmk/" + string(ciphertextVerifyMailString2) + "?mail=" + mailForMail
+			emailForEmail = emailString
+			urlDomainForEmail = "https://vezbamo.onrender.com/vmk/" + string(ciphertextVerifyEmailString2) + "?email=" + emailForEmail
 		}
 
-		to := []string{mailForMail}
+		to := []string{emailForEmail}
 
 		html = strings.ReplaceAll(html, "+userName+", userName)
-		html = strings.ReplaceAll(html, "+urlDomainForMail+", urlDomainForMail)
-		html = strings.ReplaceAll(html, "+mailForMail+", mailForMail)
+		html = strings.ReplaceAll(html, "+urlDomainForEmail+", urlDomainForEmail)
+		html = strings.ReplaceAll(html, "+emailForEmail+", emailForEmail)
 		// fmt.Print("AddUser: html za mejl:", html)
 
 		msg := strings.NewReader(
 			`Content-Transfer-Encoding: quoted-printable` + "\r\n" +
 				`Content-Type: text/html; charset="UTF-8"` + "\r\n" +
-				`To: ` + mailForMail + "\r\n" +
+				`To: ` + emailForEmail + "\r\n" +
 				`Subject: Dobrodošli na portal Vežbamo!` + "\r\n" +
 				"\r\n" +
 
@@ -289,7 +289,7 @@ func AddUser(emailString, userName, passwordString string, r *http.Request) bool
 
 				"\r\n")
 
-		err := smtp.SendMail("smtp.gmail.com:587", auth, os.Getenv("SMTP_MAIL"), to, msg)
+		err := smtp.SendMail("smtp.gmail.com:587", auth, os.Getenv("SMTP_EMAIL"), to, msg)
 		if err != nil {
 			fmt.Printf("AddUser: korisnik je upisan ali nije poslat email za verifikaciju:%v\n", err)
 			return false

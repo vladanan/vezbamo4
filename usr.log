@@ -1,3 +1,5 @@
+2024/07/17 15:00:39 authenticateUser.go:169:  Pogrešna lozinka za: vladan_zasve@yahoo.com  tmp/r.URL.Path
+2024/07/17 14:44:57 authenticateUser.go:169:  Pogrešna lozinka za: vladan_zasve@yahoo.com  tmp/r.URL.Path
 2024/07/15 14:30:09 getTests.go:28:  ERROR: syntax error at or near "3333" (SQLSTATE 42601)  /htmx_get_tests
 2024/07/15 13:03:20 getTests.go:28:  ERROR: syntax error at or near "888" (SQLSTATE 42601)  /api_get_tests
 2024/07/15 11:51:47 authenticateUser.go:169:  Pogrešna lozinka za: vladan_zasve@yahoo.com  tmp/r.URL.Path

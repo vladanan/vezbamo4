@@ -131,11 +131,11 @@ func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated boo
 
 	} else if string(bytearrayUser) == "null" { // array je prazan tj. nema korisnika sa takvim mejlom ali se to ne odaje nego se piše i lozinka
 
-		return l(fmt.Sprintln("Nema korisnika sa tim mejlom ili lozinkom!")) //, email, password_str
+		return l(fmt.Sprintln("Nema korisnika sa tim email-om ili lozinkom!")) //, email, password_str
 
 	} else if structUser.Verified_email != "verified" { // ako ima mejla proverava se verifikacija
 
-		return l("Mejl nije verifikovan!")
+		return l("Email nije verifikovan!")
 
 		//
 	} else if int64(structUser.Bad_sign_in_attempts) < bad_sign_in_attempts_limit { // mejl je verifikovan i ide se na proveru broja neuspelih pokušaja: ako je broj neuspelih pokušaja manji od limita upisuje se pokušaj i ide se na proveru lozinke

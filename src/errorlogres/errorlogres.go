@@ -366,7 +366,7 @@ func (l *Logger) OutputIzmenjen(a any) (bool, models.User, error) {
 			// s = Reset + LightYellow + " " + e.Error() + "  " + "tmp/r.URL.Path" + Reset
 			for_usr_log = true
 			for_sys_log = false
-			msg_fe = "Mail_or_pass_wrong"
+			msg_fe = "Email_or_pass_wrong"
 		}
 	default:
 		s = "Funkcija nije dobila ni string ni error!"

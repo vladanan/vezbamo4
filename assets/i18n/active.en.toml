@@ -6,7 +6,7 @@ Sign_up = "Don't have an account on our site? Registration is free and fast with
 Welcome = "You are signed in!"
 UnWelcome = "You are not logged in to the system. Sign in with your email and password."
 
-Mail_or_pass_wrong = "No user with such mail or password!"
+Email_or_pass_wrong = "No user with such email or password!"
 
 Index_T_title = "Tests"
 Index_T_subtitle = "Quick and easy learning in three quick steps"

@@ -14,7 +14,7 @@ import (
 	"net/http"
 )
 
-func MailVerified(store sessions.Store, r *http.Request) templ.Component {
+func EmailVerified(store sessions.Store, r *http.Request) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -44,7 +44,7 @@ func MailVerified(store sessions.Store, r *http.Request) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"m-5 text-xl text-blue-300\">Your mail is verified! You can go an sign in to our portal.</p>  <br><br><br><br><br><br>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"m-5 text-xl text-blue-300\">Your email is verified! You can go an sign in to our portal.</p>  <br><br><br><br><br><br>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

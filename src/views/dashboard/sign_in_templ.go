@@ -45,7 +45,7 @@ func Sign_in(store sessions.Store, r *http.Request) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <form class=\"m-5 text-xl text-yellow-300\" id=\"sign_in_form\" action=\"/sign_in_post\" method=\"POST\"><div><p>email</p><input class=\"text-black text-sm\" type=\"email\" name=\"mail\"></div><div><p>password</p><input class=\"text-black text-sm\" type=\"password\" name=\"password\"></div><p class=\"text-red-300\">captcha</p><div><button class=\" border-white mt-2 px-2 rounded-md border-2 font-bold \" type=\"submit\" name=\"sign_in\" value=\"sign_in\">Sign in</button></div><p class=\"text-blue-500\"><button class=\"text-md mt-5 px-1 text-blue-300 border-2 border-yellow-500 rounded-md\" type=\"button\"><a href=\"/sign_up\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <form class=\"m-5 text-xl text-yellow-300\" id=\"sign_in_form\" action=\"/sign_in_post\" method=\"POST\"><div><p>email</p><input class=\"text-black text-sm\" type=\"email\" name=\"email\"></div><div><p>password</p><input class=\"text-black text-sm\" type=\"password\" name=\"password\"></div><p class=\"text-red-300\">captcha</p><div><button class=\" border-white mt-2 px-2 rounded-md border-2 font-bold \" type=\"submit\" name=\"sign_in\" value=\"sign_in\">Sign in</button></div><p class=\"text-blue-500\"><button class=\"text-md mt-5 px-1 text-blue-300 border-2 border-yellow-500 rounded-md\" type=\"button\"><a href=\"/sign_up\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

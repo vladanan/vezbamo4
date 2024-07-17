@@ -1,17 +1,30 @@
 [
 	{
+		"Date":"2024/07/17","Time":"15:00:39","File":"authenticateUser.go:169:",
+		"Error":"Pogrešna lozinka za: vladan_zasve@yahoo.com",
+		"Path":"tmp/r.URL.Path"
+	},
+	{
+		"Date":"2024/07/17","Time":"14:44:57","File":"authenticateUser.go:169:",
+		"Error":"Pogrešna lozinka za: vladan_zasve@yahoo.com",
+		"Path":"tmp/r.URL.Path"
+	},
+	{
 		"Date":"2024/07/15","Time":"14:30:09","File":"getTests.go:28:",
 		"Error":"ERROR: syntax error at or near \"3333\" (SQLSTATE 42601)",
 		"Path":"/htmx_get_tests"
-	},	{
+	},
+	{
 		"Date":"2024/07/15","Time":"13:03:20","File":"getTests.go:28:",
 		"Error":"ERROR: syntax error at or near \"888\" (SQLSTATE 42601)",
 		"Path":"/api_get_tests"
-	},	{
+	},
+	{
 		"Date":"2024/07/15","Time":"11:51:47","File":"authenticateUser.go:169:",
 		"Error":"Pogrešna lozinka za: vladan_zasve@yahoo.com",
 		"Path":"tmp/r.URL.Path"
-	},	{
+	},
+	{
 		"Date":"2024/07/15","Time":"11:40:12","File":"authenticateUser.go:169:",
 		"Error":"Pogrešna lozinka za: vladan_zasve@yahoo.com",
 		"Path":"nešto"

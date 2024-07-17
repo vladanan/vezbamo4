@@ -82,10 +82,10 @@ func RouterUsers(r *mux.Router) {
 	r.HandleFunc("/dashboard", Dashboard)
 	r.HandleFunc("/sign_out", Sign_out)
 	// samo query koji ima u sebi tačno određene promenljive može da prođe
-	r.HandleFunc("/vmk/{key}", CheckLinkFromEmail).Queries("mail", "") // , "user", "vladan")
+	r.HandleFunc("/vmk/{key}", CheckLinkFromEmail).Queries("email", "") // , "user", "vladan")
 	// isto kao i ono gore:
 	// vmk := r.PathPrefix("/vmk").Subrouter()
-	// vmk.HandleFunc("/{key}", CheckLinkFromEmail).Queries("mail", "")
+	// vmk.HandleFunc("/{key}", CheckLinkFromEmail).Queries("email", "")
 	r.HandleFunc("/html/verify_email.html", GetVerifyEmailHtml)
 }
 
@@ -225,8 +225,8 @@ func Sign_up(w http.ResponseWriter, r *http.Request) {
 }
 
 func Sign_up_post(w http.ResponseWriter, r *http.Request) {
-	email1 := r.FormValue("mail1")
-	email2 := r.FormValue("mail2")
+	email1 := r.FormValue("email1")
+	email2 := r.FormValue("email2")
 	userName := r.FormValue("user_name")
 	password1 := r.FormValue("password1")
 	password2 := r.FormValue("password2")
@@ -246,15 +246,15 @@ func Sign_up_post(w http.ResponseWriter, r *http.Request) {
 		already_authenticated = auth_map.(bool)
 	}
 
-	user_map := session.Values["user_mail"]
-	user_mail := ""
+	user_map := session.Values["user_email"]
+	user_email := ""
 	if user_map != nil {
-		user_mail = user_map.(string)
+		user_email = user_map.(string)
 	}
 
 	if already_authenticated {
 
-		_, data, _ := db.AuthenticateUser(user_mail, "", already_authenticated, r)
+		_, data, _ := db.AuthenticateUser(user_email, "", already_authenticated, r)
 		templ.Handler(dashboard.Dashboard(store, r, data)).Component.Render(context.Background(), w)
 
 	} else {
@@ -266,12 +266,12 @@ func Sign_up_post(w http.ResponseWriter, r *http.Request) {
 
 		if email1 != email2 || password1 != password2 {
 			validated = false
-			log.Println("Sign_up_post: validacija za upis korisnika nije prošla ISTI MEJL/PASS")
+			log.Println("Sign_up_post: validacija za upis korisnika nije prošla ISTI EMAIL/PASS")
 		} else if len(r.Form) == 0 {
 			validated = false
 			log.Println("Sign_up_post: validacija za upis korisnika nije prošla PRAZAN FORM")
 		} else {
-			// NA DB PROVERITI DA LI VEĆ POSTOJI MAIL I USER NAME i vratiti odgovarajuće poruke nazad osim bool za validated
+			// NA DB PROVERITI DA LI VEĆ POSTOJI EMAIL I USER NAME i vratiti odgovarajuće poruke nazad osim bool za validated
 			// NA DB PROVERITI da li je sa istog ip-a već bio upis u prethodnih 10min u odnosu na created_at
 			validated = db.AddUser(email1, userName, password1, r)
 			log.Println("Sign_up_post: validacija IZ DB:", validated)
@@ -310,14 +310,14 @@ func Sign_in(w http.ResponseWriter, r *http.Request) {
 		already_authenticated = auth_map.(bool)
 	}
 
-	user_map := session.Values["user_mail"]
-	user_mail := ""
+	user_map := session.Values["user_email"]
+	user_email := ""
 	if user_map != nil {
-		user_mail = user_map.(string)
+		user_email = user_map.(string)
 	}
 
 	if already_authenticated {
-		_, data, _ := db.AuthenticateUser(user_mail, "", already_authenticated, r)
+		_, data, _ := db.AuthenticateUser(user_email, "", already_authenticated, r)
 		templ.Handler(dashboard.Dashboard(store, r, data)).Component.Render(context.Background(), w)
 	} else {
 		templ.Handler(dashboard.Sign_in(store, r)).Component.Render(context.Background(), w)
@@ -342,24 +342,24 @@ func Sign_in_post(w http.ResponseWriter, r *http.Request) {
 	// - password: isto, min char 8
 	// ISTO URADITI I NA FE UZ ARGUMENTS I JS
 
-	// fmt.Println("SING IN POST:", r.FormValue("mail"), r.FormValue("password"), r.Body, r.MultipartForm, r.URL, r.PostForm, r.Form, r.FormValue("mail"))
+	// fmt.Println("SING IN POST:", r.FormValue("email"), r.FormValue("password"), r.Body, r.MultipartForm, r.URL, r.PostForm, r.Form, r.FormValue("email"))
 	fmt.Println("\nSIGN IN POST form:", r.FormValue("mail"), r.FormValue("password"))
 
-	email := r.FormValue("mail")
+	email := r.FormValue("email")
 	password := r.FormValue("password")
 	authenticated, user, err := db.AuthenticateUser(email, password, false, r)
 	msg_fe := ""
 	if err != nil {
-		msg_fe = "Mail_or_pass_wrong"
+		msg_fe = "Email_or_pass_wrong"
 	} else {
-		msg_fe = "Unwelcome"
+		msg_fe = "Welcome"
 	}
 
 	// Set user as authenticated
 	if authenticated {
 		// fmt.Println("Sign_in_post: mail i user name", user.Email, user.User_name)
 		session.Values["authenticated"] = true
-		session.Values["user_mail"] = user.Email
+		session.Values["user_email"] = user.Email
 		session.Values["user_name"] = user.User_name
 		// Save it before we write to the response/return from the handler.
 		err = session.Save(r, w)
@@ -373,7 +373,7 @@ func Sign_in_post(w http.ResponseWriter, r *http.Request) {
 	} else {
 		fmt.Println("Sign_in_post: autentikacija korisnika NIJE prošla, msg_fe: ", msg_fe)
 		session.Values["authenticated"] = false
-		session.Values["user_mail"] = "bbb"
+		session.Values["user_email"] = "bbb"
 		// Save it before we write to the response/return from the handler.
 		err = session.Save(r, w)
 		if err != nil {
@@ -405,7 +405,7 @@ func AutoLoginUser(w http.ResponseWriter, r *http.Request) {
 	// Set user as authenticated
 	if authenticated {
 		session.Values["authenticated"] = true
-		session.Values["user_mail"] = user.Email
+		session.Values["user_email"] = user.Email
 		session.Values["user_name"] = user.User_name
 		// Save it before we write to the response/return from the handler.
 		err = session.Save(r, w)
@@ -417,7 +417,7 @@ func AutoLoginUser(w http.ResponseWriter, r *http.Request) {
 	} else {
 		fmt.Println("AutoLogin: autentikacija admina nije prošla")
 		session.Values["authenticated"] = false
-		session.Values["user_mail"] = "ccc"
+		session.Values["user_email"] = "ccc"
 		// Save it before we write to the response/return from the handler.
 		err = session.Save(r, w)
 		if err != nil {
@@ -442,14 +442,14 @@ func AutoLoginAdmin(w http.ResponseWriter, r *http.Request) {
 	authenticated, user, err := db.AuthenticateUser(email, password, false, r)
 	msg_fe := ""
 	if err != nil {
-		msg_fe = "Mail_or_pass_wrong"
+		msg_fe = "Email_or_pass_wrong"
 	} else {
 		msg_fe = "Unwelcome"
 	}
 	// Set user as authenticated
 	if authenticated {
 		session.Values["authenticated"] = true
-		session.Values["user_mail"] = user.Email
+		session.Values["user_email"] = user.Email
 		session.Values["user_name"] = user.User_name
 		// Save it before we write to the response/return from the handler.
 		err = session.Save(r, w)
@@ -461,7 +461,7 @@ func AutoLoginAdmin(w http.ResponseWriter, r *http.Request) {
 	} else {
 		fmt.Println("AutoLogin: autentikacija admina nije prošla")
 		session.Values["authenticated"] = false
-		session.Values["user_mail"] = "ccc"
+		session.Values["user_email"] = "ccc"
 		// Save it before we write to the response/return from the handler.
 		err = session.Save(r, w)
 		if err != nil {
@@ -493,17 +493,17 @@ func Dashboard(w http.ResponseWriter, r *http.Request) {
 		// fmt.Println("ima auth map2:", already_authenticated)
 	}
 
-	user_map := session.Values["user_mail"]
-	user_mail := ""
+	user_map := session.Values["user_email"]
+	user_email := ""
 	if user_map == nil {
-		// fmt.Println("nema mail:", session.Values["user_mail"])
+		// fmt.Println("nema email:", session.Values["user_email"])
 	} else {
-		// fmt.Println("ima mail:", session.Values["user_mail"])
-		user_mail = user_map.(string)
+		// fmt.Println("ima email:", session.Values["user_email"])
+		user_email = user_map.(string)
 	}
 	// Set user as authenticated
 	if already_authenticated {
-		_, data, _ := db.AuthenticateUser(user_mail, "", already_authenticated, r)
+		_, data, _ := db.AuthenticateUser(user_email, "", already_authenticated, r)
 		templ.Handler(dashboard.Dashboard(store, r, data)).Component.Render(context.Background(), w)
 	} else {
 		templ.Handler(dashboard.Dashboard(store, r, models.User{})).Component.Render(context.Background(), w)
@@ -514,7 +514,7 @@ func Sign_out(w http.ResponseWriter, r *http.Request) {
 	session, _ := store.Get(r, "vezbamo.onrender.com-users")
 	// Revoke users authentication
 	session.Values["authenticated"] = false
-	session.Values["user_mail"] = nil
+	session.Values["user_email"] = nil
 	session.Save(r, w)
 	templ.Handler(views.Index(store, r)).Component.Render(context.Background(), w)
 }
@@ -525,22 +525,22 @@ func CheckLinkFromEmail(w http.ResponseWriter, r *http.Request) {
 	// https://stackoverflow.com/questions/45378566/gorilla-mux-optional-query-values
 
 	// deo iz query URL.Query i FormValue ne rade na isti način pogotovo ako u r ima body i multipart form
-	fmt.Print("CheckLinkFromEmail: url vars and queries:", vars, r.URL.Query()["mail"][0], r.FormValue("mail"), "\n")
+	fmt.Print("CheckLinkFromEmail: url vars and queries:", vars, r.URL.Query()["email"][0], r.FormValue("email"), "\n")
 
 	// delovi patha-a tj. urla
 	// title := vars["title"]
 	key := vars["key"]
-	email := r.URL.Query()["mail"][0]
+	email := r.URL.Query()["email"][0]
 
-	mailVerified := db.AuthenticateMail(key, email)
+	emailVerified := db.AuthenticateEmail(key, email)
 
-	if mailVerified {
-		templ.Handler(dashboard.MailVerified(store, r)).Component.Render(context.Background(), w)
+	if emailVerified {
+		templ.Handler(dashboard.EmailVerified(store, r)).Component.Render(context.Background(), w)
 		// fmt.Fprint(w, "Your mail is registered. You can go back to homepage and sign in")
 	} else {
 		// fmt.Fprintf(w, "You mail is NOT REGISTERED. Contact user support.")
 		// fmt.Fprintf(w, "You want to register this key from mail bre: %s\n", key)
-		templ.Handler(dashboard.MailNotVerified(store, r)).Component.Render(context.Background(), w)
+		templ.Handler(dashboard.EmailNotVerified(store, r)).Component.Render(context.Background(), w)
 		// GoToNV(w, r)
 		// GoToTerms(w, r)
 	}
@@ -555,21 +555,21 @@ func GetVerifyEmailHtml(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user_mail_map := session.Values["user_mail"]
-	user_mail := ""
-	if user_mail_map == nil {
-		// fmt.Println("nema mail:", session.Values["user_mail"])
+	user_email_map := session.Values["user_email"]
+	user_email := ""
+	if user_email_map == nil {
+		// fmt.Println("nema mail:", session.Values["user_email"])
 	} else {
-		// fmt.Println("ima mail:", session.Values["user_mail"])
-		user_mail = user_mail_map.(string)
+		// fmt.Println("ima mail:", session.Values["user_email"])
+		user_email = user_email_map.(string)
 	}
 
 	user_name_map := session.Values["user_name"]
 	user_name := ""
 	if user_name_map == nil {
-		// fmt.Println("nema mail:", session.Values["user_mail"])
+		// fmt.Println("nema mail:", session.Values["user_email"])
 	} else {
-		// fmt.Println("ima mail:", session.Values["user_mail"])
+		// fmt.Println("ima mail:", session.Values["user_email"])
 		user_name = user_name_map.(string)
 	}
 
@@ -579,8 +579,8 @@ func GetVerifyEmailHtml(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("getVerifyEmailHtml: greška čitanje html fajla: %v\n", err1)
 	}
 	html := strings.ReplaceAll(string(dat), "+userName+", user_name)
-	html = strings.ReplaceAll(html, "+urlDomainForMail+", "http://127.0.0.1:7331/vmk/$2a$07$IFkFJy1NufwawNGqoef6kuJLuVFKzhqI4v_hYYwK2f_Y6Y3pP2eGu?mail=y.emailbox-proba@yahoo.com")
-	html = strings.ReplaceAll(html, "+mailForMail+", user_mail)
+	html = strings.ReplaceAll(html, "+urlDomainForEmail+", "http://127.0.0.1:7331/vmk/$2a$07$IFkFJy1NufwawNGqoef6kuJLuVFKzhqI4v_hYYwK2f_Y6Y3pP2eGu?email=y.emailbox-proba@yahoo.com")
+	html = strings.ReplaceAll(html, "+emailForEmail+", user_email)
 
 	w.Write([]byte(html))
 }

@@ -6,10 +6,10 @@ import (
 	"github.com/gorilla/sessions"
 )
 
-templ MailNotVerified(store sessions.Store, r *http.Request) {
+templ EmailNotVerified(store sessions.Store, r *http.Request) {
   @views.Layout(store, r) {
     
-    <p class="m-5 text-xl text-blue-300">You mail is not verified. Contact user support for help.</p>
+    <p class="m-5 text-xl text-blue-300">You email is not verified. Contact user support for help.</p>
     
     // <p class="m-5 text-xl text-blue-300">{views.Translate(store, r, "UnWelcome")}</p>
 

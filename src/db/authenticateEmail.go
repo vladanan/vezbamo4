@@ -17,7 +17,7 @@ import (
 // 	Test         string `db:"test"`
 // }
 
-func AuthenticateMail(key, mail string) bool {
+func AuthenticateEmail(key, mail string) bool {
 	//https://pkg.go.dev/golang.org/x/crypto/bcrypt#pkg-index
 	//https://gowebexamples.com/password-hashing/
 
