@@ -1,5 +1,90 @@
 [
 	{
+		"Date":"2024/07/18","Time":"22:11:59","File":"tests_db.go:72:",
+		"Error":"ERROR: column \"s1\" does not exist (SQLSTATE 42703)",
+		"Path":"/test/36"
+	},
+	{
+		"Date":"2024/07/18","Time":"22:09:47","File":"tests_db.go:72:",
+		"Error":"ERROR: column \"s1\" does not exist (SQLSTATE 42703)",
+		"Path":"/test/36"
+	},
+	{
+		"Date":"2024/07/18","Time":"21:53:22","File":"tests_db.go:61:",
+		"Error":"ERROR: syntax error at or near \"325\" (SQLSTATE 42601)",
+		"Path":"/test/22"
+	},
+	{
+		"Date":"2024/07/18","Time":"21:25:50","File":"tests_db.go:62:",
+		"Error":"ERROR: syntax error at or near \")\" (SQLSTATE 42601)",
+		"Path":"/test/22"
+	},
+	{
+		"Date":"2024/07/18","Time":"21:21:31","File":"tests_db.go:62:",
+		"Error":"ERROR: syntax error at or near \")\" (SQLSTATE 42601)",
+		"Path":"/test/22"
+	},
+	{
+		"Date":"2024/07/18","Time":"21:21:28","File":"tests_db.go:62:",
+		"Error":"ERROR: syntax error at or near \")\" (SQLSTATE 42601)",
+		"Path":"/test/7"
+	},
+	{
+		"Date":"2024/07/18","Time":"21:21:24","File":"tests_db.go:62:",
+		"Error":"ERROR: syntax error at or near \")\" (SQLSTATE 42601)",
+		"Path":"/test/0"
+	},
+	{
+		"Date":"2024/07/18","Time":"16:33:12","File":"tests_db.go:45:",
+		"Error":"ERROR: syntax error at or near \"888\" (SQLSTATE 42601)",
+		"Path":"/test/9"
+	},
+	{
+		"Date":"2024/07/18","Time":"16:21:50","File":"tests_db.go:45:",
+		"Error":"ERROR: syntax error at or near \"777\" (SQLSTATE 42601)",
+		"Path":"/test/9"
+	},
+	{
+		"Date":"2024/07/18","Time":"16:21:03","File":"tests_db.go:45:",
+		"Error":"ERROR: syntax error at or near \"999\" (SQLSTATE 42601)",
+		"Path":"/test/9"
+	},
+	{
+		"Date":"2024/07/18","Time":"16:20:10","File":"tests_db.go:45:",
+		"Error":"ERROR: syntax error at or near \"999\" (SQLSTATE 42601)",
+		"Path":"/test/14"
+	},
+	{
+		"Date":"2024/07/18","Time":"16:03:47","File":"tests_db.go:45:",
+		"Error":"ERROR: syntax error at or near \"999\" (SQLSTATE 42601)",
+		"Path":"/test/14"
+	},
+	{
+		"Date":"2024/07/18","Time":"14:38:16","File":"tests_db.go:45:",
+		"Error":"ERROR: syntax error at or near \"999\" (SQLSTATE 42601)",
+		"Path":"/test/14"
+	},
+	{
+		"Date":"2024/07/18","Time":"14:37:47","File":"tests_db.go:45:",
+		"Error":"ERROR: syntax error at or near \"999\" (SQLSTATE 42601)",
+		"Path":"/test/14"
+	},
+	{
+		"Date":"2024/07/18","Time":"14:25:15","File":"tests_db.go:45:",
+		"Error":"ERROR: syntax error at or near \"999\" (SQLSTATE 42601)",
+		"Path":"/test/14"
+	},
+	{
+		"Date":"2024/07/18","Time":"14:23:05","File":"tests_db.go:45:",
+		"Error":"ERROR: syntax error at or near \"999\" (SQLSTATE 42601)",
+		"Path":"/tezzzst/m"
+	},
+	{
+		"Date":"2024/07/18","Time":"14:21:49","File":"tests_db.go:45:",
+		"Error":"ERROR: syntax error at or near \"999\" (SQLSTATE 42601)",
+		"Path":"/tezzzst/m"
+	},
+	{
 		"Date":"2024/07/17","Time":"13:18:51","File":"getTests.go:34:",
 		"Error":"ERROR: syntax error at or near \"12345\" (SQLSTATE 42601)",
 		"Path":"/test"

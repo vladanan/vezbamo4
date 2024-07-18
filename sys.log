@@ -1,3 +1,20 @@
+2024/07/18 22:11:59 tests_db.go:72:  ERROR: column "s1" does not exist (SQLSTATE 42703)  /test/36
+2024/07/18 22:09:47 tests_db.go:72:  ERROR: column "s1" does not exist (SQLSTATE 42703)  /test/36
+2024/07/18 21:53:22 tests_db.go:61:  ERROR: syntax error at or near "325" (SQLSTATE 42601)  /test/22
+2024/07/18 21:25:50 tests_db.go:62:  ERROR: syntax error at or near ")" (SQLSTATE 42601)  /test/22
+2024/07/18 21:21:31 tests_db.go:62:  ERROR: syntax error at or near ")" (SQLSTATE 42601)  /test/22
+2024/07/18 21:21:28 tests_db.go:62:  ERROR: syntax error at or near ")" (SQLSTATE 42601)  /test/7
+2024/07/18 21:21:24 tests_db.go:62:  ERROR: syntax error at or near ")" (SQLSTATE 42601)  /test/0
+2024/07/18 16:33:12 tests_db.go:45:  ERROR: syntax error at or near "888" (SQLSTATE 42601)  /test/9
+2024/07/18 16:21:50 tests_db.go:45:  ERROR: syntax error at or near "777" (SQLSTATE 42601)  /test/9
+2024/07/18 16:21:03 tests_db.go:45:  ERROR: syntax error at or near "999" (SQLSTATE 42601)  /test/9
+2024/07/18 16:20:10 tests_db.go:45:  ERROR: syntax error at or near "999" (SQLSTATE 42601)  /test/14
+2024/07/18 16:03:47 tests_db.go:45:  ERROR: syntax error at or near "999" (SQLSTATE 42601)  /test/14
+2024/07/18 14:38:16 tests_db.go:45:  ERROR: syntax error at or near "999" (SQLSTATE 42601)  /test/14
+2024/07/18 14:37:47 tests_db.go:45:  ERROR: syntax error at or near "999" (SQLSTATE 42601)  /test/14
+2024/07/18 14:25:15 tests_db.go:45:  ERROR: syntax error at or near "999" (SQLSTATE 42601)  /test/14
+2024/07/18 14:23:05 tests_db.go:45:  ERROR: syntax error at or near "999" (SQLSTATE 42601)  /tezzzst/m
+2024/07/18 14:21:49 tests_db.go:45:  ERROR: syntax error at or near "999" (SQLSTATE 42601)  /tezzzst/m
 2024/07/17 13:18:51 getTests.go:34:  ERROR: syntax error at or near "12345" (SQLSTATE 42601)  /test
 2024/07/17 12:39:52 getTests.go:34:  ERROR: syntax error at or near "12345" (SQLSTATE 42601)  /htmx_get_tests
 2024/07/17 12:26:04 getTests.go:35:  ERROR: syntax error at or near "12345" (SQLSTATE 42601)  /test

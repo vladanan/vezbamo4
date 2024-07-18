@@ -538,7 +538,7 @@ type APIError struct {
 }
 
 func (e APIError) Error() string {
-	return fmt.Sprintf("API erorr %d", e.StatusCode)
+	return fmt.Sprintf("API erorr: %d, %v", e.StatusCode, e.Msg)
 }
 
 func NewAPIError(status int, msg any) APIError {
@@ -563,6 +563,7 @@ func CheckFunc(h APIfunc) http.HandlerFunc {
 				WriteJSON(w, http.StatusInternalServerError, errResp)
 			}
 			// slog.Error("http api error", "err", err.Error(), "path", r.URL.Path)
+			// log.Println("http api error:", err.Error(), "path:", r.URL.Path)
 			// slog.Error("on http api:", "path", r.URL.Path)
 			// log.Print(Yellow + "error on http api path: " + r.URL.Path + Reset)
 		}
@@ -577,7 +578,7 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
 
 func CheckErr(err error) APIError {
 
-	// log.Print(Yellow + "error on internal api path: " + r.URL.Path + Reset)
+	// log.Print(Magenta + "error on internal api call" + Reset)
 	if apiErr, ok := err.(APIError); ok {
 		return apiErr
 	} else {

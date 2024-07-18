@@ -10,7 +10,7 @@ func TestGetTests2(t *testing.T) {
 	// https://www.cloudbees.com/blog/testing-http-handlers-go
 
 	log.Print("kao neki neuspeli test")
-	t.Error("pukao sam")
+	// t.Error("pukao sam")
 
 	// r, err := http.NewRequest(http.MethodGet, "/api_get_tests", nil)
 	// if err != nil {

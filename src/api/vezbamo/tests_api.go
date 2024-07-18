@@ -22,23 +22,25 @@ func GetTests(w http.ResponseWriter, r *http.Request) error {
 	id := vars["id"]
 	var g_id int
 
-	switch id {
-	case "":
-	default:
+	if id != "" {
 		var err error
 		g_id, err = strconv.Atoi(id)
 		if err != nil {
-			l(r, 4, err)
+			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax"))
 		}
 	}
 
-	fmt.Println("traži se test:", id, "broj:", g_id, r.Method)
+	fmt.Println("id:", id, "broj:", g_id, r.Method)
 
-	allTests, err := db.GetTests(r, g_id)
+	data, err := db.GetTests(r, g_id)
 	if err != nil {
 		return err
 	}
-	return clr.WriteJSON(w, 200, allTests)
+	if data != nil {
+		return clr.WriteJSON(w, 200, data)
+	} else {
+		return clr.NewAPIError(406, "no (available) test with requested id")
+	}
 
 	// w.Write(db.GetQuestions())
 	// return db.GetQuestions()

@@ -91,7 +91,7 @@ func RouterUsers(r *mux.Router) {
 
 func RouterAPI(r *mux.Router) {
 	r.HandleFunc("/test", clr.CheckFunc(vezbamo.GetTests)).Methods("GET")
-	r.HandleFunc("/test/{id}", clr.CheckFunc(vezbamo.GetTests)).Methods("GET")
+	r.HandleFunc("/test/{id}", clr.CheckFunc(vezbamo.GetTests))
 	// r.HandleFunc("/api_get_questions", APIgetQuestions)
 
 	c := cors.New(cors.Options{
