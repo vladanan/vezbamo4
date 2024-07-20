@@ -1,3 +1,12 @@
+2024/07/20 19:30:28 tests_db.go:57:  ERROR: could not determine data type of parameter $1 (SQLSTATE 42P18)  /test/5
+2024/07/20 19:26:34 tests_db.go:57:  failed to encode args[1]: unable to encode 7 into text format for text (OID 25): cannot find encode plan  /test/5
+2024/07/20 19:25:55 tests_db.go:110:  ERROR: invalid input syntax for type integer: "g_id" (SQLSTATE 22P02)  /test/5
+2024/07/20 19:25:06 tests_db.go:110:  ERROR: invalid input syntax for type integer: "g_id" (SQLSTATE 22P02)  /test/5
+2024/07/20 19:24:22 tests_db.go:110:  ERROR: invalid input syntax for type integer: "g_id" (SQLSTATE 22P02)  /test/5
+2024/07/20 19:21:03 tests_db.go:57:  failed to encode args[1]: unable to encode 7 into text format for text (OID 25): cannot find encode plan  /test/5
+2024/07/20 19:19:25 tests_db.go:57:  failed to encode args[1]: unable to encode 5 into text format for text (OID 25): cannot find encode plan  /test/5
+2024/07/20 19:18:33 tests_db.go:57:  ERROR: syntax error at or near "$1" (SQLSTATE 42601)  /test/5
+2024/07/20 18:49:52 tests_db.go:37:  failed to connect to `host=aws-0-us-east-1.pooler.supabase.com user=postgres.lcwabgjninqhisxitrzy database=postgres`: hostname resolving error (lookup aws-0-us-east-1.pooler.supabase.com: Temporary failure in name resolution)  /test/4
 2024/07/18 22:11:59 tests_db.go:72:  ERROR: column "s1" does not exist (SQLSTATE 42703)  /test/36
 2024/07/18 22:09:47 tests_db.go:72:  ERROR: column "s1" does not exist (SQLSTATE 42703)  /test/36
 2024/07/18 21:53:22 tests_db.go:61:  ERROR: syntax error at or near "325" (SQLSTATE 42601)  /test/22

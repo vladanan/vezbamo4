@@ -13,7 +13,9 @@ import (
 	"github.com/vladanan/vezbamo4/src/models"
 )
 
-func GetTests(r *http.Request, g_id int) ([]models.Test, error) {
+type DB struct{}
+
+func (db DB) GetTests(g_id int, r *http.Request) ([]models.Test, error) {
 
 	l := clr.GetELRfunc2()
 
@@ -32,7 +34,6 @@ func GetTests(r *http.Request, g_id int) ([]models.Test, error) {
 	defer conn.Close(context.Background())
 
 	var rows pgx.Rows
-	// var commandTag any
 	var pgxTests []models.Test
 
 	switch {
@@ -43,11 +44,10 @@ func GetTests(r *http.Request, g_id int) ([]models.Test, error) {
 		}
 
 	case g_id != 0 && r.Method == "GET":
-		rows, err = conn.Query(context.Background(), "SELECT g_id, tip, oblast FROM g_pitanja_c_testovi WHERE g_id = $1;", g_id)
+		rows, err = conn.Query(context.Background(), "SELECT g_id, tip, oblast FROM g_pitanja_c_testovi WHERE g_id=$1;", g_id)
 		if err != nil {
 			return nil, l(r, 8, err)
 		}
-		// za update napraviti kod koji na osnovu poslatih polja za izmeno i već postojećih napravi skroz novi upis za isti id tako da se izbegnu kompleksni (string contactenation) query i kompleksan kod
 
 	case g_id == 22 && r.Method == "POST":
 		_, err := conn.Exec(context.Background(), `INSERT INTO g_pitanja_c_testovi
@@ -79,6 +79,7 @@ func GetTests(r *http.Request, g_id int) ([]models.Test, error) {
 		return pgxTests, nil
 
 	case g_id == 38 && r.Method == "PUT":
+		// za update napraviti kod koji na osnovu poslatih polja za izmenu i već postojećih napravi skroz novi upis za isti id tako da se izbegnu kompleksni (string contactenation) query i kompleksan kod
 		commandTag, err := conn.Exec(context.Background(), `UPDATE g_pitanja_c_testovi SET obrazovni_profil=$1 WHERE
 			g_id=$2`,
 			"programeri ccccccccc		",
@@ -92,7 +93,6 @@ func GetTests(r *http.Request, g_id int) ([]models.Test, error) {
 
 	default:
 		return nil, l(r, 4, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax"))
-		// rows, err = conn.Query(context.Background(), "SELECT g_id, tip, oblast sFROM g_pitanja_c_testovi WHERE g_id = 1;")
 	}
 
 	if rows != nil {

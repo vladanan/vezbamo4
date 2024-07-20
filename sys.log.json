@@ -1,5 +1,50 @@
 [
 	{
+		"Date":"2024/07/20","Time":"19:30:28","File":"tests_db.go:57:",
+		"Error":"ERROR: could not determine data type of parameter $1 (SQLSTATE 42P18)",
+		"Path":"/test/5"
+	},
+	{
+		"Date":"2024/07/20","Time":"19:26:34","File":"tests_db.go:57:",
+		"Error":"failed to encode args[1]: unable to encode 7 into text format for text (OID 25): cannot find encode plan",
+		"Path":"/test/5"
+	},
+	{
+		"Date":"2024/07/20","Time":"19:25:55","File":"tests_db.go:110:",
+		"Error":"ERROR: invalid input syntax for type integer: \"g_id\" (SQLSTATE 22P02)",
+		"Path":"/test/5"
+	},
+	{
+		"Date":"2024/07/20","Time":"19:25:06","File":"tests_db.go:110:",
+		"Error":"ERROR: invalid input syntax for type integer: \"g_id\" (SQLSTATE 22P02)",
+		"Path":"/test/5"
+	},
+	{
+		"Date":"2024/07/20","Time":"19:24:22","File":"tests_db.go:110:",
+		"Error":"ERROR: invalid input syntax for type integer: \"g_id\" (SQLSTATE 22P02)",
+		"Path":"/test/5"
+	},
+	{
+		"Date":"2024/07/20","Time":"19:21:03","File":"tests_db.go:57:",
+		"Error":"failed to encode args[1]: unable to encode 7 into text format for text (OID 25): cannot find encode plan",
+		"Path":"/test/5"
+	},
+	{
+		"Date":"2024/07/20","Time":"19:19:25","File":"tests_db.go:57:",
+		"Error":"failed to encode args[1]: unable to encode 5 into text format for text (OID 25): cannot find encode plan",
+		"Path":"/test/5"
+	},
+	{
+		"Date":"2024/07/20","Time":"19:18:33","File":"tests_db.go:57:",
+		"Error":"ERROR: syntax error at or near \"$1\" (SQLSTATE 42601)",
+		"Path":"/test/5"
+	},
+	{
+		"Date":"2024/07/20","Time":"18:49:52","File":"tests_db.go:37:",
+		"Error":"failed to connect to `host=aws-0-us-east-1.pooler.supabase.com user=postgres.lcwabgjninqhisxitrzy database=postgres`: hostname resolving error (lookup aws-0-us-east-1.pooler.supabase.com: Temporary failure in name resolution)",
+		"Path":"/test/4"
+	},
+	{
 		"Date":"2024/07/18","Time":"22:11:59","File":"tests_db.go:72:",
 		"Error":"ERROR: column \"s1\" does not exist (SQLSTATE 42703)",
 		"Path":"/test/36"

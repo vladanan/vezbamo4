@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"github.com/segmentio/encoding/json"
+
 	"github.com/vladanan/vezbamo4/src/models"
 )
 
@@ -552,6 +553,7 @@ type APIfunc func(w http.ResponseWriter, r *http.Request) error
 
 func CheckFunc(h APIfunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+
 		if err := h(w, r); err != nil {
 			if apiErr, ok := err.(APIError); ok {
 				WriteJSON(w, apiErr.StatusCode, apiErr)
@@ -565,7 +567,7 @@ func CheckFunc(h APIfunc) http.HandlerFunc {
 			// slog.Error("http api error", "err", err.Error(), "path", r.URL.Path)
 			// log.Println("http api error:", err.Error(), "path:", r.URL.Path)
 			// slog.Error("on http api:", "path", r.URL.Path)
-			// log.Print(Yellow + "error on http api path: " + r.URL.Path + Reset)
+			// log.Print(Yellow + "error on http api path: " + err.Error() + r.URL.Path + Reset)
 		}
 	}
 }
