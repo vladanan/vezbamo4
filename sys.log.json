@@ -1,5 +1,85 @@
 [
 	{
+		"Date":"2024/07/23","Time":"22:58:08","File":"tests_db.go:126:",
+		"Error":"conn busy",
+		"Path":"/note/10"
+	},
+	{
+		"Date":"2024/07/23","Time":"22:52:38","File":"tests_db.go:41:",
+		"Error":"ERROR: column \"g_id\" does not exist (SQLSTATE 42703)",
+		"Path":"/note/10"
+	},
+	{
+		"Date":"2024/07/23","Time":"22:51:37","File":"tests_db.go:41:",
+		"Error":"ERROR: column \"g_id\" does not exist (SQLSTATE 42703)",
+		"Path":"/note/10"
+	},
+	{
+		"Date":"2024/07/23","Time":"22:18:01","File":"tests_db.go:42:",
+		"Error":"ERROR: syntax error at or near \"=\" (SQLSTATE 42601)",
+		"Path":"/test/5"
+	},
+	{
+		"Date":"2024/07/23","Time":"22:16:51","File":"tests_db.go:42:",
+		"Error":"ERROR: syntax error at or near \"=\" (SQLSTATE 42601)",
+		"Path":"/test/5"
+	},
+	{
+		"Date":"2024/07/23","Time":"22:16:08","File":"tests_db.go:40:",
+		"Error":"ERROR: syntax error at or near \"=\" (SQLSTATE 42601)",
+		"Path":"/test/5"
+	},
+	{
+		"Date":"2024/07/23","Time":"22:15:33","File":"tests_db.go:40:",
+		"Error":"ERROR: syntax error at or near \"=\" (SQLSTATE 42601)",
+		"Path":"/test/5"
+	},
+	{
+		"Date":"2024/07/23","Time":"21:05:36","File":"tests_api.go:83:",
+		"Error":"Get \"http://127.0.0.1:8080/secure/send\": dial tcp 127.0.0.1:8080: connect: connection refused",
+		"Path":"/htmx_get_tests"
+	},
+	{
+		"Date":"2024/07/23","Time":"16:54:36","File":"tests_api.go:83:",
+		"Error":"Get \"http://127.0.0.1:8080/secure/send\": dial tcp 127.0.0.1:8080: connect: connection refused",
+		"Path":"/htmx_get_tests"
+	},
+	{
+		"Date":"2024/07/23","Time":"16:53:25","File":"tests_api.go:82:",
+		"Error":"Get \"http://127.0.0.1:8080/secure/balance\": dial tcp 127.0.0.1:8080: connect: connection refused",
+		"Path":"/htmx_get_tests"
+	},
+	{
+		"Date":"2024/07/23","Time":"16:44:18","File":"tests_api.go:87:",
+		"Error":"http jasmin res: 400 Bad Request, url: http://127.0.0.1:1401/send",
+		"Path":"/htmx_get_tests"
+	},
+	{
+		"Date":"2024/07/23","Time":"16:40:18","File":"tests_api.go:97:",
+		"Error":"http jasmin res: Error \"Mandatory argument [to] is not found.\"",
+		"Path":"/htmx_get_tests"
+	},
+	{
+		"Date":"2024/07/23","Time":"16:39:55","File":"tests_api.go:97:",
+		"Error":"http jasmin res: Error \"Mandatory argument [to] is not found.\"",
+		"Path":"/htmx_get_tests"
+	},
+	{
+		"Date":"2024/07/23","Time":"16:39:29","File":"tests_api.go:97:",
+		"Error":"http jasmin res: Error \"Mandatory argument [to] is not found.\"",
+		"Path":"/htmx_get_tests"
+	},
+	{
+		"Date":"2024/07/23","Time":"16:38:35","File":"tests_api.go:97:",
+		"Error":"http jasmin api: Error \"Mandatory argument [to] is not found.\"",
+		"Path":"/htmx_get_tests"
+	},
+	{
+		"Date":"2024/07/23","Time":"16:36:12","File":"tests_api.go:97:",
+		"Error":"http jasmin api res: Error \"Mandatory argument [to] is not found.\"",
+		"Path":"/htmx_get_tests"
+	},
+	{
 		"Date":"2024/07/20","Time":"19:30:28","File":"tests_db.go:57:",
 		"Error":"ERROR: could not determine data type of parameter $1 (SQLSTATE 42P18)",
 		"Path":"/test/5"

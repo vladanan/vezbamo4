@@ -3,7 +3,6 @@ package db
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 
@@ -15,7 +14,7 @@ import (
 
 type DB struct{}
 
-func (db DB) GetTests(g_id int, r *http.Request) ([]models.Test, error) {
+func (db DB) GetTests(table string, field string, record any, r *http.Request) ([]models.Test, error) {
 
 	l := clr.GetELRfunc2()
 
@@ -33,86 +32,102 @@ func (db DB) GetTests(g_id int, r *http.Request) ([]models.Test, error) {
 	}
 	defer conn.Close(context.Background())
 
-	var rows pgx.Rows
+	// var rows pgx.Rows
 	var pgxTests []models.Test
 
-	switch {
-	case g_id == 0 && r.Method == "GET":
-		rows, err = conn.Query(context.Background(), "SELECT g_id, tip, oblast FROM g_pitanja_c_testovi;")
-		if err != nil {
-			return nil, l(r, 8, err)
-		}
+	// fmt.Println("iz api za query:", table, field, record)
 
-	case g_id != 0 && r.Method == "GET":
-		rows, err = conn.Query(context.Background(), "SELECT g_id, tip, oblast FROM g_pitanja_c_testovi WHERE g_id=$1;", g_id)
-		if err != nil {
-			return nil, l(r, 8, err)
-		}
-
-	case g_id == 22 && r.Method == "POST":
-		_, err := conn.Exec(context.Background(), `INSERT INTO g_pitanja_c_testovi
-		(
-			tip,
-			oblast
-		)
-			VALUES ($1, $2);`,
-			"test",
-			"go language",
-		)
-		// log.Println("new test:", commandTag)
-		if err != nil {
-			return nil, l(r, 8, err)
-		}
-		pgxTests = []models.Test{}
-		return pgxTests, nil
-
-	case g_id == 37 && r.Method == "DELETE":
-		commandTag, err := conn.Exec(context.Background(), `DELETE FROM g_pitanja_c_testovi WHERE g_id = $1`, g_id)
-		log.Println("delete test:", commandTag, commandTag.String())
-		if err != nil {
-			return nil, l(r, 8, err)
-		}
-		if commandTag.String() == "DELETE 0" {
-			return nil, l(r, 0, fmt.Errorf("no such record for delete"))
-		}
-		pgxTests = []models.Test{}
-		return pgxTests, nil
-
-	case g_id == 38 && r.Method == "PUT":
-		// za update napraviti kod koji na osnovu poslatih polja za izmenu i već postojećih napravi skroz novi upis za isti id tako da se izbegnu kompleksni (string contactenation) query i kompleksan kod
-		commandTag, err := conn.Exec(context.Background(), `UPDATE g_pitanja_c_testovi SET obrazovni_profil=$1 WHERE
-			g_id=$2`,
-			"programeri ccccccccc		",
-			g_id)
-		log.Println("update test:", commandTag)
-		if err != nil {
-			return nil, l(r, 8, err)
-		}
-		pgxTests = []models.Test{}
-		return pgxTests, nil
-
-	default:
-		return nil, l(r, 4, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax"))
-	}
-
-	if rows != nil {
-		pgxTests, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Test])
-		if err != nil {
-			return nil, l(r, 8, err)
-		}
-	}
-
-	// rows2, err := conn.Query(context.Background(), "SELECT g_id, tip, oblast, obrazovni_profil FROM g_pitanja_c_testovi;")
+	// rows, err = conn.Query(context.Background(), "SELECT * FROM "+table+" WHERE "+field+"=$1;", record)
 	// if err != nil {
 	// 	return nil, l(r, 8, err)
 	// }
-	// for rows2.Next() {
-	// 	if val, err := rows2.Values(); err != nil {
-	// 		log.Print(err)
-	// 	} else {
-	// 		println("proba pgx:", fmt.Sprint(val))
+
+	// switch {
+	// case g_id == 0 && r.Method == "GET":
+	// 	rows, err = conn.Query(context.Background(), "SELECT g_id, tip, oblast FROM g_pitanja_c_testovi;")
+	// 	if err != nil {
+	// 		return nil, l(r, 8, err)
+	// 	}
+
+	// case g_id != 0 && r.Method == "GET":
+	// 	rows, err = conn.Query(context.Background(), "SELECT g_id, tip, oblast FROM g_pitanja_c_testovi WHERE g_id=$1;", g_id)
+	// 	if err != nil {
+	// 		return nil, l(r, 8, err)
+	// 	}
+
+	// case g_id == 22 && r.Method == "POST":
+	// 	_, err := conn.Exec(context.Background(), `INSERT INTO g_pitanja_c_testovi
+	// 	(
+	// 		tip,
+	// 		oblast
+	// 	)
+	// 		VALUES ($1, $2);`,
+	// 		"test",
+	// 		"go language",
+	// 	)
+	// 	// log.Println("new test:", commandTag)
+	// 	if err != nil {
+	// 		return nil, l(r, 8, err)
+	// 	}
+	// 	pgxTests = []models.Test{}
+	// 	return pgxTests, nil
+
+	// case g_id == 37 && r.Method == "DELETE":
+	// 	commandTag, err := conn.Exec(context.Background(), `DELETE FROM g_pitanja_c_testovi WHERE g_id = $1`, g_id)
+	// 	log.Println("delete test:", commandTag, commandTag.String())
+	// 	if err != nil {
+	// 		return nil, l(r, 8, err)
+	// 	}
+	// 	if commandTag.String() == "DELETE 0" {
+	// 		return nil, l(r, 0, fmt.Errorf("no such record for delete"))
+	// 	}
+	// 	pgxTests = []models.Test{}
+	// 	return pgxTests, nil
+
+	// case g_id == 38 && r.Method == "PUT":
+	// 	// za update napraviti kod koji na osnovu poslatih polja za izmenu i već postojećih napravi skroz novi upis za isti id tako da se izbegnu kompleksni (string contactenation) query i kompleksan kod
+	// 	commandTag, err := conn.Exec(context.Background(), `UPDATE g_pitanja_c_testovi SET obrazovni_profil=$1 WHERE
+	// 		g_id=$2`,
+	// 		"programeri ccccccccc		",
+	// 		g_id)
+	// 	log.Println("update test:", commandTag)
+	// 	if err != nil {
+	// 		return nil, l(r, 8, err)
+	// 	}
+	// 	pgxTests = []models.Test{}
+	// 	return pgxTests, nil
+
+	// default:
+	// 	return nil, l(r, 4, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax"))
+	// }
+
+	// if rows != nil {
+	// 	pgxTests, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Test])
+	// 	if err != nil {
+	// 		return nil, l(r, 8, err)
 	// 	}
 	// }
+
+	rows2, err := conn.Query(context.Background(), "SELECT * FROM "+table+" WHERE "+field+"=$1;", record)
+	if err != nil {
+		fmt.Println("proba pgx greška 1")
+		// return nil, l(r, 8, err)
+	}
+	for rows2.Next() {
+		if val, err := rows2.Values(); err != nil {
+			fmt.Println("proba greška 2:")
+			// return nil, l(r, 8, err)
+		} else {
+			fmt.Println("proba pgx:", fmt.Sprint(val))
+		}
+	}
+
+	// pgxTests, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Test])
+	// if err != nil {
+	// 	return nil, l(r, 8, err)
+	// }
+
+	// fmt.Println("string concat rows:", pgxTests)
 
 	// bytearray_tests, err2 := json.Marshal(pgx_tests)
 	// if err2 != nil {

@@ -1,0 +1,12 @@
+name: vezbamo-kompose
+
+services:
+  vezbamo:
+    image: proba3
+    ports:
+      - 5555:10000
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 128M

@@ -1,3 +1,19 @@
+2024/07/23 22:58:08 tests_db.go:126:  conn busy  /note/10
+2024/07/23 22:52:38 tests_db.go:41:  ERROR: column "g_id" does not exist (SQLSTATE 42703)  /note/10
+2024/07/23 22:51:37 tests_db.go:41:  ERROR: column "g_id" does not exist (SQLSTATE 42703)  /note/10
+2024/07/23 22:18:01 tests_db.go:42:  ERROR: syntax error at or near "=" (SQLSTATE 42601)  /test/5
+2024/07/23 22:16:51 tests_db.go:42:  ERROR: syntax error at or near "=" (SQLSTATE 42601)  /test/5
+2024/07/23 22:16:08 tests_db.go:40:  ERROR: syntax error at or near "=" (SQLSTATE 42601)  /test/5
+2024/07/23 22:15:33 tests_db.go:40:  ERROR: syntax error at or near "=" (SQLSTATE 42601)  /test/5
+2024/07/23 21:05:36 tests_api.go:83:  Get "http://127.0.0.1:8080/secure/send": dial tcp 127.0.0.1:8080: connect: connection refused  /htmx_get_tests
+2024/07/23 16:54:36 tests_api.go:83:  Get "http://127.0.0.1:8080/secure/send": dial tcp 127.0.0.1:8080: connect: connection refused  /htmx_get_tests
+2024/07/23 16:53:25 tests_api.go:82:  Get "http://127.0.0.1:8080/secure/balance": dial tcp 127.0.0.1:8080: connect: connection refused  /htmx_get_tests
+2024/07/23 16:44:18 tests_api.go:87:  http jasmin res: 400 Bad Request, url: http://127.0.0.1:1401/send  /htmx_get_tests
+2024/07/23 16:40:18 tests_api.go:97:  http jasmin res: Error "Mandatory argument [to] is not found."  /htmx_get_tests
+2024/07/23 16:39:55 tests_api.go:97:  http jasmin res: Error "Mandatory argument [to] is not found."  /htmx_get_tests
+2024/07/23 16:39:29 tests_api.go:97:  http jasmin res: Error "Mandatory argument [to] is not found."  /htmx_get_tests
+2024/07/23 16:38:35 tests_api.go:97:  http jasmin api: Error "Mandatory argument [to] is not found."  /htmx_get_tests
+2024/07/23 16:36:12 tests_api.go:97:  http jasmin api res: Error "Mandatory argument [to] is not found."  /htmx_get_tests
 2024/07/20 19:30:28 tests_db.go:57:  ERROR: could not determine data type of parameter $1 (SQLSTATE 42P18)  /test/5
 2024/07/20 19:26:34 tests_db.go:57:  failed to encode args[1]: unable to encode 7 into text format for text (OID 25): cannot find encode plan  /test/5
 2024/07/20 19:25:55 tests_db.go:110:  ERROR: invalid input syntax for type integer: "g_id" (SQLSTATE 22P02)  /test/5

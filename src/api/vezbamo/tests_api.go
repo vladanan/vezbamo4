@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/gorilla/mux"
 
@@ -28,20 +29,134 @@ func (h *TestHandler) HandleGetTests(w http.ResponseWriter, r *http.Request) err
 	l := clr.GetELRfunc2()
 
 	vars := mux.Vars(r)
-	record := vars["id"]
-	var g_id int
 
-	fmt.Println("id:", record, "broj:", g_id, r.Method, r.URL.Path)
+	// OVO NE RADI KADA SE IDE SA SAJTA NEGO SE VIDI DA JE PATH htmx_get_tests
+	// fmt.Println("url path ceo:", r.URL.Path, vars)
+	tableApi := vars["table"]
+	fieldApi := vars["field"]
+	recordApi := vars["record"]
 
-	if record != "" {
-		var err error
-		g_id, err = strconv.Atoi(record)
-		if err != nil {
-			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax"))
+	// tableApi := strings.Split(r.URL.Path, "/")[2]
+	// fieldApi := strings.Split(r.URL.Path, "/")[3]
+
+	// fieldApi := fmt.Sprint(vars)
+	// fieldApi = strings.ReplaceAll(fieldApi, "map[", "")
+	// fieldApi = strings.Split(fieldApi, ":")[0]
+
+	// http://127.0.0.1:7331/api/note/mail/n@n.com
+
+	var tableDb, fieldDb string
+	var recordDb any
+
+	type Tie struct {
+		table string
+		id    string
+		mail  string
+	}
+
+	apiToDb2 := map[string]Tie{
+		"test": {
+			table: "g_pitanja_c_testovi",
+			id:    "g_id",
+			mail:  "user_id",
+		},
+		"user": {
+			table: "mi_users",
+			id:    "u_id",
+			mail:  "email",
+		},
+		"note": {
+			table: "g_user_blog",
+			id:    "b_id",
+			mail:  "user_mail",
+		},
+		"log": {
+			table: "mi_api_log",
+			id:    "api_c_id",
+			mail:  "email",
+		},
+	}
+
+	for a := range apiToDb2 {
+		// fmt.Println("deo od map:", a)
+		if a == tableApi {
+			tableDb = apiToDb2[a].table
+			switch fieldApi {
+			case "id":
+				fieldDb = apiToDb2[a].id
+				// recordApi = vars[fieldApi]
+			case "mail":
+				fieldDb = apiToDb2[a].mail
+				// recordApi = vars[fieldApi]
+			}
 		}
 	}
 
-	data, err := h.db.GetTests(g_id, r)
+	// fmt.Println("iz apija:", tableApi, fieldApi)
+
+	//**********************************************
+
+	// db.GetLocal(r)
+
+	//**********************************************
+
+	// // url := "http://127.0.0.1:1401/send"
+	// // url := "http://127.0.0.1:8080/secure/balance"
+	// url := "http://127.0.0.1:8080/secure/send"
+
+	// resp, err := http.Get(url)
+	// if err != nil {
+	// 	// we will get an error at this stage if the request fails, such as if the
+	// 	// requested URL is not found, or if the server is not reachable.
+	// 	// log.Println("spoljni api greška", err)
+
+	// 	return l(r, 8, err)
+	// } else {
+	// 	// if we want to check for a specific status code, we can do so here
+	// 	// for example, a successful request should return a 200 OK status
+	// 	if resp.StatusCode != http.StatusOK {
+	// 		// if the status code is not 200, we should log the status code and the
+	// 		// status string, then exit with a fatal error
+	// 		l(r, 8, fmt.Errorf("http jasmin res: %v, url: %v", resp.Status, url))
+	// 		// log.Println("http jasmin api status code:", resp.StatusCode, resp.Status) //
+	// 	}
+
+	// 	// print the response
+	// 	data1, err := io.ReadAll(resp.Body)
+	// 	if err != nil {
+	// 		log.Println("io greška:", err)
+	// 	}
+	// 	log.Println("tetka jasmin kaže:", string(data1))
+
+	// }
+	// defer resp.Body.Close()
+
+	//**********************************************
+
+	// fmt.Println("id:", record, "broj:", g_id, r.Method, r.URL.Path)
+
+	if recordApi != "" && fieldApi == "id" {
+		var err error
+		recordDb, err = strconv.Atoi(recordApi)
+		if err != nil {
+			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 0"))
+		}
+	}
+
+	if recordApi != "" && fieldApi == "mail" {
+		if m := strings.ContainsAny(recordApi, "@."); !m {
+			l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 1"))
+		}
+		// napraviti funkciju za validaciju i sanitaciju za mejl itd.
+		if m := strings.ContainsAny(recordApi, ",:;()[]<>{}/\\"); m {
+			l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 2"))
+		}
+		recordDb = recordApi
+	}
+
+	fmt.Println("za db podaci:", tableDb, fieldDb, recordApi, recordDb)
+
+	data, err := h.db.GetTests(tableDb, fieldDb, recordDb, r)
 	if err != nil {
 		return err
 	}
