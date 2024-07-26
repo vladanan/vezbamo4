@@ -1,3 +1,6 @@
+2024/07/26 21:40:31 billing_db.go:33:  cannot find field g_id in returned row  /api/billing
+2024/07/26 21:40:29 billing_db.go:33:  cannot find field g_id in returned row  /api/billing
+2024/07/26 21:07:28 tests_db.go:126:  struct doesn't have corresponding row field obrazovni_profil  /api/test/id/5
 2024/07/23 22:58:08 tests_db.go:126:  conn busy  /note/10
 2024/07/23 22:52:38 tests_db.go:41:  ERROR: column "g_id" does not exist (SQLSTATE 42703)  /note/10
 2024/07/23 22:51:37 tests_db.go:41:  ERROR: column "g_id" does not exist (SQLSTATE 42703)  /note/10

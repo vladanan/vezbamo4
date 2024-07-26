@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 	"os"
 
@@ -37,10 +36,10 @@ func (db DB) GetTests(table string, field string, record any, r *http.Request) (
 
 	// fmt.Println("iz api za query:", table, field, record)
 
-	// rows, err = conn.Query(context.Background(), "SELECT * FROM "+table+" WHERE "+field+"=$1;", record)
-	// if err != nil {
-	// 	return nil, l(r, 8, err)
-	// }
+	rows, err := conn.Query(context.Background(), "SELECT * FROM g_pitanja_c_testovi WHERE g_id=$1;", record)
+	if err != nil {
+		return nil, l(r, 8, err)
+	}
 
 	// switch {
 	// case g_id == 0 && r.Method == "GET":
@@ -108,31 +107,31 @@ func (db DB) GetTests(table string, field string, record any, r *http.Request) (
 	// 	}
 	// }
 
-	rows2, err := conn.Query(context.Background(), "SELECT * FROM "+table+" WHERE "+field+"=$1;", record)
-	if err != nil {
-		fmt.Println("proba pgx greška 1")
-		// return nil, l(r, 8, err)
-	}
-	for rows2.Next() {
-		if val, err := rows2.Values(); err != nil {
-			fmt.Println("proba greška 2:")
-			// return nil, l(r, 8, err)
-		} else {
-			fmt.Println("proba pgx:", fmt.Sprint(val))
-		}
-	}
-
-	// pgxTests, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Test])
+	// rows2, err := conn.Query(context.Background(), "SELECT * FROM "+table+" WHERE "+field+"=$1;", record)
 	// if err != nil {
-	// 	return nil, l(r, 8, err)
+	// 	fmt.Println("proba pgx greška 1")
+	// 	// return nil, l(r, 8, err)
 	// }
+	// for rows2.Next() {
+	// 	if val, err := rows2.Values(); err != nil {
+	// 		fmt.Println("proba greška 2:")
+	// 		// return nil, l(r, 8, err)
+	// 	} else {
+	// 		fmt.Println("proba pgx:", fmt.Sprint(val))
+	// 	}
+	// }
+
+	pgxTests, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Test])
+	if err != nil {
+		return nil, l(r, 8, err)
+	}
 
 	// fmt.Println("string concat rows:", pgxTests)
 
 	// bytearray_tests, err2 := json.Marshal(pgx_tests)
 	// if err2 != nil {
 	// 	fmt.Printf("Json error: %v", err2)
-	// }
+	// }s
 	// jsonstring_pitanja := string(bytearray_pitanja)
 	// fmt.Println("json string pitanja:", jsonstring_pitanja)
 

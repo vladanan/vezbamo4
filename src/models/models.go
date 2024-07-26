@@ -50,3 +50,13 @@ type FileLog struct {
 	Error string
 	Path  string
 }
+
+type Billing struct {
+	Id                 int8      `db:"id"`
+	Client_id          int       `db:"client_id"`
+	Client_name        string    `db:"client_name"`
+	Messages_sent      int       `db:"messages_sent"`
+	Charge_per_message float32   `db:"charge_per_message"`
+	Sms_cost           float32   `db:"sms_cost"`
+	Create_time        time.Time `db:"create_time"`
+}

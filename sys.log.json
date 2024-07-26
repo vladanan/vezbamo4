@@ -1,5 +1,20 @@
 [
 	{
+		"Date":"2024/07/26","Time":"21:40:31","File":"billing_db.go:33:",
+		"Error":"cannot find field g_id in returned row",
+		"Path":"/api/billing"
+	},
+	{
+		"Date":"2024/07/26","Time":"21:40:29","File":"billing_db.go:33:",
+		"Error":"cannot find field g_id in returned row",
+		"Path":"/api/billing"
+	},
+	{
+		"Date":"2024/07/26","Time":"21:07:28","File":"tests_db.go:126:",
+		"Error":"struct doesn't have corresponding row field obrazovni_profil",
+		"Path":"/api/test/id/5"
+	},
+	{
 		"Date":"2024/07/23","Time":"22:58:08","File":"tests_db.go:126:",
 		"Error":"conn busy",
 		"Path":"/note/10"

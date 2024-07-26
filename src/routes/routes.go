@@ -93,6 +93,7 @@ func RouterAPI(r *mux.Router) {
 	ch := vezbamo.NewTestHandler(db.DB{})
 	r.HandleFunc("/test", clr.CheckFunc(ch.HandleGetTests)).Methods("GET")
 	r.HandleFunc("/api/{table}/{field}/{record}", clr.CheckFunc(ch.HandleGetTests))
+	r.HandleFunc("/api/billing", clr.CheckFunc(ch.HandleGetBilling))
 	// r.HandleFunc("/note/mail/{record}", clr.CheckFunc(ch.HandleGetTests))
 	// r.HandleFunc("/test/{id}", clr.CheckFunc(vezbamo.GetTests))
 	// r.HandleFunc("/api_get_questions", APIgetQuestions)
