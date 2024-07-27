@@ -91,12 +91,9 @@ func RouterUsers(r *mux.Router) {
 
 func RouterAPI(r *mux.Router) {
 	ch := vezbamo.NewTestHandler(db.DB{})
-	r.HandleFunc("/test", clr.CheckFunc(ch.HandleGetTests)).Methods("GET")
-	r.HandleFunc("/api/{table}/{field}/{record}", clr.CheckFunc(ch.HandleGetTests))
+	r.HandleFunc("/api/{table}", clr.CheckFunc(ch.HandleGetAll)).Methods("GET")
+	r.HandleFunc("/api/{table}/{field}/{record}", clr.CheckFunc(ch.HandleGetOne)).Methods("GET")
 	r.HandleFunc("/api/billing", clr.CheckFunc(ch.HandleGetBilling))
-	// r.HandleFunc("/note/mail/{record}", clr.CheckFunc(ch.HandleGetTests))
-	// r.HandleFunc("/test/{id}", clr.CheckFunc(vezbamo.GetTests))
-	// r.HandleFunc("/api_get_questions", APIgetQuestions)
 
 	c := cors.New(cors.Options{
 		AllowedOrigins: []string{"http://localhost:4200"},
@@ -184,7 +181,7 @@ func HtmxGetTests(w http.ResponseWriter, r *http.Request) {
 	// https://stackoverflow.com/questions/13765797/the-best-way-to-get-a-string-from-a-writer
 	ch := vezbamo.NewTestHandler(db.DB{})
 	rr := httptest.NewRecorder()
-	err := ch.HandleGetTests(rr, r)
+	err := ch.HandleGetAll(rr, r)
 	// err := vezbamo.GetTests(rr, r)
 	if err != nil {
 		// log.Println("greška na api")

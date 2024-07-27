@@ -1,7 +1,6 @@
 package vezbamo
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -20,7 +19,13 @@ func NewTestHandler(db db.DB) *TestHandler {
 	return &TestHandler{db: db}
 }
 
-func (h *TestHandler) HandleGetTests(w http.ResponseWriter, r *http.Request) error {
+type Tim struct {
+	table string
+	id    string
+	mail  string
+}
+
+func (h *TestHandler) HandleGetOne(w http.ResponseWriter, r *http.Request) error {
 	// both work the same (sending json string)
 	// but with w.Write there is no extra conversion to string but uses []byte from db
 	// io.WriteString(w, string(db.GetQuestions()))
@@ -31,6 +36,7 @@ func (h *TestHandler) HandleGetTests(w http.ResponseWriter, r *http.Request) err
 	vars := mux.Vars(r)
 
 	// OVO NE RADI KADA SE IDE SA SAJTA NEGO SE VIDI DA JE PATH htmx_get_tests
+	// zato i treba sve da ide preko http.Get() da bi sve išlo stvarno preko http api poziva
 	// fmt.Println("url path ceo:", r.URL.Path, vars)
 	tableApi := vars["table"]
 	fieldApi := vars["field"]
@@ -48,13 +54,7 @@ func (h *TestHandler) HandleGetTests(w http.ResponseWriter, r *http.Request) err
 	var tableDb, fieldDb string
 	var recordDb any
 
-	type Tie struct {
-		table string
-		id    string
-		mail  string
-	}
-
-	apiToDb2 := map[string]Tie{
+	apiToDb2 := map[string]Tim{
 		"test": {
 			table: "g_pitanja_c_testovi",
 			id:    "g_id",
@@ -70,10 +70,10 @@ func (h *TestHandler) HandleGetTests(w http.ResponseWriter, r *http.Request) err
 			id:    "b_id",
 			mail:  "user_mail",
 		},
-		"log": {
-			table: "mi_api_log",
-			id:    "api_c_id",
-			mail:  "email",
+		"setting": {
+			table: "v_settings",
+			id:    "s_id",
+			mail:  "",
 		},
 	}
 
@@ -90,6 +90,9 @@ func (h *TestHandler) HandleGetTests(w http.ResponseWriter, r *http.Request) err
 				// recordApi = vars[fieldApi]
 			}
 		}
+	}
+	if tableDb == "" || fieldDb == "" {
+		return clr.NewAPIError(http.StatusNotAcceptable, "no (available) content that conforms to the criteria given")
 	}
 
 	// fmt.Println("iz apija:", tableApi, fieldApi)
@@ -145,21 +148,22 @@ func (h *TestHandler) HandleGetTests(w http.ResponseWriter, r *http.Request) err
 
 	if recordApi != "" && fieldApi == "mail" {
 		if m := strings.ContainsAny(recordApi, "@."); !m {
-			l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 1"))
+			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 1"))
 		}
 		// napraviti funkciju za validaciju i sanitaciju za mejl itd.
 		if m := strings.ContainsAny(recordApi, ",:;()[]<>{}/\\"); m {
-			l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 2"))
+			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 2"))
 		}
 		recordDb = recordApi
 	}
 
-	fmt.Println("za db podaci:", tableDb, fieldDb, recordApi, recordDb)
+	// fmt.Println("za db podaci:", tableDb, fieldDb, recordApi, recordDb)
 
-	data, err := h.db.GetTests(tableDb, fieldDb, recordDb, r)
+	data, err := h.db.GetOne(tableDb, fieldDb, recordDb, r)
 	if err != nil {
 		return err
 	}
+	// fmt.Println("api data:", data)
 	if data != nil {
 		return clr.WriteJSON(w, 200, data)
 	} else {
@@ -168,4 +172,61 @@ func (h *TestHandler) HandleGetTests(w http.ResponseWriter, r *http.Request) err
 
 	// w.Write(db.GetQuestions())
 	// return db.GetQuestions()
+}
+
+func (h *TestHandler) HandleGetAll(w http.ResponseWriter, r *http.Request) error {
+
+	vars := mux.Vars(r)
+
+	// OVO NE RADI KADA SE IDE SA SAJTA NEGO SE VIDI DA JE PATH htmx_get_tests
+	// zato i treba sve da ide preko http.Get() da bi sve išlo stvarno preko http api poziva
+	// fmt.Println("url path ceo:", r.URL.Path, vars)
+	tableApi := vars["table"]
+
+	var tableDb string
+
+	apiToDb2 := map[string]Tim{
+		"test": {
+			table: "g_pitanja_c_testovi",
+			id:    "g_id",
+			mail:  "user_id",
+		},
+		"user": {
+			table: "mi_users",
+			id:    "u_id",
+			mail:  "email",
+		},
+		"note": {
+			table: "g_user_blog",
+			id:    "b_id",
+			mail:  "user_mail",
+		},
+		"setting": {
+			table: "v_settings",
+			id:    "s_id",
+			mail:  "",
+		},
+	}
+
+	for a := range apiToDb2 {
+		// fmt.Println("deo od map:", a)
+		if a == tableApi {
+			tableDb = apiToDb2[a].table
+		}
+	}
+	if tableDb == "" {
+		return clr.NewAPIError(http.StatusNotAcceptable, "no (available) content that conforms to the criteria given")
+	}
+
+	data, err := h.db.GetAll(tableDb, r)
+	if err != nil {
+		return err
+	}
+	// fmt.Println("api data:", data)
+	if data != nil {
+		return clr.WriteJSON(w, 200, data)
+	} else {
+		return clr.NewAPIError(http.StatusNotAcceptable, "no (available) content that conforms to the criteria given")
+	}
+
 }

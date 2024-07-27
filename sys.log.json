@@ -1,5 +1,45 @@
 [
 	{
+		"Date":"2024/07/27","Time":"15:04:02","File":"tests_db.go:134:",
+		"Error":"ERROR: syntax error at or near \"FROM\" (SQLSTATE 42601)",
+		"Path":"/api/test/id/8"
+	},
+	{
+		"Date":"2024/07/27","Time":"15:03:36","File":"tests_db.go:134:",
+		"Error":"ERROR: syntax error at or near \"COALESCE\" (SQLSTATE 42601)",
+		"Path":"/api/test/id/8"
+	},
+	{
+		"Date":"2024/07/27","Time":"15:03:20","File":"tests_db.go:134:",
+		"Error":"ERROR: column \"a_nullable_string_col\" does not exist (SQLSTATE 42703)",
+		"Path":"/api/test/id/8"
+	},
+	{
+		"Date":"2024/07/27","Time":"14:57:11","File":"tests_db.go:134:",
+		"Error":"can't scan into dest[17]: cannot scan NULL into *string",
+		"Path":"/api/test/id/8"
+	},
+	{
+		"Date":"2024/07/27","Time":"14:48:20","File":"tests_db.go:131:",
+		"Error":"can't scan into dest[14]: cannot scan NULL into *string",
+		"Path":"/api/test/id/11"
+	},
+	{
+		"Date":"2024/07/27","Time":"14:46:36","File":"tests_db.go:131:",
+		"Error":"can't scan into dest[17]: cannot scan NULL into *string",
+		"Path":"/api/test/id/8"
+	},
+	{
+		"Date":"2024/07/27","Time":"14:45:09","File":"tests_db.go:131:",
+		"Error":"cannot find field d\tatum_upisa in returned row",
+		"Path":"/api/test/id/8"
+	},
+	{
+		"Date":"2024/07/27","Time":"14:45:01","File":"tests_db.go:131:",
+		"Error":"cannot find field d\tatum_upisa in returned row",
+		"Path":"/api/test/id/8"
+	},
+	{
 		"Date":"2024/07/26","Time":"21:40:31","File":"billing_db.go:33:",
 		"Error":"cannot find field g_id in returned row",
 		"Path":"/api/billing"

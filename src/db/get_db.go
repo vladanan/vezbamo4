@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"os"
 
@@ -13,7 +14,7 @@ import (
 
 type DB struct{}
 
-func (db DB) GetTests(table string, field string, record any, r *http.Request) ([]models.Test, error) {
+func (db DB) GetOne(table string, field string, record any, r *http.Request) (any, error) {
 
 	l := clr.GetELRfunc2()
 
@@ -32,14 +33,14 @@ func (db DB) GetTests(table string, field string, record any, r *http.Request) (
 	defer conn.Close(context.Background())
 
 	// var rows pgx.Rows
-	var pgxTests []models.Test
+	// var pgxTests []models.Test
 
 	// fmt.Println("iz api za query:", table, field, record)
 
-	rows, err := conn.Query(context.Background(), "SELECT * FROM g_pitanja_c_testovi WHERE g_id=$1;", record)
-	if err != nil {
-		return nil, l(r, 8, err)
-	}
+	// rows, err := conn.Query(context.Background(), "SELECT * FROM g_pitanja_c_testovi WHERE g_id=$1;", record)
+	// if err != nil {
+	// 	return nil, l(r, 8, err)
+	// }
 
 	// switch {
 	// case g_id == 0 && r.Method == "GET":
@@ -107,25 +108,50 @@ func (db DB) GetTests(table string, field string, record any, r *http.Request) (
 	// 	}
 	// }
 
-	// rows2, err := conn.Query(context.Background(), "SELECT * FROM "+table+" WHERE "+field+"=$1;", record)
-	// if err != nil {
-	// 	fmt.Println("proba pgx greška 1")
-	// 	// return nil, l(r, 8, err)
-	// }
-	// for rows2.Next() {
-	// 	if val, err := rows2.Values(); err != nil {
-	// 		fmt.Println("proba greška 2:")
-	// 		// return nil, l(r, 8, err)
-	// 	} else {
-	// 		fmt.Println("proba pgx:", fmt.Sprint(val))
-	// 	}
-	// }
+	var pgxData any
 
-	pgxTests, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Test])
+	rows, err := conn.Query(context.Background(), "SELECT * FROM "+table+" WHERE "+field+"=$1;", record)
 	if err != nil {
 		return nil, l(r, 8, err)
 	}
 
+	// for rows.Next() {
+	// 	if val, err := rows.Values(); err != nil {
+	// 		fmt.Println("rows greška:", err)
+	// 		// return nil, l(r, 8, err)
+	// 	} else {
+
+	// 		fmt.Println("row:", fmt.Sprint(val))
+
+	// 	}
+	// }
+
+	switch table {
+	case "g_pitanja_c_testovi":
+		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Test])
+		if err != nil {
+			return nil, l(r, 8, err)
+		}
+	case "mi_users":
+		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
+		if err != nil {
+			return nil, l(r, 8, err)
+		}
+	case "g_user_blog":
+		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Note])
+		if err != nil {
+			return nil, l(r, 8, err)
+		}
+	case "v_settings":
+		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Settings])
+		if err != nil {
+			return nil, l(r, 8, err)
+		}
+	default:
+		return nil, l(r, 8, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 3"))
+	}
+
+	// fmt.Println("string concat rows:", pgxData)
 	// fmt.Println("string concat rows:", pgxTests)
 
 	// bytearray_tests, err2 := json.Marshal(pgx_tests)
@@ -135,6 +161,62 @@ func (db DB) GetTests(table string, field string, record any, r *http.Request) (
 	// jsonstring_pitanja := string(bytearray_pitanja)
 	// fmt.Println("json string pitanja:", jsonstring_pitanja)
 
-	return pgxTests, nil
+	if fmt.Sprint(pgxData) == "[]" {
+		return nil, nil
+	}
+
+	return pgxData, nil
+
+}
+
+func (db DB) GetAll(table string, r *http.Request) (any, error) {
+
+	l := clr.GetELRfunc2()
+
+	godotenv.Load("../../../.env")
+
+	conn, err := pgx.Connect(context.Background(), os.Getenv("SUPABASE_CONNECTION_STRING"))
+	if err != nil {
+		return nil, l(r, 8, err)
+	}
+	defer conn.Close(context.Background())
+
+	var pgxData any
+
+	rows, err := conn.Query(context.Background(), "SELECT * FROM "+table+";")
+	if err != nil {
+		return nil, l(r, 8, err)
+	}
+
+	switch table {
+	case "g_pitanja_c_testovi":
+		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Test])
+		if err != nil {
+			return nil, l(r, 8, err)
+		}
+	case "mi_users":
+		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
+		if err != nil {
+			return nil, l(r, 8, err)
+		}
+	case "g_user_blog":
+		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Note])
+		if err != nil {
+			return nil, l(r, 8, err)
+		}
+	case "v_settings":
+		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Settings])
+		if err != nil {
+			return nil, l(r, 8, err)
+		}
+	default:
+		return nil, l(r, 8, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 3"))
+	}
+
+	if fmt.Sprint(pgxData) == "[]" {
+		return nil, nil
+	}
+
+	return pgxData, nil
 
 }

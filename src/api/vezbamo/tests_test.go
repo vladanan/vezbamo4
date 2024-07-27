@@ -45,8 +45,8 @@ func TestGetTests(t *testing.T) {
 			ch := NewTestHandler(db.DB{})
 
 			m := mux.NewRouter()
-			m.HandleFunc("/test", clr.CheckFunc(ch.HandleGetTests)).Methods(http.MethodGet)
-			m.HandleFunc("/test/{id}", clr.CheckFunc(ch.HandleGetTests))
+			m.HandleFunc("/test", clr.CheckFunc(ch.HandleGetOne)).Methods(http.MethodGet)
+			m.HandleFunc("/test/{id}", clr.CheckFunc(ch.HandleGetOne))
 			m.ServeHTTP(rr, r)
 
 			if status := rr.Code; status != http.StatusOK {
