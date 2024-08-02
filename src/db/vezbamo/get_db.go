@@ -1,4 +1,4 @@
-package db
+package dbvezbamo
 
 import (
 	"context"
@@ -12,9 +12,9 @@ import (
 	"github.com/vladanan/vezbamo4/src/models"
 )
 
-type DB struct{}
+type DBvezbamo struct{}
 
-func (db DB) GetOne(table string, field string, record any, r *http.Request) (any, error) {
+func (db DBvezbamo) GetOne(table string, field string, record any, r *http.Request) (any, error) {
 
 	l := clr.GetELRfunc2()
 
@@ -169,7 +169,7 @@ func (db DB) GetOne(table string, field string, record any, r *http.Request) (an
 
 }
 
-func (db DB) GetAll(table string, r *http.Request) (any, error) {
+func (db DBvezbamo) GetMany(table string, r *http.Request) (any, error) {
 
 	l := clr.GetELRfunc2()
 

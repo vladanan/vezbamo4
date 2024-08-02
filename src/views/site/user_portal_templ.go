@@ -9,37 +9,38 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/gorilla/sessions"
 	"github.com/vladanan/vezbamo4/src/views"
 	"net/http"
+	// "encoding/json"
+	"fmt"
+	"github.com/gorilla/sessions"
+	"github.com/vladanan/vezbamo4/src/models"
 )
 
-type Note struct {
-	B_id        int    `db:"b_id"`
-	Ime_tag     string `db:"ime_tag"`
-	Mejl        string `db:"mejl"`
-	Tema        string `db:"tema"`
-	Poruka      string `db:"poruka"`
-	User_id     string `db:"user_id"`
-	User_mail   string `db:"user_mail"`
-	From_url    string `db:"from_url"`
-	Datum_upisa any    `db:"datum_upisa"`
-}
+// type Note struct {
+// 	B_id        int    `db:"b_id"`
+// 	Ime_tag     string `db:"ime_tag"`
+// 	Mejl        string `db:"mejl"`
+// 	Tema        string `db:"tema"`
+// 	Poruka      string `db:"poruka"`
+// 	User_id     string `db:"user_id"`
+// 	User_mail   string `db:"user_mail"`
+// 	From_url    string `db:"from_url"`
+// 	Datum_upisa any    `db:"datum_upisa"`
+// }
 
-func to_struct(notes []byte) []Note {
-	var p []Note
-	err := json.Unmarshal(notes, &p)
-	if err != nil {
-		fmt.Printf("Json error: %v", err)
-	}
-	return p
-}
+// func to_struct (notes []byte) []Note {
+//   var p []Note
+// 	err := json.Unmarshal(notes, &p)
+//   if err != nil {
+//     fmt.Printf("Json error: %v", err)
+//   }
+//   return p
+// }
 
-func reverser(notes []Note) []Note {
+func reverser(notes []models.Note) []models.Note {
 	var structLength int
-	var newNotes []Note
+	var newNotes []models.Note
 	for i := range notes {
 		structLength = i
 	}
@@ -49,7 +50,7 @@ func reverser(notes []Note) []Note {
 	return newNotes
 }
 
-func UserPortal(store sessions.Store, r *http.Request, notes []byte) templ.Component {
+func UserPortal(store sessions.Store, r *http.Request, notes []models.Note) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -83,7 +84,7 @@ func UserPortal(store sessions.Store, r *http.Request, notes []byte) templ.Compo
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			for _, item := range reverser(to_struct(notes)) {
+			for _, item := range reverser(notes) {
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"m-5 px-2 border text-xl  rounded-m text-blue-300  \">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
@@ -91,7 +92,7 @@ func UserPortal(store sessions.Store, r *http.Request, notes []byte) templ.Compo
 				var templ_7745c5c3_Var3 string
 				templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(item.B_id))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/user_portal.templ`, Line: 49, Col: 94}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/user_portal.templ`, Line: 50, Col: 94}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 				if templ_7745c5c3_Err != nil {
@@ -104,7 +105,7 @@ func UserPortal(store sessions.Store, r *http.Request, notes []byte) templ.Compo
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(item.Ime_tag)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/user_portal.templ`, Line: 49, Col: 112}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/user_portal.templ`, Line: 50, Col: 112}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
@@ -117,7 +118,7 @@ func UserPortal(store sessions.Store, r *http.Request, notes []byte) templ.Compo
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(item.Tema)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/user_portal.templ`, Line: 49, Col: 127}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/user_portal.templ`, Line: 50, Col: 127}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -130,7 +131,7 @@ func UserPortal(store sessions.Store, r *http.Request, notes []byte) templ.Compo
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(item.Poruka)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/user_portal.templ`, Line: 49, Col: 144}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `src/views/site/user_portal.templ`, Line: 50, Col: 144}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {

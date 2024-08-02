@@ -46,7 +46,7 @@ type FileLog struct {
 }
 
 type Billing struct {
-	Id                 int8      `db:"id"`
+	Id                 int32     `db:"id"`
 	Client_id          int       `db:"client_id"`
 	Client_name        string    `db:"client_name"`
 	Messages_sent      int       `db:"messages_sent"`

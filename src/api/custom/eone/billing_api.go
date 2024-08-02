@@ -1,12 +1,21 @@
-package vezbamo
+package eone
 
 import (
 	"net/http"
 
 	"github.com/vladanan/vezbamo4/src/clr"
+	dbeone "github.com/vladanan/vezbamo4/src/db/custom/eone"
 )
 
-func (h *TestHandler) HandleGetBilling(w http.ResponseWriter, r *http.Request) error {
+type EoneHandler struct {
+	db dbeone.DBeone
+}
+
+func NewEoneHandler(db dbeone.DBeone) *EoneHandler {
+	return &EoneHandler{db: db}
+}
+
+func (h *EoneHandler) HandleGetBilling(w http.ResponseWriter, r *http.Request) error {
 
 	// l := clr.GetELRfunc2()
 

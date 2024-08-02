@@ -8,7 +8,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"net/http/httptest"
 	"os"
 	"strings"
 
@@ -18,9 +17,11 @@ import (
 	"github.com/rs/cors"
 
 	"github.com/joho/godotenv"
+	"github.com/vladanan/vezbamo4/src/api/custom/eone"
 	"github.com/vladanan/vezbamo4/src/api/vezbamo"
 	"github.com/vladanan/vezbamo4/src/clr"
-	"github.com/vladanan/vezbamo4/src/db"
+	dbeone "github.com/vladanan/vezbamo4/src/db/custom/eone"
+	dbvezbamo "github.com/vladanan/vezbamo4/src/db/vezbamo"
 	"github.com/vladanan/vezbamo4/src/models"
 	"github.com/vladanan/vezbamo4/src/views"
 	"github.com/vladanan/vezbamo4/src/views/assignments"
@@ -90,10 +91,12 @@ func RouterUsers(r *mux.Router) {
 }
 
 func RouterAPI(r *mux.Router) {
-	ch := vezbamo.NewTestHandler(db.DB{})
-	r.HandleFunc("/api/{table}", clr.CheckFunc(ch.HandleGetAll)).Methods("GET")
-	r.HandleFunc("/api/{table}/{field}/{record}", clr.CheckFunc(ch.HandleGetOne)).Methods("GET")
-	r.HandleFunc("/api/billing", clr.CheckFunc(ch.HandleGetBilling))
+	vh := vezbamo.NewVezbamoHandler(dbvezbamo.DBvezbamo{})
+	r.HandleFunc("/api/{table}", clr.CheckFunc(vh.HandleGetMany)).Methods("GET")
+	r.HandleFunc("/api/{table}/{field}/{record}", clr.CheckFunc(vh.HandleGetOne)).Methods("GET")
+
+	ch := eone.NewEoneHandler(dbeone.DBeone{})
+	r.HandleFunc("/api/c/billing", clr.CheckFunc(ch.HandleGetBilling))
 
 	c := cors.New(cors.Options{
 		AllowedOrigins: []string{"http://localhost:4200"},
@@ -142,8 +145,48 @@ func Tests(w http.ResponseWriter, r *http.Request) {
 }
 
 func UserPortal(w http.ResponseWriter, r *http.Request) {
-	// fmt.Println(db.GetNotes())
-	templ.Handler(site.UserPortal(store, r, db.GetNotes())).Component.Render(context.Background(), w)
+	l := clr.GetELRfunc2()
+
+	var url string
+	if os.Getenv("PRODUCTION") == "FALSE" {
+		url = "http://127.0.0.1:7331/api/note"
+	} else {
+		url = "https://vezbamo.onrender.com/api/note"
+	}
+
+	resp, err := http.Get(url)
+	if err != nil {
+		// we will get an error at this stage if the request fails, such as if the
+		// requested URL is not found, or if the server is not reachable.
+		templ.Handler(site.ServerError(clr.CheckErr(l(r, 8, err)))).Component.Render(context.Background(), w)
+	} else {
+		// if we want to check for a specific status code, we can do so here
+		// for example, a successful request should return a 200 OK status
+		if resp.StatusCode != http.StatusOK {
+			// if the status code is not 200, we should log the status code and the
+			// status string, then exit with a fatal error
+			err = fmt.Errorf("http note api error: %v, url: %v", resp.Status, url)
+			templ.Handler(site.ServerError(clr.CheckErr(l(r, 8, err)))).Component.Render(context.Background(), w)
+		} else {
+			// print the response
+			data, err := io.ReadAll(resp.Body)
+			if err != nil {
+				templ.Handler(site.ServerError(clr.CheckErr(l(r, 8, err)))).Component.Render(context.Background(), w)
+			} else {
+				dec := json.NewDecoder(strings.NewReader(string(data)))
+				var all_notes []models.Note
+				if err := dec.Decode(&all_notes); err != nil {
+					templ.Handler(site.ServerError(clr.CheckErr(l(r, 8, err)))).Component.Render(context.Background(), w)
+				} else {
+					// templ.Handler(tests.List(all_notes)).Component.Render(context.Background(), w)
+					templ.Handler(site.UserPortal(store, r, all_notes)).Component.Render(context.Background(), w)
+				}
+			}
+		}
+	}
+	defer resp.Body.Close()
+
+	// templ.Handler(site.UserPortal(store, r, db.GetNotes())).Component.Render(context.Background(), w)
 }
 
 func TestsAPI(w http.ResponseWriter, r *http.Request) {
@@ -178,32 +221,68 @@ func Komponents(w http.ResponseWriter, r *http.Request) {
 // //**** QUESTIONS
 
 func HtmxGetTests(w http.ResponseWriter, r *http.Request) {
-	// https://stackoverflow.com/questions/13765797/the-best-way-to-get-a-string-from-a-writer
-	ch := vezbamo.NewTestHandler(db.DB{})
-	rr := httptest.NewRecorder()
-	err := ch.HandleGetAll(rr, r)
-	// err := vezbamo.GetTests(rr, r)
-	if err != nil {
-		// log.Println("greška na api")
-		templ.Handler(site.ServerError(clr.CheckErr(err))).Component.Render(context.Background(), w)
+
+	l := clr.GetELRfunc2()
+
+	var url string
+	if os.Getenv("PRODUCTION") == "FALSE" {
+		url = "http://127.0.0.1:7331/api/test"
 	} else {
-		list_string := rr.Body.String() // r.Body is a *bytes.Buffer
-		dec := json.NewDecoder(strings.NewReader(list_string))
-		var all_tests []models.Test
-		if err := dec.Decode(&all_tests); err != nil {
-			// log.Println("greška json dekodera")
-			templ.Handler(site.ServerError(clr.CheckErr(err))).Component.Render(context.Background(), w)
-		} else {
-			templ.Handler(tests.List(all_tests)).Component.Render(context.Background(), w)
-		}
+		url = "https://vezbamo.onrender.com/api/test"
 	}
 
+	resp, err := http.Get(url)
+	if err != nil {
+		// we will get an error at this stage if the request fails, such as if the
+		// requested URL is not found, or if the server is not reachable.
+		templ.Handler(site.ServerError(clr.CheckErr(l(r, 8, err)))).Component.Render(context.Background(), w)
+	} else {
+		// if we want to check for a specific status code, we can do so here
+		// for example, a successful request should return a 200 OK status
+		if resp.StatusCode != http.StatusOK {
+			// if the status code is not 200, we should log the status code and the
+			// status string, then exit with a fatal error
+			err = fmt.Errorf("http test api error: %v, url: %v", resp.Status, url)
+			templ.Handler(site.ServerError(clr.CheckErr(l(r, 8, err)))).Component.Render(context.Background(), w)
+		} else {
+			// print the response
+			data, err := io.ReadAll(resp.Body)
+			if err != nil {
+				templ.Handler(site.ServerError(clr.CheckErr(l(r, 8, err)))).Component.Render(context.Background(), w)
+			} else {
+				dec := json.NewDecoder(strings.NewReader(string(data)))
+				var all_tests []models.Test
+				if err := dec.Decode(&all_tests); err != nil {
+					templ.Handler(site.ServerError(clr.CheckErr(l(r, 8, err)))).Component.Render(context.Background(), w)
+				} else {
+					templ.Handler(tests.List(all_tests)).Component.Render(context.Background(), w)
+				}
+			}
+		}
+	}
+	defer resp.Body.Close()
+
+	// https://stackoverflow.com/questions/13765797/the-best-way-to-get-a-string-from-a-writer
+	// ch := vezbamo.NewTestHandler(db.DB{})
+	// rr := httptest.NewRecorder()
+	// err := ch.HandleGetAll(rr, r)
+	// err := vezbamo.GetTests(rr, r)
+	// if err != nil {
+	// 	// log.Println("greška na api")
+	// 	templ.Handler(site.ServerError(clr.CheckErr(err))).Component.Render(context.Background(), w)
+	// } else {
+	// 	list_string := rr.Body.String() // r.Body is a *bytes.Buffer
+	// 	dec := json.NewDecoder(strings.NewReader(list_string))
+	// 	var all_tests []models.Test
+	// 	if err := dec.Decode(&all_tests); err != nil {
+	// 		// log.Println("greška json dekodera")
+	// 		templ.Handler(site.ServerError(clr.CheckErr(err))).Component.Render(context.Background(), w)
+	// 	} else {
+	// 		templ.Handler(tests.List(all_tests)).Component.Render(context.Background(), w)
+	// 	}
+	// }
+
 }
-
-// log.Println("novi list:", all_tests)
-
-// list1 := db.GetQuestions()
-// templ.Handler(questions.List(list1)).Component.Render(context.Background(), w)
 
 // //**** ASSIGNMENTS
 func Assignments(w http.ResponseWriter, r *http.Request) {
@@ -258,7 +337,7 @@ func Sign_up_post(w http.ResponseWriter, r *http.Request) {
 
 	if already_authenticated {
 
-		_, data, _ := db.AuthenticateUser(user_email, "", already_authenticated, r)
+		_, data, _ := dbvezbamo.AuthenticateUser(user_email, "", already_authenticated, r)
 		templ.Handler(dashboard.Dashboard(store, r, data)).Component.Render(context.Background(), w)
 
 	} else {
@@ -277,7 +356,7 @@ func Sign_up_post(w http.ResponseWriter, r *http.Request) {
 		} else {
 			// NA DB PROVERITI DA LI VEĆ POSTOJI EMAIL I USER NAME i vratiti odgovarajuće poruke nazad osim bool za validated
 			// NA DB PROVERITI da li je sa istog ip-a već bio upis u prethodnih 10min u odnosu na created_at
-			validated = db.AddUser(email1, userName, password1, r)
+			validated = dbvezbamo.AddUser(email1, userName, password1, r)
 			log.Println("Sign_up_post: validacija IZ DB:", validated)
 		}
 
@@ -321,7 +400,7 @@ func Sign_in(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if already_authenticated {
-		_, data, _ := db.AuthenticateUser(user_email, "", already_authenticated, r)
+		_, data, _ := dbvezbamo.AuthenticateUser(user_email, "", already_authenticated, r)
 		templ.Handler(dashboard.Dashboard(store, r, data)).Component.Render(context.Background(), w)
 	} else {
 		templ.Handler(dashboard.Sign_in(store, r)).Component.Render(context.Background(), w)
@@ -351,7 +430,7 @@ func Sign_in_post(w http.ResponseWriter, r *http.Request) {
 
 	email := r.FormValue("email")
 	password := r.FormValue("password")
-	authenticated, user, err := db.AuthenticateUser(email, password, false, r)
+	authenticated, user, err := dbvezbamo.AuthenticateUser(email, password, false, r)
 	msg_fe := ""
 	if err != nil {
 		msg_fe = "Email_or_pass_wrong"
@@ -399,7 +478,7 @@ func AutoLoginUser(w http.ResponseWriter, r *http.Request) {
 	password := "b"
 	// email := "vladan.andjelkovic@gmail.com"
 	// password := "vezbamo.2015"
-	authenticated, user, err := db.AuthenticateUser(email, password, false, r)
+	authenticated, user, err := dbvezbamo.AuthenticateUser(email, password, false, r)
 	msg_fe := ""
 	if err != nil {
 		msg_fe = "Mail_or_pass_wrong"
@@ -443,7 +522,7 @@ func AutoLoginAdmin(w http.ResponseWriter, r *http.Request) {
 	// password := "b"
 	email := "vladan.andjelkovic@gmail.com"
 	password := "vezbamo.2015"
-	authenticated, user, err := db.AuthenticateUser(email, password, false, r)
+	authenticated, user, err := dbvezbamo.AuthenticateUser(email, password, false, r)
 	msg_fe := ""
 	if err != nil {
 		msg_fe = "Email_or_pass_wrong"
@@ -507,7 +586,7 @@ func Dashboard(w http.ResponseWriter, r *http.Request) {
 	}
 	// Set user as authenticated
 	if already_authenticated {
-		_, data, _ := db.AuthenticateUser(user_email, "", already_authenticated, r)
+		_, data, _ := dbvezbamo.AuthenticateUser(user_email, "", already_authenticated, r)
 		templ.Handler(dashboard.Dashboard(store, r, data)).Component.Render(context.Background(), w)
 	} else {
 		templ.Handler(dashboard.Dashboard(store, r, models.User{})).Component.Render(context.Background(), w)
@@ -538,7 +617,7 @@ func CheckLinkFromEmail(w http.ResponseWriter, r *http.Request) {
 
 	// fmt.Println("ceo url query", r.URL.Query())
 
-	emailVerified := db.AuthenticateEmail(key, email)
+	emailVerified := dbvezbamo.AuthenticateEmail(key, email)
 
 	if emailVerified {
 		templ.Handler(dashboard.EmailVerified(store, r)).Component.Render(context.Background(), w)

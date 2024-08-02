@@ -1,5 +1,50 @@
 [
 	{
+		"Date":"2024/08/02","Time":"19:14:46","File":"routes.go:159:",
+		"Error":"Get \"http://127.0.0.1:7332/api/note\": dial tcp 127.0.0.1:7332: connect: connection refused",
+		"Path":"/user_portal"
+	},
+	{
+		"Date":"2024/08/02","Time":"19:12:51","File":"routes.go:159:",
+		"Error":"Get \"http://127.0.0.1:7332/api/note\": dial tcp 127.0.0.1:7332: connect: connection refused",
+		"Path":"/user_portal"
+	},
+	{
+		"Date":"2024/08/02","Time":"19:10:52","File":"routes.go:159:",
+		"Error":"Get \"http://127.0.6.1:7331/api/note\": dial tcp 127.0.6.1:7331: connect: connection refused",
+		"Path":"/user_portal"
+	},
+	{
+		"Date":"2024/08/02","Time":"19:06:08","File":"routes.go:167:",
+		"Error":"http note api error: 406 Not Acceptable, url: http://127.0.0.1:7331/api/not5e",
+		"Path":"/user_portal"
+	},
+	{
+		"Date":"2024/07/30","Time":"22:13:11","File":"billing_db.go:33:",
+		"Error":"can't scan into dest[0]: 281 is greater than maximum value for int8",
+		"Path":"/api/c/billing"
+	},
+	{
+		"Date":"2024/07/30","Time":"22:12:11","File":"billing_db.go:33:",
+		"Error":"can't scan into dest[0]: 281 is greater than maximum value for int8",
+		"Path":"/api/c/billing"
+	},
+	{
+		"Date":"2024/07/30","Time":"22:12:02","File":"billing_db.go:33:",
+		"Error":"can't scan into dest[0]: 281 is greater than maximum value for int8",
+		"Path":"/api/c/billing"
+	},
+	{
+		"Date":"2024/07/30","Time":"22:08:47","File":"billing_db.go:33:",
+		"Error":"can't scan into dest[0]: 281 is greater than maximum value for int8",
+		"Path":"/api/c/billing"
+	},
+	{
+		"Date":"2024/07/29","Time":"21:23:19","File":"billing_db.go:28:",
+		"Error":"ERROR: syntax error at or near \"desc\" (SQLSTATE 42601)",
+		"Path":"/api/c/billing"
+	},
+	{
 		"Date":"2024/07/27","Time":"15:04:02","File":"tests_db.go:134:",
 		"Error":"ERROR: syntax error at or near \"FROM\" (SQLSTATE 42601)",
 		"Path":"/api/test/id/8"

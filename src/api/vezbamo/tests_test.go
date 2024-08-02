@@ -8,7 +8,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/vladanan/vezbamo4/src/clr"
-	"github.com/vladanan/vezbamo4/src/db"
+	dbvezbamo "github.com/vladanan/vezbamo4/src/db/vezbamo"
 )
 
 func TestGetTests(t *testing.T) {
@@ -42,11 +42,11 @@ func TestGetTests(t *testing.T) {
 
 			rr := httptest.NewRecorder()
 
-			ch := NewTestHandler(db.DB{})
+			vh := NewVezbamoHandler(dbvezbamo.DBvezbamo{})
 
 			m := mux.NewRouter()
-			m.HandleFunc("/test", clr.CheckFunc(ch.HandleGetOne)).Methods(http.MethodGet)
-			m.HandleFunc("/test/{id}", clr.CheckFunc(ch.HandleGetOne))
+			m.HandleFunc("/test", clr.CheckFunc(vh.HandleGetOne)).Methods(http.MethodGet)
+			m.HandleFunc("/test/{id}", clr.CheckFunc(vh.HandleGetOne))
 			m.ServeHTTP(rr, r)
 
 			if status := rr.Code; status != http.StatusOK {

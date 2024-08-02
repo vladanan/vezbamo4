@@ -8,15 +8,15 @@ import (
 	"github.com/gorilla/mux"
 
 	"github.com/vladanan/vezbamo4/src/clr"
-	"github.com/vladanan/vezbamo4/src/db"
+	dbvezbamo "github.com/vladanan/vezbamo4/src/db/vezbamo"
 )
 
-type TestHandler struct {
-	db db.DB
+type VezbamoHandler struct {
+	db dbvezbamo.DBvezbamo
 }
 
-func NewTestHandler(db db.DB) *TestHandler {
-	return &TestHandler{db: db}
+func NewVezbamoHandler(db dbvezbamo.DBvezbamo) *VezbamoHandler {
+	return &VezbamoHandler{db: db}
 }
 
 type Tim struct {
@@ -25,7 +25,7 @@ type Tim struct {
 	mail  string
 }
 
-func (h *TestHandler) HandleGetOne(w http.ResponseWriter, r *http.Request) error {
+func (h *VezbamoHandler) HandleGetOne(w http.ResponseWriter, r *http.Request) error {
 	// both work the same (sending json string)
 	// but with w.Write there is no extra conversion to string but uses []byte from db
 	// io.WriteString(w, string(db.GetQuestions()))
@@ -174,7 +174,7 @@ func (h *TestHandler) HandleGetOne(w http.ResponseWriter, r *http.Request) error
 	// return db.GetQuestions()
 }
 
-func (h *TestHandler) HandleGetAll(w http.ResponseWriter, r *http.Request) error {
+func (h *VezbamoHandler) HandleGetMany(w http.ResponseWriter, r *http.Request) error {
 
 	vars := mux.Vars(r)
 
@@ -218,7 +218,7 @@ func (h *TestHandler) HandleGetAll(w http.ResponseWriter, r *http.Request) error
 		return clr.NewAPIError(http.StatusNotAcceptable, "no (available) content that conforms to the criteria given")
 	}
 
-	data, err := h.db.GetAll(tableDb, r)
+	data, err := h.db.GetMany(tableDb, r)
 	if err != nil {
 		return err
 	}
