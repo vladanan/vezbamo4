@@ -1,4 +1,4 @@
-package dbvezbamo
+package models
 
 import (
 	"context"
@@ -9,12 +9,9 @@ import (
 	"github.com/jackc/pgx/v5"
 	"github.com/joho/godotenv"
 	"github.com/vladanan/vezbamo4/src/clr"
-	"github.com/vladanan/vezbamo4/src/models"
 )
 
-type DBvezbamo struct{}
-
-func (db DBvezbamo) GetOne(table string, field string, record any, r *http.Request) (any, error) {
+func (db DB) GetOne(table string, field string, record any, r *http.Request) (any, error) {
 
 	l := clr.GetELRfunc2()
 
@@ -128,22 +125,22 @@ func (db DBvezbamo) GetOne(table string, field string, record any, r *http.Reque
 
 	switch table {
 	case "g_pitanja_c_testovi":
-		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Test])
+		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[Test])
 		if err != nil {
 			return nil, l(r, 8, err)
 		}
 	case "mi_users":
-		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
+		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[User])
 		if err != nil {
 			return nil, l(r, 8, err)
 		}
 	case "g_user_blog":
-		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Note])
+		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[Note])
 		if err != nil {
 			return nil, l(r, 8, err)
 		}
 	case "v_settings":
-		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Settings])
+		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[Settings])
 		if err != nil {
 			return nil, l(r, 8, err)
 		}
@@ -169,7 +166,7 @@ func (db DBvezbamo) GetOne(table string, field string, record any, r *http.Reque
 
 }
 
-func (db DBvezbamo) GetMany(table string, r *http.Request) (any, error) {
+func (db DB) GetMany(table string, r *http.Request) (any, error) {
 
 	l := clr.GetELRfunc2()
 
@@ -190,22 +187,22 @@ func (db DBvezbamo) GetMany(table string, r *http.Request) (any, error) {
 
 	switch table {
 	case "g_pitanja_c_testovi":
-		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Test])
+		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[Test])
 		if err != nil {
 			return nil, l(r, 8, err)
 		}
 	case "mi_users":
-		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
+		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[User])
 		if err != nil {
 			return nil, l(r, 8, err)
 		}
 	case "g_user_blog":
-		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Note])
+		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[Note])
 		if err != nil {
 			return nil, l(r, 8, err)
 		}
 	case "v_settings":
-		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[models.Settings])
+		pgxData, err = pgx.CollectRows(rows, pgx.RowToStructByName[Settings])
 		if err != nil {
 			return nil, l(r, 8, err)
 		}

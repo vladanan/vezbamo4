@@ -1,4 +1,4 @@
-package dbvezbamo
+package models
 
 import (
 	"context"
@@ -8,8 +8,6 @@ import (
 
 	"github.com/jackc/pgx/v5"
 	"github.com/joho/godotenv"
-
-	"github.com/vladanan/vezbamo4/src/models"
 )
 
 func GetNotes() []byte {
@@ -37,7 +35,7 @@ func GetNotes() []byte {
 		fmt.Printf("Unable to make query: %v\n", err)
 	}
 
-	pgxNotes, err := pgx.CollectRows(rows, pgx.RowToStructByName[models.Note])
+	pgxNotes, err := pgx.CollectRows(rows, pgx.RowToStructByName[Note])
 	if err != nil {
 		fmt.Printf("CollectRows error: %v", err)
 		//return

@@ -1,4 +1,4 @@
-package dbvezbamo
+package models
 
 import (
 	"context"
@@ -15,11 +15,10 @@ import (
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/vladanan/vezbamo4/src/clr"
-	"github.com/vladanan/vezbamo4/src/models"
 )
 
-func toStruct(user []byte) []models.User {
-	var p []models.User
+func toStruct(user []byte) []User {
+	var p []User
 	err := json.Unmarshal(user, &p)
 	if err != nil {
 		fmt.Printf("Json error: %v", err)
@@ -27,7 +26,7 @@ func toStruct(user []byte) []models.User {
 	return p
 }
 
-func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated bool, r *http.Request) (bool, models.User, error) {
+func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated bool, r *http.Request) (bool, any, error) {
 	l := clr.GetELRfunc()
 	// var Red = "\033[31m"
 	var Reset = "\033[0m"
@@ -59,7 +58,7 @@ func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated boo
 	if e != nil {
 		return l(e)
 	}
-	pgxUser, e := pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
+	pgxUser, e := pgx.CollectRows(rows, pgx.RowToStructByName[User])
 	if e != nil {
 		return l(e)
 	}
@@ -68,9 +67,9 @@ func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated boo
 		return l(e)
 	}
 
-	// pgxUser = []models.User{}
+	// pgxUser = []User{}
 
-	var structUser models.User
+	var structUser User
 
 	// log.Println("pred dodelu iz niza", pgxUser)
 
@@ -98,7 +97,7 @@ func AuthenticateUser(email string, passwordStr string, alreadyAuthenticated boo
 	if e != nil {
 		return l(e)
 	}
-	pgxSettings, e := pgx.CollectRows(rows2, pgx.RowToStructByName[models.Settings])
+	pgxSettings, e := pgx.CollectRows(rows2, pgx.RowToStructByName[Settings])
 	if e != nil {
 		return l(e)
 	}

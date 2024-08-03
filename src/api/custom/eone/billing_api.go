@@ -4,14 +4,14 @@ import (
 	"net/http"
 
 	"github.com/vladanan/vezbamo4/src/clr"
-	dbeone "github.com/vladanan/vezbamo4/src/db/custom/eone"
+	"github.com/vladanan/vezbamo4/src/models"
 )
 
 type EoneHandler struct {
-	db dbeone.DBeone
+	db models.DB
 }
 
-func NewEoneHandler(db dbeone.DBeone) *EoneHandler {
+func NewEoneHandler(db models.DB) *EoneHandler {
 	return &EoneHandler{db: db}
 }
 

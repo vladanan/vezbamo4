@@ -4,6 +4,8 @@ import (
 	"time"
 )
 
+type DB struct{}
+
 type User struct {
 	U_id                 int       `db:"u_id"`
 	Created_at_time      time.Time `db:"created_at_time"`
@@ -35,14 +37,6 @@ type Settings struct {
 	Bad_sign_in_attempts_limit string    `db:"bad_sign_in_attempts_limit"`
 	Bad_sign_in_time_limit     string    `db:"bad_sign_in_time_limit"`
 	Same_ip_sign_up_time_limit string    `db:"same_ip_sign_up_time_limit"`
-}
-
-type FileLog struct {
-	Date  string
-	Time  string
-	File  string
-	Error string
-	Path  string
 }
 
 type Billing struct {

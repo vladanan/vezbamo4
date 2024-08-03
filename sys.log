@@ -1,3 +1,10 @@
+2024/08/03 21:12:51 front.go:173:  apiCallGet url error: 406 Not Acceptable, url: http://127.0.0.1:7331/api/note55  /user_portal
+2024/08/03 21:11:30 front.go:181:  apiCallGet url error: 406 Not Acceptable, url: http://127.0.0.1:7331/api/note55  /user_portal
+2024/08/03 21:01:38 front.go:179:  apiCallGet url error: 406 Not Acceptable, url: http://127.0.0.1:7331/api/note55  /user_portal
+2024/08/03 20:55:57 front.go:179:  http note api error: 406 Not Acceptable, url: http://127.0.0.1:7331/api/note55  /user_portal
+2024/08/03 20:51:00 front.go:179:  http note api error: 406 Not Acceptable, url: http://127.0.0.1:7331/api/noteid55  /user_portal
+2024/08/03 20:49:23 front.go:178:  http note api error: 406 Not Acceptable, url: http://127.0.0.1:7331/api/noteid55  /user_portal
+2024/08/03 20:34:07 front.go:168:  invalid character '<' looking for beginning of value  /user_portal
 2024/08/02 19:14:46 routes.go:159:  Get "http://127.0.0.1:7332/api/note": dial tcp 127.0.0.1:7332: connect: connection refused  /user_portal
 2024/08/02 19:12:51 routes.go:159:  Get "http://127.0.0.1:7332/api/note": dial tcp 127.0.0.1:7332: connect: connection refused  /user_portal
 2024/08/02 19:10:52 routes.go:159:  Get "http://127.0.6.1:7331/api/note": dial tcp 127.0.6.1:7331: connect: connection refused  /user_portal

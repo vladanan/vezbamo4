@@ -1,4 +1,4 @@
-package dbvezbamo
+package models
 
 import (
 	"context"
@@ -13,7 +13,6 @@ import (
 
 	"github.com/emersion/go-sasl"
 	"github.com/emersion/go-smtp"
-	"github.com/vladanan/vezbamo4/src/models"
 
 	"os"
 
@@ -103,7 +102,7 @@ func AddUser(emailString, userName, passwordString string, r *http.Request) bool
 		fmt.Printf("AddUser: Query 1: %v\n", err2)
 		return false
 	}
-	pgxUser, err := pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
+	pgxUser, err := pgx.CollectRows(rows, pgx.RowToStructByName[User])
 	if err != nil {
 		fmt.Printf("AddUser: CollectRows 1: %v\n", err)
 		return false
@@ -150,7 +149,7 @@ func AddUser(emailString, userName, passwordString string, r *http.Request) bool
 			fmt.Printf("AddUser: Unable to make query: %v\n", err)
 			return false
 		}
-		pgxSettings, err := pgx.CollectRows(rows2, pgx.RowToStructByName[models.Settings])
+		pgxSettings, err := pgx.CollectRows(rows2, pgx.RowToStructByName[Settings])
 		if err != nil {
 			fmt.Printf("AddUser: CollectRows error: %v\n", err)
 			return false
@@ -177,7 +176,7 @@ func AddUser(emailString, userName, passwordString string, r *http.Request) bool
 			fmt.Printf("AddUser: query 2: %v\n", err2)
 			return false
 		}
-		pgxUser2, err := pgx.CollectRows(rows2, pgx.RowToStructByName[models.User])
+		pgxUser2, err := pgx.CollectRows(rows2, pgx.RowToStructByName[User])
 		if err != nil {
 			fmt.Printf("AddUser: CollectRows 2: %v\n", err)
 			return false

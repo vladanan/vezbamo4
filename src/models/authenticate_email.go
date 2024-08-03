@@ -1,4 +1,4 @@
-package dbvezbamo
+package models
 
 import (
 	"context"
@@ -8,7 +8,6 @@ import (
 
 	"github.com/jackc/pgx/v5"
 	"github.com/joho/godotenv"
-	"github.com/vladanan/vezbamo4/src/models"
 )
 
 // type User struct {
@@ -68,7 +67,7 @@ func AuthenticateEmail(key, mail string) bool {
 		return false
 	}
 
-	pgxKey, err := pgx.CollectRows(rows, pgx.RowToStructByName[models.User])
+	pgxKey, err := pgx.CollectRows(rows, pgx.RowToStructByName[User])
 	if err != nil {
 		fmt.Printf("CollectRows error: %v", err)
 		//return
@@ -82,7 +81,7 @@ func AuthenticateEmail(key, mail string) bool {
 		fmt.Printf("Json error: %v", err2)
 	}
 
-	var structUser models.User
+	var structUser User
 
 	if string(bytearrayKey) != "null" {
 		structUser = toStruct(bytearrayKey)[0]

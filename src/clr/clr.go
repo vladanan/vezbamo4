@@ -15,8 +15,6 @@ import (
 	"time"
 
 	"github.com/segmentio/encoding/json"
-
-	"github.com/vladanan/vezbamo4/src/models"
 )
 
 // **********************************************************************
@@ -224,6 +222,14 @@ func (l *Logger) formatHeader(buf *[]byte, t time.Time, file string, line int) {
 //
 //
 
+type FileLog struct {
+	Date  string
+	Time  string
+	File  string
+	Error string
+	Path  string
+}
+
 // ubacuje log zapis na početak log fajla umesto kao što je default za write metode da rade append na kraju fajla
 func prependLogToFile(file string, buf []byte) bool {
 
@@ -292,7 +298,7 @@ func prependLogToFile(file string, buf []byte) bool {
 		// niti sme da ima manje od dva razmaka između prva tri i greške i path
 		dtfErrPath := strings.Split(line, "  ")
 		dtf := strings.Split(dtfErrPath[0], " ")
-		fileLog := models.FileLog{
+		fileLog := FileLog{
 			Date:  dtf[0],
 			Time:  dtf[1],
 			File:  dtf[2],
@@ -342,7 +348,7 @@ func prependLogToFile(file string, buf []byte) bool {
 // already a newline. Calldepth is used to recover the PC and is
 // provided for generality, although at the moment on all pre-defined
 // paths it will be 2.
-func (l *Logger) OutputIzmenjen(a any) (bool, models.User, error) {
+func (l *Logger) OutputIzmenjen(a any) (bool, any, error) {
 
 	var msg_fe string
 	for_sys_log := true
@@ -426,7 +432,7 @@ func (l *Logger) OutputIzmenjen(a any) (bool, models.User, error) {
 
 	X(msg_fe)
 
-	return false, models.User{}, e
+	return false, nil, e
 }
 
 //
@@ -506,7 +512,7 @@ Na taj način se rade tri stvari u vrlo malecnom if e != nil{} kodu koji:
   - loguje grešku na konzoli tamo gde je i nastala
   - šalje response false, models.User{} i mag_fe ruteru.
 */
-func GetELRfunc() func(any) (bool, models.User, error) {
+func GetELRfunc() func(any) (bool, any, error) {
 	loger := Logger{Out: os.Stdout, Prefix: BgBlue, Flag: log.LstdFlags | log.Lshortfile}
 	return loger.OutputIzmenjen
 }

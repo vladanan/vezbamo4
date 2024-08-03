@@ -1,5 +1,40 @@
 [
 	{
+		"Date":"2024/08/03","Time":"21:12:51","File":"front.go:173:",
+		"Error":"apiCallGet url error: 406 Not Acceptable, url: http://127.0.0.1:7331/api/note55",
+		"Path":"/user_portal"
+	},
+	{
+		"Date":"2024/08/03","Time":"21:11:30","File":"front.go:181:",
+		"Error":"apiCallGet url error: 406 Not Acceptable, url: http://127.0.0.1:7331/api/note55",
+		"Path":"/user_portal"
+	},
+	{
+		"Date":"2024/08/03","Time":"21:01:38","File":"front.go:179:",
+		"Error":"apiCallGet url error: 406 Not Acceptable, url: http://127.0.0.1:7331/api/note55",
+		"Path":"/user_portal"
+	},
+	{
+		"Date":"2024/08/03","Time":"20:55:57","File":"front.go:179:",
+		"Error":"http note api error: 406 Not Acceptable, url: http://127.0.0.1:7331/api/note55",
+		"Path":"/user_portal"
+	},
+	{
+		"Date":"2024/08/03","Time":"20:51:00","File":"front.go:179:",
+		"Error":"http note api error: 406 Not Acceptable, url: http://127.0.0.1:7331/api/noteid55",
+		"Path":"/user_portal"
+	},
+	{
+		"Date":"2024/08/03","Time":"20:49:23","File":"front.go:178:",
+		"Error":"http note api error: 406 Not Acceptable, url: http://127.0.0.1:7331/api/noteid55",
+		"Path":"/user_portal"
+	},
+	{
+		"Date":"2024/08/03","Time":"20:34:07","File":"front.go:168:",
+		"Error":"invalid character '\u003c' looking for beginning of value",
+		"Path":"/user_portal"
+	},
+	{
 		"Date":"2024/08/02","Time":"19:14:46","File":"routes.go:159:",
 		"Error":"Get \"http://127.0.0.1:7332/api/note\": dial tcp 127.0.0.1:7332: connect: connection refused",
 		"Path":"/user_portal"

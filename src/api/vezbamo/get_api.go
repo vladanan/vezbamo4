@@ -8,14 +8,14 @@ import (
 	"github.com/gorilla/mux"
 
 	"github.com/vladanan/vezbamo4/src/clr"
-	dbvezbamo "github.com/vladanan/vezbamo4/src/db/vezbamo"
+	"github.com/vladanan/vezbamo4/src/models"
 )
 
 type VezbamoHandler struct {
-	db dbvezbamo.DBvezbamo
+	db models.DB
 }
 
-func NewVezbamoHandler(db dbvezbamo.DBvezbamo) *VezbamoHandler {
+func NewVezbamoHandler(db models.DB) *VezbamoHandler {
 	return &VezbamoHandler{db: db}
 }
 
