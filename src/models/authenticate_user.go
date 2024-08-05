@@ -14,7 +14,7 @@ import (
 	"github.com/joho/godotenv"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/vladanan/vezbamo4/src/clr"
+	"github.com/vladanan/vezbamo4/src/controllers/clr"
 )
 
 func toStruct(user []byte) []User {

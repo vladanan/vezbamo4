@@ -9,7 +9,7 @@ import (
 
 	"github.com/jackc/pgx/v5"
 	"github.com/joho/godotenv"
-	"github.com/vladanan/vezbamo4/src/clr"
+	"github.com/vladanan/vezbamo4/src/controllers/clr"
 )
 
 func GetLocal(r *http.Request) {

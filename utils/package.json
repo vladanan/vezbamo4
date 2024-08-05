@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "esbuild": "^0.21.3"
-  },
-  "scripts": {
-    "mf": "esbuild ../src/views/assignments/*.jsx --outdir=../assets/ --minify --bundle --platform=node"
-  }
-}

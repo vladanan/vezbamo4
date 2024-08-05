@@ -18,7 +18,7 @@ devtg:
 
 # 3) tailwind to watch changes in views folder for html, templ, js
 devtw:
-	@tailwindcss -i input.css -o assets/output.css --watch
+	@tailwindcss -i assets/input.css -o assets/output.css --watch
 
 # 2+3) NE RADI: combined templ and tailwind but tailwind is not working well with some classes
 devtt:

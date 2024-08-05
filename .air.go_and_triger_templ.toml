@@ -4,8 +4,8 @@ tmp_dir = "tmp"
 
 [build]
   args_bin = []
-  bin = "./utils/lsviews.bash"
-  cmd = "./utils/add_to_fake_templ.bash"
+  bin = "./utils_dev/time_terminal.bash"
+  cmd = "./utils_dev/fake_templ_and_esbuild.bash"
   delay = 1000
   exclude_dir = ["tmp", "vendor", "testdata", "src/views", "ex", "assets/assignments"]
   exclude_file = ["templ"]

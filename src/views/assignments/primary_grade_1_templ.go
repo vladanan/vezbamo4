@@ -183,7 +183,7 @@ func PrimaryGrade1(store sessions.Store, r *http.Request) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<script src=\"https://unpkg.com/react@18/umd/react.development.js\"></script> <script src=\"https://unpkg.com/react-dom@18/umd/react-dom.development.js\"></script> <script src=\"static/assignments/babel.min.js\"></script> <div id=\"root\" class=\"text-blue-300\"></div><!-- Load the React bundle created using esbuild \n\t\t--> <script src=\"static/assignments/o1.js\"></script> ")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<script src=\"https://unpkg.com/react@18/umd/react.development.js\"></script> <script src=\"https://unpkg.com/react-dom@18/umd/react-dom.development.js\"></script> <script src=\"static/assignments/babel.min.js\"></script> <div id=\"root\" class=\"text-blue-300\"></div><!-- Load the React bundle created using esbuild\n\t\t--> <script src=\"static/assignments/o1.js\"></script> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

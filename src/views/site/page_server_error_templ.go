@@ -10,7 +10,7 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import (
 	"fmt"
-	"github.com/vladanan/vezbamo4/src/clr"
+	"github.com/vladanan/vezbamo4/src/controllers/clr"
 	"strconv"
 )
 

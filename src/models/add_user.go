@@ -73,7 +73,7 @@ func AddUser(emailString, userName, passwordString string, r *http.Request) bool
 
 	// UZIMA SE HTML FAJL ZA MEJL ZA VERIFIKACIJU
 	// https://gobyexample.com/reading-files
-	dat, err1 := os.ReadFile("src/html/verify_email.html")
+	dat, err1 := os.ReadFile("src/ext/verify_email.html")
 	if err1 != nil {
 		fmt.Printf("AddUser: greška čitanje html fajla: %v\n", err1)
 		return false

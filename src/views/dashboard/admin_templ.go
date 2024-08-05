@@ -64,7 +64,7 @@ func Admin(store sessions.Store, r *http.Request, user models.User) templ.Compon
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p><iframe src=\"html/verify_email.html\" title=\"very\" height=\"350\" width=\"1000\"></iframe><br>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p><iframe src=\"ext/verify_email.html\" title=\"very\" height=\"350\" width=\"1000\"></iframe><br>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

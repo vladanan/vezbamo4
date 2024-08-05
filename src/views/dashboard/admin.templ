@@ -17,7 +17,7 @@ templ Admin(store sessions.Store, r *http.Request, user models.User) {
     
   <p class="m-5 text-xl text-red-500">{views.Translate(store, r, "Welcome")} :: ADMINISTRATOR: {user.User_name}</p>
 
-  <iframe src="html/verify_email.html" title="very" height="350" width="1000"></iframe>
+  <iframe src="ext/verify_email.html" title="very" height="350" width="1000"></iframe>
 
   // <div class="bg-slate-500 px-5">
   //   @templ.Raw("<h1>proba za h1 raw html tekst</h1>")
