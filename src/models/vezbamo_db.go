@@ -168,7 +168,7 @@ func (db DB) GetOne(table string, field string, record any, r *http.Request) (an
 
 }
 
-func (db DB) PostOne(table string, record any, r *http.Request) (string, error) {
+func (db DB) PostOne(table string, recordData any, r *http.Request) (string, error) {
 
 	l := clr.GetELRfunc2()
 
@@ -180,7 +180,7 @@ func (db DB) PostOne(table string, record any, r *http.Request) (string, error) 
 	}
 	defer conn.Close(context.Background())
 
-	switch data := record.(type) {
+	switch data := recordData.(type) {
 
 	case Test:
 		commandTag, err := conn.Exec(context.Background(), `INSERT INTO `+table+`
@@ -241,7 +241,85 @@ func (db DB) PostOne(table string, record any, r *http.Request) (string, error) 
 		}
 
 	default:
-		return "", l(r, 8, fmt.Errorf("record ne pripada nijednom tipu"))
+		return "", l(r, 8, fmt.Errorf("post record ne pripada nijednom tipu"))
+	}
+
+}
+
+func (db DB) PutOne(table string, field string, record any, recordData any, r *http.Request) (string, error) {
+
+	l := clr.GetELRfunc2()
+
+	godotenv.Load("../../../.env")
+
+	conn, err := pgx.Connect(context.Background(), os.Getenv("SUPABASE_CONNECTION_STRING"))
+	if err != nil {
+		return "", l(r, 8, err)
+	}
+	defer conn.Close(context.Background())
+
+	switch data := recordData.(type) {
+
+	case Test:
+		commandTag, err := conn.Exec(context.Background(), `UPDATE `+table+` SET
+			tip=$1,
+			obrazovni_profil=$2,
+			razred=$3,
+			predmet=$4,
+			oblast=$5
+			WHERE `+field+`=$6;`,
+			data.Tip,
+			data.Obrazovni_profil,
+			data.Razred,
+			data.Predmet,
+			data.Oblast,
+			record,
+		)
+		if err != nil {
+			return "", l(r, 8, err)
+		}
+		if commandTag.String() != "UPDATE 1" {
+			return "", l(r, 0, fmt.Errorf("no records updated"))
+		} else {
+			newRecord, err := json.Marshal(data)
+			if err != nil {
+				return "", l(r, 8, err)
+			}
+			return string(newRecord), nil
+		}
+
+	case Note:
+		// za update napraviti kod koji na osnovu poslatih polja za izmenu i već postojećih napravi skroz novi upis za isti id tako da se izbegnu kompleksni (string contactenation) query i kompleksan kod
+		commandTag, err := conn.Exec(context.Background(), `UPDATE `+table+` SET
+			ime_tag=$1,
+			mejl=$2,
+			tema=$3,
+			poruka=$4,
+			user_id=$5
+			WHERE `+field+`=$6;`,
+			data.Ime_tag,
+			data.Mejl,
+			data.Tema,
+			data.Poruka,
+			data.User_id,
+			record,
+		)
+		if err != nil {
+			return "", l(r, 8, err)
+		}
+		// fmt.Println("put commandTag:", commandTag)
+		if commandTag.String() != "UPDATE 1" {
+			return "", l(r, 0, fmt.Errorf("no records updated"))
+		} else {
+			newRecord, err := json.Marshal(data)
+			if err != nil {
+				return "", l(r, 8, err)
+			}
+			return string(newRecord), nil
+		}
+
+	default:
+		return "", l(r, 8, fmt.Errorf("put record ne pripada nijednom tipu"))
 	}
 
 }

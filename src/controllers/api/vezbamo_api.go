@@ -56,6 +56,25 @@ func (h *VezbamoHandler) HandleGetOne(w http.ResponseWriter, r *http.Request) er
 	var tableDb, fieldDb string
 	var recordDb any
 
+	if recordApi != "" && fieldApi == "id" {
+		var err error
+		recordDb, err = strconv.Atoi(recordApi)
+		if err != nil {
+			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 0"))
+		}
+	}
+
+	if recordApi != "" && fieldApi == "mail" {
+		if m := strings.ContainsAny(recordApi, "@."); !m {
+			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 1"))
+		}
+		// napraviti funkciju za validaciju i sanitaciju za mejl itd.
+		if m := strings.ContainsAny(recordApi, ",:;()[]<>{}/\\"); m {
+			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 2"))
+		}
+		recordDb = recordApi
+	}
+
 	apiToDb2 := map[string]Tim{
 		"test": {
 			table: "g_pitanja_c_testovi",
@@ -86,10 +105,8 @@ func (h *VezbamoHandler) HandleGetOne(w http.ResponseWriter, r *http.Request) er
 			switch fieldApi {
 			case "id":
 				fieldDb = apiToDb2[a].id
-				// recordApi = vars[fieldApi]
 			case "mail":
 				fieldDb = apiToDb2[a].mail
-				// recordApi = vars[fieldApi]
 			}
 		}
 	}
@@ -140,25 +157,6 @@ func (h *VezbamoHandler) HandleGetOne(w http.ResponseWriter, r *http.Request) er
 
 	// fmt.Println("id:", record, "broj:", g_id, r.Method, r.URL.Path)
 
-	if recordApi != "" && fieldApi == "id" {
-		var err error
-		recordDb, err = strconv.Atoi(recordApi)
-		if err != nil {
-			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 0"))
-		}
-	}
-
-	if recordApi != "" && fieldApi == "mail" {
-		if m := strings.ContainsAny(recordApi, "@."); !m {
-			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 1"))
-		}
-		// napraviti funkciju za validaciju i sanitaciju za mejl itd.
-		if m := strings.ContainsAny(recordApi, ",:;()[]<>{}/\\"); m {
-			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 2"))
-		}
-		recordDb = recordApi
-	}
-
 	// fmt.Println("za db podaci:", tableDb, fieldDb, recordApi, recordDb)
 
 	data, err := h.db.GetOne(tableDb, fieldDb, recordDb, r)
@@ -191,6 +189,25 @@ func (h *VezbamoHandler) HandleDeleteOne(w http.ResponseWriter, r *http.Request)
 	var tableDb, fieldDb string
 	var recordDb any
 
+	if recordApi != "" && fieldApi == "id" {
+		var err error
+		recordDb, err = strconv.Atoi(recordApi)
+		if err != nil {
+			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 0"))
+		}
+	}
+
+	if recordApi != "" && fieldApi == "mail" {
+		if m := strings.ContainsAny(recordApi, "@."); !m {
+			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 1"))
+		}
+		// napraviti funkciju za validaciju i sanitaciju za mejl itd.
+		if m := strings.ContainsAny(recordApi, ",:;()[]<>{}/\\"); m {
+			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 2"))
+		}
+		recordDb = recordApi
+	}
+
 	apiToDb2 := map[string]Tim{
 		"test": {
 			table: "g_pitanja_c_testovi",
@@ -221,34 +238,13 @@ func (h *VezbamoHandler) HandleDeleteOne(w http.ResponseWriter, r *http.Request)
 			switch fieldApi {
 			case "id":
 				fieldDb = apiToDb2[a].id
-				// recordApi = vars[fieldApi]
 			case "mail":
 				fieldDb = apiToDb2[a].mail
-				// recordApi = vars[fieldApi]
 			}
 		}
 	}
 	if tableDb == "" || fieldDb == "" {
 		return clr.NewAPIError(http.StatusNotAcceptable, "no (available) content that conforms to the criteria given")
-	}
-
-	if recordApi != "" && fieldApi == "id" {
-		var err error
-		recordDb, err = strconv.Atoi(recordApi)
-		if err != nil {
-			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 0"))
-		}
-	}
-
-	if recordApi != "" && fieldApi == "mail" {
-		if m := strings.ContainsAny(recordApi, "@."); !m {
-			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 1"))
-		}
-		// napraviti funkciju za validaciju i sanitaciju za mejl itd.
-		if m := strings.ContainsAny(recordApi, ",:;()[]<>{}/\\"); m {
-			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 2"))
-		}
-		recordDb = recordApi
 	}
 
 	// fmt.Println("za db podaci:", tableDb, fieldDb, recordApi, recordDb)
@@ -311,11 +307,11 @@ func (h *VezbamoHandler) HandlePostOne(w http.ResponseWriter, r *http.Request) e
 			switch tableDb {
 
 			case "g_pitanja_c_testovi":
-				var record models.Test
-				if err := dec.Decode(&record); err != nil {
+				var recordData models.Test
+				if err := dec.Decode(&recordData); err != nil {
 					return l(r, 8, err)
 				}
-				return_data, err = h.db.PostOne(tableDb, record, r)
+				return_data, err = h.db.PostOne(tableDb, recordData, r)
 				if err != nil {
 					return l(r, 8, err)
 				}
@@ -324,11 +320,142 @@ func (h *VezbamoHandler) HandlePostOne(w http.ResponseWriter, r *http.Request) e
 				return nil
 
 			case "g_user_blog":
-				var record models.Note
-				if err := dec.Decode(&record); err != nil {
+				var recordData models.Note
+				if err := dec.Decode(&recordData); err != nil {
 					return l(r, 8, err)
 				}
-				return_data, err = h.db.PostOne(tableDb, record, r)
+				return_data, err = h.db.PostOne(tableDb, recordData, r)
+				if err != nil {
+					return l(r, 8, err)
+				}
+
+			case "v_settings":
+				return nil
+
+			default:
+				return clr.NewAPIError(
+					http.StatusNotAcceptable,
+					"no (available) content that conforms to the criteria given",
+				)
+			}
+
+		}
+	}
+	if tableDb == "" {
+		return clr.NewAPIError(
+			http.StatusNotAcceptable,
+			"no (available) content that conforms to the criteria given",
+		)
+	} else {
+		return clr.WriteJSON(w, 200, return_data)
+	}
+
+	// fmt.Println("za db podaci:", tableDb, fieldDb, recordApi, recordDb)
+
+	// fmt.Println("api data:", data)
+	// if data != nil {
+	// 	return clr.WriteJSON(w, 200, data)
+	// } else {
+	// 	return clr.NewAPIError(http.StatusNotAcceptable, "no (available) content that conforms to the criteria given")
+	// }
+
+}
+
+func (h *VezbamoHandler) HandlePutOne(w http.ResponseWriter, r *http.Request) error {
+	l := clr.GetELRfunc2()
+
+	vars := mux.Vars(r)
+
+	tableApi := vars["table"]
+	fieldApi := vars["field"]
+	recordApi := vars["record"]
+
+	var tableDb, fieldDb string
+	var recordDb any
+
+	if recordApi != "" && fieldApi == "id" {
+		var err error
+		recordDb, err = strconv.Atoi(recordApi)
+		if err != nil {
+			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 0"))
+		}
+	}
+
+	if recordApi != "" && fieldApi == "mail" {
+		if m := strings.ContainsAny(recordApi, "@."); !m {
+			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 1"))
+		}
+		// napraviti funkciju za validaciju i sanitaciju za mejl itd.
+		if m := strings.ContainsAny(recordApi, ",:;()[]<>{}/\\"); m {
+			return l(r, 0, clr.NewAPIError(http.StatusBadRequest, "malformed request syntax 2"))
+		}
+		recordDb = recordApi
+	}
+
+	apiToDb2 := map[string]Tim{
+		"test": {
+			table: "g_pitanja_c_testovi",
+			id:    "g_id",
+			mail:  "user_id",
+		},
+		"user": {
+			table: "mi_users",
+			id:    "u_id",
+			mail:  "email",
+		},
+		"note": {
+			table: "g_user_blog",
+			id:    "b_id",
+			mail:  "user_mail",
+		},
+		"setting": {
+			table: "v_settings",
+			id:    "s_id",
+			mail:  "",
+		},
+	}
+
+	var return_data string
+
+	for a := range apiToDb2 {
+		if a == tableApi {
+
+			tableDb = apiToDb2[a].table
+
+			switch fieldApi {
+			case "id":
+				fieldDb = apiToDb2[a].id
+			case "mail":
+				fieldDb = apiToDb2[a].mail
+			}
+
+			body, err := io.ReadAll(r.Body)
+			if err != nil {
+				return l(r, 8, err)
+			}
+			dec := json.NewDecoder(strings.NewReader(string(body)))
+
+			switch tableDb {
+
+			case "g_pitanja_c_testovi":
+				var recordData models.Test
+				if err := dec.Decode(&recordData); err != nil {
+					return l(r, 8, err)
+				}
+				return_data, err = h.db.PutOne(tableDb, fieldDb, recordDb, recordData, r)
+				if err != nil {
+					return l(r, 8, err)
+				}
+
+			case "mi_users":
+				return nil
+
+			case "g_user_blog":
+				var recordData models.Note
+				if err := dec.Decode(&recordData); err != nil {
+					return l(r, 8, err)
+				}
+				return_data, err = h.db.PutOne(tableDb, fieldDb, recordDb, recordData, r)
 				if err != nil {
 					return l(r, 8, err)
 				}

@@ -32,6 +32,7 @@ func RouterAPI(r *mux.Router) {
 
 	r.HandleFunc("/api/v/{table}/{field}/{record}", clr.CheckFunc(vh.HandleDeleteOne)).Methods("DELETE")
 	r.HandleFunc("/api/v/{table}", clr.CheckFunc(vh.HandlePostOne)).Methods("POST")
+	r.HandleFunc("/api/v/{table}/{field}/{record}", clr.CheckFunc(vh.HandlePutOne)).Methods("PUT")
 
 	ch := api.NewEoneHandler(models.DB{})
 	r.HandleFunc("/api/c/eone/billing", clr.CheckFunc(ch.HandleGetBilling))
