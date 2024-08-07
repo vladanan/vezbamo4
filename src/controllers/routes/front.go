@@ -2,6 +2,7 @@
 package routes
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -110,7 +111,7 @@ func apiCallGet(table string, field string, record string) (*json.Decoder, error
 		return nil, fmt.Errorf("no api path elements specified")
 	}
 
-	log.Println("api call:", table, field, record)
+	// log.Println("api call:", table, field, record)
 
 	var url string
 	if os.Getenv("PRODUCTION") == "FALSE" {
@@ -275,11 +276,50 @@ func Sign_up(w http.ResponseWriter, r *http.Request) {
 }
 
 func Sign_up_post(w http.ResponseWriter, r *http.Request) {
+
+	// VALIDACIJA FORMA DVA ISTA, SVI PRISUTNI ITD
+	// (DETALJNIJA VALIDACIJA SVAKOG POLJA U API)
+	// PROVERA AUTENTIKACIJE I DOBIJANJE USERA PREKO API GET ONE PA NA DASHBOARD A AKO NEMA TAKVOG USERA SA MAIL I PASS DA SE IZBACI GREŠKA
+	// KONTAKTIRA SE API SA EMAIL, USERNAMNE, PASS I U ODNOSU NA ODGOVOR IZBACUJE TEMPL REGISTERED ILI NE
+
 	email1 := r.FormValue("email1")
 	email2 := r.FormValue("email2")
 	userName := r.FormValue("user_name")
 	password1 := r.FormValue("password1")
 	password2 := r.FormValue("password2")
+
+	// https://www.sohamkamani.com/golang/http-client/
+	var url string
+	if os.Getenv("PRODUCTION") == "FALSE" {
+		url = "http://127.0.0.1:7331/api/v/user"
+	} else {
+		url = "https://vezbamo.onrender.com/api/v/user"
+	}
+
+	// create post body using an instance of the Person struct
+	u := models.User{
+		Email:        email1,
+		User_name:    userName,
+		Hash_lozinka: password1,
+	}
+	// convert to JSON data
+	jsonData, err := json.Marshal(u)
+	if err != nil {
+		log.Fatal(err)
+	}
+	// We can set the content type here
+	resp, err := http.Post(url, "application/json", bytes.NewReader(jsonData))
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer resp.Body.Close()
+
+	data, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return
+	}
+
+	fmt.Println("Status:", resp.Status, string(data))
 
 	// PROVERA DA LI JE KORISNIK VEĆ PRIJAVLJEN:
 
@@ -304,6 +344,8 @@ func Sign_up_post(w http.ResponseWriter, r *http.Request) {
 
 	if already_authenticated {
 
+		// OVO JE SAMO DA BI SE DOBILI PODACI O USERU ŠTO MOŽE I PREKO API
+
 		_, data, _ := models.AuthenticateUser(user_email, "", already_authenticated, r)
 		if user, ok := data.(models.User); ok {
 			templ.Handler(dashboard.Dashboard(store, r, user)).Component.Render(context.Background(), w)
@@ -313,10 +355,10 @@ func Sign_up_post(w http.ResponseWriter, r *http.Request) {
 
 	} else {
 
-		// validacija za UPIS NOVOG KORISNIKA a-zA-Z09 .,+-*:!?() min char 8 max 32 ISTO URADITI I NA FE UZ ARGUMENTS I JS
-		// fmt.Println("SING UP POST form:", r.Form, len(r.Form) == 0)
-
 		var validated bool
+		// validacija za UPIS NOVOG KORISNIKA a-zA-Z09 .,+-*:!?() min char 8 max 32 ISTO URADITI I NA FE UZ ARGUMENTS I JS
+
+		// TAKOĐE I VALIDACIJA AKO NEKO POLJE OD NJIH 5 FALI
 
 		if email1 != email2 || password1 != password2 {
 			validated = false

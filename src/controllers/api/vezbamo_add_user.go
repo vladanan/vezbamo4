@@ -89,7 +89,7 @@ func AddUser(emailString, userName, passwordString string, r *http.Request) bool
 	}
 	defer conn.Close(context.Background())
 
-	// PROVERA DA LI NEMA VEĆ USER-A SA ISTIM MEJLOM I USER_NAME
+	// PROVERA DA LI NEMA VEĆ USER-A SA ISTIM MEJLOM I/ILI ISTIM USER_NAME
 
 	rows, err2 := conn.Query(context.Background(), "SELECT * FROM mi_users where email=$1 OR user_name=$2;", emailString, userName)
 	if err2 != nil {

@@ -26,13 +26,15 @@ import (
 // }
 
 func RouterAPI(r *mux.Router) {
+	// CRUD
 	vh := api.NewVezbamoHandler(models.DB{})
-	r.HandleFunc("/api/v/{table}", clr.CheckFunc(vh.HandleGetMany)).Methods("GET")
-	r.HandleFunc("/api/v/{table}/{field}/{record}", clr.CheckFunc(vh.HandleGetOne)).Methods("GET")
-
-	r.HandleFunc("/api/v/{table}/{field}/{record}", clr.CheckFunc(vh.HandleDeleteOne)).Methods("DELETE")
 	r.HandleFunc("/api/v/{table}", clr.CheckFunc(vh.HandlePostOne)).Methods("POST")
+
+	r.HandleFunc("/api/v/{table}/{field}/{record}", clr.CheckFunc(vh.HandleGetOne)).Methods("GET")
+	r.HandleFunc("/api/v/{table}", clr.CheckFunc(vh.HandleGetMany)).Methods("GET")
+
 	r.HandleFunc("/api/v/{table}/{field}/{record}", clr.CheckFunc(vh.HandlePutOne)).Methods("PUT")
+	r.HandleFunc("/api/v/{table}/{field}/{record}", clr.CheckFunc(vh.HandleDeleteOne)).Methods("DELETE")
 
 	ch := api.NewEoneHandler(models.DB{})
 	r.HandleFunc("/api/c/eone/billing", clr.CheckFunc(ch.HandleGetBilling))

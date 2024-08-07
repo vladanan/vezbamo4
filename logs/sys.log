@@ -1,3 +1,11 @@
+2024/08/07 22:14:37 v_api_crud.go:96:  API erorr: 418, još mora da se radi na add user  /api/v/user
+2024/08/07 22:14:00 v_api_crud.go:96:  API erorr: 418, još mora da se radi na add user  /api/v/user
+2024/08/07 22:05:42 v_api_crud.go:96:  API erorr: 418, još mora da se radi na add user  /api/v/user
+2024/08/07 22:02:21 v_api_crud.go:94:  API erorr: 418, još mora da se radi na add user  /api/v/user
+2024/08/07 22:00:37 v_api_crud.go:94:  post record ne pripada nijednom tipu  /api/v/user
+2024/08/07 22:00:37 v_db.go:89:  post record ne pripada nijednom tipu  /api/v/user
+2024/08/07 21:59:51 v_api_crud.go:94:  post record ne pripada nijednom tipu  /api/v/user
+2024/08/07 21:59:51 v_db.go:89:  post record ne pripada nijednom tipu  /api/v/user
 2024/08/07 11:24:56 eone_db.go:27:  ERROR: syntax error at or near "34535" (SQLSTATE 42601)  /api/c/eone/billing
 2024/08/06 12:58:42 front.go:174:  apiCallGet url error: 500 Internal Server Error, url: http://127.0.0.1:7331/api/v/note  /user_portal
 2024/08/06 12:58:42 vezbamo_db.go:391:  can't scan into dest[6]: cannot scan NULL into *string  /api/v/note

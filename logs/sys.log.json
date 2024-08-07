@@ -1,5 +1,45 @@
 [
 	{
+		"Date":"2024/08/07","Time":"22:14:37","File":"v_api_crud.go:96:",
+		"Error":"API erorr: 418, još mora da se radi na add user",
+		"Path":"/api/v/user"
+	},
+	{
+		"Date":"2024/08/07","Time":"22:14:00","File":"v_api_crud.go:96:",
+		"Error":"API erorr: 418, još mora da se radi na add user",
+		"Path":"/api/v/user"
+	},
+	{
+		"Date":"2024/08/07","Time":"22:05:42","File":"v_api_crud.go:96:",
+		"Error":"API erorr: 418, još mora da se radi na add user",
+		"Path":"/api/v/user"
+	},
+	{
+		"Date":"2024/08/07","Time":"22:02:21","File":"v_api_crud.go:94:",
+		"Error":"API erorr: 418, još mora da se radi na add user",
+		"Path":"/api/v/user"
+	},
+	{
+		"Date":"2024/08/07","Time":"22:00:37","File":"v_api_crud.go:94:",
+		"Error":"post record ne pripada nijednom tipu",
+		"Path":"/api/v/user"
+	},
+	{
+		"Date":"2024/08/07","Time":"22:00:37","File":"v_db.go:89:",
+		"Error":"post record ne pripada nijednom tipu",
+		"Path":"/api/v/user"
+	},
+	{
+		"Date":"2024/08/07","Time":"21:59:51","File":"v_api_crud.go:94:",
+		"Error":"post record ne pripada nijednom tipu",
+		"Path":"/api/v/user"
+	},
+	{
+		"Date":"2024/08/07","Time":"21:59:51","File":"v_db.go:89:",
+		"Error":"post record ne pripada nijednom tipu",
+		"Path":"/api/v/user"
+	},
+	{
 		"Date":"2024/08/07","Time":"11:24:56","File":"eone_db.go:27:",
 		"Error":"ERROR: syntax error at or near \"34535\" (SQLSTATE 42601)",
 		"Path":"/api/c/eone/billing"
