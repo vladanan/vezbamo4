@@ -116,7 +116,7 @@ func apiCallGet(table string, field string, record string) (*json.Decoder, error
 	if os.Getenv("PRODUCTION") == "FALSE" {
 		url = "http://127.0.0.1:7331/api/v" + table + field + record
 	} else {
-		url = "https://vezbamo.onrender.com/api/v"
+		url = "https://vezbamo.onrender.com/api/v" + table + field + record
 	}
 
 	var dec *json.Decoder
