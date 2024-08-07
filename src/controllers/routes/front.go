@@ -14,6 +14,7 @@ import (
 	"github.com/a-h/templ"
 	"github.com/gorilla/mux"
 
+	"github.com/vladanan/vezbamo4/src/controllers/api"
 	"github.com/vladanan/vezbamo4/src/controllers/clr"
 
 	"github.com/vladanan/vezbamo4/src/models"
@@ -326,7 +327,7 @@ func Sign_up_post(w http.ResponseWriter, r *http.Request) {
 		} else {
 			// NA DB PROVERITI DA LI VEĆ POSTOJI EMAIL I USER NAME i vratiti odgovarajuće poruke nazad osim bool za validated
 			// NA DB PROVERITI da li je sa istog ip-a već bio upis u prethodnih 10min u odnosu na created_at
-			validated = models.AddUser(email1, userName, password1, r)
+			validated = api.AddUser(email1, userName, password1, r)
 			log.Println("Sign_up_post: validacija IZ DB:", validated)
 		}
 

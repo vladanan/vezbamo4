@@ -418,7 +418,7 @@ func (l *Logger) OutputIzmenjen(a any) (bool, any, error) {
 		if for_sys_log {
 			file = "sys.log"
 		} else if for_usr_log {
-			file = "usr.log"
+			file = "logs/usr.log"
 		}
 
 		ok := prependLogToFile(file, l.Buf)
@@ -451,17 +451,17 @@ func (l *Logger) OutputIzmenjen2(r *http.Request, level int, e error) error {
 		s = Reset + Blue + " " + e.Error() + "  " + r.URL.Path + Reset
 	case 4:
 		s = Reset + LightYellow + " " + e.Error() + "  " + r.URL.Path + Reset
-		logfile = "tmp/usr.log"
+		logfile = "logs/usr.log"
 	case 8:
 		s = BgRed + " " + e.Error() + "  " + r.URL.Path + Reset
-		logfile = "tmp/sys.log"
+		logfile = "logs/sys.log"
 	default:
 		s = BgMagenta + " " + e.Error() + "  " + r.URL.Path + Reset
-		logfile = "tmp/sys.log"
+		logfile = "logs/sys.log"
 	}
 
 	if strings.Contains(s, "Pogrešna lozinka za:") {
-		logfile = "tmp/usr.log"
+		logfile = "logs/usr.log"
 	}
 
 	calldepth := 1
