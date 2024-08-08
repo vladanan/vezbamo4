@@ -1,5 +1,20 @@
 [
 	{
+		"Date":"2024/08/08","Time":"22:23:02","File":"v_api_crud.go:110:",
+		"Error":"user created for: y.emailbox-proba@yahoo.com 12345678901234567890123456789012 apila3245325",
+		"Path":"/api/v/user"
+	},
+	{
+		"Date":"2024/08/08","Time":"13:01:43","File":"v_api_crud.go:98:",
+		"Error":"API erorr: 400, malformed request syntax email",
+		"Path":"/api/v/user"
+	},
+	{
+		"Date":"2024/08/08","Time":"12:27:25","File":"v_api_crud.go:100:",
+		"Error":"API erorr: 418, još mora da se radi na add user",
+		"Path":"/api/v/user"
+	},
+	{
 		"Date":"2024/08/07","Time":"22:14:37","File":"v_api_crud.go:96:",
 		"Error":"API erorr: 418, još mora da se radi na add user",
 		"Path":"/api/v/user"

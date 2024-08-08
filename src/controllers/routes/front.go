@@ -15,7 +15,6 @@ import (
 	"github.com/a-h/templ"
 	"github.com/gorilla/mux"
 
-	"github.com/vladanan/vezbamo4/src/controllers/api"
 	"github.com/vladanan/vezbamo4/src/controllers/clr"
 
 	"github.com/vladanan/vezbamo4/src/models"
@@ -277,6 +276,106 @@ func Sign_up(w http.ResponseWriter, r *http.Request) {
 
 func Sign_up_post(w http.ResponseWriter, r *http.Request) {
 
+	l := clr.GetELRfunc2()
+
+	email1 := r.FormValue("email1")
+	email2 := r.FormValue("email2")
+	userName := r.FormValue("user_name")
+	password1 := r.FormValue("password1")
+	password2 := r.FormValue("password2")
+
+	// VALIDACIJA FORMA DVA ISTA, SVI PRISUTNI ITD
+	if email1 != email2 || password1 != password2 {
+		log.Println("Sign_up_post: validacija za upis korisnika nije prošla ISTI EMAIL/PASS")
+		templ.Handler(dashboard.UserNotRegistered(store, r)).Component.Render(context.Background(), w)
+		return
+	} else if email1 == "" || email2 == "" || userName == "" || password1 == "" || password2 == "" {
+		log.Println("Sign_up_post: validacija za upis korisnika nije prošla NEDOSTAJ JEDNO ILI VIŠE POLJA")
+		templ.Handler(dashboard.UserNotRegistered(store, r)).Component.Render(context.Background(), w)
+		return
+	}
+
+	// PROVERA DA LI JE KORISNIK VEĆ PRIJAVLJEN:
+
+	session, err := store.Get(r, "vezbamo.onrender.com-users")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	var already_authenticated bool
+
+	auth_map := session.Values["authenticated"]
+	if auth_map != nil {
+		already_authenticated = auth_map.(bool)
+	}
+
+	user_map := session.Values["user_email"]
+	user_email := ""
+	if user_map != nil {
+		user_email = user_map.(string)
+	}
+
+	if already_authenticated {
+
+		l := clr.GetELRfunc2()
+
+		if dec, err := apiCallGet("user", "mail", user_email); err != nil {
+			templ.Handler(site.ServerError(clr.CheckErr(l(r, 8, err)))).Component.Render(context.Background(), w)
+		} else {
+			var u models.User
+			if err := dec.Decode(&u); err != nil {
+				templ.Handler(site.ServerError(clr.CheckErr(l(r, 8, err)))).Component.Render(context.Background(), w)
+			} else {
+				templ.Handler(dashboard.Dashboard(store, r, u)).Component.Render(context.Background(), w)
+			}
+		}
+
+		return
+
+	}
+
+	// https://www.sohamkamani.com/golang/http-client/
+	var url string
+	if os.Getenv("PRODUCTION") == "FALSE" {
+		url = "http://127.0.0.1:7331/api/v/user"
+	} else {
+		url = "https://vezbamo.onrender.com/api/v/user"
+	}
+
+	u := models.User{
+		Email:        email1,
+		User_name:    userName,
+		Hash_lozinka: password1,
+	}
+	jsonData, err := json.Marshal(u)
+	if err != nil {
+		log.Fatal(err)
+	}
+	resp, err := http.Post(url, "application/json", bytes.NewReader(jsonData))
+	if err != nil {
+		log.Println("Sign_up_post: validacija za upis korisnika nije prošla SERVER PROBLEM")
+		templ.Handler(dashboard.UserNotRegistered(store, r)).Component.Render(context.Background(), w)
+	} else {
+		if resp.StatusCode != http.StatusOK {
+			log.Println("Sign_up_post: validacija za upis korisnika nije prošla VALIDATION PROBLEM", resp.Status, url)
+			templ.Handler(dashboard.UserNotRegistered(store, r)).Component.Render(context.Background(), w)
+		} else {
+			data, err := io.ReadAll(resp.Body)
+			if err != nil {
+				log.Println("Sign_up_post: validacija za upis korisnika nije prošla API RESPONSE NOT VALID", resp.Status, url)
+				templ.Handler(dashboard.UserNotRegistered(store, r)).Component.Render(context.Background(), w)
+			} else {
+				l(r, 4, fmt.Errorf("web: user created: "+resp.Status+" "+string(data)))
+				templ.Handler(dashboard.UserRegistered(store, r)).Component.Render(context.Background(), w)
+			}
+		}
+	}
+
+}
+
+func Sign_up_post1(w http.ResponseWriter, r *http.Request) {
+
 	// VALIDACIJA FORMA DVA ISTA, SVI PRISUTNI ITD
 	// (DETALJNIJA VALIDACIJA SVAKOG POLJA U API)
 	// PROVERA AUTENTIKACIJE I DOBIJANJE USERA PREKO API GET ONE PA NA DASHBOARD A AKO NEMA TAKVOG USERA SA MAIL I PASS DA SE IZBACI GREŠKA
@@ -369,7 +468,7 @@ func Sign_up_post(w http.ResponseWriter, r *http.Request) {
 		} else {
 			// NA DB PROVERITI DA LI VEĆ POSTOJI EMAIL I USER NAME i vratiti odgovarajuće poruke nazad osim bool za validated
 			// NA DB PROVERITI da li je sa istog ip-a već bio upis u prethodnih 10min u odnosu na created_at
-			validated = api.AddUser(email1, userName, password1, r)
+			validated = models.AddUser(email1, userName, password1, r)
 			log.Println("Sign_up_post: validacija IZ DB:", validated)
 		}
 

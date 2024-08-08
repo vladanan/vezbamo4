@@ -13,7 +13,7 @@ import (
 	"github.com/vladanan/vezbamo4/src/controllers/clr"
 )
 
-func (db DB) PostOne(table string, recordData any, r *http.Request) (string, error) {
+func (db DB) PostOne(recordData any, r *http.Request) (string, error) {
 
 	l := clr.GetELRfunc2()
 
@@ -28,7 +28,7 @@ func (db DB) PostOne(table string, recordData any, r *http.Request) (string, err
 	switch data := recordData.(type) {
 
 	case Test:
-		commandTag, err := conn.Exec(context.Background(), `INSERT INTO `+table+`
+		commandTag, err := conn.Exec(context.Background(), `INSERT INTO g_pitanja_c_testovi 
 			(
 				tip,
 				obrazovni_profil,
@@ -59,16 +59,26 @@ func (db DB) PostOne(table string, recordData any, r *http.Request) (string, err
 		}
 
 	case User:
-		newRecord, err := json.Marshal(data)
-		if err != nil {
-			return "", l(r, 8, err)
-		}
+		// newRecord, err := json.Marshal(data)
+		// if err != nil {
+		// 	return "", l(r, 8, err)
+		// }
 		// OVO VRAĆA KOMPLETAN TIP TJ. STRUKTURU TABELE SA NAZIVIMA POLJA U DB: PROMENITI DA VRATI SAMO POSLATE PODATKE A IMENA POLJA DA SE SAKRIJU U TIPU MODELS TAKOD A NE BUDU ISTA KAO U DB OSIM VELIKIH SLOVA
 		// OVO DA SE URADI I U POST I U PUT
-		return string(newRecord), clr.NewAPIError(418, "još mora da se radi na add user")
+		// s453452532324532
+		// newRecord, err := json.Marshal("user created for: " + data.Email + " " + data.User_name + " " + data.Hash_lozinka)
+		// if err != nil {
+		// 	return "", l(r, 8, err)
+		// }
+
+		if AddUser(data.Email, data.User_name, data.Hash_lozinka, r) {
+			return "user created for: " + data.Email + " " + data.User_name + " " + data.Hash_lozinka, nil
+		} else {
+			return "", clr.NewAPIError(418, "user data not validated")
+		}
 
 	case Note:
-		commandTag, err := conn.Exec(context.Background(), `INSERT INTO `+table+`
+		commandTag, err := conn.Exec(context.Background(), `INSERT INTO g_user_blog 
 			(
 				ime_tag,
 				mejl,

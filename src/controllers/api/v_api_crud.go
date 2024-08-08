@@ -11,6 +11,7 @@ import (
 	"github.com/gorilla/mux"
 
 	"github.com/vladanan/vezbamo4/src/controllers/clr"
+	"github.com/vladanan/vezbamo4/src/controllers/vet"
 	"github.com/vladanan/vezbamo4/src/models"
 )
 
@@ -82,7 +83,7 @@ func (h *VezbamoHandler) HandlePostOne(w http.ResponseWriter, r *http.Request) e
 				}
 				// OVO VRAĆA KOMPLETAN TIP TJ. STRUKTURU TABELE SA NAZIVIMA POLJA U DB: PROMENITI DA VRATI SAMO POSLATE PODATKE A IMENA POLJA DA SE SAKRIJU U TIPU MODELS TAKOD A NE BUDU ISTA KAO U DB OSIM VELIKIH SLOVA
 				// OVO DA SE URADI I U POST I U PUT
-				return_data, err = h.db.PostOne(tableDb, recordData, r)
+				return_data, err = h.db.PostOne(recordData, r)
 				if err != nil {
 					return l(r, 8, err)
 				}
@@ -90,15 +91,23 @@ func (h *VezbamoHandler) HandlePostOne(w http.ResponseWriter, r *http.Request) e
 			case "mi_users":
 				var recordData models.User
 				if err := dec.Decode(&recordData); err != nil {
-					return l(r, 8, err)
+					return l(r, 4, err)
 				}
+
+				if err := vet.ValidateUserData(recordData, r); err != nil {
+					return err
+				}
+
 				// OVO VRAĆA KOMPLETAN TIP TJ. STRUKTURU TABELE SA NAZIVIMA POLJA U DB: PROMENITI DA VRATI SAMO POSLATE PODATKE A IMENA POLJA DA SE SAKRIJU U TIPU MODELS TAKOD A NE BUDU ISTA KAO U DB OSIM VELIKIH SLOVA
 				// OVO DA SE URADI I U POST I U PUT
-				return_data, err = h.db.PostOne(tableDb, recordData, r)
-				l(r, 0, fmt.Errorf(return_data))
+				//453253fsdf456
+
+				return_data, err = h.db.PostOne(recordData, r)
 				if err != nil {
-					return l(r, 8, err)
+					return l(r, 4, err)
 				}
+				// log.Println(return_data)
+				l(r, 4, fmt.Errorf(return_data))
 
 			case "g_user_blog":
 				var recordData models.Note
@@ -107,7 +116,7 @@ func (h *VezbamoHandler) HandlePostOne(w http.ResponseWriter, r *http.Request) e
 				}
 				// OVO VRAĆA KOMPLETAN TIP TJ. STRUKTURU TABELE SA NAZIVIMA POLJA U DB: PROMENITI DA VRATI SAMO POSLATE PODATKE A IMENA POLJA DA SE SAKRIJU U TIPU MODELS TAKOD A NE BUDU ISTA KAO U DB OSIM VELIKIH SLOVA
 				// OVO DA SE URADI I U POST I U PUT
-				return_data, err = h.db.PostOne(tableDb, recordData, r)
+				return_data, err = h.db.PostOne(recordData, r)
 				if err != nil {
 					return l(r, 8, err)
 				}
@@ -118,7 +127,7 @@ func (h *VezbamoHandler) HandlePostOne(w http.ResponseWriter, r *http.Request) e
 			default:
 				return clr.NewAPIError(
 					http.StatusNotAcceptable,
-					"no (available) content that conforms to the criteria given",
+					"request data rejected",
 				)
 			}
 
@@ -128,7 +137,7 @@ func (h *VezbamoHandler) HandlePostOne(w http.ResponseWriter, r *http.Request) e
 	if tableDb == "" {
 		return clr.NewAPIError(
 			http.StatusNotAcceptable,
-			"no (available) content that conforms to the criteria given",
+			"request data rejected",
 		)
 	} else {
 		return clr.WriteJSON(w, 200, return_data)

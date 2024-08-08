@@ -1,3 +1,6 @@
+2024/08/08 22:23:02 v_api_crud.go:110:  user created for: y.emailbox-proba@yahoo.com 12345678901234567890123456789012 apila3245325  /api/v/user
+2024/08/08 13:01:43 v_api_crud.go:98:  API erorr: 400, malformed request syntax email  /api/v/user
+2024/08/08 12:27:25 v_api_crud.go:100:  API erorr: 418, još mora da se radi na add user  /api/v/user
 2024/08/07 22:14:37 v_api_crud.go:96:  API erorr: 418, još mora da se radi na add user  /api/v/user
 2024/08/07 22:14:00 v_api_crud.go:96:  API erorr: 418, još mora da se radi na add user  /api/v/user
 2024/08/07 22:05:42 v_api_crud.go:96:  API erorr: 418, još mora da se radi na add user  /api/v/user
